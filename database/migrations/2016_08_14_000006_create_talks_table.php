@@ -23,8 +23,8 @@ class CreateTalksTable extends Migration
             $table->string('organiser', 255);
             $table->string('series', 255);
             $table->string('aggregator', 255);
-            $table->timestamp('start');
-            $table->timestamp('end');
+            $table->dateTime('start');
+            $table->dateTime('end');
             $table->longtext('abstract', 255);
             $table->longtext('message', 255);
             $table->timestamps();

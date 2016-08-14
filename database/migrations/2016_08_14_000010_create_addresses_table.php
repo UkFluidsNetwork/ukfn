@@ -24,8 +24,8 @@ class CreateAddressesTable extends Migration
             $table->timestamps();
             $table->boolean('deleted');
             
-            $table->foreign('counties_id')->references('id')->on('counties');
-            $table->foreign('countries_id')->references('id')->on('countries');
+            $table->foreign('county_id')->references('id')->on('counties');
+            $table->foreign('country_id')->references('id')->on('countries');
         });
     }
 

@@ -12,7 +12,7 @@ class CreateMeetingFilesTable extends Migration
      */
     public function up()
     {
-        Schema::create('meetings', function (Blueprint $table) {
+        Schema::create('meeting_files', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('meeting_id')->unsigned();
             $table->integer('file_id')->unsigned();
@@ -31,7 +31,7 @@ class CreateMeetingFilesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('meetings');
+        Schema::drop('meeting_files');
     }
     
 }
