@@ -6,7 +6,7 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
-    'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000010_create_addresses_table.php',
+    'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
     'CreateCommentTagsTable' => $baseDir . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',
     'CreateCommentsTable' => $baseDir . '/database/migrations/2016_08_14_000024_create_comments_table.php',
     'CreateCountiesTable' => $baseDir . '/database/migrations/2016_08_14_000002_create_counties_table.php',
@@ -18,7 +18,7 @@ return array(
     'CreateGroupsTable' => $baseDir . '/database/migrations/2016_08_14_000003_create_groups_table.php',
     'CreateInstitutionTagsTable' => $baseDir . '/database/migrations/2016_08_14_000031_create_institution_tags_table.php',
     'CreateInstitutionUsersTable' => $baseDir . '/database/migrations/2016_08_14_000021_create_institution_users_table.php',
-    'CreateInstitutionsTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_institutions_table.php',
+    'CreateInstitutionsTable' => $baseDir . '/database/migrations/2016_08_14_000010_create_institutions_table.php',
     'CreateInstitutiontypesTable' => $baseDir . '/database/migrations/2016_08_14_000007_create_institutiontypes_table.php',
     'CreateLogsTable' => $baseDir . '/database/migrations/2016_08_14_000016_create_logs_table.php',
     'CreateMeetingFilesTable' => $baseDir . '/database/migrations/2016_08_14_000017_create_meeting_files_table.php',
