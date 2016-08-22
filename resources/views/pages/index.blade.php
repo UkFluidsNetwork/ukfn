@@ -13,6 +13,17 @@
             <!--p>
               All UK-based fluid mechanics researchers, whether in academia or industry, are invited to <a href="register" title="Register">join.</a>
             </p-->
-
+<div class="col-lg-4">
+  <h1>What's New</h1>
+</div>
+<div class="col-lg-4">
+  <h1>What's On</h1>
+</div>
+<div class="col-lg-4">
+  <h1>Tweets</h1>
+  @foreach ($tweets as $tweet)
+    <p>{{ $tweet->text }}</p>
+  @endforeach
+</div>
 @stop
 
