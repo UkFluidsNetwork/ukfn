@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Route::controllers([
@@ -20,6 +20,14 @@ Route::controllers([
     'password' => 'Auth\PasswordController',
 ]);
 
+Route::auth();
+
+Route::get('/home', 'HomeController@index');
+
+Route::get('contact', 'PagesController@contact');
+Route::get('srv', 'SrvsController@index');
+Route::get('sig', 'SigsController@index');
+Route::post('contact', 'PagesController@sendMessage');
 Route::auth();
 
 Route::get('/home', 'HomeController@index');

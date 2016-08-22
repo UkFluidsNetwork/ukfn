@@ -2,133 +2,110 @@
     Created on : 24-Jul-2016, 18:02:51
     Author     : robert
 */
-
 /* Google font */
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300);
-
 body {
-    font-family: 'Lato', sans-serif;
-    font-weight: 400;
-}
+  font-family: 'Lato', sans-serif;
+  font-weight: 400;
+  color: #333333; }
 
 /* To seperate title / heading from the content below - br */
 .line-break {
-  margin-bottom                       : 1em;
-}
+  margin-bottom: 1em; }
 
 .line-break-dbl {
-    margin-bottom                       : 2em;
-}
+  margin-bottom: 2em; }
 
 /********************************************************************
     NAVIGATION
 ********************************************************************/
+.navbar-nav > li > a {
+  font-size: 1.2em; }
+
 .navbar {
-    border-radius                       : 0 !important;
-    
-}
-/*
+  border-radius: 0 !important; }
+
+.navbar-nav {
+  /*  padding-top: 10px;
+  padding-bottom:10px;*/ }
+
 .navbar-custom {
-    background-color: white;
-    border:none;
-}
-*/
+  background-color: white;
+  /*    border:none;*/ }
 
 .submenu-icons {
-    margin-right                        : 8px;
-}
+  margin-right: 8px; }
 
 .affix {
-    top: 0;
-    width: 100%;
-    position: fixed;
-    z-index:99999;
-}
+  top: 0;
+  width: 100%;
+  position: fixed;
+  z-index: 99999; }
 
 .affix + .container-fluid {
-      padding-top: 50px;
-    }
+  padding-top: 50px; }
 
 /********************************************************************
     TOP 
 ********************************************************************/
-
 #top-content {
-    padding-top: 10px;
-    height:150px;
-    
-}
-.logo {
-    height: 100px;
-}
+  padding-top: 10px;
+  height: 150px; }
 
+.logo {
+  height: 100px; }
 
 #main-content {
-    margin-top                          : 50px;
-    margin-bottom: 150px;
-}
+  margin-top: 50px;
+  margin-bottom: 150px; }
+
 .red-link, .red-link:hover, .red-link:active, .red-link:visited {
-    color :red;
-    text-decoration: none;
-}
+  color: red;
+  text-decoration: none; }
 
 /********************************************************************
     CONTACT
 ********************************************************************/
 #contact-form .control-label {
-    text-align: left !important;
-}
+  text-align: left !important; }
+
 #contact-form textarea {
-    height: 12em;
-}
+  height: 12em; }
 
 /*.breadcrumb {
     background-color: inherit;
     padding-left: 0;
 }*/
-
 /********************************************************************
     SIGNUP
 ********************************************************************/
-
 .signup {
-    background-color                    : #d9d9d9;
-    min-height                          : 250px;
-    padding-top                         : 30px;
-}
+  background-color: #d9d9d9;
+  min-height: 250px;
+  padding-top: 30px; }
 
 .btn-signup:hover, .btn-signup:active {
-    background-color: white !important;
-    
-}
+  background-color: white !important; }
+
 /********************************************************************
     FOOTER 
 ********************************************************************/
-
 footer {
-    background-color                    : #262626;
-    min-height                          : 250px;
-    color                               : #ccc;
-    padding-top                         : 40px
-    
-}
+  background-color: #262626;
+  min-height: 200px;
+  color: #ccc;
+  padding-top: 40px; }
 
 .footer-credits {
-    padding-top                         : 50px;
-}
+  padding-top: 20px; }
 
 /* hyperlinks in footer */
 .footer-color, .footer-color:active, .footer-color:visited, .footer-color:hover, footer-color:link {
-    color                               : #ccc;
-    text-decoration                     : none;
-}
+  color: #ccc;
+  text-decoration: none; }
 
 .footer-color:hover {
-    color: #fff;
-}
-
-
-
+  color: #fff; }
 
 /* Pictures for carousel 
 #car1 {
@@ -154,3 +131,5 @@ footer {
     height                              : 300px;
     background-repeat                   : no-repeat;
 }*/
+
+/*# sourceMappingURL=main.css.map */
