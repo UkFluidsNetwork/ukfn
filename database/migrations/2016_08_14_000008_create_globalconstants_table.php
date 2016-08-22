@@ -19,7 +19,7 @@ class CreateGlobalconstantsTable extends Migration
             $table->string('value', 255);
             $table->string('type', 255);
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
         });
     }
 

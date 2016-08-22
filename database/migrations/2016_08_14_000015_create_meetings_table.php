@@ -16,8 +16,8 @@ class CreateMeetingsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('subject', 255);
-            $table->longtext('schedule');
-            $table->boolean('deleted');
+            $table->longtext('schedule')->nullable();
+            $table->boolean('deleted')->default(false);
         });
     }
 

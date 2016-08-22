@@ -17,7 +17,7 @@ class CreateCountriesTable extends Migration
             $table->timestamps();
             $table->string('name', 255);
             $table->string('longname', 255);
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
         });
     }
 

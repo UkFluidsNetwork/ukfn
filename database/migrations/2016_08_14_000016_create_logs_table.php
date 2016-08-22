@@ -19,8 +19,8 @@ class CreateLogsTable extends Migration
             $table->string('browser', 255);
             $table->string('os', 255);
             $table->string('request', 255);
-            $table->longtext('data');
-            $table->timestamp('requested');
+            $table->longtext('data')->nullable();
+            $table->dateTime('requested');
             
             $table->foreign('user_id')->references('id')->on('users');
         });

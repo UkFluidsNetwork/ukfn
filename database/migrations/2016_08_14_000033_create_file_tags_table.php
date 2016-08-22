@@ -17,7 +17,7 @@ class CreateFileTagsTable extends Migration
             $table->integer('tag_id')->unsigned();
             $table->integer('file_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('file_id')->references('id')->on('files');

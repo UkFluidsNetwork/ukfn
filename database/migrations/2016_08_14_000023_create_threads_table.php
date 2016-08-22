@@ -17,7 +17,8 @@ class CreateThreadsTable extends Migration
             $table->string('subject', 255);
             $table->integer('user_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->dateTime('moderated');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('user_id')->references('id')->on('users');
         });

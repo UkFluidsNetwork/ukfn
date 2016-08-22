@@ -17,7 +17,8 @@ class CreateTagsTable extends Migration
             $table->string('name');
             $table->integer('tagtype_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->dateTime('moderated');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('tagtype_id')->references('id')->on('tagtypes');
         });

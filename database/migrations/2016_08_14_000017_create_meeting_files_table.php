@@ -17,7 +17,7 @@ class CreateMeetingFilesTable extends Migration
             $table->integer('meeting_id')->unsigned();
             $table->integer('file_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('meeting_id')->references('id')->on('meetings');
             $table->foreign('file_id')->references('id')->on('files');

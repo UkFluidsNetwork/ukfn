@@ -18,7 +18,8 @@ class CreateSigInstitutionsTable extends Migration
             $table->integer('sig_id')->unsigned();
             $table->integer('institution_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->dateTime('moderated');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('sig_id')->references('id')->on('sigs');
             $table->foreign('institution_id')->references('id')->on('institutions');

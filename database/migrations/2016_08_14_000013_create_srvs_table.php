@@ -17,8 +17,8 @@ class CreateSrvsTable extends Migration
             $table->timestamps();
             $table->integer('user_id')->unsigned();
             $table->integer('institution_id')->unsigned();
-            $table->longText('description');
-            $table->boolean('deleted');
+            $table->longText('description')->nullable();
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('institution_id')->references('id')->on('institutions');
