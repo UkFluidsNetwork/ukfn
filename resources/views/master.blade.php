@@ -6,6 +6,25 @@
       <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
       <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
       <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+      <!-- favicon -->
+      <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('pictures/favicon/apple-icon-57x57.png') }}">
+      <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('pictures/favicon/apple-icon-60x60.png') }}">
+      <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('pictures/favicon/apple-icon-72x72.png') }}">
+      <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('pictures/favicon/apple-icon-76x76.png') }}">
+      <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('pictures/favicon/apple-icon-114x114.png') }}">
+      <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('pictures/favicon/apple-icon-120x120.png') }}">
+      <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('pictures/favicon/apple-icon-144x144.png') }}">
+      <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('pictures/favicon/apple-icon-152x152.png') }}">
+      <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('pictures/favicon/apple-icon-180x180.png') }}">
+      <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('pictures/favicon/android-icon-192x192.png') }}">
+      <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('pictures/favicon/favicon-32x32.png') }}">
+      <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png') }}">
+      <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png') }}">
+      <link rel="manifest" href="/manifest.json">
+      <meta name="msapplication-TileColor" content="#ffffff">
+      <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">
+      <meta name="theme-color" content="#ffffff">
+      <!-- end of favicon -->
   </head>
   <body>
     <div class="container-fluid" id="top-content">
@@ -13,7 +32,7 @@
         <div class="col-lg-offset-2 col-lg-8 col-md-12">
           <div class="row">
             <div class="col-lg-4 col-md-2 col-sm-1 col-xs-1">
-              <img src="pictures/logo.png" class="logo">
+              <img src="{{ asset('pictures/logo.png') }}" class="logo">
                 </div>
               <div class="col-lg-8 col-md-10 col-sm-11 col-xs-10 text-right h1 text-uppercase text-muted">
                 
