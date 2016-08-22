@@ -15,20 +15,20 @@ class CreateTalksTable extends Migration
         Schema::create('talks', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('talkid')->unsigned(); // FIXME: not sure if this should be an string
-            $table->string('url', 255);
             $table->string('title', 255);
             $table->string('speaker', 255);
-            $table->string('speakerurl', 255);
-            $table->string('venue', 255);
-            $table->string('organiser', 255);
-            $table->string('series', 255);
-            $table->string('aggregator', 255);
             $table->dateTime('start');
             $table->dateTime('end');
-            $table->longtext('abstract', 255);
-            $table->longtext('message', 255);
+            $table->string('url', 255)->nullable();
+            $table->string('speakerurl', 255)->nullable();
+            $table->string('venue', 255)->nullable();
+            $table->string('organiser', 255)->nullable();
+            $table->string('series', 255)->nullable();
+            $table->string('aggregator', 255)->nullable();
+            $table->longtext('abstract', 255)->nullable();
+            $table->longtext('message', 255)->nullable();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
         });
     }
 

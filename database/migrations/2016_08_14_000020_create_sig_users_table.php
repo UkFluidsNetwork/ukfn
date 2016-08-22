@@ -18,7 +18,8 @@ class CreateSigUsersTable extends Migration
             $table->integer('sig_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->dateTime('moderated');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('sig_id')->references('id')->on('sigs');
             $table->foreign('user_id')->references('id')->on('users');

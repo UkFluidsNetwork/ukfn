@@ -18,7 +18,8 @@ class CreateInstitutionUsersTable extends Migration
             $table->integer('institution_id')->unsigned();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->dateTime('moderated');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('institution_id')->references('id')->on('institutions');
             $table->foreign('user_id')->references('id')->on('users');

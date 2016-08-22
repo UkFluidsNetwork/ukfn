@@ -17,7 +17,7 @@ class CreateCommentTagsTable extends Migration
             $table->integer('tag_id')->unsigned();
             $table->integer('comment_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('comment_id')->references('id')->on('comments');

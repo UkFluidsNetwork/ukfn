@@ -18,7 +18,8 @@ class CreateInstitutionsTable extends Migration
             $table->integer('address_id')->unsigned();
             $table->timestamps();
             $table->string('name', 255);
-            $table->boolean('deleted');
+            $table->dateTime('moderated');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('institutiontype_id')->references('id')->on('institutiontypes');
             $table->foreign('address_id')->references('id')->on('addresses');

@@ -17,7 +17,7 @@ class CreateTitlesTable extends Migration
             $table->timestamps();
             $table->string('name', 20);
             $table->string('shortname', 20);
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
         });
     }
 

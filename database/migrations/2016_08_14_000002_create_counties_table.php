@@ -16,7 +16,7 @@ class CreateCountiesTable extends Migration
             $table->increments('id');
             $table->string('name', 255);
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
         });
     }
 

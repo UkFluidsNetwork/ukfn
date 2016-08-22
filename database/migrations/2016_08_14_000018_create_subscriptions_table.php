@@ -17,7 +17,7 @@ class CreateSubscriptionsTable extends Migration
             $table->string('email')->unique();
             $table->integer('user_id')->unsigned();
             $table->timestamps();
-            $table->boolean('deleted');
+            $table->boolean('deleted')->default(false);
             
             $table->foreign('user_id')->references('id')->on('users');
         });
