@@ -115,8 +115,8 @@
           </p>
           <p class="footer-credits">
             Designed by 
-            <a href="http://arias.re" class="footer-color" target="_blank">arias.re</a> & 
-            <a href="https://barczyk.net" class="footer-color" target="_blank" title="barczyk.net website">barczyk.net</a>
+            <a href="{{ url('http://arias.re') }}" class="footer-color" target="_blank">arias.re</a> & 
+            <a href="{{ url('https://barczyk.net') }}" class="footer-color" target="_blank" title="barczyk.net website">barczyk.net</a>
           </p>
         </div>
       </div>

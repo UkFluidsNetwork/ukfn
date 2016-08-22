@@ -1,4 +1,4 @@
-@extends('master')
+@extends('layouts.master')
 @section('content')
 
           <h2 class="line-break">Welcome</h2>
