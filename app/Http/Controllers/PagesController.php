@@ -6,19 +6,24 @@ use Illuminate\Http\Request;
 use App\Page;
 use App\Http\Requests;
 use App\Http\Requests\ContactUsRequest;
-
 use TwitterAPIExchange;
+use DB;
 
 class PagesController extends Controller
 {
   public function index()
   {
+    // get news to display
+    $news = $this->getNews();
+    $totalNews= count($news);
+    // get events to display
+    $events = $this->getEvents();
+    $totalEvents = count($events);
     // get tweets to display
     $tweets = $this->getTweets();
-    // get number of tweets
     $totalTweets = count($tweets);
     
-    return view('pages.index', compact('tweets', 'totalTweets'));
+    return view('pages.index', compact('news', 'totalNews', 'events', 'totalEvents', 'tweets', 'totalTweets'));
   }
 
   /**
@@ -93,5 +98,46 @@ class PagesController extends Controller
     }
     
     return $tweets;
+  }
+  
+  /**
+   * Get list of news formatted and ordered by date
+   * @return array
+   * @access public
+   * @author Javier Arias <javier@arias.re>
+   */
+  public function getNews() {
+
+    $news = [];
+    $newsData = DB::table('news')->orderBy('created_at', 'desc')->get();
+    
+    foreach($newsData as $key => $new) {
+      $news[$key]['title'] = $new->title;
+      $news[$key]['start'] = date("j F", strtotime($new->created_at));
+      $news[$key]['description'] = $new->description; 
+    }
+    
+    return $news;
+  }
+  
+  /**
+   * Get list of events formatted and ordered by date
+   * @return array
+   * @access public
+   * @author Javier Arias <javier@arias.re>
+   */
+  public function getEvents() {
+
+    $events = [];
+    $eventsData = DB::table('events')->orderBy('start', 'desc')->get();
+    
+    foreach($eventsData as $key => $event) {
+      $events[$key]['title'] = $event->title;
+      $events[$key]['subtitle'] = $event->subtitle ? ", " . $event->subtitle : '';
+      $events[$key]['start'] = date("g:ia l jS F", strtotime($event->start));
+      $events[$key]['description'] = $event->description; 
+    }
+
+    return $events;
   }
 }

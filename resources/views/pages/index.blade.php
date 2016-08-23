@@ -20,9 +20,31 @@
       <div class="row">
         <div class="col-lg-4">
           <h2>What's New</h2>
+            @foreach ($news as $new)
+              <section class="page-header">
+                <div class="line-break">
+                  <div class="text-danger">
+                      <strong class="panel-title">{{ $new['title'] }}</strong>
+                  </div>
+                  <div class="text-muted">{{ $new['start'] }}</div>
+                </div>
+                <p>{!! $new['description'] !!}</p>
+               </section>
+            @endforeach
         </div>
         <div class="col-lg-4">
           <h2>What's On</h2>
+            @foreach ($events as $event)
+              <section class="page-header">
+                <div class="line-break">
+                  <div class="text-danger">
+                      <strong class="panel-title">{{ $event['title'] }}</strong>
+                  </div>
+                  <div class="text-muted">{{ $event['start'] }}{{ $event['subtitle'] }}</div>
+                </div>
+                <p>{!! $event['description'] !!}</p>
+               </section>
+            @endforeach
         </div>
         <div class="col-lg-4">
           <h1>Tweets</h1>
