@@ -11,8 +11,17 @@
 |
 */
 
+/** GET|HEAD requests **/
 Route::get('/', 'PagesController@index');
+Route::get('sig', 'SigsController@index');
+Route::get('srv', 'SrvsController@index');
+Route::get('talks', 'TalksController@index');
+Route::get('contact', 'PagesController@contact');
 
+/** POST requests **/
+Route::post('contact', 'PagesController@sendMessage');
+
+/** GET|HEAD|POST|PUT|PATCH|DELETE requests **/
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
@@ -20,8 +29,3 @@ Route::controllers([
 
 Route::auth();
 
-Route::get('contact', 'PagesController@contact');
-Route::get('srv', 'SrvsController@index');
-Route::get('sig', 'SigsController@index');
-
-Route::post('contact', 'PagesController@sendMessage');
