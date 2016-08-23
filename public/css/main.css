@@ -9,33 +9,39 @@ body {
   font-weight: 400;
   color: #333333; }
 
-/* To seperate title / heading from the content below - br */
+/* View Helpers */
 .line-break {
   margin-bottom: 1em; }
 
 .line-break-dbl {
   margin-bottom: 2em; }
 
+.line-break-top {
+  margin-top: 1em; }
+
+.line-break-dbl-top {
+  margin-top: 2em; }
+
+.display-block {
+  display: block; }
+
 /********************************************************************
-    NAVIGATION
+  NAVIGATION
 ********************************************************************/
+/* Font in Top Naviation Bar */
 .navbar-nav > li > a {
   font-size: 1.2em; }
 
-.navbar {
-  border-radius: 0 !important; }
-
-.navbar-nav {
-  /*  padding-top: 10px;
-  padding-bottom:10px;*/ }
-
+/* Top Navigation Bar style overide */
 .navbar-custom {
-  background-color: white;
-  /*    border:none;*/ }
+  border-radius: 0 !important;
+  background-color: white; }
 
+/* To Navigation dropdown menu style overide */
 .submenu-icons {
   margin-right: 8px; }
 
+/* Style to "glue" navbar to the top */
 .affix {
   top: 0;
   width: 100%;
@@ -46,36 +52,30 @@ body {
   padding-top: 50px; }
 
 /********************************************************************
-    TOP 
+  TOP 
 ********************************************************************/
 #top-content {
   padding-top: 10px;
-  height: 150px; }
+  height: 130px; }
 
 .logo {
   height: 100px; }
 
+/********************************************************************
+  MAIN CONTENT
+********************************************************************/
 #main-content {
   margin-top: 50px;
   margin-bottom: 150px; }
 
+/* custom red hyperlink */
 .red-link, .red-link:hover, .red-link:active, .red-link:visited {
   color: red;
   text-decoration: none; }
 
 /********************************************************************
-    CONTACT
+  CONTACT
 ********************************************************************/
-#contact-form .control-label {
-  text-align: left !important; }
-
-#contact-form textarea {
-  height: 12em; }
-
-/*.breadcrumb {
-    background-color: inherit;
-    padding-left: 0;
-}*/
 /********************************************************************
     SIGNUP
 ********************************************************************/
@@ -92,9 +92,10 @@ body {
 ********************************************************************/
 footer {
   background-color: #262626;
-  min-height: 200px;
+  min-height: 150px;
   color: #ccc;
-  padding-top: 40px; }
+  padding-top: 30px;
+  padding-bottom: 30px; }
 
 .footer-credits {
   padding-top: 20px; }

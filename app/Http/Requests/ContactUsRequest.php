@@ -11,6 +11,7 @@ class ContactUsRequest extends Request
      * Determine if the user is authorized to make this request.
      *
      * @return bool
+     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function authorize()
     {
@@ -22,13 +23,14 @@ class ContactUsRequest extends Request
      * Get the validation rules that apply to the request.
      *
      * @return array
+     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function rules()
     {
       return [
-        'name' => 'required', 
-        'message' => 'required',
-        'email' => 'required|email'
+        'contact-name' => 'required', 
+        'contact-message' => 'required',
+        'contact-email' => 'required|email'
       ];
     }
 }
