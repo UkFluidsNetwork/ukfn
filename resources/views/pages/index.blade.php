@@ -1,29 +1,33 @@
 @extends('layouts.master')
 @section('content')
-
-          <h2 class="line-break">Welcome</h2>
-          <p>
-            The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics. 
-            Activities start in September 2016 and are funded for 3 years. 
-          </p>
-          <p>
-            The UKFN will fund <a href="sig" title="Special Interest Group (SIG)">Special Interest Group (SIG) meetings </a>, <a href="srv" title="Short Research Visits">
-            Short Research Visits (SRVs)</a>, and a website containing resources for all fluid mechanics researchers.
-          </p>
-            <!--p>
-              All UK-based fluid mechanics researchers, whether in academia or industry, are invited to <a href="register" title="Register">join.</a>
-            </p-->
-<div class="col-lg-4">
-  <h1>What's New</h1>
-</div>
-<div class="col-lg-4">
-  <h1>What's On</h1>
-</div>
-<div class="col-lg-4">
-  <h1>Tweets</h1>
-  @foreach ($tweets as $tweet)
-    <p>{{ $tweet->text }}</p>
-  @endforeach
-</div>
+          <div class="jumbotron">
+            <h2 class="line-break">Welcome</h2>
+            <p>
+              The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics. 
+              Activities start in September 2016 and are funded for 3 years. 
+            </p>
+            <p>
+              The UKFN will fund <a href="sig" title="Special Interest Group (SIG)">Special Interest Group (SIG) meetings </a>, <a href="srv" title="Short Research Visits">
+              Short Research Visits (SRVs)</a>, and a website containing resources for all fluid mechanics researchers.
+            </p>
+              <!--p>
+                All UK-based fluid mechanics researchers, whether in academia or industry, are invited to <a href="register" title="Register">join.</a>
+              </p-->
+          </div>
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-lg-4">
+                  <h2>What's New</h2>
+                </div>
+                <div class="col-lg-4">
+                  <h2>What's On</h2>
+                </div>
+                <div class="col-lg-4">
+                  <h2>Tweets</h2>
+                @foreach ($tweets as $tweet)
+                  <p>{{ $tweet->text }}</p>
+                @endforeach
+                </div>
+              </div>
+            </div>
 @stop
-
