@@ -63,6 +63,7 @@
             <a href="{{ url('https://twitter.com/UKFluidsNetwork') }}" class="btn btn-default text-uppercase" target="_blank">View more tweets <span class="glyphicon glyphicon-chevron-right"></span></a>
           </p>
         </div>
+      </div>
     </div>
       
-@stop
+@endsection
