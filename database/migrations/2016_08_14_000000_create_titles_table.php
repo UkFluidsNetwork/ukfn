@@ -12,13 +12,55 @@ class CreateTitlesTable extends Migration
      */
     public function up()
     {
-        Schema::create('titles', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->string('name', 20);
-            $table->string('shortname', 20);
-            $table->boolean('deleted')->default(false);
-        });
+      // create the table
+      Schema::create('titles', function (Blueprint $table) {
+        $table->increments('id');
+        $table->timestamps();
+        $table->string('name', 20);
+        $table->string('shortname', 20);
+        $table->boolean('deleted')->default(false);
+      });
+      // populate
+      DB::table('titles')->insert(
+        [
+          [
+            'name' => 'Doctor',
+            'shortname' => 'Dr.',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Professor',
+            'shortname' => 'Pr.',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Mister',
+            'shortname' => 'Mr.',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Miss',
+            'shortname' => 'Ms.',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Mistress',
+            'shortname' => 'Mrs.',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Sir',
+            'shortname' => 'Sir',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ]
+        ]
+      );
     }
 
     /**

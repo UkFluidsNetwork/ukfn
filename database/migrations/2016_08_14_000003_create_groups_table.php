@@ -12,12 +12,33 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-        Schema::create('groups', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
-            $table->string('name', 255);
-            $table->boolean('deleted')->default(false);
-        });
+      // create
+      Schema::create('groups', function (Blueprint $table) {
+        $table->increments('id');
+        $table->timestamps();
+        $table->string('name', 255);
+        $table->boolean('deleted')->default(false);
+      });
+      // populate
+      DB::table('groups')->insert(
+        [
+          [
+            'name' => 'Administrator',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Moderator',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ],
+          [
+            'name' => 'Member',
+            'created_at' => date("Y-m-d H:i:s"),
+            'updated_at' => date("Y-m-d H:i:s")
+          ]
+        ]
+      );
     }
 
     /**
