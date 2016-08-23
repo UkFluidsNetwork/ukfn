@@ -26,7 +26,6 @@
                   <div class="text-danger">
                       <strong class="panel-title">{{ $new['title'] }}</strong>
                   </div>
-                  <div class="text-muted">{{ $new['start'] }}</div>
                 </div>
                 <p>{!! $new['description'] !!}</p>
                </section>
