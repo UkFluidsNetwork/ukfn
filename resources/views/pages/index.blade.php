@@ -19,7 +19,7 @@
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-4">
-          <h2>What's New</h2>
+          <h1>What's New</h1>
             @foreach ($news as $new)
               <section class="page-header">
                 <div class="line-break">
@@ -32,7 +32,7 @@
             @endforeach
         </div>
         <div class="col-lg-4">
-          <h2>What's On</h2>
+          <h1>What's On</h1>
             @foreach ($events as $event)
               <section class="page-header">
                 <div class="line-break">
