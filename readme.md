@@ -1,3 +1,18 @@
+# SAAS - Editing CSS
+
+to use saas
+
+on main ukfn dir
+curl -sL https://deb.nodesource.com/setup_4.x | sudo -E bash -
+sudo apt-get install -y nodejs
+
+npm install
+npm instal gulp
+npm install --global gulp-cli
+
+Then in resources/asasets/sass edit main.scss file once you finish in cli on main ukf root dir run -> gulp
+it will compile css 
+
 # Laravel PHP Framework
 
 [![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
