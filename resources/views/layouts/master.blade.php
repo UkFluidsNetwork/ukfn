@@ -51,16 +51,16 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.php">
+            <a class="navbar-brand" href="/">
               <span class="glyphicon glyphicon-home"></span>
             </a>
           </div>
           <div class="collapse navbar-collapse" id="top-nav-bar">
             <ul class="nav navbar-nav">
-              <li><a href="sig">SIG</a></li>
-              <li><a href="srv">SRV</a></li>
-              <li><a href="contact">Contact Us</a></li>
-              <li><a href="#"></a></li>
+              <li>{{ Html::link('/sig', 'SIG') }}</li>
+              <li>{{ Html::link('/srv', 'SRV') }}</li>
+              <li>{{ Html::link('/talks', 'Talks') }}</li>
+              <li>{{ Html::link('/contact', 'Contact') }}</li>
             </ul>
           </div>
         </div>
