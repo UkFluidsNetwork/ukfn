@@ -55,6 +55,12 @@ class PagesController extends Controller
     return view('pages.contact');
   }
   
+  /**
+   * Get array of tweets
+   * @return array ["date", "text"]
+   * @access public
+   * @author Javier Arias <javier@arias.re>
+   */
   public function getTweets()
   {
     $tweets = [];
