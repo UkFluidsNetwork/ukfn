@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', 'PagesController@index');
 
 Route::controllers([
     'auth' => 'Auth\AuthController',
