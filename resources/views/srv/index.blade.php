@@ -1,8 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
-  <div class="jumbotron">
-    <h2>SRV</h2>
+  <h2 class='line-break'>SRV</h2>
+  <div class="well">
     <p>
       The UKFN is pleased to invite proposals for SRVs. This note gives the context of the call and sets out the information you should provide in your proposal. 
     <p>

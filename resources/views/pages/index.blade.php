@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-  <div class="jumbotron">
+  <div class="well">
     <h2 class="line-break">Welcome</h2>
     <p>
       The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics. 
@@ -26,8 +26,14 @@
                   <div class="text-danger">
                       <strong class="panel-title">{{ $new['title'] }}</strong>
                   </div>
+                  <div class="text-muted">{{ $new['start'] }}</div>
                 </div>
+                @if ($new['link'])
+                <p class="line-break">{!! $new['description'] !!}</p>
+                <a href="{{ $new['link'] }}">Read More</a>
+                @else 
                 <p>{!! $new['description'] !!}</p>
+                @endif
                </section>
             @endforeach
         </div>

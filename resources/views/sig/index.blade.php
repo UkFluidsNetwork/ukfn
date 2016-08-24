@@ -1,8 +1,8 @@
 @extends('layouts.master')
 @section('content')
 
-  <div class="jumbotron">
-    <h2>SIG</h2>
+  <h2 class='line-break'>SIG</h2>
+  <div class="well">
     <p>
       The UKFN is pleased to invite proposals for the first round of Special Interest Groups. 
     </p>

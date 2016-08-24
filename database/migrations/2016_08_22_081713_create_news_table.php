@@ -16,6 +16,7 @@ class CreateNewsTable extends Migration
         $table->increments('id');
         $table->string('title', 100);
         $table->longtext('description')->nullable();
+        $table->longtext('link')->nullable();
         $table->integer('user_id')->unsigned();
         $table->timestamps();
 
@@ -26,16 +27,18 @@ class CreateNewsTable extends Migration
         [
           [
             'title' => 'SIG',
-            'description' => 'First call for proposals for Special Interest Groups (SIGs) <br><a href="/sig" class="red-link">View Page</a>',
+            'description' => 'First call for proposals for Special Interest Groups (SIGs)',
+            'link' => '/sig',
             'user_id' => 1,
-            'created_at' => date("Y-m-d H:i:s"),
+            'created_at' => date("Y-m-d H:i:s", "09-01-2016 00:00:00"),
             'updated_at' => date("Y-m-d H:i:s")
           ],
           [
             'title' => 'SRV',
-            'description' => 'Rolling call for proposals for Short Research Visits (SRVs) <br><a href="/srv" class="red-link">View Page</a>',
+            'description' => 'Rolling call for proposals for Short Research Visits (SRVs)',
+            'link' => '/srv',
             'user_id' => 1,
-            'created_at' => date("Y-m-d H:i:s"),
+            'created_at' => date("Y-m-d H:i:s", "09-01-2016 00:00:00"),
             'updated_at' => date("Y-m-d H:i:s")
           ],
         ]

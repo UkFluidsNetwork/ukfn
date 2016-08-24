@@ -24,8 +24,9 @@ class NewsController extends Controller
     
     foreach($newsData as $key => $new) {
       $news[$key]['title'] = $new->title;
-      $news[$key]['start'] = date("j F", strtotime($new->created_at));
+      $news[$key]['start'] = date("l jS F", strtotime($new->created_at));
       $news[$key]['description'] = $new->description; 
+      $news[$key]['link'] = $new->link; 
     }
     
     return $news;
