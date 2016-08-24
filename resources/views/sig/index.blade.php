@@ -10,7 +10,10 @@
       This note gives the context of the call and sets out the information to provide in a proposal.
     </p>
     <p>
-      The closing date is 31st Oct 2016. <a href="{{ asset('files/UKFN_SIGs_call_for_proposals.pdf') }}">[UKFN_SIGs_call_for_proposals.pdf]</a>
+      <a href="{{ asset('files/UKFN_SIGs_call_for_proposals.pdf') }}">[UKFN_SIGs_call_for_proposals.pdf]</a>
+    </p>
+    <p>
+      The closing date is 31st Oct 2016.
     </p>
   </div>
          
