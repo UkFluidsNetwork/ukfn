@@ -25,6 +25,11 @@
       <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">
       <meta name="theme-color" content="#ffffff">
       <!-- end of favicon -->
+      
+      <!-- For The jQuerry to work on IE 11 -->
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">  
+      <meta name="apple-mobile-web-app-capable" content="yes">
+      
   </head>
   <body>
     <div class="container-fluid" id="top-content">
