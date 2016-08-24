@@ -90,7 +90,7 @@ class PagesController extends Controller
     $decodedTweets = json_decode($rawTweeets);
     
     foreach($decodedTweets as $key => $tweet) {
-      $tweets[$key]['date'] = date("d M Y", strtotime($tweet->created_at));
+      $tweets[$key]['date'] = date("l jS F", strtotime($tweet->created_at));
       $originalText = $tweet->text;
       $text1 = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $originalText); // replace @user with link to user
       $text2 = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text1); // replace #hashtag with link to hashtag

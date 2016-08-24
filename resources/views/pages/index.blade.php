@@ -64,9 +64,9 @@
               @endforeach
             </dl>
           </section>
-          <p class="read-more-wrapper">
+          <!--p class="read-more-wrapper">
             <a href="{{ url('https://twitter.com/UKFluidsNetwork') }}" class="btn btn-default text-uppercase" target="_blank">View more tweets <span class="glyphicon glyphicon-chevron-right"></span></a>
-          </p>
+          </p-->
         </div>
       </div>
     </div>
