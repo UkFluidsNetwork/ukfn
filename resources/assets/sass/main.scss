@@ -36,6 +36,13 @@ body {
   font-size:17px;
 }
 
+/* disable iOS to style text fileds and buttons */
+input[type="submit"], input[type="button"],
+input[type="text"], textarea, button {
+    -webkit-appearance                  : none;
+}
+
+
 /********************************************************************
   NAVIGATION
 ********************************************************************/
