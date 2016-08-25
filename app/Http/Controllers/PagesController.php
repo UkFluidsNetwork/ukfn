@@ -47,9 +47,9 @@ class PagesController extends Controller
   public function sendMessage(ContactUsRequest $request) 
   {
     // validate input data from form
-    $name    = $request->input('contact-name');
-    $from    = $request->input('contact-email');
-    $message = $request->input('contact-message');
+    $name    = $request->input('name');
+    $from    = $request->input('email');
+    $message = $request->input('message');
     
     // send mail
     Page::sendForm($name, $from, $message);
