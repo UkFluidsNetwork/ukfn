@@ -53,17 +53,17 @@
         </div>
         <div class="col-lg-4">
           <h1>Tweets</h1>
-          <section class="page-header">
-            <dl>
-              @foreach ($tweets as $key => $tweet)
-                <dt class="text-primary">{{ $tweet['date'] }}</dt>
-                <dd>{!! $tweet['text'] !!}</dd>
-                @if ($key < ($totalTweets -1))
-                  <br>
-                @endif
-              @endforeach
-            </dl>
-          </section>
+            @foreach ($tweets as $key => $tweet)
+              <section class="page-header">
+                <div class="line-break">
+                  <div class="text-primary">
+                      <strong class="panel-title">{{ $tweet['user'] }}</strong>
+                  </div>
+                  <div class="text-muted">{{ $tweet['date'] }}</div>
+                </div>
+                <p>{!! $tweet['text'] !!}</p>
+              </section>
+            @endforeach
           <!--p class="read-more-wrapper">
             <a href="{{ url('https://twitter.com/UKFluidsNetwork') }}" class="btn btn-default text-uppercase" target="_blank">View more tweets <span class="glyphicon glyphicon-chevron-right"></span></a>
           </p-->
