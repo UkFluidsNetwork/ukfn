@@ -18,7 +18,7 @@
   </div>
     <div class="container-fluid">
       <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-4 col-sm-4">
           <h1>What's New</h1>
             @foreach ($news as $new)
               <section class="page-header">
@@ -37,21 +37,22 @@
                </section>
             @endforeach
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-4 col-sm-4">
           <h1>What's On</h1>
             @foreach ($events as $event)
               <section class="page-header">
                 <div class="line-break">
                   <div class="text-danger">
-                      <strong class="panel-title">{{ $event['title'] }}</strong>
+                    <strong class="panel-title">{{ $event['title'] }}</strong>
                   </div>
-                  <div class="text-muted">{{ $event['start'] }}{{ $event['subtitle'] }}</div>
-                </div>
+                    <div class="text-muted">{{ $event['start'] }}</div>
+                    <div class="text-muted">{{ $event['subtitle'] }}</div>
+                  </div>
                 <p>{!! $event['description'] !!}</p>
                </section>
             @endforeach
         </div>
-        <div class="col-lg-4">
+        <div class="col-lg-4 col-md-4 col-sm-4">
           <h1>Tweets</h1>
             @foreach ($tweets as $key => $tweet)
               <section class="page-header">

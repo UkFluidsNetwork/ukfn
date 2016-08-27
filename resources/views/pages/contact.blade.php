@@ -13,7 +13,7 @@
             {!! Form::text('name', null, ['class' => 'form-control','placeholder' => 'Your name']) !!}
             @if ($errors->has('name'))
               <span class="text-danger">
-                <strong>{{ $errors->first('name') }}</strong>
+                <span>{{ $errors->first('name') }}</span>
               </span>
             @endif
           </div>
@@ -22,7 +22,7 @@
             {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
             @if ($errors->has('email'))
               <span class="text-danger">
-                <strong>{{ $errors->first('email') }}</strong>
+                <span>{{ $errors->first('email') }}</span>
               </span>
             @endif
           </div>
@@ -33,7 +33,7 @@
             {!! Form::textarea('message', null, ['class' => 'form-control','placeholder' => 'Your message']) !!}
             @if ($errors->has('message'))
               <span class="text-danger">
-                <strong>{{ $errors->first('message') }}</strong>
+                <span>{{ $errors->first('message') }}</span>
               </span>
             @endif
           </div>

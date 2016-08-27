@@ -8,6 +8,8 @@ use App\Http\Requests;
 use App\Http\Requests\ContactUsRequest;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
+use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\URL;
 
 class PagesController extends Controller
 {
