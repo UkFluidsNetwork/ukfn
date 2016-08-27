@@ -61,12 +61,10 @@
                   </div>
                   <div class="text-muted">{{ $tweet['date'] }}</div>
                 </div>
-                <p>{!! $tweet['text'] !!}</p>
+                <p class="line-break">{!! $tweet['text'] !!}</p>
+                <a href="{{ $tweet['link'] }}" target="_blank">View tweet</a>
               </section>
             @endforeach
-          <!--p class="read-more-wrapper">
-            <a href="{{ url('https://twitter.com/UKFluidsNetwork') }}" class="btn btn-default text-uppercase" target="_blank">View more tweets <span class="glyphicon glyphicon-chevron-right"></span></a>
-          </p-->
         </div>
       </div>
     </div>
