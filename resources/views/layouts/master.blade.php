@@ -73,14 +73,14 @@
         </div>
       </nav>
     </div>
-    @if(Session::has('message'))
-      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
-    @endif
     <!-- TOP NAV - END -->
     <!-- MAIN CONTENT - START -->
     <div class="container-fluid" id="main-content">
       <div class="row">
         <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12">
+          @if(Session::has('message'))
+            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+          @endif
           @yield('content')
         </div>
       </div>
