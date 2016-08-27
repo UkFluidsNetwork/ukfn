@@ -17,6 +17,7 @@ Route::get('sig', 'SigsController@index');
 Route::get('srv', 'SrvsController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('contact', 'PagesController@contact');
+Route::get('admin', 'AdminController@index')->middleware('auth');
 
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');

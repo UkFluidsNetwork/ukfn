@@ -73,6 +73,9 @@
         </div>
       </nav>
     </div>
+    @if(Session::has('message'))
+      <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+    @endif
     <!-- TOP NAV - END -->
     <!-- MAIN CONTENT - START -->
     <div class="container-fluid" id="main-content">
