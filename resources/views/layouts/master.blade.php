@@ -48,6 +48,7 @@
       </div>
     </div>
     <!-- TOP NAV - START -->
+    <img src="{{ asset('pictures/beta.png') }}" border="0" width="150" height="130" style="position:absolute; right:0px; top:0px; margin:0px; padding:0px; z-index:100;">
     <div data-spy="affix" data-offset-top="130">
       <nav class="navbar navbar-default navbar-custom" id="top-nav">
         <div class="container-fluid col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12" >
