@@ -81,7 +81,7 @@ class PagesController extends Controller
     // define the type of query (user_timeline to get all tweets in an account)
     $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
     // query string to search by user name
-    $getfield = '?screen_name=UKFluidsNetwork';
+    $getfield = '?screen_name=UKFluidsNetwork&count=10';
     $requestMethod = 'GET';
 
     $twitter = new TwitterAPIExchange($settings);
@@ -92,11 +92,20 @@ class PagesController extends Controller
     $decodedTweets = json_decode($rawTweeets);
     
     foreach($decodedTweets as $key => $tweet) {
-      $tweets[$key]['user'] = $tweet->user->name;
+      // retweets start with: RT @username: 
+      if(preg_match('/(R)(T).(@)((?:[a-z][a-z]+)): /', $tweet->text)) {
+        $tweets[$key]['user'] = $tweet->entities->user_mentions[0]->name; // it is a retweet, use original author
+        $textToFormat = preg_replace('/(R)(T).(@)((?:[a-z][a-z]+)): /', '', $tweet->text);
+      } else {
+        $tweets[$key]['user'] = $tweet->user->name; // not a retweet
+        $textToFormat = $tweet->text; // use original text
+      }
+      // link to tweet on twitter
       $tweets[$key]['link'] = "https://twitter.com/". $tweet->user->screen_name ."/status/" . $tweet->id;
+      // date posted
       $tweets[$key]['date'] = date("l jS F", strtotime($tweet->created_at));
-      $originalText = $tweet->text;
-      $text1 = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $originalText); // replace @user with link to user
+      // format the text
+      $text1 = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $textToFormat); // replace @user with link to user
       $text2 = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text1); // replace #hashtag with link to hashtag
       $tweets[$key]['text'] = $text2;
     }
