@@ -69,6 +69,34 @@
               <li>{{ Html::link('/talks', 'Talks') }}</li>
               <li>{{ Html::link('/contact', 'Contact') }}</li>
             </ul>
+            @if(Auth::user())
+            <ul class="nav navbar-nav navbar-right">
+              <div class="pull-left">
+                <b>{{ Auth::user()->name }} {{ Auth::user()->surname }}</b> 
+                @if(Auth::user()->group_id == 1)
+                  (Administrator)
+                @elseif(Auth::user()->group_id == 2)
+                  (Moderator)
+                @endif
+              </div>
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="glyphicon glyphicon-user"></span>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                  @if(Auth::user()->group_id == 1)
+                  <li><a href="{{ URL::to('/profile') }}"><span class="glyphicon glyphicon-user submenu-icons"></span> My Profile</a></li>
+                  @endif
+                  @if(Auth::user())
+                  <li><a href="{{ URL::to('/logout') }}"><span class="glyphicon glyphicon-log-in submenu-icons"></span> Logout</a></li>
+                  @else
+                  <li><a href="{{ URL::to('/login') }}"><span class="glyphicon glyphicon-log-in submenu-icons"></span> Login</a></li>
+                  @endif                  
+                </ul>
+              </li>
+            </ul>
+            @endif
           </div>
         </div>
       </nav>
