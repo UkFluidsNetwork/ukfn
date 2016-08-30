@@ -63,10 +63,16 @@ input[type="text"], textarea, button {
   TOP 
 ********************************************************************/
 #top-content {
-  padding-top: 10px;
-  height: 130px; }
+  height: 130px;
+  background-image: url("../pictures/top_banner.jpg");
+  height: 130px;
+  background-position: center;
+  background-repeat: no-repeat; }
 
 .logo {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background-color: white;
   height: 100px; }
 
 /********************************************************************
