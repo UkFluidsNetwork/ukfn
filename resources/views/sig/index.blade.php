@@ -17,4 +17,5 @@
     </p>
   </div>
          
+  @include('sig.suggestions')
 @endsection

@@ -22,6 +22,7 @@ Route::get('admin', 'AdminController@index')->middleware('auth');
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'SubscriptionsController@subscription');
+Route::post('sig', 'SuggestionsController@postSuggestion');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests **/
 Route::controllers([
