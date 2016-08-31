@@ -10,9 +10,25 @@ class TalksController extends Controller
 {
   public function index()
   {
+    $exceptions = ["TBC", "tbc", "To be confirmed", "Title to be confirmed", "TBD"];
+    
+    $talks = [];
+    $index = 0;
     Talk::updateTalks();
     $allTalks = Talk::getAllTalks();
     
-    return view('talks.index', compact('allTalks'));
+    foreach($allTalks as $talk) {
+      if(in_array($talk->title, $exceptions)) {
+        continue;
+      }
+      $talks[$index]['title'] = $talk->title;
+      $talks[$index]['when'] = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
+      $talks[$index]['speaker'] = $talk->speaker;
+      $talks[$index]['venue'] = $talk->venue;
+      $talks[$index]['abstract'] = $talk->abstract;
+      $index++;
+    }
+
+    return view('talks.index', compact('talks'));
   }
 }
