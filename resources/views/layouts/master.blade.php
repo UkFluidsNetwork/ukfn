@@ -113,7 +113,7 @@
             <div class="row">
               <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 line-break ">
                 <span class='display-block h3 text-danger text-uppercase'>Sign up to our newsletter</span>
-                <span class='display-block text-uppercase line-break'>For information on jobs, events and news in UK fluids</span>
+                <span class='display-block line-break'>For information on jobs, events and news in UK fluids</span>
               </div>
             </div>
             <div class="row">
