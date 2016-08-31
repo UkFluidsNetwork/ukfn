@@ -19,7 +19,7 @@ class Suggestion extends Model
   
   public static function getAllSuggestions()
   {
-    $suggestions = DB::table('suggestions')->orderBy('created_at', 'DESC')->get();
+    $suggestions = DB::table('suggestions')->orderBy('suggestion', 'ASC')->get();
 
     return $suggestions;
   }
