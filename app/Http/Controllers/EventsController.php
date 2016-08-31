@@ -25,7 +25,7 @@ class EventsController extends Controller
     
     foreach($eventsData as $key => $event) {
       $events[$key]['title'] = $event->title;
-      $events[$key]['subtitle'] = $event->subtitle ? "" . $event->subtitle : '';
+      $events[$key]['subtitle'] = $event->subtitle ? ", " . $event->subtitle : '';
       $events[$key]['start'] = date("g:ia l jS F", strtotime($event->start));
       $events[$key]['description'] = $event->description; 
     }
