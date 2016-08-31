@@ -89,6 +89,9 @@ input[type="text"], textarea, button {
   color: red;
   text-decoration: none; }
 
+.badge-success {
+  background-color: #5cb85c; }
+
 /********************************************************************
   CONTACT
 ********************************************************************/

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('content')
-
+@include('flash.success')
   <h2 class='line-break'>Special Interest Groups</h2>
   <div class="well">
     <p>

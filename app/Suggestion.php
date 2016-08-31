@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use DB;
 
 class Suggestion extends Model
 {
@@ -18,8 +19,8 @@ class Suggestion extends Model
   
   public static function getAllSuggestions()
   {
-    $suggestion = \DB::table('suggestions')->orderBy('created_at', 'ASC')->get();
+    $suggestions = DB::table('suggestions')->orderBy('created_at', 'DESC')->get();
 
-    return $suggestion;
+    return $suggestions;
   }
 }
