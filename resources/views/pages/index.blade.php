@@ -12,9 +12,10 @@
       {{ Html::link('/srv', 'Short Research Visits (SRVs)', ['title'=>'Short Research Visits']) }},
       and a website containing resources for all fluid mechanics researchers.
     </p>
-      <!--p>
-        All UK-based fluid mechanics researchers, whether in academia or industry, are invited to <a href="register" title="Register">join.</a>
-      </p-->
+    <p>
+      You will be able to register in full from 1 November 2016, but in the meantime please {{ Html::link('#subscription-sign-up-form', 'sign up to our mailing list') }} 
+      to keep in touch with UKFN.
+    </p>
   </div>
     <div class="container-fluid">
       <div class="row">
@@ -45,8 +46,7 @@
                   <div class="text-danger">
                     <strong class="panel-title">{{ $event['title'] }}</strong>
                   </div>
-                    <div class="text-muted">{{ $event['start'] }}</div>
-                    <div class="text-muted">{{ $event['subtitle'] }}</div>
+                    <div class="text-muted">{{ $event['start'] }}{{ $event['subtitle'] }}</div>
                   </div>
                 <p>{!! $event['description'] !!}</p>
                </section>

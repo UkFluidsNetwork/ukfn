@@ -33,6 +33,7 @@ return array(
     'CreateSigsTable' => $baseDir . '/database/migrations/2016_08_14_000005_create_sigs_table.php',
     'CreateSrvsTable' => $baseDir . '/database/migrations/2016_08_14_000013_create_srvs_table.php',
     'CreateSubscriptionsTable' => $baseDir . '/database/migrations/2016_08_14_000018_create_subscriptions_table.php',
+    'CreateSuggestionsTable' => $baseDir . '/database/migrations/2016_08_31_084339_create_suggestions_table.php',
     'CreateTagsTable' => $baseDir . '/database/migrations/2016_08_14_000026_create_tags_table.php',
     'CreateTagtypesTable' => $baseDir . '/database/migrations/2016_08_14_000025_create_tagtypes_table.php',
     'CreateTalkTagsTable' => $baseDir . '/database/migrations/2016_08_14_000027_create_talk_tags_table.php',

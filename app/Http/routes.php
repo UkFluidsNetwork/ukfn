@@ -32,3 +32,6 @@ Route::controllers([
 
 Route::auth();
 
+// temporal workaround so that registering is not available
+Route::get('register', 'PagesController@index');
+
