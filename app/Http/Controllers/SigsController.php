@@ -22,7 +22,7 @@ class SigsController extends Controller
       // suggestions older than 7 days will be marked as new.
       $difference = (int)$today->diff($created_at)->format('%R%a');
       if($difference >= -7 && $difference <= 0) {
-        $suggestion->new = "<span class='badge badge-success'>new</span> ";
+        $suggestion->new = "<span class='badge badge-success'>new</span>";
         $newCount++;
       } else {
         $suggestion->new = "";

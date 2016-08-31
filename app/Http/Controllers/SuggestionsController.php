@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SigSuggestionFormRequest;
 use App\Http\Requests;
 use App\Suggestion;
+use Illuminate\Support\Facades\Session;
 
 class SuggestionsController extends Controller
 {
@@ -22,7 +23,7 @@ class SuggestionsController extends Controller
     Suggestion::addSuggestion($name, $email, $institution, $suggestion);
         
     // set success message
-    \Session::flash('success_message', 'Thank you, your suggestion has been posted. ');
+    Session::flash('success_message', 'Thank you, your suggestion has been posted. ');
     return redirect('/sig');
   }
 }
