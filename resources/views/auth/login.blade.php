@@ -6,7 +6,8 @@
         <div class="col-md-8 col-md-offset-0">
           <div class="well">
             <p>
-              You will be able to register in full from 1 November 2016, but in the meantime please sign up to our mailing list to keep in touch with UKFN.
+              You will be able to register in full from 1 November 2016, but in the meantime please 
+              {{ Html::link('#subscription-sign-up-form', 'sign up to our mailing list') }} to keep in touch with UKFN.
             </p>
           </div>
         </div>

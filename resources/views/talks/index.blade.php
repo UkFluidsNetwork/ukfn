@@ -2,7 +2,15 @@
 @section('content')
 
 <h2 class='line-break'>Talks</h2>
-
+<div class="well">
+  <p>
+    All the talks listed below are imported from the 
+    {{ Html::link('http://talks.cam.ac.uk/show/index/54169', 'Cambridge Fluids Network - fluids-related seminars') }} RSS feed.
+  </p>
+  <p>
+    To link another RSS feed to this page, please {{ Html::link('/contact', 'contact us') }}.
+  </p>
+</div>
 @foreach ($talks as $talk)
   <section class="page-header">
     <div>
