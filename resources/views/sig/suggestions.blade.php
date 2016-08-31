@@ -45,7 +45,7 @@
       </div>
     </div>
     <div class='form-group {{ $errors->has('institution') ? ' has-error line-break-dbl' : '' }}'>
-      {!! Form::label('institution', 'organisation :', ['class' => 'control-label col-lg-2 text-uppercase']) !!}
+      {!! Form::label('institution', 'Organisation:', ['class' => 'control-label col-lg-2 text-uppercase']) !!}
       <div class='col-lg-8'>
         {!! Form::text('institution', null, ['class' => 'form-control input-lg','placeholder' => 'Your organisation name']) !!}
         @if ($errors->has('institution'))
