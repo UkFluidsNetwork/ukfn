@@ -75,7 +75,7 @@
   <!-- SIG SUGGESTIONS FORM - END -->
 </div>
 <!--  List of suggestions -->
-<div>
+<div class="table-responsive pull-left">
   <table class='table'>
     <thead>
       <tr>
