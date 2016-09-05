@@ -13,6 +13,9 @@
       <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
       <script src="{{ asset('js/bootstrap.min.js')}}"></script>
       <!-- favicon -->
+      <meta name="msapplication-TileColor" content="#ffffff">
+      <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">
+      <meta name="theme-color" content="#ffffff">
       <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('pictures/favicon/apple-icon-57x57.png') }}">
       <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('pictures/favicon/apple-icon-60x60.png') }}">
       <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('pictures/favicon/apple-icon-72x72.png') }}">
@@ -27,9 +30,6 @@
       <link rel="icon" type="image.png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png') }}">
       <link rel="icon" type="image.png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png') }}">
       <link rel="manifest" href="{{ asset('/manifest.json') }}">
-      <meta name="msapplication-TileColor" content="#ffffff">
-      <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">
-      <meta name="theme-color" content="#ffffff">
       <!-- end of favicon -->
   </head>
   <body>
