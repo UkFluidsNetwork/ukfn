@@ -16,19 +16,19 @@ class Subscription extends Model
   {
     // check if existing email exists
     $existingEmail = \DB::table('subscriptions')->where('email', '=', $email)->get();
-    
+
     if(empty($existingEmail)) {
       $subscription = new Subscription();
       $subscription->email = $email;
       $subscription->save();
 
       $from     = 'noreply@ukfluids.net';
-      $name     = 'UKFN Newsletter';
+      $name     = 'UKFN Mailing List';
       $to       = $email;
-      $message  = "Thank you for signing up to our newsletter\n\n";
+      $message  = "Thank you for signing up to our mailing list\n\n";
       $message  .= "UK Fluids Network";
 
-      $subject  = 'UKFN Newsletter';
+      $subject  = 'UKFN Mailing List';
       $headers  = 'From: ' . $name . ' <' .$from .'>' . "\r\n";
       $headers .= 'X-Mailer: PHP/' . phpversion();
 
@@ -36,3 +36,4 @@ class Subscription extends Model
     }
   }
 }
+
