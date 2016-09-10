@@ -32,6 +32,22 @@ body {
   display                             : block;
 }
 
+.nopadding {
+   padding                              : 0 !important;
+   margin                               : 0 !important;
+}
+.nosidepadding {
+    padding-left: 0! important;
+    padding-right: 0! important;
+}
+.noborder {
+    border: 0 !important;
+}
+
+.noborderradius {
+    border-radius: 0 !important;
+}
+
 .jumbotron p {
   font-size:17px;
 }
@@ -46,6 +62,13 @@ input[type="text"], textarea, button {
 /********************************************************************
   NAVIGATION
 ********************************************************************/
+
+/**************
+ADMIN
+*****************/
+#adminnav> li.active > a {
+   background-color: none !important;
+}
 
 /* Font in Top Naviation Bar */
 .navbar-nav>li>a {
