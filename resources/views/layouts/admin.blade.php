@@ -10,9 +10,6 @@
     @endif
     @endforeach
     </ol>
-      
-          
-
     <div class="container-fluid nopadding">
         <div class="row">
             <div class="col-lg-2">

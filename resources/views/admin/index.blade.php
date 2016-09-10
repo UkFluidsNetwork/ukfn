@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-<h1>INDEX    </h1>
+<h2 class='line-break'>Welcome to the admin page</h2>
 
 
 @endsection

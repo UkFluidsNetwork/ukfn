@@ -9,6 +9,7 @@ use App\Subscription;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AdminController;
+use Carbon\Carbon;
 
 class SubscriptionsController extends Controller
 {
@@ -27,21 +28,38 @@ class SubscriptionsController extends Controller
         return Redirect::to(URL::previous() . "#subscription-sign-up-form")->with('subscription_signup_ok', 'Your email has been added to our database.');
     }
     
+    /**
+     * Render all Mailing list emails
+     * 
+     * @return object   HTML View
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @access public
+     */
     public function viewAll()
     {
-        
         if(!AdminController::checkIsAdmin()) {
           return redirect('/');
         }
+        
+        $list = Subscription::getAll();
+        $mailingList = [];
+        $index = 0;
+        
+        foreach ($list as $result) {
+            $mailingList[$index]['email'] = $result->email;
+            $mailingList[$index]['created_at'] = Carbon::parse($result->created_at)->format('l jS F, H:i');
+            $index++;
+        }
             
+        // Bread crumbs array
         $bread = [
             ['label' => 'Home', 'path'=>'/'],
             ['label' => 'Admin','path' => '/admin'],
-            ['label' => 'View All Subscriptions','path' => '/admin/mailingall']
+            ['label' => 'View Mailing List','path' => '/admin/mailingall']
         ];
         
         $breadCount  = count($bread);
         
-        return view('admin.subscriptions.viewall', compact('bread', 'breadCount'));
+        return view('admin.subscriptions.viewall', compact('bread', 'breadCount', 'mailingList'));
     }
 }
