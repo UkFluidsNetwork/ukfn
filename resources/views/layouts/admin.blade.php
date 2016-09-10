@@ -2,9 +2,16 @@
 @section('content')
 
     <ol class="breadcrumb">
-      <li><a href="#">Home</a></li>
-      <li class='active'>Admin</li>
+    @foreach($bread as $key => $path)
+    @if($key < $breadCount - 1)
+        <li>{{ Html::link($path['path'], $path['label']) }}</li>
+    @else
+    <li class='active'>{{ $path['label'] }}</li>
+    @endif
+    @endforeach
     </ol>
+      
+          
 
     <div class="container-fluid nopadding">
         <div class="row">

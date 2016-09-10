@@ -35,4 +35,4 @@ Route::auth();
 // temporal workaround so that registering is not available
 Route::get('register', 'PagesController@index');
 
-Route::get('admin/mailingall', 'SubscriptionsController@viewall');
+Route::get('admin/mailingall', 'SubscriptionsController@viewall')->middleware('auth');

@@ -8,6 +8,7 @@ use App\Http\Requests\SubscriptionRequest;
 use App\Subscription;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
+use App\Http\Controllers\AdminController;
 
 class SubscriptionsController extends Controller
 {
@@ -28,6 +29,19 @@ class SubscriptionsController extends Controller
     
     public function viewAll()
     {
-        return view('admin.subscriptions.viewall');
+        
+        if(!AdminController::checkIsAdmin()) {
+          return redirect('/');
+        }
+            
+        $bread = [
+            ['label' => 'Home', 'path'=>'/'],
+            ['label' => 'Admin','path' => '/admin'],
+            ['label' => 'View All Subscriptions','path' => '/admin/mailingall']
+        ];
+        
+        $breadCount  = count($bread);
+        
+        return view('admin.subscriptions.viewall', compact('bread', 'breadCount'));
     }
 }

@@ -5,5 +5,5 @@
 <p>
     Mailing Lists ....
 </p>
-    
+
 @endsection
