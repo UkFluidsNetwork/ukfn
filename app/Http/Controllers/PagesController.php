@@ -93,9 +93,9 @@ class PagesController extends Controller
     
     foreach($decodedTweets as $key => $tweet) {
       // retweets start with: RT @username: 
-      if(preg_match('/(R)(T).(@)((?:[a-z][a-z]+)): /', $tweet->text)) {
+      if(preg_match('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', $tweet->text)) {
         $tweets[$key]['user'] = $tweet->entities->user_mentions[0]->name; // it is a retweet, use original author
-        $textToFormat = preg_replace('/(R)(T).(@)((?:[a-z][a-z]+)): /', '', $tweet->text);
+        $textToFormat = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $tweet->text);
       } else {
         $tweets[$key]['user'] = $tweet->user->name; // not a retweet
         $textToFormat = $tweet->text; // use original text
