@@ -1,0 +1,17 @@
+RewriteEngine on
+
+# if host is ukfluids and request does not start with public,
+# and the file or directory does not exist (it won't because they are all within public)
+RewriteCond %{HTTP_HOST} ^(www.)?ukfluids.net$ [NC]
+RewriteCond %{REQUEST_URI} !^/public/
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
+# redirect to public 
+RewriteRule ^(.*)$ /public/$1
+RewriteRule ^(/)?$ public/index.php
+
+# redirect to https
+RewriteCond %{HTTPS} !on
+RewriteRule (.*) https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
