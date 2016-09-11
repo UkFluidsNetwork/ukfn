@@ -1,38 +1,21 @@
 <div id='adminnav' class='list-group'>    
-    <div>
-        {{ Html::link('/admin', 'ADMIN', array(
-                    'class' => 'panel-title list-group-item active noborderradius')
-                    ) }}            
-    </div>
-    
-    <div>
-        {{ Html::link('#admin-subnav-sig', 'SIG', array(
-                    'data-parent' => '#adminnav', 
-                    'data-toggle' => 'collapse', 
-                    'class' => 'panel-title list-group-item noborderradius')
-                    ) }}
+  <div>
+    <a class="panel-title list-group-item noborderradius {{ Request::is('admin') ? 'active' : '' }}" href="{{URL::to('/admin')}}">Admin</a>          
+  </div>
 
-        <div id='admin-subnav-sig' class='collapse list-group' >
-            {{ Html::link('#', 'View All', array(
-                        'class' => 'list-group-item noborder')
-                        ) }}
-            {{ Html::link('#', 'Edit List', array(
-                        'class' => 'list-group-item noborder')
-                        ) }}                    
-        </div>
+  <div>
+    <a href="{{ URL::to('#admin-subnav-sig') }}" data-parent="#adminnav" data-toggle="collapse"
+       class="panel-title list-group-item noborderradius {{ Request::is('suggestions*') ? 'active' : '' }}">SIG</a>
+    <div id='admin-subnav-sig' class='collapse list-group' >
+      {{ Html::link('/suggestions', 'Suggestions', ['class' => 'list-group-item noborder']) }}
     </div>
+  </div>
 
-    <div>
-        {{ Html::link('#admin-subnav-mailing', 'Mailing List', array(
-                    'data-parent' => '#adminnav', 
-                    'data-toggle' => 'collapse', 
-                    'class' => 'panel-title list-group-item noborderradius')
-                    ) }}
-
-        <div id='admin-subnav-mailing' class='collapse list-group' >
-            {{ Html::link('/admin/mailingall', 'View All', array('class' => 'list-group-item noborder')) }}
-            {{ Html::link('#', 'Send mail', array('class' => 'list-group-item noborder')) }}   
-            {{ Html::link('#', 'Edit List', array('class' => 'list-group-item noborder')) }}                    
-        </div>
+  <div>
+    <a href="{{ URL::to('#admin-subnav-mailing') }}" data-parent="#adminnav" data-toggle="collapse"
+       class="panel-title list-group-item noborderradius {{ Request::is('subscriptions*') ? 'active' : '' }}">Mailing List</a>
+    <div id='admin-subnav-mailing' class='collapse list-group' >
+      {{ Html::link('/subscriptions', 'Subscriptions', ['class' => 'list-group-item noborder']) }}
     </div>
+  </div>
 </div>    

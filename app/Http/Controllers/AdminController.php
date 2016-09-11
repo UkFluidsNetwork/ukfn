@@ -12,7 +12,7 @@ class AdminController extends Controller
 
     public function index()
     {
-        if (!$this->checkIsAdmin()) {
+        if (!self::checkIsAdmin()) {
             return redirect('/');
         }
 
@@ -20,7 +20,6 @@ class AdminController extends Controller
             ['label' => 'Home', 'path'=>'/'],
             ['label' => 'Admin','path' => '/admin']
         ];
-        
         $breadCount  = count($bread);
 
         return view('admin.index', compact('bread', 'breadCount'));

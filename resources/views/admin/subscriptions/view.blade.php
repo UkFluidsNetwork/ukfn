@@ -1,13 +1,13 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-<h2 class='line-break'>List of all emails</h2>
+<h2 class='line-break'>Subscriptions</h2>
 
 <table class='table'>
     <thead>
         <tr>
             <th>e-mail</th>
-            <th>Joined on</th>
+            <th>Subscribed on</th>
         </tr>
     </thead>
     <tbody>

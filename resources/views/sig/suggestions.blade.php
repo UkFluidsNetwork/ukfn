@@ -25,7 +25,7 @@
     <div class='form-group {{ $errors->has('suggestion') ? ' has-error line-break-dbl' : '' }}'>
       {!! Form::label('suggestion', 'SIG Title :', ['class' => 'control-label col-lg-2 text-uppercase']) !!}
       <div class='col-lg-8'>
-        {!! Form::text('suggestion', null, ['class' => 'form-control input-lg','placeholder' => 'Your suggested SIG Title']) !!}
+        {!! Form::text('suggestion', null, ['class' => 'form-control input-lg','placeholder' => 'Your suggested SIG Title (add * if you intend to lead)']) !!}
         @if ($errors->has('suggestion'))
         <span class="text-danger">
           <span>{{ $errors->first('suggestion') }}</span>

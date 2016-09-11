@@ -18,11 +18,19 @@ Route::get('srv', 'SrvsController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('contact', 'PagesController@contact');
 Route::get('admin', 'AdminController@index')->middleware('auth');
+Route::get('suggestions', 'SuggestionsController@view')->middleware('auth');
+Route::get('suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
+Route::get('subscriptions', 'SubscriptionsController@view')->middleware('auth');
 
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'SubscriptionsController@subscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
+Route::post('suggestions/delete/{id}', 'SuggestionsController@delete');
+
+/** PATCH requests **/
+Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
+
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests **/
 Route::controllers([
@@ -34,5 +42,3 @@ Route::auth();
 
 // temporal workaround so that registering is not available
 Route::get('register', 'PagesController@index');
-
-Route::get('admin/mailingall', 'SubscriptionsController@viewall')->middleware('auth');

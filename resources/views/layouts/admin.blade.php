@@ -1,13 +1,14 @@
 @extends('layouts.master')
 @section('content')
+@include('flash.success')
 
     <ol class="breadcrumb">
-    @foreach($bread as $key => $path)
-    @if($key < $breadCount - 1)
-        <li>{{ Html::link($path['path'], $path['label']) }}</li>
-    @else
-    <li class='active'>{{ $path['label'] }}</li>
-    @endif
+    @foreach($bread as $key => $crumb)
+      @if($key < $breadCount - 1)
+          <li>{{ Html::link($crumb['path'], $crumb['label']) }}</li>
+      @else
+          <li class='active'>{{ $crumb['label'] }}</li>
+      @endif
     @endforeach
     </ol>
     <div class="container-fluid nopadding">

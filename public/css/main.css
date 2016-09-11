@@ -171,5 +171,15 @@ footer {
     height                              : 300px;
     background-repeat                   : no-repeat;
 }*/
+@media only screen and (max-width: 1400px) and (min-width: 1200px) {
+  .hide-this {
+    display: none; } }
+
+@media only screen and (max-width: 1000px) and (min-width: 0px) {
+  .hide-this {
+    display: none; } }
+
+.text-left {
+  text-align: left !important; }
 
 /*# sourceMappingURL=main.css.map */

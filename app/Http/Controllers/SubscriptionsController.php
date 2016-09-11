@@ -35,7 +35,7 @@ class SubscriptionsController extends Controller
      * @author Robert Barczyk <robert@barczyk.net>
      * @access public
      */
-    public function viewAll()
+    public function view()
     {
         if(!AdminController::checkIsAdmin()) {
           return redirect('/');
@@ -60,6 +60,6 @@ class SubscriptionsController extends Controller
         
         $breadCount  = count($bread);
         
-        return view('admin.subscriptions.viewall', compact('bread', 'breadCount', 'mailingList'));
+        return view('admin.subscriptions.view', compact('bread', 'breadCount', 'mailingList'));
     }
 }
