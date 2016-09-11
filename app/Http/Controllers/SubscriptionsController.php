@@ -55,7 +55,7 @@ class SubscriptionsController extends Controller
         $bread = [
             ['label' => 'Home', 'path'=>'/'],
             ['label' => 'Admin','path' => '/admin'],
-            ['label' => 'View Mailing List','path' => '/admin/mailingall']
+            ['label' => 'Subscriptions','path' => '/subscriptions']
         ];
         
         $breadCount  = count($bread);
