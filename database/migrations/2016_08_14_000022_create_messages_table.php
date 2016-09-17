@@ -20,6 +20,7 @@ class CreateMessagesTable extends Migration
             $table->timestamp('sent');
             $table->timestamps();
             $table->boolean('public');
+            $table->boolean('mailinglist');
             $table->boolean('deleted')->default(false);
 
             

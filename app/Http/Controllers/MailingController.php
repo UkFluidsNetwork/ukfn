@@ -5,13 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\SubscriptionRequest;
-use App\Subscription;
+use App\Http\Requests\SendMailRequest;
+use App\Mailing;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
 use App\Http\Controllers\AdminController;
 use Carbon\Carbon;
-
-class SubscriptionsController extends Controller
+use Mail;
+use Config;
+class MailingController extends Controller
 {
 
     /**
@@ -24,7 +26,18 @@ class SubscriptionsController extends Controller
     public function subscription(SubscriptionRequest $request)
     {
         $email = $request->input('subscription-email');
-        Subscription::addEmail($email);
+        Mailing::addEmail($email);
+        
+        // Config::set('mail.username', 'no-reply@ukfluids.net');
+        // Mail::alwaysFrom(null);
+        
+        Mail::send('mail.subscribed', ['email' => $email], function ($message) use ($email) {
+           $message->from(env('MAIL_USERNAME'), 'UKFN Mailing List');
+           $message->to($email);
+           $message->subject('UKFN Mailing List');
+
+        });
+           
         return Redirect::to(URL::previous() . "#subscription-sign-up-form")->with('subscription_signup_ok', 'Your email has been added to our database.');
     }
     
@@ -41,7 +54,7 @@ class SubscriptionsController extends Controller
           return redirect('/');
         }
         
-        $list = Subscription::getAll();
+        $list = Mailing::getAll();
         $mailingList = [];
         $index = 0;
         
@@ -61,5 +74,28 @@ class SubscriptionsController extends Controller
         $breadCount  = count($bread);
         
         return view('admin.subscriptions.view', compact('bread', 'breadCount', 'mailingList'));
+    }
+    
+    public function send()
+    {
+        
+        //$subject = $request->input('subject');
+        //$messsage = $request->input('message');
+        // Bread crumbs array
+        $bread = [
+            ['label' => 'Home', 'path'=>'/'],
+            ['label' => 'Admin','path' => '/admin'],
+            ['label' => 'Subscriptions','path' => '/subscriptions'],
+            ['label' => 'Send Mail','path' => '/subscriptions/send']
+        ];
+        
+        $breadCount  = count($bread);
+        
+        return view('admin.mailing.send', compact('bread', 'breadCount'));
+    }
+    
+    public function sendMail(SendMailRequest $request) 
+    {
+        var_dump($_POST);
     }
 }

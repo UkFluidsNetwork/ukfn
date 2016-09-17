@@ -20,14 +20,15 @@ Route::get('contact', 'PagesController@contact');
 Route::get('admin', 'AdminController@index')->middleware('auth');
 Route::get('suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
-Route::get('subscriptions', 'SubscriptionsController@view')->middleware('auth');
+Route::get('subscriptions', 'MailingController@view')->middleware('auth');
+Route::get('sendmail', 'MailingController@send')->middleware('auth');
 
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
-Route::post('signup', 'SubscriptionsController@subscription');
+Route::post('signup', 'MailingController@subscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete');
-
+Route::post('sendmail', 'MailingController@sendMail');
 /** PATCH requests **/
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
 
