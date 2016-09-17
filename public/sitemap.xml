@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<url>
+  <loc>https://ukfluids.net/</loc>
+</url>
+<url>
+  <loc>https://ukfluids.net/sig</loc>
+</url>
+<url>
+  <loc>https://ukfluids.net/srv</loc>
+</url>
+<url>
+  <loc>https://ukfluids.net/talks</loc>
+</url>
+<url>
+  <loc>https://ukfluids.net/contact</loc>
+</url>
+<url>
+  <loc>https://ukfluids.net/login</loc>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_SIGs_call_for_proposals.pdf</loc>
+  <lastmod>2016-09-01T10:25:48+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_SRVs_call_for_proposals.pdf</loc>
+  <lastmod>2016-08-31T09:14:50+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/password/reset</loc>
+</url>
+</urlset>

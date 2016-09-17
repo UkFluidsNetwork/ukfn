@@ -1,27 +1,28 @@
 <?php
-
 return [
-    'meta'      => [
+    'meta' => [
         /*
          * The default configurations to be used by the meta generator.
          */
-        'defaults'       => [
-            'title'        => "It's Over 9000!", // set false to total remove
-            'description'  => 'For those who helped create the Genki Dama', // set false to total remove
-            'separator'    => ' - ',
-            'keywords'     => [],
-            'canonical'    => false, // Set null for using Url::current(), set false to total remove
+        'defaults' => [
+            'title' => 'UK Fluids Network',
+            'description' => 'The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups,'
+            . ' focused on innovative developments and applications in Fluid Mechanics.',
+            'separator' => ' - ',
+            'keywords' => ['UK Fluids Network', 'UKFN', 'Fluids', 'Mechanics', 'EPSRC', 'network', 'research',
+                'SIG', 'SRV', 'Special Interest Groups', 'Short Research Visits', 'Fluid Mechanics', 'UK', 'innovative developments', 'academic',
+                'information', 'jobs', 'events', 'news', 'mailing list'],
+            'canonical' => null, // Set null for using Url::current(), set false to total remove
         ],
-
         /*
          * Webmaster tags are always added.
          */
         'webmaster_tags' => [
-            'google'    => null,
-            'bing'      => null,
-            'alexa'     => null,
+            'google' => "t-KEYseRHCxi0Y_RO8bF3mALmyTdlZxcpqYGkqIt3uM",
+            'bing' => null,
+            'alexa' => null,
             'pinterest' => null,
-            'yandex'    => null,
+            'yandex' => null,
         ],
     ],
     'opengraph' => [
@@ -29,12 +30,14 @@ return [
          * The default configurations to be used by the opengraph generator.
          */
         'defaults' => [
-            'title'       => 'Over 9000 Thousand!', // set false to total remove
-            'description' => 'For those who helped create the Genki Dama', // set false to total remove
-            'url'         => false,
-            'type'        => false,
-            'site_name'   => false,
-            'images'      => [],
+            'title' => 'UK Fluids Network',
+            'description' => 'The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups,'
+            . ' focused on innovative developments and applications in Fluid Mechanics.',
+            'url' => 'https://ukfluids.net',
+            'type' => 'website',
+            'site_name' => false,
+            'images' => ['https://ukfluids.net/pictures/logo.png'],
+            'locale' => 'en_UK'
         ],
     ],
     'twitter' => [
@@ -42,8 +45,12 @@ return [
          * The default values to be used by the twitter cards generator.
          */
         'defaults' => [
-          //'card'        => 'summary',
-          //'site'        => '@LuizVinicius73',
+            'card' => 'EPSRC-funded network of academic and industrial research groups,'
+            . ' focused on innovative developments and applications in Fluid Mechanics. ',
+            'description' => 'EPSRC-funded network of academic and industrial research groups,'
+            . ' focused on innovative developments and applications in Fluid Mechanics. ',
+            'site' => '@UKFluidsNetwork',
+            'title' => 'UK Fluids Network'
         ],
     ],
 ];

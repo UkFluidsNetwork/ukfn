@@ -1,36 +1,36 @@
 <!DOCTYPE html>
 <html>
   <head>
-      <title>UK Fluids Network</title>
-      <!-- For The jQuerry to work on IE 11 -->
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">      
-      <meta name="viewport" content="width=device-width, initial-scale=1">
-      <meta name="apple-mobile-web-app-capable" content="yes">
-      
-      <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-      <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
-      <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
-      <script src="{{ asset('js/bootstrap.min.js')}}"></script>
-      <!-- favicon -->
-      <meta name="msapplication-TileColor" content="#ffffff">
-      <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">
-      <meta name="theme-color" content="#ffffff">
-      <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('pictures/favicon/apple-icon-57x57.png') }}">
-      <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('pictures/favicon/apple-icon-60x60.png') }}">
-      <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('pictures/favicon/apple-icon-72x72.png') }}">
-      <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('pictures/favicon/apple-icon-76x76.png') }}">
-      <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('pictures/favicon/apple-icon-114x114.png') }}">
-      <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('pictures/favicon/apple-icon-120x120.png') }}">
-      <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('pictures/favicon/apple-icon-144x144.png') }}">
-      <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('pictures/favicon/apple-icon-152x152.png') }}">
-      <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('pictures/favicon/apple-icon-180x180.png') }}">
-      <link rel="icon" type="image.png" sizes="192x192"  href="{{ asset('pictures/favicon/android-icon-192x192.png') }}">
-      <link rel="icon" type="image.png" sizes="32x32" href="{{ asset('pictures/favicon/favicon-32x32.png') }}">
-      <link rel="icon" type="image.png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png') }}">
-      <link rel="icon" type="image.png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png') }}">
-      <link rel="manifest" href="{{ asset('/manifest.json') }}">
-      <!-- end of favicon -->
+    {!! SEO::generate() !!}
+    <!-- For The jQuerry to work on IE 11 -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">      
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+
+    <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
+    <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
+    <script src="{{ asset('js/bootstrap.min.js')}}"></script>
+    <!-- favicon -->
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset('pictures/favicon/apple-icon-57x57.png') }}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{{ asset('pictures/favicon/apple-icon-60x60.png') }}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset('pictures/favicon/apple-icon-72x72.png') }}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset('pictures/favicon/apple-icon-76x76.png') }}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset('pictures/favicon/apple-icon-114x114.png') }}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset('pictures/favicon/apple-icon-120x120.png') }}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('pictures/favicon/apple-icon-144x144.png') }}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('pictures/favicon/apple-icon-152x152.png') }}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('pictures/favicon/apple-icon-180x180.png') }}">
+    <link rel="icon" type="image.png" sizes="192x192"  href="{{ asset('pictures/favicon/android-icon-192x192.png') }}">
+    <link rel="icon" type="image.png" sizes="32x32" href="{{ asset('pictures/favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image.png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image.png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png') }}">
+    <link rel="manifest" href="{{ asset('/manifest.json') }}">
+    <!-- end of favicon -->
   </head>
   <body>
     <div class="container-fluid" id="top-content">
@@ -41,7 +41,7 @@
               <img src="{{ asset('pictures/logo.png') }}" class="logo">
             </div>
             <div class="col-lg-8 col-md-10 col-sm-11 col-xs-11 text-right h1 text-uppercase text-muted">
-                
+
             </div>  
           </div>
         </div>
@@ -74,9 +74,9 @@
               <li id="username">
                 <b>{{ Auth::user()->name }} {{ Auth::user()->surname }}</b> 
                 @if(Auth::user()->group_id == 1)
-                  (Administrator)
+                (Administrator)
                 @elseif(Auth::user()->group_id == 2)
-                  (Moderator)
+                (Moderator)
                 @endif
               </li>
               @endif
@@ -98,7 +98,7 @@
       <div class="row">
         <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12">
           @if(Session::has('message'))
-            <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
+          <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
           @endif
           @yield('content')
         </div>
@@ -110,36 +110,36 @@
       <div class="row">
         <div class="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-12">
           {!! Form::open(['url' => 'signup#subscription-sign-up-form']) !!}
-            <div class="row">
-              <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 line-break ">
-                <span class='display-block h3 text-danger text-uppercase'>Sign up to our mailing list</span>
-                <span class='display-block line-break'>for information on jobs, events and news in UK fluids</span>
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 line-break ">
+              <span class='display-block h3 text-danger text-uppercase'>Sign up to our mailing list</span>
+              <span class='display-block line-break'>for information on jobs, events and news in UK fluids</span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-offset-3 col-lg-4 col-md-offset-2 col-md-6 col-sm-offset-1 col-sm-8 col-xs-12">    
+              <div class='form-group {{ $errors->has('subscription-email') ? ' has-error line-break-dbl' : '' }} input-group-lg'>
+                {!! Form::label('subscription-email', 'Subscribe :', ['class' => 'sr-only']) !!}
+                {!! Form::text('subscription-email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
+                @if ($errors->has('subscription-email'))
+
+                <span class="display-block text-danger line-break-top">
+                  <span>{{ $errors->first('subscription-email') }}</span>
+                </span>
+                @endif
+                @if (Session::has('subscription_signup_ok'))
+
+                <strong class="display-block text-success line-break-top">                    
+                  {{ Session::get('subscription_signup_ok') }}
+                </strong>
+                @endif
+
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-offset-3 col-lg-4 col-md-offset-2 col-md-6 col-sm-offset-1 col-sm-8 col-xs-12">    
-                <div class='form-group {{ $errors->has('subscription-email') ? ' has-error line-break-dbl' : '' }} input-group-lg'>
-                  {!! Form::label('subscription-email', 'Subscribe :', ['class' => 'sr-only']) !!}
-                  {!! Form::text('subscription-email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
-                  @if ($errors->has('subscription-email'))
-                  
-                    <span class="display-block text-danger line-break-top">
-                      <span>{{ $errors->first('subscription-email') }}</span>
-                    </span>
-                  @endif
-                  @if (Session::has('subscription_signup_ok'))
-                  
-                  <strong class="display-block text-success line-break-top">                    
-                    {{ Session::get('subscription_signup_ok') }}
-                  </strong>
-                  @endif
-                  
-                </div>
-              </div>
-              <div class="col-lg-2 col-md-2 btn-group col-sm-2 col-xs-12 input-group-lg">
-                <input type="submit" class="btn btn-lg btn-default text-uppercase btn-signup" name="submit-subscribe" value="Subscribe">
-              </div>            
-            </div>
+            <div class="col-lg-2 col-md-2 btn-group col-sm-2 col-xs-12 input-group-lg">
+              <input type="submit" class="btn btn-lg btn-default text-uppercase btn-signup" name="submit-subscribe" value="Subscribe">
+            </div>            
+          </div>
           </form>
         </div>
       </div>
