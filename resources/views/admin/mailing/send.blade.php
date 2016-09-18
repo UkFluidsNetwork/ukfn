@@ -3,7 +3,6 @@
 
 <h2 class='line-break'>Send Mail</h2>
 
-
     {!! Form::open(['url' => 'sendmail', 'class' => 'container-fluid nopadding']) !!}
 
         <div class='form-group row'>
@@ -17,34 +16,28 @@
             {!! Form::label('recipient', 'recipient', ['class' => 'control-label col-lg-2 col-md-2 text-uppercase']) !!}
             <div class='col-lg-10 col-md-10'>
                 <label class='radio-inline'>
-                    {!! Form::radio('mailing', 'true', true) !!} Mailing list
+                    {!! Form::radio('mailing', 'true', false, ['id' => 'recipient-mailing', 'onclick' => 'hide("mail-to")']) !!} Mailing list
                 </label>
                 <label class='radio-inline'>
-                    {!! Form::radio('mailing', 'false', false) !!} Other
+                    {!! Form::radio('mailing', 'false', true, ['id' => 'recipient-other', 'onclick' => 'unhide("mail-to")']) !!} Other
                 </label>
             </div>
         </div>
                     
-        <div class='form-group row {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
+        <div class='form-group row' id='mail-to'>
             {!! Form::label('to', 'To', ['class' => 'control-label col-lg-2 col-md-2 text-uppercase']) !!}
             <div class='col-lg-10 col-md-10'>
-            {!! Form::text('to', null, ['class' => 'form-control','placeholder' => 'e-mail addresses separated by ,']) !!}
-            @if ($errors->has('name'))
-              <span class="text-danger">
-                <span>{{ $errors->first('name') }}</span>
-              </span>
-            @endif
+                {!! Form::text('to', null, ['class' => 'form-control','placeholder' => 'e-mail addresses separated by ;']) !!}
             </div>
         </div>
     
-    
-        <div class='form-group row {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
+        <div class='form-group row {{ $errors->has('subject') ? ' has-error line-break-dbl' : '' }}'>
             {!! Form::label('subject', 'subject', ['class' => 'control-label col-lg-2 col-md-2 text-uppercase']) !!}
             <div class='col-lg-10 col-md-10'>
             {!! Form::text('subject', null, ['class' => 'form-control','placeholder' => 'Subject']) !!}
-            @if ($errors->has('name'))
+            @if ($errors->has('subject'))
               <span class="text-danger">
-                <span>{{ $errors->first('name') }}</span>
+                <span>{{ $errors->first('subject') }}</span>
               </span>
             @endif
             </div>
@@ -61,7 +54,6 @@
                 @endif
             </div>
         </div>
-            
     
         <div class='form-group row'>
             {!! Form::label('', '', ['class' => 'control-label col-lg-2 col-md-2 text-uppercase']) !!}

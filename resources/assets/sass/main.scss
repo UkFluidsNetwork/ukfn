@@ -67,16 +67,19 @@ input[type="text"], textarea, button {
 ADMIN
 *****************/
 #adminnav> li.active > a {
-   background-color: none !important;
+   background-color                     : none !important;
+}
+#adminnav {
+    padding-top                         : 20px;
 }
 
 /* Font in Top Naviation Bar */
 .navbar-nav>li>a {
-  font-size                           : 1.2em;
+  font-size                             : 1.2em;
 }
 #username {
-  display                             : block;
-  padding                             : 15px;
+  display                               : block;
+  padding                               : 15px;
 }
 /* Top Navigation Bar style overide */
 .navbar-custom {

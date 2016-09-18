@@ -56,6 +56,9 @@ ADMIN
 #adminnav > li.active > a {
   background-color: none !important; }
 
+#adminnav {
+  padding-top: 20px; }
+
 /* Font in Top Naviation Bar */
 .navbar-nav > li > a {
   font-size: 1.2em; }

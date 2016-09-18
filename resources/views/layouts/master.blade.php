@@ -13,6 +13,7 @@
     <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
     <script src="{{ asset('js/bootstrap.min.js')}}"></script>
     <script src="{{ asset('js/analytics.js')}}"></script>
+    <script src="{{ asset('js/main.js')}}"></script>
     <!-- favicon -->
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">

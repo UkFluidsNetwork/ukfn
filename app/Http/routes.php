@@ -22,6 +22,7 @@ Route::get('suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
 Route::get('subscriptions', 'MailingController@view')->middleware('auth');
 Route::get('sendmail', 'MailingController@send')->middleware('auth');
+Route::get('messages', 'MessagesController@view')->middleware('auth');
 
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
