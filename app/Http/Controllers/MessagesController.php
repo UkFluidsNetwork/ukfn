@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Message;
 use Carbon\Carbon;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PanelController;
 
 class MessagesController extends Controller
 {
@@ -19,7 +19,7 @@ class MessagesController extends Controller
      */
     public function view()
     {
-        if(!AdminController::checkIsAdmin()) {
+        if(!PanelController::checkIsAdmin()) {
           return redirect('/');
         }
         
@@ -47,6 +47,6 @@ class MessagesController extends Controller
         
         $breadCount  = count($bread);
         
-        return view('admin.messages.view', compact('bread', 'breadCount', 'messagesList'));
+        return view('panel.messages.view', compact('bread', 'breadCount', 'messagesList'));
     }
 }

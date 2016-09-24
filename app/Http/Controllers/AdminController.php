@@ -2,38 +2,43 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Http\Requests;
-use Auth;
-use Session;
+use SEO;
 
 class AdminController extends Controller
 {
 
     public function index()
     {
-        if (!self::checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Home', 'path'=>'/'],
-            ['label' => 'Admin','path' => '/admin']
+        SEO::setTitle('Admin');
+        SEO::setDescription('Find more about the grants that support UKFN, '
+            . 'the proposal documents, minutes of the meetings held by the panel, a list of institutional points of contact,'
+            . 'and a summary of the emails we send to our mailing list.');
+        
+        $listEmails = [
+            0 => [
+                "id" => 1,
+                "date" => "Wednesday 21st September",
+                "subject" => "First bulleting",
+            ],
+            1 => [
+                "id" => 2,
+                "date" => "Friday 23rd September",
+                "subject" => "Second bulleting",
+            ]
         ];
-        $breadCount  = count($bread);
+        $publicEmails = [
+            0 => [
+                "id" => 1,
+                "date" => "Thurdsaday 1st September",
+                "subject" => "ukfluids.net launch",
+            ],
+            1 => [
+                "id" => 2,
+                "date" => "Friday 9th September",
+                "subject" => "Launch event was a success!",
+            ]
+        ];
 
-        return view('admin.index', compact('bread', 'breadCount'));
-    }
-
-    public static function checkIsAdmin()
-    {
-        if (Auth::user()->group_id != 1) {
-            Auth::logout();
-            Session::flash('message', 'You must be an administrator to see this page.');
-            Session::flash('alert-class', 'alert-danger');
-            return false;
-        } else {
-            return true;
-        }
+        return view('admin.index', compact('listEmails', 'publicEmails'));
     }
 }
