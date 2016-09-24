@@ -10,7 +10,7 @@ use App\Subscription;
 use App\Message;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\URL;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PanelController;
 use Carbon\Carbon;
 use Mail;
 use Config;
@@ -51,7 +51,7 @@ class MailingController extends Controller
      */
     public function view()
     {
-        if (!AdminController::checkIsAdmin()) {
+        if (!PanelController::checkIsAdmin()) {
             return redirect('/');
         }
         
@@ -74,12 +74,12 @@ class MailingController extends Controller
         
         $breadCount  = count($bread);
         
-        return view('admin.subscriptions.view', compact('bread', 'breadCount', 'mailingList'));
+        return view('panel.subscriptions.view', compact('bread', 'breadCount', 'mailingList'));
     }
     
     public function send()
     {
-        if (!AdminController::checkIsAdmin()) {
+        if (!PanelController::checkIsAdmin()) {
             return redirect('/');
         }
    
@@ -93,7 +93,7 @@ class MailingController extends Controller
         
         $breadCount  = count($bread);
         
-        return view('admin.mailing.send', compact('bread', 'breadCount'));
+        return view('panel.mailing.send', compact('bread', 'breadCount'));
     }
     
     /**
@@ -106,7 +106,7 @@ class MailingController extends Controller
      */
     public function sendMail(SendMailRequest $request) 
     {
-        if (!AdminController::checkIsAdmin()) {
+        if (!PanelController::checkIsAdmin()) {
             return redirect('/');
         }
         
@@ -163,6 +163,6 @@ class MailingController extends Controller
         
         $breadCount  = count($bread);
         
-        return view('admin.mailing.send', compact('bread', 'breadCount'));
+        return view('panel.mailing.send', compact('bread', 'breadCount'));
     }
 }

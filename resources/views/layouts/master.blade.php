@@ -69,6 +69,7 @@
               <li>{{ Html::link('/sig', 'SIG') }}</li>
               <li>{{ Html::link('/srv', 'SRV') }}</li>
               <li>{{ Html::link('/talks', 'Talks') }}</li>
+              <li>{{ Html::link('/admin', 'Admin') }}</li>
               <li>{{ Html::link('/contact', 'Contact') }}</li>
             </ul>
             <ul class="nav navbar-nav navbar-right">

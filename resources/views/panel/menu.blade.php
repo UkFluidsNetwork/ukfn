@@ -1,6 +1,6 @@
 <div id='adminnav' class='list-group'>    
   <div>
-    <a class="panel-title list-group-item noborderradius {{ Request::is('admin') ? 'active' : '' }}" href="{{URL::to('/admin')}}">Admin</a>          
+    <a class="panel-title list-group-item noborderradius {{ Request::is('admin') ? 'active' : '' }}" href="{{URL::to('/panel')}}">Panel</a>          
   </div>
 
   <div>

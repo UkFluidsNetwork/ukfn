@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\SigSuggestionFormRequest;
 use App\Suggestion;
 use Illuminate\Support\Facades\Session;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\PanelController;
 
 class SuggestionsController extends Controller
 {
@@ -29,7 +29,7 @@ class SuggestionsController extends Controller
 
     public function view()
     {
-        if (!AdminController::checkIsAdmin()) {
+        if (!PanelController::checkIsAdmin()) {
             return redirect('/');
         }
 
@@ -51,7 +51,7 @@ class SuggestionsController extends Controller
 
     public function edit($id)
     {
-        $admin = new AdminController();
+        $admin = new PanelController();
         if (!$admin->checkIsAdmin()) {
             return redirect('/');
         }

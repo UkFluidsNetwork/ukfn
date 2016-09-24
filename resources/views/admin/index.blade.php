@@ -1,15 +1,85 @@
-@extends('layouts.admin')
-@section('admincontent')
+@extends('layouts.master')
+@section('content')
 
-<h2 class='line-break'>Welcome to the Admin Panel</h2>
-<div class="well">
-  <p>
-    Please use the menu on the left to navigate through the admin sections.
-  </p>
-  <p>
-    There is currently limited functionality, but this section will grow over the next months in order to provide
-    full control over all modules of the application.
-  </p>
-</div>
+<h2 class='line-break'>Admin</h2>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Grants on the Web</p>
+    <p class="line-break-dbl-top">
+      Web pages giving details of the EPSRC grant for UK Fluids Network.
+      There are multiple entries because it was a joint proposal between Cambridge, ICL, Leeds, Manchester, and Southampton.
+    <ul>
+      <li>Cambridge: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032861/1') }}</li>
+      <li>ICL: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032934/1') }}</li>
+      <li>Leeds: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/P000851/1') }}</li>
+      <li>Manchester: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032411/1') }}</li>
+      <li>Southampton: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032152/1') }}</li>
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Proposal documents</p>
+    <p class="line-break-dbl-top">
+    <ul>
+      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Case for Support</a></li>
+      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Workplan</a></li>
+      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Pathways to Impact</a></li>
+      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Justification of Resources</a></li>
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Minutes of meetings</p>
+    <p class="line-break-dbl-top">
+    <ul>
+      <li>Executive Comittee meeting, Friday 9th September 2016 <span class="text-muted">(pending)</span></li>
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Institutional points of contact</p>
+    <p class="line-break-dbl-top">
+      <a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">List of points of contact</a>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Communications <span class="text-muted">(pending)</span></p>
+    <p class="line-break-dbl-top">
+      User guide to communications via the UKFN website <span class="text-muted">(pending)</span>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Records of emails sent to mailing list</p>
+    <p class="line-break-dbl-top">
+    <ul>
+      @foreach ($listEmails as $message)
+      <li>{{ $message['date'] }}, {{ Html::link('/viewmessage/' . $message['id'], $message['subject']) }}</li>
+      @endforeach
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Records of emails sent to all points of contact</p>
+    <p class="line-break-dbl-top">
+    <ul>
+      @foreach ($publicEmails as $message)
+      <li>{{ $message['date'] }} - {{ Html::link('/viewmessage/' . $message['id'], $message['subject']) }}</li>
+      @endforeach
+    </ul>
+    </p>
+  </div>
+</section>
 
-  @endsection
+@endsection
