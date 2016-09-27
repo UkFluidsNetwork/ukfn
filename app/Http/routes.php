@@ -18,6 +18,7 @@ Route::get('srv', 'SrvsController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('contact', 'PagesController@contact');
 Route::get('admin', 'AdminController@index');
+Route::get('viewmessage/{id}', 'AdminController@viewmessage');
 Route::get('panel', 'PanelController@index')->middleware('auth');
 Route::get('suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
