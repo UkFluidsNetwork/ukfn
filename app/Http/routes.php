@@ -22,6 +22,9 @@ Route::get('viewmessage/{id}', 'AdminController@viewmessage');
 Route::get('panel', 'PanelController@index')->middleware('auth');
 Route::get('suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
+Route::get('news', 'NewsController@view')->middleware('auth');
+Route::get('news/add', 'NewsController@add')->middleware('auth');
+Route::get('news/edit/{id}', 'NewsController@edit')->middleware('auth');
 Route::get('subscriptions', 'MailingController@view')->middleware('auth');
 Route::get('sendmail', 'MailingController@send')->middleware('auth');
 Route::get('messages', 'MessagesController@view')->middleware('auth');
@@ -31,9 +34,12 @@ Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete');
+Route::post('news/delete/{id}', 'NewsController@delete');
+Route::post('news', 'NewsController@create');
 Route::post('sendmail', 'MailingController@sendMail');
 /** PATCH requests **/
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
+Route::patch('/news/update/{id}', 'NewsController@update');
 
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests **/
