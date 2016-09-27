@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use App\Http\Controllers\PanelController;
 
-class NewsFormRequest extends Request
+class EventsFormRequest extends Request
 {
 
     /**
@@ -34,7 +34,9 @@ class NewsFormRequest extends Request
     {
         return [
             'title' => 'required',
-            'description' => 'required'
+            'subtitle' => 'required',
+            'description' => 'required',
+            'start' => 'required'
         ];
     }
 }

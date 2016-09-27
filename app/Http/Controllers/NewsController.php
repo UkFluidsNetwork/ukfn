@@ -31,6 +31,12 @@ class NewsController extends Controller
         return $news;
     }
 
+    /**
+     * List all news
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return void
+     */
     public function view()
     {
         if (!PanelController::checkIsAdmin()) {
@@ -53,6 +59,13 @@ class NewsController extends Controller
         return view('panel.news.view', compact('news', 'bread', 'breadCount'));
     }
 
+    /**
+     * Edit news
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @param int $id
+     * @return void
+     */
     public function edit($id)
     {
         $admin = new PanelController();
@@ -73,6 +86,14 @@ class NewsController extends Controller
         return view('panel.news.edit', compact('new', 'bread', 'breadCount'));
     }
 
+    /**
+     * Update news
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @param int $id
+     * @param EventsFormRequest $request
+     * @return void
+     */
     public function update($id, NewsFormRequest $request)
     {
         try {
@@ -88,6 +109,13 @@ class NewsController extends Controller
         return redirect('/news');
     }
 
+    /**
+     * Add news
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @param int $id
+     * @return void
+     */
     public function add()
     {
         $admin = new PanelController();
@@ -105,7 +133,14 @@ class NewsController extends Controller
 
         return view('panel.news.add', compact('bread', 'breadCount'));
     }
-    
+
+    /**
+     * Create news
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @param EventsFormRequest $request
+     * @return void
+     */
     public function create(NewsFormRequest $request)
     {
         try {
@@ -120,7 +155,14 @@ class NewsController extends Controller
         }
         return redirect('/news');
     }
-    
+
+    /**
+     * Delete news
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @param int $id
+     * @return void
+     */
     public function delete($id)
     {
         try {
