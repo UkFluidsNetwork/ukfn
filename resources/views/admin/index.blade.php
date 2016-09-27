@@ -23,10 +23,10 @@
     <p class="h4 text-danger">Proposal documents</p>
     <p class="line-break-dbl-top">
     <ul>
-      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Case for Support</a></li>
-      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Workplan</a></li>
-      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Pathways to Impact</a></li>
-      <li><a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">Justification of Resources</a></li>
+      <li><a href="{{ asset('files/UKFN_case_for_support.pdf') }}">Case for Support</a></li>
+      <li><a href="{{ asset('files/UKFN_case_for_support_gantt.pdf') }}">Workplan</a></li>
+      <li><a href="{{ asset('files/UKFN_pathways_to_impact.pdf') }}">Pathways to Impact</a></li>
+      <li><a href="{{ asset('files/UKFN_justification_of_resources.pdf') }}">Justification of Resources</a></li>
     </ul>
     </p>
   </div>
@@ -45,7 +45,7 @@
   <div>
     <p class="h4 text-danger">Institutional points of contact</p>
     <p class="line-break-dbl-top">
-      <a href="{{ asset('files/UKFN_SRVs_call_for_proposals.pdf') }}">List of points of contact</a>
+      <a href="{{ asset('files/UKFN_institutional_points_of_contact.pdf') }}">List of points of contact</a>
     </p>
   </div>
 </section>
@@ -57,29 +57,32 @@
     </p>
   </div>
 </section>
+@if($totalListEmails)
 <section class="page-header">
   <div>
     <p class="h4 text-danger">Records of emails sent to mailing list</p>
     <p class="line-break-dbl-top">
     <ul>
       @foreach ($listEmails as $message)
-      <li>{{ $message['date'] }}, {{ Html::link('/viewmessage/' . $message['id'], $message['subject']) }}</li>
+      <li>{{ $message->date }}, {{ Html::link('/viewmessage/' . $message->id, $message->subject) }}</li>
       @endforeach
     </ul>
     </p>
   </div>
 </section>
+@endif
+@if($totalPublicEmails)
 <section class="page-header">
   <div>
     <p class="h4 text-danger">Records of emails sent to all points of contact</p>
     <p class="line-break-dbl-top">
     <ul>
       @foreach ($publicEmails as $message)
-      <li>{{ $message['date'] }} - {{ Html::link('/viewmessage/' . $message['id'], $message['subject']) }}</li>
+      <li>{{ $message->date }} - {{ Html::link('/viewmessage/' . $message->id, $message->subject) }}</li>
       @endforeach
     </ul>
     </p>
   </div>
 </section>
-
+@endif
 @endsection

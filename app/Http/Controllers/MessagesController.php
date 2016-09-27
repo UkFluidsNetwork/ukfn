@@ -49,4 +49,23 @@ class MessagesController extends Controller
         
         return view('panel.messages.view', compact('bread', 'breadCount', 'messagesList'));
     }
+    
+    /**
+     * Return an array of messages with their created_at date formatted
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @static
+     * @access public
+     * @return array
+     * @param array $messages
+     */
+    public static function formatMessages($messages)
+    {
+        $formattedMessages = [];
+        foreach ($messages as $key => $message) {
+            $formattedMessages[$key] = $message;
+            $formattedMessages[$key]->date = date("l jS F", strtotime($message->created_at));
+        }
+        
+        return $formattedMessages;
+    }
 }
