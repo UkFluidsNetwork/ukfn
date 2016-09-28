@@ -9,7 +9,7 @@
       The following pdf gives the context of the call and sets out the information you need to provide in your proposal:
     </p>
     <p>
-      <a href="{{ asset('files/UKFN_SIGs_call_for_proposals.pdf') }}">[UKFN_SIGs_call_for_proposals.pdf]</a><br>
+      <a href="{{ asset('files/UKFN_SIGs_1st_call_for_proposals_Rev.160922.pdf') }}">[UKFN_SIGs_1st_call_for_proposals_Rev.160922.pdf]</a><br>
       This is a revised version of the call (22/9/16): the changes, shown in red, were made following discussion with the Executive Committee and Advisory Board.
       Note in particular that additional information on funding is now required in the proposal.
     </p>
