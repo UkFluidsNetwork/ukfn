@@ -36,7 +36,7 @@
     <p class="h4 text-danger">Minutes of meetings</p>
     <p class="line-break-dbl-top">
     <ul>
-      <li>Executive Comittee meeting, Friday 9th September 2016 <span class="text-muted">(pending)</span></li>
+      <li>Executive Committee meeting, Friday 9th September 2016 <span class="text-muted">(pending)</span></li>
     </ul>
     </p>
   </div>
@@ -51,7 +51,7 @@
 </section>
 <section class="page-header">
   <div>
-    <p class="h4 text-danger">Communications <span class="text-muted">(pending)</span></p>
+    <p class="h4 text-danger">Communications</p>
     <p class="line-break-dbl-top">
       User guide to communications via the UKFN website <span class="text-muted">(pending)</span>
     </p>
