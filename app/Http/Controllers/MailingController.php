@@ -118,7 +118,6 @@ class MailingController extends Controller
         $body           = $request->input('message');
         $public         = ($request->input('public') === 'true' ? true : false);
         $userID         = Auth::user()->id;
-        $mailingList    = Subscription::getAll();
       
         Message::addNew($from.'@ukfluids.net', $subject, $body, $userID, $public, $mailing, $toEmailRaw);
         
@@ -132,23 +131,17 @@ class MailingController extends Controller
         }
         
         if (!$mailing) {
-            foreach($toEmail as $email) {
-                Mail::raw($body, function ($message) use ($email, $subject, $from) {
-                    $message->from($from, 'UK Fluids Network');
-                    $message->to($email);
-                    $message->subject($subject);
-                });
-            }
-            
+            $addresses = $toEmail;
         } else {
-            foreach($mailingList as $email) {
-                Mail::raw($body, function ($message) use ($email, $subject, $from) {
-                    $message->from($from, 'UK Fluids Network');
-                    $message->to($email->email);
-                    $message->subject($subject);
-                });
-            }
+            $addresses = Subscription::getEmails();
         }
+
+        Mail::send('mail.email', ['body' => nl2br(e($body))], function ($message) use ($addresses, $subject, $from) {
+            $message->from($from, 'UK Fluids Network');
+            $message->to('info@ukfluids.net');
+            $message->bcc($addresses);
+            $message->subject($subject);
+        });
             
         // set success message
         Session::flash('success_message', 'Your e-mail has been sent.');

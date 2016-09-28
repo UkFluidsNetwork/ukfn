@@ -29,7 +29,7 @@ class Subscription extends Model
     }
 
     /**
-     * Get all mailing list emails
+     * Get all subscriptions
      * 
      * @access public
      * @static
@@ -41,5 +41,18 @@ class Subscription extends Model
         $mailingList = DB::table('subscriptions')->orderBy('created_at', 'DESC')->get();
 
         return $mailingList;
+    }
+
+    /**
+     * Get all mailing list emails
+     * 
+     * @access public
+     * @static
+     * @return array
+     * @author Javier Arias <ja573@cam.ac.uk>
+     */
+    public static function getEmails()
+    {
+        return DB::table('subscriptions')->orderBy('created_at', 'DESC')->pluck('email');
     }
 }
