@@ -7,15 +7,13 @@ use App\Talk;
 use App\Http\Requests;
 use SEO;
 
-class TalksController extends Controller
-{
+class TalksController extends Controller {
 
-    public function index()
-    {
+    public function index() {
         SEO::setTitle('Talks');
         SEO::setDescription('Feed of fluids-related seminars in the UK.'
-            . ' Currently all talks are imported from the  Cambridge Fluids Network - fluids-related seminars RSS feed. '
-            . 'To link another RSS feed to this page, please contact us.');
+                . ' Currently all talks are imported from the  Cambridge Fluids Network - fluids-related seminars RSS feed. '
+                . 'To link another RSS feed to this page, please contact us.');
 
         $exceptions = ["TBC", "tbc", "To be confirmed", "Title to be confirmed", "TBD"];
 
@@ -38,4 +36,5 @@ class TalksController extends Controller
 
         return view('talks.index', compact('talks'));
     }
+
 }
