@@ -23,10 +23,10 @@
     <p class="h4 text-danger">Proposal documents</p>
     <p class="line-break-dbl-top">
     <ul>
-      <li><a href="{{ asset('files/UKFN_case_for_support.pdf') }}">Case for Support</a></li>
-      <li><a href="{{ asset('files/UKFN_case_for_support_gantt.pdf') }}">Workplan</a></li>
-      <li><a href="{{ asset('files/UKFN_pathways_to_impact.pdf') }}">Pathways to Impact</a></li>
-      <li><a href="{{ asset('files/UKFN_justification_of_resources.pdf') }}">Justification of Resources</a></li>
+      <li><a href="{{ asset('files/UKFN_CfS_151020.pdf') }}">Case for Support</a></li>
+      <li><a href="{{ asset('files/UKFN_CfS_Gantt_151102.pdf') }}">Workplan</a></li>
+      <li><a href="{{ asset('files/UKFN_PtI__151020.pdf') }}">Pathways to Impact</a></li>
+      <li><a href="{{ asset('files/UKFN_JoR_151020.pdf') }}">Justification of Resources</a></li>
     </ul>
     </p>
   </div>
@@ -45,7 +45,7 @@
   <div>
     <p class="h4 text-danger">Institutional points of contact</p>
     <p class="line-break-dbl-top">
-      <a href="{{ asset('files/UKFN_institutional_points_of_contact.pdf') }}">List of points of contact</a>
+      <a href="{{ asset('files/UKFN_instn_PoC_160921.pdf') }}">List of points of contact</a>
     </p>
   </div>
 </section>
