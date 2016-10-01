@@ -64,7 +64,12 @@
     <p class="line-break-dbl-top">
     <ul>
       @foreach ($listEmails as $message)
-      <li>{{ $message->date }}, {{ Html::link('/viewmessage/' . $message->id, $message->subject) }}</li>
+      <li>
+          {{ $message->date }}, {{ Html::link('/viewmessage/' . $message->id, $message->subject) }} 
+          @if ($message->attachment)
+            <icon class='glyphicon glyphicon-paperclip'></icon>
+          @endif
+      </li>
       @endforeach
     </ul>
     </p>
@@ -78,7 +83,12 @@
     <p class="line-break-dbl-top">
     <ul>
       @foreach ($publicEmails as $message)
-      <li>{{ $message->date }} - {{ Html::link('/viewmessage/' . $message->id, $message->subject) }}</li>
+      <li>
+          {{ $message->date }} - {{ Html::link('/viewmessage/' . $message->id, $message->subject) }} 
+          @if ($message->attachment)
+            <icon class='glyphicon glyphicon-paperclip'></icon>
+          @endif
+      </li>
       @endforeach
     </ul>
     </p>

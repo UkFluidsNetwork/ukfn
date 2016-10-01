@@ -18,15 +18,7 @@
             </tr>
             <tr>
                 <td>To</td>
-                @if ($record['mailingList'] === '0')
-                <td>
-                @foreach(explode(';', $record['to']) as $email)     
-                {{ $email }} <br>
-                @endforeach
-                </td>
-                @else
                 <td>{{ $record['to'] }}</td>
-                @endif
             </tr>
             <tr>
                 <td>Subject</td>
@@ -36,6 +28,12 @@
                 <td>Body</td>
                 <td>{{ $record['body'] }} </td>
             </tr>
+            @if ($record['attachment'])
+            <tr>
+                <td>Attachment</td>
+                <td>{{ Html::link('/files/attachments/'.$record['attachment'] , $record['attachment']) }} </td>
+            </tr>
+            @endif
             <tr>
                 <td>Visibility</td>
                 <td>{{ $record['visibility'] }}</td>

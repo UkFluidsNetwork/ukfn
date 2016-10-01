@@ -32,9 +32,15 @@ class MessagesController extends Controller
             $messagesList[$index]['to']             = ($result->mailinglist === '0' ? $result->to : 'Mailing List');
             $messagesList[$index]['subject']        = $result->subject;
             $messagesList[$index]['body']           = $result->body;
-            $messagesList[$index]['visibility']     = ($result->public === '0' ? 'Private' : 'Public');
+            $messagesList[$index]['visibility']     = ($result->public === '0' ? 'Private (not displayed in admin)' : 'Displayed in admin');
             $messagesList[$index]['mailingList']    = $result->mailinglist;
+            $messagesList[$index]['attachment']     = $result->attachment;
             $messagesList[$index]['created_at']     = Carbon::parse($result->created_at)->format('l jS F, H:i');
+            if ($result->mailinglist) {
+                $messagesList[$index]['visibility'] = 'Displayed in admin (under sent to mailing list)';
+            } else {
+                $messagesList[$index]['visibility'] = $result->public ? 'Displayed in admin (under sent to points of contact)' : 'Private (not displayed in admin)';
+            }
             $index++;
         }
             
