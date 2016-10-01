@@ -54,14 +54,16 @@ return [
             'visibility' => 'public',
         ],
 
-        's3' => [
-            'driver' => 's3',
-            'key' => 'your-key',
-            'secret' => 'your-secret',
-            'region' => 'your-region',
-            'bucket' => 'your-bucket',
+        'attachments-public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files/attachments'),
+            'visibility' => 'public',
         ],
-
+        'attachments-private' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private/files/attachments/private'),
+            'visibility' => 'public',
+        ],        
     ],
 
 ];
