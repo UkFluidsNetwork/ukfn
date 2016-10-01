@@ -4,31 +4,63 @@
       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
       xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
             http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+
 <url>
   <loc>https://ukfluids.net/</loc>
+  <changefreq>weekly</changefreq>
 </url>
 <url>
   <loc>https://ukfluids.net/sig</loc>
+  <changefreq>weekly</changefreq>
 </url>
 <url>
   <loc>https://ukfluids.net/srv</loc>
 </url>
 <url>
   <loc>https://ukfluids.net/talks</loc>
+  <changefreq>daily</changefreq>
+</url>
+<url>
+  <loc>https://ukfluids.net/admin</loc>
+  <changefreq>weekly</changefreq>
 </url>
 <url>
   <loc>https://ukfluids.net/contact</loc>
 </url>
 <url>
   <loc>https://ukfluids.net/login</loc>
+  <changefreq>weekly</changefreq>
 </url>
 <url>
-  <loc>https://ukfluids.net/files/UKFN_SIGs_call_for_proposals.pdf</loc>
-  <lastmod>2016-09-01T10:25:48+00:00</lastmod>
+  <loc>https://ukfluids.net/files/UKFN_SIGs_1st_call_for_proposals_Rev.160922.pdf</loc>
+  <lastmod>2016-09-28T16:48:37+00:00</lastmod>
 </url>
 <url>
   <loc>https://ukfluids.net/files/UKFN_SRVs_call_for_proposals.pdf</loc>
   <lastmod>2016-08-31T09:14:50+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_CfS_151020.pdf</loc>
+  <lastmod>2016-08-31T09:14:50+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_CfS_Gantt_151102.pdf</loc>
+  <lastmod>2016-10-01T10:35:21+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_PtI__151020.pdf</loc>
+  <lastmod>2016-10-01T10:35:21+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_JoR_151020.pdf</loc>
+  <lastmod>2016-10-01T10:35:21+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/files/UKFN_instn_PoC_160921.pdf</loc>
+  <lastmod>2016-10-01T10:35:21+00:00</lastmod>
+</url>
+<url>
+  <loc>https://ukfluids.net/viewmessage/3</loc>
 </url>
 <url>
   <loc>https://ukfluids.net/password/reset</loc>
