@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'no-reply@ukfluids.net', 'name' => 'UK Fluids Network'],
+    'from' => ['address' => env('MAIL_USERNAME'), 'name' => 'UK Fluids Network'],
 
     /*
     |--------------------------------------------------------------------------

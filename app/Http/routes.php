@@ -31,6 +31,7 @@ Route::get('events/edit/{id}', 'EventsController@edit')->middleware('auth');
 Route::get('subscriptions', 'MailingController@view')->middleware('auth');
 Route::get('sendmail', 'MailingController@send')->middleware('auth');
 Route::get('messages', 'MessagesController@view')->middleware('auth');
+Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
@@ -42,6 +43,7 @@ Route::post('news', 'NewsController@create');
 Route::post('events/delete/{id}', 'EventsController@delete');
 Route::post('events', 'EventsController@create');
 Route::post('sendmail', 'MailingController@sendMail');
+Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
 /** PATCH requests **/
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
 Route::patch('/news/update/{id}', 'NewsController@update');

@@ -9,26 +9,6 @@ class Subscription extends Model
 {
 
     /**
-     * Add email address to messages table 
-     * 
-     * @static
-     * @access public
-     * @param string $email Subscription email taken from form
-     * @author Robert Barczyk <robert@barczyk.net>
-     */
-    public static function addEmail($email)
-    {
-        // check if existing email exists
-        $existingEmail = DB::table('subscriptions')->where('email', '=', $email)->get();
-
-        if (empty($existingEmail)) {
-            $subscription = new Subscription();
-            $subscription->email = $email;
-            $subscription->save();
-        }
-    }
-
-    /**
      * Get all subscriptions
      * 
      * @access public
@@ -38,9 +18,7 @@ class Subscription extends Model
      */
     public static function getAll()
     {
-        $mailingList = DB::table('subscriptions')->orderBy('created_at', 'DESC')->get();
-
-        return $mailingList;
+        return DB::table('subscriptions')->orderBy('created_at', 'DESC')->get();
     }
 
     /**
@@ -54,5 +32,18 @@ class Subscription extends Model
     public static function getEmails()
     {
         return DB::table('subscriptions')->orderBy('created_at', 'DESC')->pluck('email');
+    }
+
+    /**
+     * Find the id of a subscription given its id
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @static
+     * @param string $email
+     * @return array
+     */
+    public static function getId($email)
+    {
+        return DB::table('subscriptions')->where('email', $email)->pluck('id');
     }
 }
