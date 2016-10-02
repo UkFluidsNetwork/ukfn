@@ -63,10 +63,10 @@ class SendEmail extends Job implements ShouldQueue
     private $template;
     
     /**
-     * The path to a file to be attached in the message. The file must have been previously uploaded
+     * The object of the file to be attached in the message. The file must have been previously uploaded
      *
      * @access private
-     * @var string
+     * @var object
      */
     private $attachment;
 

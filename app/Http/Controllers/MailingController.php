@@ -14,6 +14,7 @@ use Auth;
 use Illuminate\Support\Facades\Session;
 use App\Jobs\SendEmail;
 use App;
+use Storage;
 
 class MailingController extends Controller
 {
@@ -135,8 +136,18 @@ class MailingController extends Controller
         $public = $request->input('public') === "true" ? true : false;
         $userID = Auth::user()->id;
         $from = $this->emails[$inputFrom];
+        $attachment = $request->file('attachment');
 
-        self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw);
+        if ($attachment) {
+            $attOriginalName = $attachment->getClientOriginalName();
+            $attRealPath = $attachment->getRealPath();
+            $disk = $public ? "public" : "private";
+            Storage::disk("attachments-${disk}")->put($attOriginalName, $attRealPath, 'public');
+        } else {
+            $attOriginalName = null;
+        }
+
+        self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attOriginalName);
 
         switch ($mailing) {
             case true:
@@ -163,7 +174,7 @@ class MailingController extends Controller
                     'unsubscribe' => "/unsubscribe/" . $querystring
                 ];
             }
-            $this->addToQueue($from, $address, $subject, $parameters, $template);
+            $this->addToQueue($from, $address, $subject, $parameters, $template, $attachment);
         }
 
         Session::flash('success_message', 'Your e-mail has been sent.');
@@ -227,7 +238,7 @@ class MailingController extends Controller
         }
         return redirect('/');
     }
-    
+
     /**
      * Set a thankful flash message and redirect to home
      * @author Javier Arias <ja573@cam.ac.uk>
@@ -266,7 +277,7 @@ class MailingController extends Controller
      * @access public
      * @author Robert Barczyk <robert@barczyk.net>
      */
-    public static function addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw)
+    public static function addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attachment)
     {
         $m = new Message();
         $m->from = $from;
@@ -276,6 +287,7 @@ class MailingController extends Controller
         $m->public = $public;
         $m->mailingList = $mailing;
         $m->to = $toEmailRaw;
+        $m->attachment = $attachment;
         $m->save();
     }
 }

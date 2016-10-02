@@ -9,8 +9,25 @@ class Message extends Model
 {
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'from',
+        'to',
+        'subject',
+        'body',
+        'attachment',
+        'user_id',
+        'sent',
+        'public',
+        'mailinglist',
+        'deleted'
+    ];
+
+    /**
      * Get all messages
-     * 
      * @return array
      * @static
      * @access public
