@@ -8,5 +8,9 @@
   {{ Form::submit("Yes, unsubscribe me", ["class" => "btn btn-danger"]) }}
   {{ Form::close() }}
 </div>
-<div class='pull-left margin-right line-break-top'>{{ Html::link('/', "No, keep my subscription", ["class" => "btn btn-primary"])}}</div>
+<div class='pull-left line-break-top'>
+  {{ Form::open(['action' => ['MailingController@keepSubscription']]) }}
+  {{ Form::submit("No, keep my subscription", ["class" => "btn btn-primary"]) }}
+  {{ Form::close() }}
+</div>
 @stop

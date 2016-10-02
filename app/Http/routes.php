@@ -44,6 +44,7 @@ Route::post('events/delete/{id}', 'EventsController@delete');
 Route::post('events', 'EventsController@create');
 Route::post('sendmail', 'MailingController@sendMail');
 Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
+Route::post('unsubscribe', 'MailingController@keepSubscription');
 /** PATCH requests **/
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
 Route::patch('/news/update/{id}', 'NewsController@update');

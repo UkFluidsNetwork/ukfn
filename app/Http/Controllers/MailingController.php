@@ -128,13 +128,12 @@ class MailingController extends Controller
 
         $inputFrom = $request->input('from');
         $subject = $request->input('subject');
-        $mailing = (bool) $request->input('mailing');
+        $mailing = $request->input('mailing') === "true" ? true : false;
         $toEmail = explode(';', $request->input('to'));
         $toEmailRaw = $request->input('to');
         $body = $request->input('message');
-        $public = (bool) $request->input('public');
+        $public = $request->input('public') === "true" ? true : false;
         $userID = Auth::user()->id;
-
         $from = $this->emails[$inputFrom];
 
         self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw);
@@ -226,6 +225,18 @@ class MailingController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
+        return redirect('/');
+    }
+    
+    /**
+     * Set a thankful flash message and redirect to home
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return void
+     */
+    public function keepSubscription()
+    {
+        Session::flash('success_message', 'Thank you for keeping your subscription to the mailing list.');
         return redirect('/');
     }
 
