@@ -63,10 +63,10 @@ class SendEmail extends Job implements ShouldQueue
     private $template;
     
     /**
-     * The object of the file to be attached in the message. The file must have been previously uploaded
+     * The the file to be attached in the message. The file must have been previously uploaded
      *
      * @access private
-     * @var object
+     * @var array
      */
     private $attachment;
 
@@ -103,10 +103,7 @@ class SendEmail extends Job implements ShouldQueue
             $message->to($this->to);
             $message->subject($this->subject);
             if ($this->attachment) {
-                $message->attach(
-                    $this->attachment->getRealPath(),
-                    ['as' => $this->attachment->getClientOriginalName()]
-                );
+                $message->attach($this->attachment['path'], ['as' => $this->attachment['name']]);
             }
         });
     }

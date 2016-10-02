@@ -35,7 +35,7 @@
     <div id='admin-subnav-mailing' class='collapse list-group' >
       {{ Html::link('/sendmail', 'Send Mail', ['class' => 'list-group-item noborder']) }}
       {{ Html::link('/subscriptions', 'Subscriptions', ['class' => 'list-group-item noborder']) }}
-      {{ Html::link('/messages', 'View Mesasges', ['class' => 'list-group-item noborder']) }}
+      {{ Html::link('/messages', 'View Messages', ['class' => 'list-group-item noborder']) }}
     </div>
   </div>
 </div>    

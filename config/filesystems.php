@@ -54,16 +54,11 @@ return [
             'visibility' => 'public',
         ],
 
-        'attachments-public' => [
+        'attachments' => [
             'driver' => 'local',
             'root' => storage_path('app/public/files/attachments'),
             'visibility' => 'public',
-        ],
-        'attachments-private' => [
-            'driver' => 'local',
-            'root' => storage_path('app/private/files/attachments/private'),
-            'visibility' => 'public',
-        ],        
+        ]
     ],
 
 ];

@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Session;
 use App\Jobs\SendEmail;
 use App;
 use Storage;
-
+use Mail;
 class MailingController extends Controller
 {
 
@@ -129,24 +129,25 @@ class MailingController extends Controller
 
         $inputFrom = $request->input('from');
         $subject = $request->input('subject');
-        $mailing = $request->input('mailing') === "true" ? true : false;
+        $mailing = (int) $request->input('mailinglist');
         $toEmail = explode(';', $request->input('to'));
         $toEmailRaw = $request->input('to');
         $body = $request->input('message');
-        $public = $request->input('public') === "true" ? true : false;
+        $public = (int) $request->input('public');
         $userID = Auth::user()->id;
         $from = $this->emails[$inputFrom];
-        $attachment = $request->file('attachment');
+        $attachment = null;//$request->file('attachment');
 
         if ($attachment) {
             $attOriginalName = $attachment->getClientOriginalName();
-            $attRealPath = $attachment->getRealPath();
-            $disk = $public ? "public" : "private";
-            Storage::disk("attachments-${disk}")->put($attOriginalName, $attRealPath, 'public');
+            Storage::disk("attachments")->put($attOriginalName, $attachment);
+            $storagePath  = Storage::disk('attachments')->getDriver()->getAdapter()->getPathPrefix();
+            $attRealPath = $storagePath . $attOriginalName;
+            $attachment = ['path' => $attRealPath, 'name' => $attOriginalName];
         } else {
             $attOriginalName = null;
         }
-
+        
         self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attOriginalName);
 
         switch ($mailing) {

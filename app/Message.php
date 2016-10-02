@@ -59,6 +59,6 @@ class Message extends Model
      */
     public static function getPublicMessages()
     {
-        return DB::table('messages')->where('public', 1)->orderBy('created_at', 'DESC')->get();
+        return DB::table('messages')->where(['public' => 1, 'mailinglist' => 0])->orderBy('created_at', 'DESC')->get();
     }
 }
