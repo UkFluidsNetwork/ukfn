@@ -12,6 +12,13 @@
       <strong class="panel-title">{{ $message->subject }}</strong>
     </div>
     <div class="text-muted">{{ $message->date }}</div>
+    
+    <div class='line-break-top'>
+    @if ($message->attachment)
+        {{ Html::link('/files/attachments/' . $message->attachment, $message->attachment) }}        
+        <icon class='glyphicon glyphicon-paperclip'></icon>
+    @endif
+    </div>
   </div>
   <p>{!! $message->text !!}</p>
 </section>
