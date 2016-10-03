@@ -5,7 +5,9 @@
 <div class="well">
   <p>
     All the talks listed below are imported from the 
-    {{ Html::link('http://talks.cam.ac.uk/show/index/54169', 'Cambridge Fluids Network - fluids-related seminars') }} RSS feed.
+    {{ Html::link('http://talks.cam.ac.uk/show/index/54169', 'Cambridge Fluids Network - fluids-related seminars', ['target' => '_blank']) }}
+    and
+    {{ Html::link('http://www3.imperial.ac.uk/imperialnewsevents/eventsfront?pid=69_189112051_69_189111978_189111978', 'Imperial College Turbulence Seminar', ['target' => '_blank']) }} RSS feed.
   </p>
   <p>
     To link another RSS feed to this page, please {{ Html::link('/contact', 'contact us') }}.
