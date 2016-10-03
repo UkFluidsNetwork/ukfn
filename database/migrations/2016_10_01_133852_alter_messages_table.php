@@ -12,7 +12,7 @@ class AlterMessagesTable extends Migration
     public function up()
     {
         Schema::table('messages', function ($table) {
-            $table->string('attachment', 255)->after('body');
+            $table->string('attachment', 255)->nullable()->after('body');
         });
     }
 
