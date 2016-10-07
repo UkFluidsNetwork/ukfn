@@ -16,6 +16,10 @@
     <p>
       The closing date is 31st Oct 2016.
     </p>
+    <p>
+      The score sheet that will be used when assessing the proposals is here: <br>
+      <a href="{{ asset('files/SIG_score_sheet_1st_call.xlsx') }}">[SIG_score_sheet_1st_call.xlsx]</a>
+    </p>
   </div>
          
   @include('sig.suggestions')
