@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AlterMessagesTable' => $baseDir . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+    'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
     'CreateCommentTagsTable' => $baseDir . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',
     'CreateCommentsTable' => $baseDir . '/database/migrations/2016_08_14_000024_create_comments_table.php',
