@@ -30,5 +30,4 @@ class CreateMeetingsTable extends Migration
     {
         Schema::drop('meetings');
     }
-    
 }

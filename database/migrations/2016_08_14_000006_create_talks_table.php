@@ -41,5 +41,4 @@ class CreateTalksTable extends Migration
     {
         Schema::drop('talks');
     }
-    
 }

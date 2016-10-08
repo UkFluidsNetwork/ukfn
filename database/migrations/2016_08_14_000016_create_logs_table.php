@@ -35,5 +35,4 @@ class CreateLogsTable extends Migration
     {
         Schema::drop('logs');
     }
-    
 }

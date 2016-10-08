@@ -29,5 +29,4 @@ class CreateCountiesTable extends Migration
     {
         Schema::drop('counties');
     }
-    
 }

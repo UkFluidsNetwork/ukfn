@@ -33,5 +33,4 @@ class CreateMeetingFilesTable extends Migration
     {
         Schema::drop('meeting_files');
     }
-    
 }

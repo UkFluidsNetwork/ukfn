@@ -35,5 +35,4 @@ class CreateSigUsersTable extends Migration
     {
         Schema::drop('sig_users');
     }
-    
 }

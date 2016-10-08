@@ -33,5 +33,4 @@ class CreateUserTagsTable extends Migration
     {
         Schema::drop('user_tags');
     }
-    
 }

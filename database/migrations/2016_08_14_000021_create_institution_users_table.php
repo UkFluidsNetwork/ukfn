@@ -35,5 +35,4 @@ class CreateInstitutionUsersTable extends Migration
     {
         Schema::drop('institution_users');
     }
-    
 }

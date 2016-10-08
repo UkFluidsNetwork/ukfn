@@ -33,5 +33,4 @@ class CreateFileTagsTable extends Migration
     {
         Schema::drop('file_tags');
     }
-    
 }
