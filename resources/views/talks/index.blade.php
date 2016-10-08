@@ -1,5 +1,5 @@
-@extends('layouts.master')
-@section('content')
+@extends('layouts.talks')
+@section('talkscontent')
 
             <h2 class='line-break'>Talks</h2>
             <div class="well">
@@ -18,28 +18,5 @@
                     To link another RSS feed to this page, please {{ Html::link('/contact', 'contact us') }}.
                 </p>
             </div>
-        
-            @foreach ($talks as $talk)
-        
-            <section class="page-header">
-                <div>
-                    <span class="h4 text-danger display-block">
-                        {{ $talk['title'] }}
-                    </span>
-                    <span class="talks-speaker display-block line-break">
-                        {{ $talk['speaker'] }} 
-                    </span>
-                    <span class="text-muted display-block">
-                        {{ $talk['when'] }}
-                    </span>
-                    <span class="text-muted line-break-dbl display-block">
-                        {{ $talk['venue'] }}
-                    </span>
-                    <span class="line-break-dbl-top display-block line-break"> 
-                        {{ $talk['abstract'] }}
-                    </span>
-                </div>
-            </section>
-            @endforeach
-         
-@endsection
+            
+@endsection                      

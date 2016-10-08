@@ -17,6 +17,18 @@ body {
 .line-break {
   margin-bottom: 1em; }
 
+.display-table-cell {
+  display: table-cell !important; }
+
+.icon-item-padding {
+  padding-right: 5px; }
+
+.line-break-half {
+  margin-bottom: 0.5em !important; }
+
+.line-break-half-top {
+  margin-top: 0.5em !important; }
+
 .line-break-dbl {
   margin-bottom: 2em; }
 
