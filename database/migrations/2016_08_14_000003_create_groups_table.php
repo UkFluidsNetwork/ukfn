@@ -12,12 +12,12 @@ class CreateGroupsTable extends Migration
      */
     public function up()
     {
-      // create
+        // create
       Schema::create('groups', function (Blueprint $table) {
-        $table->increments('id');
-        $table->timestamps();
-        $table->string('name', 255);
-        $table->boolean('deleted')->default(false);
+          $table->increments('id');
+          $table->timestamps();
+          $table->string('name', 255);
+          $table->boolean('deleted')->default(false);
       });
       // populate
       DB::table('groups')->insert(

@@ -33,5 +33,4 @@ class CreateThreadsTable extends Migration
     {
         Schema::drop('threads');
     }
-    
 }

@@ -12,17 +12,17 @@ class CreateEventsTable extends Migration
      */
     public function up()
     {
-      Schema::create('events', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('title', 100);
-        $table->string('subtitle', 100)->nullable();
-        $table->longtext('description')->nullable();
-        $table->dateTime('start')->nullable();
-        $table->integer('user_id')->unsigned();
-        $table->timestamps();
+        Schema::create('events', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 100);
+            $table->string('subtitle', 100)->nullable();
+            $table->longtext('description')->nullable();
+            $table->dateTime('start')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->timestamps();
 
-        $table->foreign('user_id')->references('id')->on('users');
-      });
+            $table->foreign('user_id')->references('id')->on('users');
+        });
       // populate
       DB::table('events')->insert(
         [

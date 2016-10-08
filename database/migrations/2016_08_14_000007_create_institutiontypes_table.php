@@ -29,5 +29,4 @@ class CreateInstitutiontypesTable extends Migration
     {
         Schema::drop('institutiontypes');
     }
-    
 }

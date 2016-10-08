@@ -5,21 +5,21 @@ use Illuminate\Database\Migrations\Migration;
 
 class CreateSuggestionsTable extends Migration
 {
-  /**
+    /**
    * Run the migrations.
    *
    * @return void
    */
   public function up()
   {
-    Schema::create('suggestions', function (Blueprint $table) {
-      $table->increments('id');
-      $table->timestamps();
-      $table->string('name');
-      $table->string('email');
-      $table->string('institution');
-      $table->string('suggestion');
-    });
+      Schema::create('suggestions', function (Blueprint $table) {
+          $table->increments('id');
+          $table->timestamps();
+          $table->string('name');
+          $table->string('email');
+          $table->string('institution');
+          $table->string('suggestion');
+      });
   }
 
   /**
@@ -29,6 +29,6 @@ class CreateSuggestionsTable extends Migration
    */
   public function down()
   {
-    Schema::drop('suggestions');
+      Schema::drop('suggestions');
   }
 }

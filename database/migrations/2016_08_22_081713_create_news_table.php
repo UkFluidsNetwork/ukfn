@@ -12,16 +12,16 @@ class CreateNewsTable extends Migration
      */
     public function up()
     {
-      Schema::create('news', function (Blueprint $table) {
-        $table->increments('id');
-        $table->string('title', 100);
-        $table->longtext('description')->nullable();
-        $table->longtext('link')->nullable();
-        $table->integer('user_id')->unsigned();
-        $table->timestamps();
+        Schema::create('news', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('title', 100);
+            $table->longtext('description')->nullable();
+            $table->longtext('link')->nullable();
+            $table->integer('user_id')->unsigned();
+            $table->timestamps();
 
-        $table->foreign('user_id')->references('id')->on('users');
-      });
+            $table->foreign('user_id')->references('id')->on('users');
+        });
       // populate
       DB::table('news')->insert(
         [

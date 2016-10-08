@@ -33,5 +33,4 @@ class CreateSigTagsTable extends Migration
     {
         Schema::drop('sig_tags');
     }
-    
 }

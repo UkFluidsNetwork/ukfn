@@ -33,5 +33,4 @@ class CreateCommentTagsTable extends Migration
     {
         Schema::drop('comment_tags');
     }
-    
 }

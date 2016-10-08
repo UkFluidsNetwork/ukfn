@@ -33,5 +33,4 @@ class CreateTalkTagsTable extends Migration
     {
         Schema::drop('talk_tags');
     }
-    
 }

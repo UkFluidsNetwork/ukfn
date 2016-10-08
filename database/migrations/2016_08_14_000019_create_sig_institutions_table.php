@@ -35,5 +35,4 @@ class CreateSigInstitutionsTable extends Migration
     {
         Schema::drop('sig_institutions');
     }
-    
 }

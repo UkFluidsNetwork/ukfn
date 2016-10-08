@@ -33,5 +33,4 @@ class CreateInstitutionTagsTable extends Migration
     {
         Schema::drop('institution_tags');
     }
-    
 }

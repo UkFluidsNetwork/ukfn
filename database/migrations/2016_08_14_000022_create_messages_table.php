@@ -39,5 +39,4 @@ class CreateMessagesTable extends Migration
     {
         Schema::drop('messages');
     }
-    
 }

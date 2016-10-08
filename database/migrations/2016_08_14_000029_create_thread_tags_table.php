@@ -33,5 +33,4 @@ class CreateThreadTagsTable extends Migration
     {
         Schema::drop('thread_tags');
     }
-    
 }

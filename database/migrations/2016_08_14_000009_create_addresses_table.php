@@ -38,5 +38,4 @@ class CreateAddressesTable extends Migration
     {
         Schema::drop('addresses');
     }
-    
 }

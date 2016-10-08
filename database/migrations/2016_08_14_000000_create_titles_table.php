@@ -12,13 +12,13 @@ class CreateTitlesTable extends Migration
      */
     public function up()
     {
-      // create the table
+        // create the table
       Schema::create('titles', function (Blueprint $table) {
-        $table->increments('id');
-        $table->timestamps();
-        $table->string('name', 20);
-        $table->string('shortname', 20);
-        $table->boolean('deleted')->default(false);
+          $table->increments('id');
+          $table->timestamps();
+          $table->string('name', 20);
+          $table->string('shortname', 20);
+          $table->boolean('deleted')->default(false);
       });
       // populate
       DB::table('titles')->insert(
@@ -72,5 +72,4 @@ class CreateTitlesTable extends Migration
     {
         Schema::drop('titles');
     }
-    
 }
