@@ -6,8 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 use DB;
 use Carbon\Carbon;
 
-class Talk extends Model 
+class Talk extends Model
 {
+
     /**
      * Get current talks only
      * @return array
@@ -34,27 +35,26 @@ class Talk extends Model
     {
         $thisWeekStart = Carbon::now()->startOfWeek();
         $thisWeekEnd = Carbon::now()->endOfWeek();
-        
+
         return $talks = DB::table('talks')
             ->where('start', '>=', $thisWeekStart->addDays($addDays))
             ->where('start', '<=', $thisWeekEnd->addDays($addDays))
             ->orderBy('start', 'ASC')
             ->get();
     }
-    
+
     /**
      * Get this week talks
      * @author Robert Barczyk <robert@barczyk.net>
      * @access public
      * @static
      * @return array
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public static function getTalksThisWeek()
     {
         return self::getWeeklyTalks(0);
     }
-    
+
     /**
      * Get next week talks
      * @access public
@@ -66,7 +66,20 @@ class Talk extends Model
     {
         return self::getWeeklyTalks(7);
     }
-    
+
+    /**
+     * Get the next n talks
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @static
+     * @param int $limit
+     * @return array
+     */
+    public static function getUpcomingTalks($limit = 20)
+    {
+        return DB::table('talks')->orderBy('start', 'ASC')->limit($limit)->get();
+    }
+
     /**
      * @todo TO MAKE IT MORE GENERIC ADD YEAR ETC
      * Get all talks per month
@@ -80,11 +93,24 @@ class Talk extends Model
     {
         $thisMonthStart = Carbon::now()->startOfMonth();
         $thisMonthEnd = Carbon::now()->endOfMonth();
-                
+
         return $talks = DB::table('talks')
             ->where('start', '>=', $thisMonthStart->addMonth($addMonth))
             ->where('start', '<=', $thisMonthEnd->addDays($addMonth))
             ->orderBy('start', 'ASC')
-            ->get(); 
-    }    
+            ->get();
+    }
+
+    /**
+     * Find a talk given its talkid
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @static
+     * @param string $talkid
+     * @return array
+     */
+    public static function findByTalkid($talkid)
+    {
+        return DB::table('talks')->where('talkid', '=', $talkid)->get();
+    }
 }

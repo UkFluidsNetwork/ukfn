@@ -2,57 +2,53 @@
 
 namespace App\Http\Controllers;
 
-use App\Talk;
-use DB;
-use Carbon\Carbon;
 use SEO;
+use App\Talk;
+use Carbon\Carbon;
 
-class TalksController extends Controller {
+class TalksController extends Controller
+{
 
-    private $talksRSS = 
-            [
-                [
-                    'name' => 'Cambridge Fluids Network - fluids-related seminars',
-                    'path' => 'http://talks.cam.ac.uk/show/xml/54169',
-                    'aggr' => 'talks.cam'
-                ],
-                [
-                    'name' => 'Imperial College Turbulence Seminar ',
-                    'path' => 'http://www3.imperial.ac.uk/imperialnewsevents/eventsfront?pid=69_189112051_69_189111978_189111978',
-                    'aggr' => 'lonimperial'                    
-                ],
-            ];
-    
-    private $exceptions = 
+    private $talksRSS = [
         [
-            "TBC",
-            "tbc",
-            "To be confirmed",
-            "Title to be confirmed",
-            "TBD"
-        ];
-    
+            'name' => 'Cambridge Fluids Network - fluids-related seminars',
+            'path' => 'http://talks.cam.ac.uk/show/xml/54169',
+            'aggr' => 'talks.cam'
+        ],
+        [
+            'name' => 'Imperial College Turbulence Seminar ',
+            'path' => 'http://www3.imperial.ac.uk/imperialnewsevents/eventsfront?pid=69_189112051_69_189111978_189111978',
+            'aggr' => 'lonimperial'
+        ],
+    ];
+    private static $exceptions = [
+        "TBC",
+        "tbc",
+        "To be confirmed",
+        "Title to be confirmed",
+        "TBD"
+    ];
+
     /**
      * Talks main page
      * @return view
      * @author Robert Barczyk <robert@barczyk.net>
      */
-    public function index() {
+    public function index()
+    {
         SEO::setTitle('Talks');
         SEO::setDescription('Feed of fluids-related seminars in the UK.'
-                . ' Currently all talks are imported from the  Cambridge Fluids Network - fluids-related seminars RSS feed. '
-                . 'To link another RSS feed to this page, please contact us.');
+            . ' Currently all talks are imported from the  Cambridge Fluids Network - fluids-related seminars RSS feed. '
+            . 'To link another RSS feed to this page, please contact us.');
 
         $talksRSS = $this->talksRSS;
         //$this->updateTalks();
-                 
-        $talksMenuAll = $this->talksWeekMenu();
-        $talksMenu = $talksMenuAll['talksMenu'];
-        $menuHeader = $talksMenuAll['menuHeader'];
-                
-        return view('talks.index', compact('talksRSS', 'talksMenu', 'menuHeader'));
+
+        $talksMenu = $this->talksWeekMenu();
+
+        return view('talks.index', compact('talksRSS', 'talksMenu'));
     }
-    
+
     /**
      * View Talk
      * @param intiger $id
@@ -61,27 +57,15 @@ class TalksController extends Controller {
      * @author Robert Barczyk <robert@barczyk.net>
      */
     public function view($id)
-    {                  
-        $talksMenuAll = $this->talksWeekMenu();
-        $talksMenu = $talksMenuAll['talksMenu'];
-        $menuHeader = $talksMenuAll['menuHeader'];
-        
-        $t = Talk::findOrFail($id);
-        
-        $talk = [
-            "id" => $t->id,
-            "title" => $t->title,
-            "speaker" => $t->speaker,
-            "aggregator" => $t->aggregator,
-            "when" => date("l jS F", strtotime($t->start)) . " at " . date("H:i", strtotime($t->start)),
-            "venue" => $t->venue,
-            "abstract"=> $t->abstract,
-            "recordingurl" => $t->recordingurl    
-        ];
-        
-        return view('talks.view', compact('talk', 'talksMenu', 'menuHeader'));
+    {
+        $talksMenu = $this->talksWeekMenu();
+
+        $talk = Talk::findOrFail($id);
+        $talk->when = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
+
+        return view('talks.view', compact('talk', 'talksMenu'));
     }
-    
+
     /**
      * View all talks
      * @return view
@@ -89,33 +73,13 @@ class TalksController extends Controller {
      * @access public
      */
     public function viewAll()
-    {   
-        $talks = [];
-        $index = 0;
+    {
         $allTalks = Talk::getAllCurrentTalks();
+        $talks = self::formatTalks($allTalks);
 
-        foreach ($allTalks as $talk) {
-            if (in_array($talk->title, $this->exceptions)) {
-                continue;
-            }
-            
-            $talks[$index]['title'] = $talk->title;
-            $talks[$index]['when'] = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
-            $talks[$index]['start'] = $talk->start;
-            $talks[$index]['end'] = $talk->end;
-            $talks[$index]['speaker'] = $talk->speaker;
-            $talks[$index]['aggregator'] = $talk->aggregator;
-            $talks[$index]['abstract'] = $talk->abstract;
-            $talks[$index]['venue'] = $talk->venue;
-            $talks[$index]['recordingurl'] = $talk->recordingurl;
-            $index++;
-        }
-                
-        $talksMenuAll = $this->talksWeekMenu();
-        $talksMenu = $talksMenuAll['talksMenu'];
-        $menuHeader = $talksMenuAll['menuHeader'];
-        
-        return view('talks.viewall', compact('talksMenu', 'menuHeader', 'talks'));
+        $talksMenu = $this->talksWeekMenu();
+
+        return view('talks.viewall', compact('talksMenu', 'talks'));
     }
 
     /**
@@ -128,34 +92,25 @@ class TalksController extends Controller {
     {
         $weeklyTalks = Talk::getTalksThisWeek();
         $menuHeader = "Talks this week";
-        
+
         if (empty($weeklyTalks)) {
             $weeklyTalks = Talk::getTalksNextWeek();
             $menuHeader = "Talks next week";
         }
-        
-        $talksMenu = [];
-        $i = 0;
-        
-        foreach ($weeklyTalks as $talk) {
-            if (in_array($talk->title, $this->exceptions)) {
-                continue;
-            }
-            
-            $talksMenu[$i]['id'] = $talk->id;
-            $talksMenu[$i]['title'] = $talk->title;
-            $talksMenu[$i]['speaker'] = $talk->speaker;
-            $talksMenu[$i]['venue'] = $talk->venue;
-            $talksMenu[$i]['when'] = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
-            $i++;
+
+        if (empty($weeklyTalks)) {
+            $weeklyTalks = Talk::getUpcomingTalks();
+            $menuHeader = "Upcoming talks";
         }
-        
+
+        $talksMenu = self::formatTalks($weeklyTalks);
+
         return [
-            "talksMenu" => $talksMenu, 
-            "menuHeader" => $menuHeader
-            ];
+            "talks" => $talksMenu,
+            "header" => $menuHeader
+        ];
     }
-    
+
     /**
      * Update all talks
      * @access public
@@ -165,13 +120,13 @@ class TalksController extends Controller {
     {
         foreach ($this->talksRSS as $rss) {
             $xml = simplexml_load_file($rss['path']);
-            
+
             switch ($rss['aggr']) {
                 case 'talks.cam' :
                     foreach ($xml->talk as $value) {
-                        $existingTalk = DB::table('talks')->where('talkid', '=', $value->id)->get();
-                        
-                        if(empty($existingTalk)) {
+                        $existingTalk = Talk::findByTalkid($value->id);
+
+                        if (empty($existingTalk)) {
                             $talk = new Talk();
                         } else {
                             $talk = Talk::find($existingTalk[0]->id);
@@ -195,7 +150,7 @@ class TalksController extends Controller {
                         $talk->deleted = 0;
                         $talk->save();
                     }
-                    
+
                     break;
                 case 'lonimperial' :
                     foreach ($xml as $value) {
@@ -204,8 +159,8 @@ class TalksController extends Controller {
                             $namespaces = $value->getNamespaces(true);
                             $imperialnewsevents = $value->children($namespaces["imperialnewsevents"]);
 
-                            $existingTalk = DB::table('talks')->where('talkid', '=', $imperialnewsevents->articleid)->get();
-                            
+                            $existingTalk = Talk::findByTalkid($imperialnewsevents->articleid);
+
                             if (empty($existingTalk)) {
                                 $talk = new Talk();
                             } else {
@@ -230,5 +185,30 @@ class TalksController extends Controller {
                     break;
             }
         }
+    }
+
+    /**
+     * Exclude exceptions and format the date of the remaining ones
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @static
+     * @param array $talks
+     * @param string $dateFormat
+     * @return array
+     */
+    public static function formatTalks($talks, $dateFormat = "l jS F")
+    {
+        $formattedTalks = [];
+        $index = 0;
+        foreach ($talks as $talk) {
+            if (in_array($talk->title, static::$exceptions)) {
+                continue;
+            }
+            $formattedTalks[$index] = $talk;
+            $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
+            $index++;
+        }
+
+        return $formattedTalks;
     }
 }
