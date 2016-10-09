@@ -33,7 +33,7 @@ Route::get('sendmail', 'MailingController@send')->middleware('auth');
 Route::get('messages', 'MessagesController@view')->middleware('auth');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/view/{id}', 'TalksController@view');
-Route::get('talks/view', 'TalksController@viewall');
+Route::get('talks/all', 'TalksController@viewall');
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
