@@ -9,7 +9,7 @@ use Carbon\Carbon;
 class TalksController extends Controller
 {
 
-    private $talksRSS = [
+    private static $talksRSS = [
         [
             'name' => 'Cambridge Fluids Network - fluids-related seminars',
             'path' => 'http://talks.cam.ac.uk/show/xml/54169',
@@ -41,9 +41,7 @@ class TalksController extends Controller
             . ' Currently all talks are imported from the  Cambridge Fluids Network - fluids-related seminars RSS feed. '
             . 'To link another RSS feed to this page, please contact us.');
 
-        $talksRSS = $this->talksRSS;
-        //$this->updateTalks();
-
+        $talksRSS = static::$talksRSS;
         $talksMenu = $this->talksWeekMenu();
 
         return view('talks.index', compact('talksRSS', 'talksMenu'));
@@ -116,9 +114,9 @@ class TalksController extends Controller
      * @access public
      * @author Robert Barczyk <robert@barczyk.net>
      */
-    public function updateTalks()
+    public static function updateTalks()
     {
-        foreach ($this->talksRSS as $rss) {
+        foreach (static::$talksRSS as $rss) {
             $xml = simplexml_load_file($rss['path']);
 
             switch ($rss['aggr']) {

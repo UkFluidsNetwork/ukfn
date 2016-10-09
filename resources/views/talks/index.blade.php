@@ -17,7 +17,8 @@
                     To link another RSS feed to this page, please {{ Html::link('/contact', 'contact us') }}.
                 </p>
                 <p>
-                  Click on any of the talks in the "{{ $menuHeader }}" menu to see details of them, or click {{ Html::link('/talks/view', 'here') }} to see the full list of talks.
+                  Click on any of the talks in the "{{ $talksMenu['header'] }}" menu to see details of them, or click 
+                  {{ Html::link('/talks/view', 'here') }} to see the full list of talks.
                 </p>
             </div>
             
