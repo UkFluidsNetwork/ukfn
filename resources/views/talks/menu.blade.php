@@ -25,7 +25,7 @@
                         
             @endforeach
             
-            {{ Html::link('/talks/view', 'See All', ['class' => 'btn btn-default btn-lg text-uppercase btn-block']) }}
+            {{ Html::link('/talks/all', 'See All', ['class' => 'btn btn-default btn-lg text-uppercase btn-block']) }}
             
         </div>
     </div>    
