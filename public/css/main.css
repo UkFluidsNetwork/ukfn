@@ -2,8 +2,12 @@
     Created on : 24-Jul-2016, 18:02:51
     Author     : robert
 */
-/* Google font */
 @import url(https://fonts.googleapis.com/css?family=Lato:400,300);
+.talks-speaker {
+  font-weight: bold;
+  font-style: italic; }
+
+/* Google font */
 body {
   font-family: 'Lato', sans-serif;
   font-weight: 400;
@@ -12,6 +16,18 @@ body {
 /* View Helpers */
 .line-break {
   margin-bottom: 1em; }
+
+.display-table-cell {
+  display: table-cell !important; }
+
+.icon-item-padding {
+  padding-right: 5px; }
+
+.line-break-half {
+  margin-bottom: 0.5em !important; }
+
+.line-break-half-top {
+  margin-top: 0.5em !important; }
 
 .line-break-dbl {
   margin-bottom: 2em; }
