@@ -16,7 +16,7 @@ class TalksController extends Controller
             'aggr' => 'talks.cam'
         ],
         [
-            'name' => 'Imperial College Turbulence Seminar ',
+            'name' => 'Imperial College Turbulence Seminar',
             'path' => 'http://www3.imperial.ac.uk/imperialnewsevents/eventsfront?pid=69_189112051_69_189111978_189111978',
             'aggr' => 'lonimperial'
         ],
@@ -37,9 +37,7 @@ class TalksController extends Controller
     public function index()
     {
         SEO::setTitle('Talks');
-        SEO::setDescription('Feed of fluids-related seminars in the UK.'
-            . ' Currently all talks are imported from the  Cambridge Fluids Network - fluids-related seminars RSS feed. '
-            . 'To link another RSS feed to this page, please contact us.');
+        self::setSEODescription();
 
         $talksRSS = static::$talksRSS;
         $talksMenu = $this->talksWeekMenu();
@@ -72,6 +70,9 @@ class TalksController extends Controller
      */
     public function viewAll()
     {
+        SEO::setTitle('Talks');
+        self::setSEODescription();
+
         $allTalks = Talk::getAllCurrentTalks();
         $talks = self::formatTalks($allTalks);
 
@@ -208,5 +209,39 @@ class TalksController extends Controller
         }
 
         return $formattedTalks;
+    }
+
+    /**
+     * Genereate the page description for the talks section
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access private
+     * @static
+     * @return string
+     */
+    private static function getSEODescription()
+    {
+        $description = 'Fluids-related seminars and talks in the UK, imported from the ';
+        foreach (static::$talksRSS as $key => $feed) {
+            $description.= $feed['name'];
+            if ($key + 1 < count(static::$talksRSS) - 1) {
+                $description .= ', ';
+            } elseif ($key + 1 === count(static::$talksRSS) - 1) {
+                $description .= ', and ';
+            }
+        }
+        $description.= ' RSS Feeds';
+        return $description;
+    }
+    
+    /**
+     * Set the generic SEO description for talks
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access private
+     * @static
+     * @return void
+     */
+    private static function setSEODescription()
+    {
+        SEO::setDescription(self::getSEODescription());
     }
 }
