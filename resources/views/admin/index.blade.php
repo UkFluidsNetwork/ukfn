@@ -37,9 +37,14 @@
     <p class="line-break-dbl-top">
     <ul>
       <li>
+        Advisory Board meeting, Wednesday 21st September 2016: 
+        [<a href="{{ asset('files/meetings/Agenda_210916_AB_meeting.pdf') }}">Agenda_210916_AB_meeting.pdf</a>], 
+        [<a href="{{ asset('files/meetings/Minutes_210916_AB_meeting.pdf') }}">Minutes_210916_AB_meeting.pdf</a>]
+      </li>
+      <li>
         Executive Committee meeting, Friday 9th September 2016: 
-        [<a href="{{ asset('files/Agenda_090916_EC_meeting.pdf') }}">Agenda_090916_EC_meeting.pdf</a>], 
-        [<a href="{{ asset('files/Minutes_090916_EC_meeting.pdf') }}">Minutes_090916_EC_meeting</a>]
+        [<a href="{{ asset('files/meetings/Agenda_090916_EC_meeting.pdf') }}">Agenda_090916_EC_meeting.pdf</a>], 
+        [<a href="{{ asset('files/meetings/Minutes_090916_EC_meeting.pdf') }}">Minutes_090916_EC_meeting</a>]
       </li>
     </ul>
     </p>
