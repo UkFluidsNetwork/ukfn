@@ -151,11 +151,11 @@ class MailingController extends Controller
         self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attOriginalName);
 
         switch ($mailing) {
-            case true:
+            case 1:
                 $addresses = Subscription::getEmails();
                 $template = "mail.mailinglist";
                 break;
-            case false:
+            case 0:
                 $addresses = $toEmail;
                 $template = "mail.email";
                 $parameters = ['body' => nl2br(e($body))];
