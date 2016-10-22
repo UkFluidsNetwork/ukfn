@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateMessagesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -25,7 +28,6 @@ class CreateMessagesTable extends Migration
             $table->boolean('mailinglist');
             $table->boolean('deleted')->default(false);
 
-            
             $table->foreign('user_id')->references('id')->on('users');
         });
     }
