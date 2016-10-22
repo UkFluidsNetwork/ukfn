@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateInstitutionTagsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -18,7 +21,7 @@ class CreateInstitutionTagsTable extends Migration
             $table->integer('institution_id')->unsigned();
             $table->timestamps();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('institution_id')->references('id')->on('institutions');
         });

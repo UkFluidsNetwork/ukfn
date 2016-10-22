@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateEventsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -23,20 +26,20 @@ class CreateEventsTable extends Migration
 
             $table->foreign('user_id')->references('id')->on('users');
         });
-      // populate
-      DB::table('events')->insert(
-        [
-          [
-            'title' => 'UKFN launch event',
-            'subtitle' => 'ICL',
-            'description' => 'During the UK Fluids Conference',
-            'start' => '2016-09-09 13:30:00',
-            'user_id' => 1,
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => date("Y-m-d H:i:s")
-          ]
-        ]
-      );
+        // populate
+        DB::table('events')->insert(
+            [
+                [
+                    'title' => 'UKFN launch event',
+                    'subtitle' => 'ICL',
+                    'description' => 'During the UK Fluids Conference',
+                    'start' => '2016-09-09 13:30:00',
+                    'user_id' => 1,
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ]
+            ]
+        );
     }
 
     /**

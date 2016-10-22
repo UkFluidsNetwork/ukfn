@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateSrvsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -19,7 +22,7 @@ class CreateSrvsTable extends Migration
             $table->integer('institution_id')->unsigned();
             $table->longText('description')->nullable();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('institution_id')->references('id')->on('institutions');
         });

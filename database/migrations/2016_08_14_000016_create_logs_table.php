@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateLogsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -21,7 +24,7 @@ class CreateLogsTable extends Migration
             $table->string('request', 255);
             $table->longtext('data')->nullable();
             $table->dateTime('requested');
-            
+
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

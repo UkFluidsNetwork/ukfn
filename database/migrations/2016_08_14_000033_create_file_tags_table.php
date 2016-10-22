@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateFileTagsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -18,7 +21,7 @@ class CreateFileTagsTable extends Migration
             $table->integer('file_id')->unsigned();
             $table->timestamps();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('file_id')->references('id')->on('files');
         });

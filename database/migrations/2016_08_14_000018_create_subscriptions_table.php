@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateSubscriptionsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -18,7 +21,7 @@ class CreateSubscriptionsTable extends Migration
             $table->integer('user_id')->unsigned()->nullable();
             $table->timestamps();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

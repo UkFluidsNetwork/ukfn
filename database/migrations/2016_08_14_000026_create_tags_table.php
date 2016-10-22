@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateTagsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -19,7 +22,7 @@ class CreateTagsTable extends Migration
             $table->timestamps();
             $table->dateTime('moderated');
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('tagtype_id')->references('id')->on('tagtypes');
         });
     }

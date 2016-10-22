@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateSigInstitutionsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -20,7 +23,7 @@ class CreateSigInstitutionsTable extends Migration
             $table->timestamps();
             $table->dateTime('moderated');
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('sig_id')->references('id')->on('sigs');
             $table->foreign('institution_id')->references('id')->on('institutions');
         });

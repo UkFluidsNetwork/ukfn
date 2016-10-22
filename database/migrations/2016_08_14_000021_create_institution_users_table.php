@@ -1,10 +1,13 @@
 <?php
 
+namespace Database\Migrations;
+
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateInstitutionUsersTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -20,7 +23,7 @@ class CreateInstitutionUsersTable extends Migration
             $table->timestamps();
             $table->dateTime('moderated');
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('institution_id')->references('id')->on('institutions');
             $table->foreign('user_id')->references('id')->on('users');
         });
