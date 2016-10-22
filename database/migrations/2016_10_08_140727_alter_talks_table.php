@@ -1,7 +1,4 @@
 <?php
-
-namespace Database\Migrations;
-
 use Illuminate\Database\Migrations\Migration;
 
 class AlterTalksTable extends Migration

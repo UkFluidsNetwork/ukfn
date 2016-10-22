@@ -1,7 +1,5 @@
 <?php
 
-namespace Database\Migrations;
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -17,12 +15,12 @@ class CreateTableSentmessages extends Migration
     {
         Schema::create('sentmessages', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('from', 255);
             $table->string('to', 255);
-            $table->integer('message_id')->unsigned();
+            $table->string('subject', 255);
+            $table->longtext('body');
             $table->timestamp('sent');
             $table->timestamps();
-
-            $table->foreign('message_id')->references('id')->on('messages');
         });
     }
 
