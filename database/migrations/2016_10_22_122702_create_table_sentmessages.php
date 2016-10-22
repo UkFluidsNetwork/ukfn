@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,8 +17,10 @@ class CreateTableSentmessages extends Migration
             $table->string('from', 255);
             $table->string('to', 255);
             $table->string('subject', 255);
-            $table->longtext('body');
-            $table->timestamp('sent');
+            $table->string('template', 255);
+            $table->text('parameters')->nullable();
+            $table->text('attachment')->nullable();
+            $table->dateTime('sent')->nullable();
             $table->timestamps();
         });
     }

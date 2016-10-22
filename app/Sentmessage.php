@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SentMessage extends Model
+class Sentmessage extends Model
 {
 
     /**
@@ -13,8 +13,12 @@ class SentMessage extends Model
      * @var array
      */
     protected $fillable = [
+        'from',
         'to',
-        'message_id',
+        'subject',
+        'template',
+        'parameters',
+        'attachment',
         'sent'
     ];
 
