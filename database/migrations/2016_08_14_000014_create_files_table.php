@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateFilesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -21,7 +21,7 @@ class CreateFilesTable extends Migration
             $table->timestamps();
             $table->dateTime('moderated');
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('user_id')->references('id')->on('users');
         });
     }

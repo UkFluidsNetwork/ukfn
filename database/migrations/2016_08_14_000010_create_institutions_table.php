@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateInstitutionsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -20,7 +20,7 @@ class CreateInstitutionsTable extends Migration
             $table->string('name', 255);
             $table->dateTime('moderated');
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('institutiontype_id')->references('id')->on('institutiontypes');
             $table->foreign('address_id')->references('id')->on('addresses');
         });

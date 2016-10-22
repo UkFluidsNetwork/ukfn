@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateSigTagsTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -18,7 +18,7 @@ class CreateSigTagsTable extends Migration
             $table->integer('sig_id')->unsigned();
             $table->timestamps();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('tag_id')->references('id')->on('tags');
             $table->foreign('sig_id')->references('id')->on('sigs');
         });

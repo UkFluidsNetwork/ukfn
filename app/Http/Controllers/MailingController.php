@@ -1,21 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
-use App\Http\Requests\SubscriptionRequest;
-use App\Http\Requests\SendMailRequest;
-use App\Subscription;
-use App\Message;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\URL;
-use App\Http\Controllers\PanelController;
-use Carbon\Carbon;
-use Auth;
-use Illuminate\Support\Facades\Session;
-use App\Jobs\SendEmail;
 use App;
+use Auth;
 use Storage;
-use Mail;
+use App\Message;
+use Carbon\Carbon;
+use App\Subscription;
+use App\Jobs\SendEmail;
+use Illuminate\Support\Facades\URL;
+use App\Http\Requests\SendMailRequest;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Redirect;
+use App\Http\Controllers\PanelController;
+use App\Http\Requests\SubscriptionRequest;
+
 class MailingController extends Controller
 {
 
@@ -31,7 +31,7 @@ class MailingController extends Controller
 
     /**
      * Subscription Controller for adding new emails
-     * 
+     *
      * @param SubscriptionRequest $request
      * @return redirect to the viewing page
      * @author Javier Arias <ja573@cam.ac.uk>
@@ -59,7 +59,7 @@ class MailingController extends Controller
 
     /**
      * Render all Mailing list emails
-     * 
+     *
      * @return void
      * @access public
      * @author Robert Barczyk <robert@barczyk.net>
@@ -136,26 +136,26 @@ class MailingController extends Controller
         $public = (int) $request->input('public');
         $userID = Auth::user()->id;
         $from = $this->emails[$inputFrom];
-        $attachment = null;//$request->file('attachment');
+        $attachment = null; //$request->file('attachment');
 
         if ($attachment) {
             $attOriginalName = $attachment->getClientOriginalName();
             Storage::disk("attachments")->put($attOriginalName, $attachment);
-            $storagePath  = Storage::disk('attachments')->getDriver()->getAdapter()->getPathPrefix();
+            $storagePath = Storage::disk('attachments')->getDriver()->getAdapter()->getPathPrefix();
             $attRealPath = $storagePath . $attOriginalName;
             $attachment = ['path' => $attRealPath, 'name' => $attOriginalName];
         } else {
             $attOriginalName = null;
         }
-        
+
         self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attOriginalName);
 
         switch ($mailing) {
-            case true:
+            case 1:
                 $addresses = Subscription::getEmails();
                 $template = "mail.mailinglist";
                 break;
-            case false:
+            case 0:
                 $addresses = $toEmail;
                 $template = "mail.email";
                 $parameters = ['body' => nl2br(e($body))];
@@ -266,7 +266,7 @@ class MailingController extends Controller
 
     /**
      * Add new message
-     * 
+     *
      * @param string $from
      * @param string $subject
      * @param string $body

@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateMeetingFilesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -18,7 +18,7 @@ class CreateMeetingFilesTable extends Migration
             $table->integer('file_id')->unsigned();
             $table->timestamps();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('meeting_id')->references('id')->on('meetings');
             $table->foreign('file_id')->references('id')->on('files');
         });

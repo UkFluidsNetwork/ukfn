@@ -2,7 +2,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateMessagesTable extends Migration
+class CreateTableSentmessages extends Migration
 {
 
     /**
@@ -12,20 +12,16 @@ class CreateMessagesTable extends Migration
      */
     public function up()
     {
-        Schema::create('messages', function (Blueprint $table) {
+        Schema::create('sentmessages', function (Blueprint $table) {
             $table->increments('id');
             $table->string('from', 255);
             $table->string('to', 255);
             $table->string('subject', 255);
-            $table->longtext('body');
-            $table->integer('user_id')->unsigned();
-            $table->timestamp('sent');
+            $table->string('template', 255);
+            $table->text('parameters')->nullable();
+            $table->text('attachment')->nullable();
+            $table->dateTime('sent')->nullable();
             $table->timestamps();
-            $table->boolean('public');
-            $table->boolean('mailinglist');
-            $table->boolean('deleted')->default(false);
-
-            $table->foreign('user_id')->references('id')->on('users');
         });
     }
 
@@ -36,6 +32,6 @@ class CreateMessagesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('messages');
+        Schema::drop('sentmessages');
     }
 }

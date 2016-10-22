@@ -308,6 +308,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         'CreateSrvsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000013_create_srvs_table.php',
         'CreateSubscriptionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000018_create_subscriptions_table.php',
         'CreateSuggestionsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_31_084339_create_suggestions_table.php',
+        'CreateTableSentmessages' => __DIR__ . '/../..' . '/database/migrations/2016_10_22_122702_create_table_sentmessages.php',
         'CreateTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000026_create_tags_table.php',
         'CreateTagtypesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000025_create_tagtypes_table.php',
         'CreateTalkTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000027_create_talk_tags_table.php',

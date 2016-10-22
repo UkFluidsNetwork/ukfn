@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Message;
 use App\User;
+use App\Message;
 use App\Http\Controllers\PanelController;
 
 class MessagesController extends Controller
@@ -23,7 +23,7 @@ class MessagesController extends Controller
         }
 
         $messages = self::formatMessages(Message::getAll(), "l jS F, H:i");
-        
+
         $bread = [
             ['label' => 'Home', 'path' => '/'],
             ['label' => 'Admin', 'path' => '/panel'],
@@ -52,13 +52,13 @@ class MessagesController extends Controller
             $formattedMessages[$key]->body = nl2br(e($message->body));
             $formattedMessages[$key]->sentTo = $message->mailinglist ? 'Mailing List' : $message->to;
             $formattedMessages[$key]->date = date($dateFormat, strtotime($message->created_at));
-            
+
             if ($message->mailinglist) {
                 $formattedMessages[$key]->visibility = 'Displayed in admin (under sent to mailing list)';
             } else {
                 $formattedMessages[$key]->visibility = $message->public ? 'Displayed in admin (under sent to points of contact)' : 'Private (not displayed in admin)';
             }
-            
+
             $user = User::findOrFail($message->user_id);
             $formattedMessages[$key]->sentBy = $user->name . " " . $user->surname;
         }

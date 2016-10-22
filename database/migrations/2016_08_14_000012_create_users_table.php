@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateUsersTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -28,31 +28,31 @@ class CreateUsersTable extends Migration
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('department_id')->references('id')->on('departments');
         });
-      // populate
-      DB::table('users')->insert(
-        [
-          [
-            'name' => 'Javier',
-            'surname' => 'Arias',
-            'email' => 'ja573@cam.ac.uk',
-            'password' => bcrypt("password"),
-            'title_id' => 3,
-            'group_id' => 1,
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => date("Y-m-d H:i:s")
-          ],
-          [
-            'name' => 'Robert',
-            'surname' => 'Barczyk',
-            'email' => 'robert@barczyk.net',
-            'password' => bcrypt("password"),
-            'title_id' => 3,
-            'group_id' => 1,
-            'created_at' => date("Y-m-d H:i:s"),
-            'updated_at' => date("Y-m-d H:i:s")
-          ],
-        ]
-      );
+        // populate
+        DB::table('users')->insert(
+            [
+                [
+                    'name' => 'Javier',
+                    'surname' => 'Arias',
+                    'email' => 'ja573@cam.ac.uk',
+                    'password' => bcrypt("password"),
+                    'title_id' => 3,
+                    'group_id' => 1,
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+                [
+                    'name' => 'Robert',
+                    'surname' => 'Barczyk',
+                    'email' => 'robert@barczyk.net',
+                    'password' => bcrypt("password"),
+                    'title_id' => 3,
+                    'group_id' => 1,
+                    'created_at' => date("Y-m-d H:i:s"),
+                    'updated_at' => date("Y-m-d H:i:s")
+                ],
+            ]
+        );
     }
 
     /**

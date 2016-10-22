@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateAddressesTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -23,7 +23,7 @@ class CreateAddressesTable extends Migration
             $table->integer('country_id')->unsigned();
             $table->timestamps();
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('county_id')->references('id')->on('counties');
             $table->foreign('country_id')->references('id')->on('countries');
         });

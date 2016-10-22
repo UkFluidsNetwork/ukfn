@@ -1,10 +1,10 @@
 <?php
-
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
 class CreateSigUsersTable extends Migration
 {
+
     /**
      * Run the migrations.
      *
@@ -20,7 +20,7 @@ class CreateSigUsersTable extends Migration
             $table->timestamps();
             $table->dateTime('moderated');
             $table->boolean('deleted')->default(false);
-            
+
             $table->foreign('sig_id')->references('id')->on('sigs');
             $table->foreign('user_id')->references('id')->on('users');
         });
