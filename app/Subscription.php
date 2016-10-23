@@ -46,4 +46,17 @@ class Subscription extends Model
     {
         return DB::table('subscriptions')->where('email', $email)->pluck('id');
     }
+
+    /**
+     * Get all test mailing list emails
+     * 
+     * @access public
+     * @static
+     * @return array
+     * @author Javier Arias <ja573@cam.ac.uk>
+     */
+    public static function getTestEmails()
+    {
+        return DB::table('testsubscriptions')->pluck('email');
+    }
 }
