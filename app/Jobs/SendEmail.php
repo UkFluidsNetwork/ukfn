@@ -83,6 +83,8 @@ class SendEmail extends Job implements ShouldQueue
     /**
      * Create a new job instance.
      *
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
      * @return void
      */
     public function __construct($from, $to, $subject, $parameters, $template, $attachment)
@@ -100,6 +102,8 @@ class SendEmail extends Job implements ShouldQueue
     /**
      * Execute the job.
      *
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
      * @return void
      */
     public function handle()
@@ -107,17 +111,14 @@ class SendEmail extends Job implements ShouldQueue
         if ($this->tooManyAttempts()) {
             $this->notifyWebmaster();
         }
-
+        
         $this->overrideDefaultUser($this->from);
 
-        $messageSent = Mail::send($this->template, $this->parameters, function ($message) {
-                $message->from($this->from, $this->fromName);
-                $message->to($this->to);
-                $message->subject($this->subject);
-                if ($this->attachment) {
-                    $message->attach($this->attachment['path'], ['as' => $this->attachment['name']]);
-                }
-            });
+        $messageSent = false;
+
+        do {
+            $messageSent = $this->send();
+        } while (!$messageSent);
 
         if ($messageSent) {
             $this->sentMessage->sent = date("Y-m-d H:i:s");
@@ -126,8 +127,28 @@ class SendEmail extends Job implements ShouldQueue
     }
 
     /**
+     * Send mail
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access private
+     * @return boolean
+     */
+    private function send()
+    {
+        return Mail::send($this->template, $this->parameters, function ($message) {
+                $message->from($this->from, $this->fromName);
+                $message->to($this->to);
+                $message->subject($this->subject);
+                if ($this->attachment) {
+                    $message->attach($this->attachment['path'], ['as' => $this->attachment['name']]);
+                }
+            });
+    }
+
+    /**
      * Check whether this job has been tried too many times (set to 5).
      *
+     * @author Javier Arias <ja573@cam.ac.uk>
      * @access private
      * @return boolean
      */
@@ -140,18 +161,22 @@ class SendEmail extends Job implements ShouldQueue
      * Send an email to webmaster notifying the number of failed attempts.
      * We obviously do not want to put this message in the queue, hence using a simple mail() function
      *
+     * @author Javier Arias <ja573@cam.ac.uk>
      * @access private
      */
     private function notifyWebmaster()
     {
         mail(
-            env('WEBMASTER'), "UKFN - Failed to process email", "Could not send email to " . $this->to . ". Attempted " . $this->attempts() . "times."
+            env('WEBMASTER'),
+            "UKFN - Failed to process email",
+            "Could not send email to " . $this->to . ". Attempted " . $this->attempts() . "times."
         );
     }
 
     /**
      * Set the mail user to be the selected from address
      *
+     * @author Javier Arias <ja573@cam.ac.uk>
      * @access private
      */
     private function overrideDefaultUser()
@@ -163,6 +188,7 @@ class SendEmail extends Job implements ShouldQueue
     /**
      * Adds a new sentmessage
      * 
+     * @author Javier Arias <ja573@cam.ac.uk>
      * @access private
      * @return Sentmessage
      */

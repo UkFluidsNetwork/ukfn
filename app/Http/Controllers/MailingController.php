@@ -158,7 +158,7 @@ class MailingController extends Controller
             case 0:
                 $addresses = $toEmail;
                 $template = "mail.email";
-                $parameters = ['body' => nl2br(e($body))];
+                $parameters = ['body' => nl2br($body)];
                 break;
         }
 
@@ -170,7 +170,7 @@ class MailingController extends Controller
                 $id = $this->getSubscriptionId($address);
                 $querystring = "{" . $address . "}{" . $id . "}";
                 $parameters = [
-                    'body' => nl2br(e($body)),
+                    'body' => nl2br($body),
                     'address' => $address,
                     'unsubscribe' => "/unsubscribe/" . $querystring
                 ];
