@@ -7,6 +7,24 @@
   font-weight: bold;
   font-style: italic; }
 
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 29-Oct-2016, 11:20:47
+    Author     : Robert Barczyk <rb783@cam.ac.uk>
+*/
+.input-icon-left .glyphicon {
+  left: 0px; }
+
+.input-icon-left input {
+  padding-left: 35px; }
+
+.checkboxText {
+  padding-left: 8px; }
+
 /* Google font */
 body {
   font-family: 'Lato', sans-serif;
@@ -31,6 +49,9 @@ body {
 
 .line-break-dbl {
   margin-bottom: 2em; }
+
+.line-break-large {
+  margin-bottom: 4em; }
 
 .line-break-top {
   margin-top: 1em; }
