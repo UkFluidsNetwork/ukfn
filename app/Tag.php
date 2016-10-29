@@ -136,4 +136,16 @@ class Tag extends Model
     {
         return $this->belongsToMany('App\User');
     }
+
+    /**
+     * Get the institutions associated with this tag
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function institutions()
+    {
+        return $this->belongsToMany('App\Institution');
+    }
 }

@@ -18,4 +18,14 @@ class Title extends Model
     {
         return DB::table('titles')->get();
     }
+
+    /**
+     * Get the users associated with the given title
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function users()
+    {
+        return $this->hasMany('App\User');
+    }
 }

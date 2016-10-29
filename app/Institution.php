@@ -4,11 +4,11 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Sig extends Model
+class Institution extends Model
 {
 
     /**
-     * Get the users associated with the given sig
+     * Get the users associated with the given institution
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
@@ -18,17 +18,17 @@ class Sig extends Model
     }
 
     /**
-     * Get the institution associated with the given sig
+     * Get the institutiontype associated with the given institution
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function institutions()
+    public function institutiontype()
     {
-        return $this->belongsToMany('App\Institution');
+        return $this->hasOne('App\Institutiontype');
     }
-    
+
     /**
-     * Get the tags associated with the given sig
+     * Get the tags associated with the given institution
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */

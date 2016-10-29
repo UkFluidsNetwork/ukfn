@@ -26,6 +26,26 @@ class User extends Authenticatable
     ];
 
     /**
+     * Get the institutions associated with the given user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function institutions()
+    {
+        return $this->belongsToMany('App\Institution');
+    }
+
+    /**
+     * Get the sigs associated with the given user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sigs()
+    {
+        return $this->belongsToMany('App\Sig');
+    }
+
+    /**
      * Get the tags associated with the given user
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -34,7 +54,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tag');
     }
-    
+
     /**
      * Get the title associated with the user
      * 
@@ -42,9 +62,9 @@ class User extends Authenticatable
      */
     public function title()
     {
-        return $this->hasOne('title');
+        return $this->hasOne('App\Title');
     }
-    
+
     /**
      * Get the group associated with the user
      * 
@@ -52,6 +72,46 @@ class User extends Authenticatable
      */
     public function group()
     {
-        return $this->hasOne('group');
+        return $this->hasOne('App\Group');
+    }
+
+    /**
+     * Get the group associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function department()
+    {
+        return $this->hasOne('App\Department');
+    }
+
+    /**
+     * Get the subscription associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function subscription()
+    {
+        return $this->hasOne('App\Subscription');
+    }
+    
+    /**
+     * Get the news associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function news()
+    {
+        return $this->hasMany('App\News');
+    }
+    
+    /**
+     * Get the events associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function events()
+    {
+        return $this->hasMany('App\Event');
     }
 }
