@@ -14,7 +14,7 @@ class Sig extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'sig_users');
     }
 
     /**
@@ -24,7 +24,7 @@ class Sig extends Model
      */
     public function institutions()
     {
-        return $this->belongsToMany('App\Institution');
+        return $this->belongsToMany('App\Institution', 'sig_institutions');
     }
     
     /**
@@ -34,6 +34,6 @@ class Sig extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag');
+        return $this->belongsToMany('App\Tag', 'sig_tags');
     }
 }

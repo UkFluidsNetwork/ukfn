@@ -134,7 +134,7 @@ class Tag extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'user_tags');
     }
 
     /**
@@ -146,6 +146,6 @@ class Tag extends Model
      */
     public function institutions()
     {
-        return $this->belongsToMany('App\Institution');
+        return $this->belongsToMany('App\Institution', 'institution_tags');
     }
 }

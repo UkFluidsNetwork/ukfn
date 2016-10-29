@@ -14,7 +14,7 @@ class Institution extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User');
+        return $this->belongsToMany('App\User', 'institution_users');
     }
 
     /**
@@ -34,6 +34,6 @@ class Institution extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag');
+        return $this->belongsToMany('App\Tag', 'institution_tags');
     }
 }
