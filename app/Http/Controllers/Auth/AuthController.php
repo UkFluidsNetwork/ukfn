@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\User;
+use App\Title;
+use App\Tag;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -67,9 +69,26 @@ use AuthenticatesAndRegistersUsers,
     protected function create(array $data)
     {
         return User::create([
+                'title_id' => $data['title_id'],
+                'group_id' => 3, // member
                 'name' => $data['name'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * Show the application registration form.
+     *
+     * @return void
+     */
+    public function showRegistrationForm()
+    {
+        SEO::setTitle('Register');
+
+        $titles = Title::getAll();
+        $subDisciplines = Tag::getAllDisciplines();
+
+        return view('auth.register', compact('titles', 'subDisciplines'));
     }
 }

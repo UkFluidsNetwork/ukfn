@@ -25,31 +25,31 @@ class CreateTitlesTable extends Migration
         [
           [
             'name' => 'Doctor',
-            'shortname' => 'Dr.',
+            'shortname' => 'Dr',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
           ],
           [
             'name' => 'Professor',
-            'shortname' => 'Pr.',
+            'shortname' => 'Prof.',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
           ],
           [
             'name' => 'Mister',
-            'shortname' => 'Mr.',
+            'shortname' => 'Mr',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
           ],
           [
             'name' => 'Miss',
-            'shortname' => 'Ms.',
+            'shortname' => 'Ms',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
           ],
           [
             'name' => 'Mistress',
-            'shortname' => 'Mrs.',
+            'shortname' => 'Mrs',
             'created_at' => date("Y-m-d H:i:s"),
             'updated_at' => date("Y-m-d H:i:s")
           ],

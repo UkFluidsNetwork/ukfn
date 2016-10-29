@@ -34,6 +34,7 @@ Route::get('messages', 'MessagesController@view')->middleware('auth');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/view/{id}', 'TalksController@view');
 Route::get('talks/all', 'TalksController@viewall');
+Route::get('register', 'Auth\AuthController@registration');
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -61,4 +62,4 @@ Route::controllers([
 Route::auth();
 
 // temporal workaround so that registering is not available
-Route::get('register', 'PagesController@index');
+//Route::get('register', 'PagesController@index');

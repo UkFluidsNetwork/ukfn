@@ -277,6 +277,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
 
     public static $classMap = array (
         'AlterMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+        'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
         'AlterTalksTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
         'CreateAddressesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
         'CreateCommentTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',
