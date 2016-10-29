@@ -34,4 +34,24 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Tag');
     }
+    
+    /**
+     * Get the title associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function title()
+    {
+        return $this->hasOne('title');
+    }
+    
+    /**
+     * Get the group associated with the user
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function group()
+    {
+        return $this->hasOne('group');
+    }
 }

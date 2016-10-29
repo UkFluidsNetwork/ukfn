@@ -125,6 +125,13 @@ class Tag extends Model
         return $tagtype !== null ? (int) $tagtype->id : null;
     }
 
+    /**
+     * Get the users associated with this tag
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function users()
     {
         return $this->belongsToMany('App\User');
