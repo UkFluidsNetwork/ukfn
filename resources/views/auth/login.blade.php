@@ -5,12 +5,12 @@
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
-            <div class="panel panel-default line-break-large">
+            <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal line-break-dbl-top" role="form" method="POST" action="{{ url('/login') }}">
                         {{ csrf_field() }}
-                        <!-- e-maail - start -->
+                        <!-- e-mail - start -->
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : '' }}">
                                 <label for="email" class="sr-only">E-Mail Address</label>
@@ -26,7 +26,7 @@
 
                             </div>
                         </div>
-                        <!-- e-maail - start -->
+                        <!-- e-mail - start -->
                         <!-- Password - start -->
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('password') ? ' has-error' : '' }}">
@@ -65,7 +65,6 @@
                                 <a class="btn btn-link" href="{{ url('/password/reset') }}">Forgot Your Password?</a>
                             </div>
                         </div>
-                        <div>
                         <!-- Login button - end-->
                     </form>
                 </div>
