@@ -14,7 +14,7 @@ class Institution extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'institution_users');
+        return $this->belongsToMany('App\User', 'institution_users')->withTimestamps();
     }
 
     /**
@@ -34,6 +34,6 @@ class Institution extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag', 'institution_tags');
+        return $this->belongsToMany('App\Tag', 'institution_tags')->withTimestamps();
     }
 }

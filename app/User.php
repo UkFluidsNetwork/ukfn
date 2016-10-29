@@ -32,7 +32,7 @@ class User extends Authenticatable
      */
     public function institutions()
     {
-        return $this->belongsToMany('App\Institution', 'institution_users');
+        return $this->belongsToMany('App\Institution', 'institution_users')->withTimestamps();
     }
 
     /**
@@ -42,7 +42,7 @@ class User extends Authenticatable
      */
     public function sigs()
     {
-        return $this->belongsToMany('App\Sig', 'sig_users');
+        return $this->belongsToMany('App\Sig', 'sig_users')->withTimestamps();
     }
 
     /**
@@ -52,7 +52,7 @@ class User extends Authenticatable
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag', 'user_tags');
+        return $this->belongsToMany('App\Tag', 'user_tags')->withTimestamps();
     }
 
     /**
