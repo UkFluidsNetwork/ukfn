@@ -13,6 +13,7 @@ class Tag extends Model
      * 
      * @author Javier Arias <ja573@cam.ac.uk>
      * @access public
+     * @static
      * @return array
      */
     public static function getAll()
@@ -20,6 +21,49 @@ class Tag extends Model
         return DB::table('tags')->get();
     }
 
+    /**
+     * Get all tags that match a given tagtype_id
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access private
+     * @static
+     * @param int $tagtype_id
+     * @return array
+     */
+    private static function getByTagtype($tagtype_id)
+    {
+        return DB::table('tags')->where('tagtype_id', $tagtype_id)->get();
+    }
+
+    /**
+     * Get all tags that match a given tagtype name
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access private
+     * @static
+     * @param string $tagtype
+     * @return array
+     */    
+    private static function getByTagtypeName($tagtype)
+    {
+        switch ($tagtype) {
+            case "Sub-disciplines":
+                $tagtype_id = self::findTagtypeByName('Sub-disciplines');
+                break;
+            case "Application Area":
+                $tagtype_id = self::findTagtypeByName('Application Area');
+                break;
+            case "Techniques":
+                $tagtype_id = self::findTagtypeByName('Techniques');
+                break;
+            case "Facilities":
+                $tagtype_id = self::findTagtypeByName('Facilities');
+                break;
+            default:
+                return null;
+        }
+        
+        return self::getByTagtype($tagtype_id);
+    }
+    
     /**
      * Get all tags of type sub-disciplines
      * 
@@ -29,8 +73,7 @@ class Tag extends Model
      */
     public static function getAllDisciplines()
     {
-        $tagtype_id = self::findTagtypeByName('Sub-disciplines');
-        return DB::table('tags')->where('tagtype_id', $tagtype_id)->get();
+        return self::getByTagtypeName('Sub-disciplines');
     }
 
     /**
@@ -42,8 +85,7 @@ class Tag extends Model
      */
     public static function getAllApplicationAreas()
     {
-        $tagtype_id = self::findTagtypeByName('Application Area');
-        return DB::table('tags')->where('tagtype_id', $tagtype_id)->get();
+        return self::getByTagtypeName('Application Area');
     }
 
     /**
@@ -55,8 +97,7 @@ class Tag extends Model
      */
     public static function getAllTechniques()
     {
-        $tagtype_id = self::findTagtypeByName('Techniques');
-        return DB::table('tags')->where('tagtype_id', $tagtype_id)->get();
+        return self::getByTagtypeName('Techniques');
     }
 
     /**
@@ -68,8 +109,7 @@ class Tag extends Model
      */
     public static function getAllFacilities()
     {
-        $tagtype_id = self::findTagtypeByName('Facilities');
-        return DB::table('tags')->where('tagtype_id', $tagtype_id)->get();
+        return self::getByTagtypeName('Facilities');
     }
 
     /**
@@ -84,7 +124,7 @@ class Tag extends Model
         $tagtype = DB::table('tagtypes')->where('name', $name)->first();
         return $tagtype !== null ? (int) $tagtype->id : null;
     }
-    
+
     public function users()
     {
         return $this->belongsToMany('App\User');
