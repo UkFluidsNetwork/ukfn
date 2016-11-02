@@ -31,7 +31,7 @@ class Tag extends Model
      */
     private static function getByTagtype($tagtype_id)
     {
-        return DB::table('tags')->where('tagtype_id', $tagtype_id)->get();
+        return DB::table('tags')->where('tagtype_id', $tagtype_id)->orderBy('name')->get();
     }
 
     /**

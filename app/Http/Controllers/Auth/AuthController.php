@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\User;
 use App\Title;
 use App\Tag;
+use App\Institution;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -86,9 +87,12 @@ use AuthenticatesAndRegistersUsers,
     {
         SEO::setTitle('Register');
 
-        $titles = Title::getAll();
+        $titles = Title::all();
+        $institutions = Institution::all();
         $subDisciplines = Tag::getAllDisciplines();
+        $applicationAreas = Tag::getAllApplicationAreas();
+        $techniques = Tag::getAllTechniques();
 
-        return view('auth.register', compact('titles', 'subDisciplines'));
+        return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions'));
     }
 }
