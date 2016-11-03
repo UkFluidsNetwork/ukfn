@@ -42,7 +42,7 @@ final class LogAfterRequest
     private function logRequest($data)
     {
         $log = new Log;
-        $log->user_id = Auth::user()->id ? : null;
+        $log->user_id = isset(Auth::user()->id) ? Auth::user()->id : null;
         $log->ip = $this->getIpAddress();
         $log->browser = $this->getBrowserInfo();
         $log->request = $this->getRequest();
