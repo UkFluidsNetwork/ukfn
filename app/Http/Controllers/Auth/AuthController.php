@@ -69,13 +69,21 @@ use AuthenticatesAndRegistersUsers,
      */
     protected function create(array $data)
     {
-        return User::create([
+        $userCreated = User::create([
                 'title_id' => $data['title_id'],
                 'group_id' => 3, // member
                 'name' => $data['name'],
+                'surname' => $data['surname'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
         ]);
+
+        if ($userCreated) {
+            Session::flash('success_message', 'Thank you for registering.');
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -93,10 +101,56 @@ use AuthenticatesAndRegistersUsers,
         $applicationAreas = Tag::getAllApplicationAreas();
         $techniques = Tag::getAllTechniques();
         $facilities = Tag::getAllFacilities();
-        
+
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
+        
+        $lastInstitution = 0;
+        if (!empty($institutions)) {
+            foreach ($institutions as $institution) {
+                if ($institution->id > $lastInstitution) {
+                    $lastInstitution = $institution->id;
+                }
+            }
+        }
+        
+        $lastTag = 0;
+        if (!empty($subDisciplines)) {
+            foreach ($subDisciplines as $discipline) {
+                if ($discipline->id > $lastTag) {
+                    $lastTag = $discipline->id;
+                }
+            }
+        }
+        
+        if (!empty($applicationAreas)) {
+            foreach ($applicationAreas as $application) {
+                if ($application->id > $lastTag) {
+                    $lastTag = $application->id;
+                }
+            }
+        }
+        
+        if (!empty($techniques)) {
+            foreach ($techniques as $technique) {
+                if ($technique->id > $lastTag) {
+                    $lastTag = $technique->id;
+                }
+            }
+        }
+        
+        if (!empty($facilities)) {
+            foreach ($facilities as $facilitie) {
+                if ($facilitie->id > $lastTag) {
+                    $lastTag = $facilitie->id;
+                }
+            }
+        }
+        
+        // otherwise the first one to be used is the lates one, we want the following, next available, id
+        $lastInstitution++;
+        $lastTag++;
 
-        return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory'));
-    }
+return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'lastInstitution', 'lastTag'));
+}
 }

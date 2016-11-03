@@ -161,11 +161,11 @@
                             </div>
                         </div>
                         <!-- Password check input - end -->
-                        <!-- sub-disciplines input - start -->
+                        <!-- institutions input - start -->
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
                                 <label for="institutions" class="sr-only">Institution</label>
-                                <select id="institutions" type="text" class="tags form-control multi" name="institutions" 
+                                <select id="institutions" type="text" class="form-control multi" name="institutions[]" 
                                         value="{{ old('institutions')}}" placeholder="Institution" required="required" multiple>
                                     @foreach($institutions as $institution)
                                     <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
@@ -174,13 +174,13 @@
                                 <!--i class="form-control-feedback glyphicon glyphicon-education" aria-hidden="true"></i-->
                             </div>
                         </div>
-                        <!-- sub-disciplines input - end -->
+                        <!-- institutions input - end -->
                         <!-- sub-disciplines input - start -->
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
                                 <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
                                 <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
-                                <select id="disciplines" type="text" class="tags form-control multi" name="disciplines" 
+                                <select id="disciplines" type="text" class="tags form-control multi" name="disciplines[]" 
                                         value="{{ old('disciplines')}}" placeholder="Fluids Sub-Discipline" required="required" multiple>
                                     @foreach($subDisciplines as $discipline)
                                     <?php
@@ -200,7 +200,7 @@
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
                                 <label for="applications" class="sr-only">Application Area</label>
                                 <!--i class="form-control-feedback glyphicon glyphicon-tag" aria-hidden="true"></i-->
-                                <select id="applications" type="text" class="tags form-control multi" name="applications" 
+                                <select id="applications" type="text" class="tags form-control multi" name="applications[]" 
                                         value="{{ old('applications')}}" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
                                     @foreach($applicationAreas as $application)
                                     <?php
@@ -220,7 +220,7 @@
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
                                 <label for="techniques" class="sr-only">Techniques</label>
                                 <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
-                                <select id="techniques" type="text" class="tags form-control multi" name="applications" 
+                                <select id="techniques" type="text" class="tags form-control multi" name="techniques[]" 
                                         value="{{ old('techniques')}}" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
                                     @foreach($techniques as $technique)
                                     <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
@@ -233,7 +233,7 @@
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
                                 <label for='facilities' class="sr-only">Facilities</label>
-                                <select id="facilities" type="text" class="tags form-control multi" name="facilities" 
+                                <select id="facilities" type="text" class="tags form-control multi" name="facilities[]" 
                                         value="{{ old('facilities')}}" placeholder="Responsible for Facilities" data-create-item="true" multiple>
                                     @foreach($facilities as $facilitie)
                                     <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
@@ -266,15 +266,27 @@
     </div>
 </div>
 <script>
+var lastInstitution = <?php echo $lastInstitution; ?>;
+var lastTag = <?php echo $lastTag; ?>;
+
+    $('#institutions').selectize({
+        delimiter: ',',
+        persist: false,
+        create: function(input) {
+            return {
+                value: lastInstitution++,
+                text: input
+            }
+        }
+    });
+    
     $('.tags').selectize({
         delimiter: ',',
         persist: false,
         create: function(input) {
             return {
-                value: input,
-                text: input,
-                valueField: 'id',
-                labelField: 'title',
+                value: lastTag++,
+                text: input
             }
         }
     });
