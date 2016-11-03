@@ -98,9 +98,9 @@
                                    aria-expanded="false">{{ Auth::user()->name }} {{ Auth::user()->surname }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li>
+                                    <!--li>
                                         <a href="#">My account</a>
-                                    </li>
+                                    </li-->
                                     @if(Auth::user()->group_id == 1)
                                     <li>
                                         {{ Html::link('/panel', 'Admin Panel') }}
