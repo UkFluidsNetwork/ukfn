@@ -20,20 +20,21 @@ Route::get('contact', 'PagesController@contact');
 Route::get('admin', 'AdminController@index');
 Route::get('viewmessage/{id}', 'AdminController@viewmessage');
 Route::get('panel', 'PanelController@index')->middleware('auth');
-Route::get('suggestions', 'SuggestionsController@view')->middleware('auth');
-Route::get('suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
-Route::get('news', 'NewsController@view')->middleware('auth');
-Route::get('news/add', 'NewsController@add')->middleware('auth');
-Route::get('news/edit/{id}', 'NewsController@edit')->middleware('auth');
-Route::get('events', 'EventsController@view')->middleware('auth');
-Route::get('events/add', 'EventsController@add')->middleware('auth');
-Route::get('events/edit/{id}', 'EventsController@edit')->middleware('auth');
-Route::get('subscriptions', 'MailingController@view')->middleware('auth');
-Route::get('sendmail', 'MailingController@send')->middleware('auth');
-Route::get('messages', 'MessagesController@view')->middleware('auth');
+Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('auth');
+Route::get('panel/suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
+Route::get('panel/news', 'NewsController@view')->middleware('auth');
+Route::get('panel/news/add', 'NewsController@add')->middleware('auth');
+Route::get('panel/news/edit/{id}', 'NewsController@edit')->middleware('auth');
+Route::get('panel/events', 'EventsController@view')->middleware('auth');
+Route::get('panel/events/add', 'EventsController@add')->middleware('auth');
+Route::get('panel/events/edit/{id}', 'EventsController@edit')->middleware('auth');
+Route::get('panel/subscriptions', 'MailingController@view')->middleware('auth');
+Route::get('panel/sendmail', 'MailingController@send')->middleware('auth');
+Route::get('panel/messages', 'MessagesController@view')->middleware('auth');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/view/{id}', 'TalksController@view');
 Route::get('talks/all', 'TalksController@viewall');
+Route::get('register', 'Auth\AuthController@registration');
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -61,4 +62,4 @@ Route::controllers([
 Route::auth();
 
 // temporal workaround so that registering is not available
-Route::get('register', 'PagesController@index');
+//Route::get('register', 'PagesController@index');

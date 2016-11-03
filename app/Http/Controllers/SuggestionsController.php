@@ -35,7 +35,7 @@ class SuggestionsController extends Controller
 
         $bread = [
             ['label' => 'Home', 'path' => '/'],
-            ['label' => 'Admin', 'path' => '/admin'],
+            ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'SIG Suggestions', 'path' => '/suggestions']
         ];
         $breadCount = count($bread);

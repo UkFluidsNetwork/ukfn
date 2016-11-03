@@ -59,4 +59,14 @@ class Subscription extends Model
     {
         return DB::table('testsubscriptions')->pluck('email');
     }
+
+    /**
+     * Get the user associated with the given subscription
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function users()
+    {
+        return $this->belongsTo('App\User');
+    }
 }

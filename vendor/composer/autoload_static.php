@@ -78,6 +78,8 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         array (
             'Dotenv\\' => 7,
             'Doctrine\\Instantiator\\' => 22,
+            'Doctrine\\Common\\Cache\\' => 22,
+            'Doctrine\\Common\\' => 16,
         ),
         'C' => 
         array (
@@ -207,6 +209,14 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         array (
             0 => __DIR__ . '/..' . '/doctrine/instantiator/src/Doctrine/Instantiator',
         ),
+        'Doctrine\\Common\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/cache/lib/Doctrine/Common/Cache',
+        ),
+        'Doctrine\\Common\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/doctrine/common/lib/Doctrine/Common',
+        ),
         'Collective\\Html\\' => 
         array (
             0 => __DIR__ . '/..' . '/laravelcollective/html/src',
@@ -261,9 +271,25 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         ),
         'D' => 
         array (
+            'Doctrine\\DBAL\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/dbal/lib',
+            ),
+            'Doctrine\\Common\\Lexer\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/lexer/lib',
+            ),
             'Doctrine\\Common\\Inflector\\' => 
             array (
                 0 => __DIR__ . '/..' . '/doctrine/inflector/lib',
+            ),
+            'Doctrine\\Common\\Collections\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/collections/lib',
+            ),
+            'Doctrine\\Common\\Annotations\\' => 
+            array (
+                0 => __DIR__ . '/..' . '/doctrine/annotations/lib',
             ),
         ),
         'C' => 
@@ -276,7 +302,10 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
     );
 
     public static $classMap = array (
+        'AlterInstitutions' => __DIR__ . '/../..' . '/database/migrations/2016_10_29_114949_alter_institutions.php',
         'AlterMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+        'AlterTagsCategory' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
+        'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
         'AlterTalksTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
         'CreateAddressesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
         'CreateCommentTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',

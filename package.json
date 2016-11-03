@@ -8,5 +8,9 @@
     "gulp": "^3.9.1",
     "laravel-elixir": "^5.0.0",
     "bootstrap-sass": "^3.0.0"
+  },
+  "dependencies": {
+    "angular": "~1.5.8",
+    "angular-messages": "~1.5.8"
   }
 }

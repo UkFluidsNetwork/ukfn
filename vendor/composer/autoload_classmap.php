@@ -6,7 +6,10 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AlterInstitutions' => $baseDir . '/database/migrations/2016_10_29_114949_alter_institutions.php',
     'AlterMessagesTable' => $baseDir . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+    'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
+    'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
     'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
     'CreateCommentTagsTable' => $baseDir . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',

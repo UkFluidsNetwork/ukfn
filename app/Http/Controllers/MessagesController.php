@@ -26,7 +26,7 @@ class MessagesController extends Controller
 
         $bread = [
             ['label' => 'Home', 'path' => '/'],
-            ['label' => 'Admin', 'path' => '/panel'],
+            ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Messages', 'path' => '/messages']
         ];
         $breadCount = count($bread);
