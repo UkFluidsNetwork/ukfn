@@ -109,77 +109,6 @@
                             </div>
                         </div>
                         <!-- E-mail input - end -->
-                        <!-- sub-disciplines input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
-                                <label for="institutions" class="sr-only">Institution</label>
-                                <i class="form-control-feedback glyphicon glyphicon-education" aria-hidden="true"></i>
-                                <select id="institutions" type="text" class="form-control selectpicker" name="institutions" 
-                                        value="{{ old('institutions')}}" title="Institution" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
-                                    @foreach($institutions as $institution)
-                                    <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <!-- sub-disciplines input - end -->
-                        <!-- sub-disciplines input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
-                                <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
-                                <i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i>
-                                <select id="disciplines" type="text" class="form-control selectpicker" name="disciplines" 
-                                        value="{{ old('disciplines')}}" title="Fluids Sub-Discipline" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
-                                    @foreach($subDisciplines as $discipline)
-                                    <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <!-- sub-disciplines input - end -->
-                        <!-- applications input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
-                                <label for="applications" class="sr-only">Application Area</label>
-                                <i class="form-control-feedback glyphicon glyphicon-tag" aria-hidden="true"></i>
-                                <select id="applications" type="text" class="form-control selectpicker" name="applications" 
-                                        value="{{ old('applications')}}" title="Application Area" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
-                                    @foreach($applicationAreas as $application)
-                                    <option value='{{ $application->id}}'>{{ $application->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <!-- applications input - end -->
-                        <!-- techniques input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
-                                <label for="techniques" class="sr-only">Techniques</label>
-                                <i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i>
-                                <select id="techniques" type="text" class="form-control selectpicker" name="applications" 
-                                        value="{{ old('techniques')}}" title="Techniques" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
-                                    @foreach($techniques as $technique)
-                                    <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                        </div>
-                        <!-- applications input - end -->
-                        <!-- facilities input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
-                                <label for='facilities' class="sr-only">Facilities</label>
-                                <input id="facilities" type="text" name="facilities" value="{{ old('facilities')}}" class="form-control"
-                                       placeholder="Responsible for Facilities">
-                                <i class="form-control-feedback glyphicon glyphicon-compressed" aria-hidden="true"></i>
-                                @if ($errors->has('facilities'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('facilities')}}</strong>
-                                </span>
-                                @endif
-                            </div>
-                        </div>
-                        <!-- facilities input - end -->
                         <!-- Password input - start -->
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('password') ? ' has-error' : ''}}" ng-class="{
@@ -232,6 +161,93 @@
                             </div>
                         </div>
                         <!-- Password check input - end -->
+                        <!-- sub-disciplines input - start -->
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                                <label for="institutions" class="sr-only">Institution</label>
+                                <select id="institutions" type="text" class="tags form-control multi" name="institutions" 
+                                        value="{{ old('institutions')}}" placeholder="Institution" required="required" multiple>
+                                    @foreach($institutions as $institution)
+                                    <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
+                                    @endforeach
+                                </select>
+                                <!--i class="form-control-feedback glyphicon glyphicon-education" aria-hidden="true"></i-->
+                            </div>
+                        </div>
+                        <!-- sub-disciplines input - end -->
+                        <!-- sub-disciplines input - start -->
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
+                                <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
+                                <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
+                                <select id="disciplines" type="text" class="tags form-control multi" name="disciplines" 
+                                        value="{{ old('disciplines')}}" placeholder="Fluids Sub-Discipline" required="required" multiple>
+                                    @foreach($subDisciplines as $discipline)
+                                    <?php
+                                    if ($curDisciplinesCategory !== $discipline->category) {
+                                        echo "<optgroup label=\"".$discipline->category."\">";
+                                        $curDisciplinesCategory = $discipline->category;
+                                    }
+                                    ?>
+                                    <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!-- sub-disciplines input - end -->
+                        <!-- applications input - start -->
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
+                                <label for="applications" class="sr-only">Application Area</label>
+                                <!--i class="form-control-feedback glyphicon glyphicon-tag" aria-hidden="true"></i-->
+                                <select id="applications" type="text" class="tags form-control multi" name="applications" 
+                                        value="{{ old('applications')}}" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
+                                    @foreach($applicationAreas as $application)
+                                    <?php
+                                    if ($curApplicationCategory !== $application->category) {
+                                        echo "<optgroup label=\"".$application->category."\">";
+                                        $curApplicationCategory = $application->category;
+                                    }
+                                    ?>
+                                    <option value='{{ $application->id}}'>{{ $application->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!-- applications input - end -->
+                        <!-- techniques input - start -->
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
+                                <label for="techniques" class="sr-only">Techniques</label>
+                                <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
+                                <select id="techniques" type="text" class="tags form-control multi" name="applications" 
+                                        value="{{ old('techniques')}}" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
+                                    @foreach($techniques as $technique)
+                                    <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <!-- applications input - end -->
+                        <!-- facilities input - start -->
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
+                                <label for='facilities' class="sr-only">Facilities</label>
+                                <select id="facilities" type="text" class="tags form-control multi" name="facilities" 
+                                        value="{{ old('facilities')}}" placeholder="Responsible for Facilities" data-create-item="true" multiple>
+                                    @foreach($facilities as $facilitie)
+                                    <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
+                                    @endforeach
+                                </select>
+                                <!--i class="form-control-feedback glyphicon glyphicon-compressed" aria-hidden="true"></i-->
+                                @if ($errors->has('facilities'))
+                                <span class="help-block">
+                                    <strong>{{ $errors->first('facilities')}}</strong>
+                                </span>
+                                @endif
+                            </div>
+                        </div>
+                        <!-- facilities input - end -->
                         <!-- Submit button - start -->
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group line-break-dbl-top">
@@ -250,15 +266,26 @@
     </div>
 </div>
 <script>
-$('option').mousedown(function(e) {
-    e.preventDefault();
-    $(this).prop('selected', !$(this).prop('selected'));
-    return false;
-});
+    $('.tags').selectize({
+        delimiter: ',',
+        persist: false,
+        create: function(input) {
+            return {
+                value: input,
+                text: input,
+                valueField: 'id',
+                labelField: 'title',
+            }
+        }
+    });
 </script>
 <style>
     .filter-option {
         margin-left: 22px;
+    }
+    
+    .form-control-feedback.glyphicon {
+        z-index: 10;
     }
 </style>
 @endsection

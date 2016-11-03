@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AlterInstitutions' => $baseDir . '/database/migrations/2016_10_29_114949_alter_institutions.php',
     'AlterMessagesTable' => $baseDir . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+    'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
     'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
     'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
@@ -53,7 +54,6 @@ return array(
     'File_Iterator' => $vendorDir . '/phpunit/php-file-iterator/src/Iterator.php',
     'File_Iterator_Facade' => $vendorDir . '/phpunit/php-file-iterator/src/Facade.php',
     'File_Iterator_Factory' => $vendorDir . '/phpunit/php-file-iterator/src/Factory.php',
-    'Group' => $baseDir . '/database/migrations/2016_10_29_143051_Group.php',
     'Hamcrest\\Arrays\\IsArray' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
     'Hamcrest\\Arrays\\IsArrayContaining' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
     'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => $vendorDir . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',

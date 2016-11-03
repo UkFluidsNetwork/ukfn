@@ -92,7 +92,11 @@ use AuthenticatesAndRegistersUsers,
         $subDisciplines = Tag::getAllDisciplines();
         $applicationAreas = Tag::getAllApplicationAreas();
         $techniques = Tag::getAllTechniques();
+        $facilities = Tag::getAllFacilities();
+        
+        $curDisciplinesCategory = null;
+        $curApplicationCategory = null;
 
-        return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions'));
+        return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory'));
     }
 }

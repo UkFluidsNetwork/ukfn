@@ -11,6 +11,8 @@
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
         <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
         <script src="{{ asset('js/vendor/angular.js')}}"></script>
         <script src="{{ asset('js/vendor/angular-messages.js')}}"></script>
@@ -20,6 +22,7 @@
         <script src="{{ asset('js/angCtrl.js')}}"></script>
         <script src="{{ asset('js/angApp.js')}}"></script>
         <script src="{{ asset('js/bootstrap-select.min.js')}}"></script>
+        <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <!-- favicon -->
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png') }}">

@@ -304,6 +304,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
     public static $classMap = array (
         'AlterInstitutions' => __DIR__ . '/../..' . '/database/migrations/2016_10_29_114949_alter_institutions.php',
         'AlterMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+        'AlterTagsCategory' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
         'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
         'AlterTalksTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
         'CreateAddressesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
@@ -349,7 +350,6 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         'File_Iterator' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Iterator.php',
         'File_Iterator_Facade' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Facade.php',
         'File_Iterator_Factory' => __DIR__ . '/..' . '/phpunit/php-file-iterator/src/Factory.php',
-        'Group' => __DIR__ . '/../..' . '/database/migrations/2016_10_29_143051_Group.php',
         'Hamcrest\\Arrays\\IsArray' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArray.php',
         'Hamcrest\\Arrays\\IsArrayContaining' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContaining.php',
         'Hamcrest\\Arrays\\IsArrayContainingInAnyOrder' => __DIR__ . '/..' . '/hamcrest/hamcrest-php/hamcrest/Hamcrest/Arrays/IsArrayContainingInAnyOrder.php',
