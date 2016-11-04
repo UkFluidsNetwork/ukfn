@@ -270,6 +270,7 @@ var lastInstitution = <?php echo $lastInstitution; ?>;
 var lastTag = <?php echo $lastTag; ?>;
 
     $('#institutions').selectize({
+        plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
         create: function(input) {
@@ -281,6 +282,7 @@ var lastTag = <?php echo $lastTag; ?>;
     });
     
     $('.tags').selectize({
+        plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
         create: function(input) {
