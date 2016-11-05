@@ -21,8 +21,7 @@
                             <!-- title input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('title_id') ? ' has-error' : '' }}" ng-class="{
-            'has-error' : registrationForm.title_id.$touched && registrationForm.title_id.$invalid,
-            'has-success' : registrationForm.title_id.$touched && registrationForm.title_id.$valid}">
+            'has-error' : registrationForm.title_id.$touched && registrationForm.title_id.$invalid}">
                                     <label for="title_id" class="sr-only">Title</label>
                                     <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
                                     <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}"
@@ -47,8 +46,7 @@
                             <!-- Name input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('name') ? ' has-error' : ''}}" ng-class="{
-            'has-error' : registrationForm.name.$touched && registrationForm.name.$invalid,
-            'has-success' : registrationForm.name.$touched && registrationForm.name.$valid}">
+            'has-error' : registrationForm.name.$touched && registrationForm.name.$invalid}">
                                     <label for='name' class="sr-only">First name</label>
                                     <input type="text" name="name" value="{{ old('name')}}" class="form-control"
                                            placeholder="First name" required="required" ng-model="data.name">
@@ -71,8 +69,7 @@
                             <!-- Surname input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('surname') ? ' has-error' : ''}}" ng-class="{
-            'has-error' : registrationForm.surname.$touched && registrationForm.surname.$invalid,
-            'has-success' : registrationForm.surname.$touched && registrationForm.surname.$valid}">
+            'has-error' : registrationForm.surname.$touched && registrationForm.surname.$invalid}">
                                     <label for='surname' class ="sr-only">Surname</label>
                                     <input type="text" id="surname" name="surname" value="{{ old('surname')}}" class="form-control"
                                            placeholder="Surname" required="required" ng-model="data.surname">
@@ -94,8 +91,7 @@
                             <!-- E-mail input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
-            'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid,
-            'has-success' : registrationForm.email.$touched && registrationForm.email.$valid}">
+            'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid}">
                                     <label for="email" class="sr-only">E-Mail Address</label>
                                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email')}}"
                                            placeholder="e-mail address" ng-model="data.email" required="required">
@@ -118,8 +114,7 @@
                             <!-- Password input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('password') ? ' has-error' : ''}}" ng-class="{
-            'has-error' : registrationForm.password.$touched && registrationForm.password.$invalid,
-            'has-success' : registrationForm.password.$touched && registrationForm.password.$valid}">
+            'has-error' : registrationForm.password.$touched && registrationForm.password.$invalid}">
                                     <label for="password" class="sr-only">Password</label>
                                     <input id="password" type="password" class="form-control" name="password"
                                            placeholder="Password" required="required" ng-model="data.password" ng-minlength="6">
@@ -143,8 +138,7 @@
                             <!-- Password check input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors-> has('password_confirmation') ? ' has-error' : ''}}" ng-class="{
-            'has-error' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$invalid,
-            'has-success' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$valid}">
+            'has-error' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$invalid}">
                                     <label for="password_confirmation" class="sr-only">Confirm Password</label>
                                     <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
                                            placeholder="Confirm password" ng-model="data.password_confirmation" ng-pattern="data.password"
