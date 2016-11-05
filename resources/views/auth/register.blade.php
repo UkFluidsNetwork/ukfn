@@ -13,7 +13,7 @@
                     </span>
                 </div>
                 <div class="panel-body">
-                    <form name="registrationForm" class="form-horizontal line-break-dbl-top"
+                    <form id="registrationForm" name="registrationForm" class="form-horizontal line-break-dbl-top"
                           method="post" action="/register" novalidate>
 
                         {{ csrf_field() }}
@@ -289,7 +289,7 @@
                                     <a href class="btn btn-warning" ng-show="registrationForm.$valid" ng-click="registerBasic=false">
                                         Previous
                                     </a>
-                                    <button type="submit" class="btn" ng-class="{
+                                    <button id="registration-button" type="button" class="btn" ng-class="{
             'btn-primary' : registrationForm.$invalid,
             'btn-success' : registrationForm.$valid}" ng-disabled="registrationForm.$invalid">
                                         Register
@@ -305,6 +305,10 @@
     </div>
 </div>
 <script>
+    $('#registration-button').click(function() {
+        $('#registrationForm').submit();
+    });
+    
     $('#institutions').selectize({
         plugins: ['remove_button',],
         delimiter: ',',
