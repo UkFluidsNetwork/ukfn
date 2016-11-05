@@ -165,8 +165,7 @@
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
                                 <label for="institutions" class="sr-only">Institution</label>
-                                <select id="institutions" type="text" class="form-control multi" name="institutions[]" 
-                                        value="{{ old('institutions')}}" placeholder="Institution" required="required" multiple>
+                                <select id="institutions" type="text" class="form-control multi" name="institutions[]" placeholder="Institution" required="required" multiple>
                                     @foreach($institutions as $institution)
                                     <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
                                     @endforeach
@@ -180,8 +179,7 @@
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
                                 <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
                                 <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
-                                <select id="disciplines" type="text" class="tags form-control multi" name="disciplines[]" 
-                                        value="{{ old('disciplines')}}" placeholder="Fluids Sub-Discipline" required="required" multiple>
+                                <select id="disciplines" type="text" class="tags form-control multi" name="disciplines[]" placeholder="Fluids Sub-Discipline" required="required" multiple>
                                     @foreach($subDisciplines as $discipline)
                                     <?php
                                     if ($curDisciplinesCategory !== $discipline->category) {
@@ -200,8 +198,7 @@
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
                                 <label for="applications" class="sr-only">Application Area</label>
                                 <!--i class="form-control-feedback glyphicon glyphicon-tag" aria-hidden="true"></i-->
-                                <select id="applications" type="text" class="tags form-control multi" name="applications[]" 
-                                        value="{{ old('applications')}}" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
+                                <select id="applications" type="text" class="tags form-control multi" name="applications[]" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
                                     @foreach($applicationAreas as $application)
                                     <?php
                                     if ($curApplicationCategory !== $application->category) {
@@ -220,8 +217,7 @@
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
                                 <label for="techniques" class="sr-only">Techniques</label>
                                 <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
-                                <select id="techniques" type="text" class="tags form-control multi" name="techniques[]" 
-                                        value="{{ old('techniques')}}" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
+                                <select id="techniques" type="text" class="tags form-control multi" name="techniques[]" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
                                     @foreach($techniques as $technique)
                                     <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
                                     @endforeach
@@ -233,8 +229,7 @@
                         <div class="col-lg-10 col-lg-offset-1">
                             <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
                                 <label for='facilities' class="sr-only">Facilities</label>
-                                <select id="facilities" type="text" class="tags form-control multi" name="facilities[]" 
-                                        value="{{ old('facilities')}}" placeholder="Responsible for Facilities" data-create-item="true" multiple>
+                                <select id="facilities" type="text" class="tags form-control multi" name="facilities[]" placeholder="Responsible for Facilities" data-create-item="true" multiple>
                                     @foreach($facilities as $facilitie)
                                     <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
                                     @endforeach
@@ -266,28 +261,25 @@
     </div>
 </div>
 <script>
-var lastInstitution = <?php echo $lastInstitution; ?>;
-var lastTag = <?php echo $lastTag; ?>;
-
     $('#institutions').selectize({
         plugins: ['remove_button'],
         delimiter: ',',
         persist: false,
         create: function(input) {
             return {
-                value: lastInstitution++,
+                value: input,
                 text: input
             }
         }
     });
     
     $('.tags').selectize({
-        plugins: ['remove_button'],
+        plugins: ['remove_button', 'optgroup_columns'],
         delimiter: ',',
         persist: false,
         create: function(input) {
             return {
-                value: lastTag++,
+                value: input,
                 text: input
             }
         }
