@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\User;
+use App\Title;
+use App\Tag;
+use App\Institution;
 use App\Http\Requests\ContactUsRequest;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
@@ -22,14 +26,14 @@ class PagesController extends Controller
     {
         SEO::setTitle('Home');
         // get news to display
-        $newsController = new NewsController();
-        $news = $newsController->getNews();
+        $newsController   = new NewsController();
+        $news             = $newsController->getNews();
         // get events to display
         $eventsController = new EventsController();
-        $events = $eventsController->getEvents();
+        $events           = $eventsController->getEvents();
         // get tweets to display
-        $tweets = $this->getTweets();
-        $totalTweets = count($tweets);
+        $tweets           = $this->getTweets();
+        $totalTweets      = count($tweets);
 
         return view('pages.index', compact('news', 'events', 'tweets', 'totalTweets'));
     }
@@ -59,8 +63,8 @@ class PagesController extends Controller
     public function sendMessage(ContactUsRequest $request)
     {
         // validate input data from form
-        $name = $request->input('name');
-        $from = $request->input('email');
+        $name    = $request->input('name');
+        $from    = $request->input('email');
         $message = $request->input('message');
 
         // send mail
@@ -82,21 +86,21 @@ class PagesController extends Controller
      */
     public function getTweets()
     {
-        $tweets = [];
+        $tweets        = [];
         // set twitters keys for app authentication
-        $settings = array(
+        $settings      = array(
             'oauth_access_token' => "",
             'oauth_access_token_secret' => "",
             'consumer_key' => "pPc6U4S4jqWE5xcYNMMz06ssS",
             'consumer_secret' => "FEp6gAME28NoymZOj3i2z6fhWeGdB1yAW4NPyYRqyjfmqvsvWn"
         );
         // define the type of query (user_timeline to get all tweets in an account)
-        $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
+        $url           = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
         // query string to search by user name
-        $getfield = '?screen_name=UKFluidsNetwork&count=10';
+        $getfield      = '?screen_name=UKFluidsNetwork&count=10';
         $requestMethod = 'GET';
 
-        $twitter = new TwitterAPIExchange($settings);
+        $twitter    = new TwitterAPIExchange($settings);
         $rawTweeets = $twitter->setGetfield($getfield)
             ->buildOauth($url, $requestMethod)
             ->performRequest();
@@ -107,21 +111,90 @@ class PagesController extends Controller
             // retweets start with: RT @username: 
             if (preg_match('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', $tweet->text)) {
                 $tweets[$key]['user'] = $tweet->entities->user_mentions[0]->name; // it is a retweet, use original author
-                $textToFormat = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $tweet->text);
+                $textToFormat         = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $tweet->text);
             } else {
                 $tweets[$key]['user'] = $tweet->user->name; // not a retweet
-                $textToFormat = $tweet->text; // use original text
+                $textToFormat         = $tweet->text; // use original text
             }
             // link to tweet on twitter
-            $tweets[$key]['link'] = "https://twitter.com/" . $tweet->user->screen_name . "/status/" . $tweet->id;
+            $tweets[$key]['link'] = "https://twitter.com/".$tweet->user->screen_name."/status/".$tweet->id;
             // date posted
             $tweets[$key]['date'] = date("l jS F", strtotime($tweet->created_at));
             // format the text
-            $text1 = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $textToFormat); // replace @user with link to user
-            $text2 = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text1); // replace #hashtag with link to hashtag
+            $text1                = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $textToFormat); // replace @user with link to user
+            $text2                = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text1); // replace #hashtag with link to hashtag
             $tweets[$key]['text'] = $text2;
         }
 
         return $tweets;
+    }
+
+    public function myAccount()
+    {
+        $titles           = Title::all();
+        $institutions     = Institution::all();
+        $subDisciplines   = Tag::getAllDisciplines();
+        $applicationAreas = Tag::getAllApplicationAreas();
+        $techniques       = Tag::getAllTechniques();
+        $facilities       = Tag::getAllFacilities();
+
+        $curDisciplinesCategory = null;
+        $curApplicationCategory = null;
+
+        $lastInstitution = 0;
+        if (!empty($institutions)) {
+            foreach ($institutions as $institution) {
+                if ($institution->id > $lastInstitution) {
+                    $lastInstitution = $institution->id;
+                }
+            }
+        }
+
+        $lastTag = 0;
+        if (!empty($subDisciplines)) {
+            foreach ($subDisciplines as $discipline) {
+                if ($discipline->id > $lastTag) {
+                    $lastTag = $discipline->id;
+                }
+            }
+        }
+
+        if (!empty($applicationAreas)) {
+            foreach ($applicationAreas as $application) {
+                if ($application->id > $lastTag) {
+                    $lastTag = $application->id;
+                }
+            }
+        }
+
+        if (!empty($techniques)) {
+            foreach ($techniques as $technique) {
+                if ($technique->id > $lastTag) {
+                    $lastTag = $technique->id;
+                }
+            }
+        }
+
+        if (!empty($facilities)) {
+            foreach ($facilities as $facilitie) {
+                if ($facilitie->id > $lastTag) {
+                    $lastTag = $facilitie->id;
+                }
+            }
+        }
+
+        // otherwise the first one to be used is the lates one, we want the following, next available, id
+        $lastInstitution++;
+        $lastTag++;
+
+        $bread = [
+            ['label' => 'Home', 'path'=>'/'],
+            ['label' => 'My Account','path' => '/myaccount']
+        ];
+        $breadCount  = count($bread);
+
+        return view('pages.myaccount',
+            compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities',
+                'curDisciplinesCategory', 'curApplicationCategory', 'lastInstitution', 'lastTag', 'bread', 'breadCount'));
     }
 }

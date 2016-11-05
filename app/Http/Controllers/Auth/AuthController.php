@@ -27,7 +27,6 @@ class AuthController extends Controller
 
 use AuthenticatesAndRegistersUsers,
     ThrottlesLogins;
-
     /**
      * Where to redirect users after login / registration.
      *
@@ -54,7 +53,8 @@ use AuthenticatesAndRegistersUsers,
      */
     protected function validator(array $data)
     {
-        return Validator::make($data, [
+        return Validator::make($data,
+                [
                 'name' => 'required|max:255',
                 'email' => 'required|email|max:255|unique:users',
                 'password' => 'required|min:6|confirmed',
@@ -95,16 +95,16 @@ use AuthenticatesAndRegistersUsers,
     {
         SEO::setTitle('Register');
 
-        $titles = Title::all();
-        $institutions = Institution::all();
-        $subDisciplines = Tag::getAllDisciplines();
+        $titles           = Title::all();
+        $institutions     = Institution::all();
+        $subDisciplines   = Tag::getAllDisciplines();
         $applicationAreas = Tag::getAllApplicationAreas();
-        $techniques = Tag::getAllTechniques();
-        $facilities = Tag::getAllFacilities();
+        $techniques       = Tag::getAllTechniques();
+        $facilities       = Tag::getAllFacilities();
 
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
-        
+
         $lastInstitution = 0;
         if (!empty($institutions)) {
             foreach ($institutions as $institution) {
@@ -113,7 +113,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         $lastTag = 0;
         if (!empty($subDisciplines)) {
             foreach ($subDisciplines as $discipline) {
@@ -122,7 +122,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         if (!empty($applicationAreas)) {
             foreach ($applicationAreas as $application) {
                 if ($application->id > $lastTag) {
@@ -130,7 +130,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         if (!empty($techniques)) {
             foreach ($techniques as $technique) {
                 if ($technique->id > $lastTag) {
@@ -138,7 +138,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         if (!empty($facilities)) {
             foreach ($facilities as $facilitie) {
                 if ($facilitie->id > $lastTag) {
@@ -146,11 +146,13 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         // otherwise the first one to be used is the lates one, we want the following, next available, id
         $lastInstitution++;
         $lastTag++;
 
-return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'lastInstitution', 'lastTag'));
-}
+        return view('auth.register',
+            compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities',
+                'curDisciplinesCategory', 'curApplicationCategory', 'lastInstitution', 'lastTag'));
+    }
 }

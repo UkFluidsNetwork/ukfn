@@ -9,7 +9,7 @@
                 <div class="panel-heading">Register</div>
                 <div class="panel-body">
                     <form name="registrationForm" class="form-horizontal line-break-dbl-top"
-                          method="post" action="/register">
+                          method="post" action="/register"  onsubmit="return false;">
                         
                         {{ csrf_field() }}
                         <!-- title input - start -->
