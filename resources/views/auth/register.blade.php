@@ -186,7 +186,7 @@
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
                                     <label for="institutions" class="sr-only">Institution</label>
                                     <select id="institutions" type="text" class="form-control multi" name="institutions[]"
-                                            value="{{ old('institutions')}}" placeholder="Institution" multiple>
+                                            placeholder="Institution" multiple>
                                         @foreach($institutions as $institution)
                                         <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
                                         @endforeach
@@ -200,7 +200,7 @@
                                     <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
                                     <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
                                     <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]"
-                                            value="{{ old('disciplines')}}" placeholder="Fluids Sub-Discipline" multiple>
+                                             placeholder="Fluids Sub-Discipline" multiple>
                                         @foreach($subDisciplines as $key => $discipline)
                                         @if ($curDisciplinesCategory !== $discipline->category)
                                             <optgroup label="{{$discipline->category}}">
@@ -223,7 +223,7 @@
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
                                     <label for="applications" class="sr-only">Application Area</label>
                                     <select id="applications" type="text" class="tags form-control multi" name="applications[]"
-                                            value="{{ old('applications')}}" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" multiple>
+                                            placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" multiple>
                                         @foreach($applicationAreas as $application)
 
                                         @if ($curApplicationCategory !== $application->category)
@@ -242,7 +242,7 @@
                                     <label for="techniques" class="sr-only">Techniques</label>
                                     <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
                                     <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
-                                            value="{{ old('techniques')}}" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
+                                            placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
                                         @foreach($techniques as $technique)
                                         <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
                                         @endforeach
@@ -255,7 +255,7 @@
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
                                     <label for='facilities' class="sr-only">Facilities</label>
                                     <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
-                                            value="{{ old('facilities')}}" placeholder="Responsible for Facilities" data-create-item="true" multiple>
+                                            placeholder="Responsible for Facilities" data-create-item="true" multiple>
                                         @foreach($facilities as $facilitie)
                                         <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
                                         @endforeach
@@ -311,9 +311,6 @@
     </div>
 </div>
 <script>
-var lastInstitution = <?php echo $lastInstitution; ?>;
-var lastTag = <?php echo $lastTag; ?>;
-
     $('#institutions').selectize({
         plugins: ['remove_button',],
         delimiter: ',',
@@ -321,19 +318,19 @@ var lastTag = <?php echo $lastTag; ?>;
         persist: false,
         create: function(input) {
             return {
-                value: lastInstitution++,
+                value: input,
                 text: input
             }
         }
     });
 
     $('.tags').selectize({
-        plugins: ['remove_button','optgroup_columns'],
+        plugins: ['remove_button', 'optgroup_columns'],
         delimiter: ',',
         persist: false,
         create: function(input) {
             return {
-                value: lastTag++,
+                value: input,
                 text: input
             }
         }

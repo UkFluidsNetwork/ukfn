@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Auth;
 
+use Auth as Authentication;
 use App\User;
 use App\Title;
 use App\Tag;
 use App\Institution;
 use Validator;
+use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
@@ -69,18 +71,38 @@ use AuthenticatesAndRegistersUsers,
      */
     protected function create(array $data)
     {
-        $userCreated = User::create([
+        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+
+        $newUser = User::create([
                 'title_id' => $data['title_id'],
                 'group_id' => 3, // member
                 'name' => $data['name'],
                 'surname' => $data['surname'],
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
+                'orcidid' => isset($data['orcidid']) ? $data['orcidid'] : null,
+                'url' => isset($data['url']) ? $data['url'] : null
         ]);
 
-        if ($userCreated) {
-            Session::flash('success_message', 'Thank you for registering.');
-            return true;
+        if (!empty($data['institutions'])) {
+            foreach ($data['institutions'] as $institution) {
+                $id = is_numeric($institution) ? $institution : Institution::create(['name' => $institution]);
+                $newUser->institutions()->attach($id);
+            }
+        }
+
+        foreach ($tagtypes as $type => $key) {
+            if (!empty($data[$type])) {
+                foreach ($data[$type] as $element) {
+                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
+                    $newUser->tags()->attach($id);
+                }
+            }
+        }
+
+        if ($newUser) {
+            Authentication::login($newUser);
+            return redirect('myaccount')->with('message', 'Thank you for registering.');
         } else {
             return false;
         }
@@ -104,7 +126,7 @@ use AuthenticatesAndRegistersUsers,
 
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
-        
+
         $lastInstitution = 0;
         if (!empty($institutions)) {
             foreach ($institutions as $institution) {
@@ -113,7 +135,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         $lastTag = 0;
         if (!empty($subDisciplines)) {
             foreach ($subDisciplines as $discipline) {
@@ -122,7 +144,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         if (!empty($applicationAreas)) {
             foreach ($applicationAreas as $application) {
                 if ($application->id > $lastTag) {
@@ -130,7 +152,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         if (!empty($techniques)) {
             foreach ($techniques as $technique) {
                 if ($technique->id > $lastTag) {
@@ -138,7 +160,7 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         if (!empty($facilities)) {
             foreach ($facilities as $facilitie) {
                 if ($facilitie->id > $lastTag) {
@@ -146,11 +168,11 @@ use AuthenticatesAndRegistersUsers,
                 }
             }
         }
-        
+
         // otherwise the first one to be used is the lates one, we want the following, next available, id
         $lastInstitution++;
         $lastTag++;
 
-return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'lastInstitution', 'lastTag'));
-}
+        return view('auth.register', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'lastInstitution', 'lastTag'));
+    }
 }

@@ -303,8 +303,11 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
 
     public static $classMap = array (
         'AlterInstitutions' => __DIR__ . '/../..' . '/database/migrations/2016_10_29_114949_alter_institutions.php',
+        'AlterInstitutionsMakenullable' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_120939_alter_institutions_makenullable.php',
+        'AlterLogsUsers' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
         'AlterMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
         'AlterTagsCategory' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
+        'AlterTagsMakeModeratedNullable' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
         'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
         'AlterTalksTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
         'AlterUsersAddOrcidid' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_105357_alter_users_add_orcidid.php',

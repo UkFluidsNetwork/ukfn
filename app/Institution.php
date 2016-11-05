@@ -8,6 +8,15 @@ class Institution extends Model
 {
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name'
+    ];
+
+    /**
      * Get the users associated with the given institution
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany

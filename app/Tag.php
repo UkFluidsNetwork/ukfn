@@ -9,6 +9,15 @@ class Tag extends Model
 {
 
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'tagtype_id', 'category'
+    ];
+
+    /**
      * Get all tags
      * 
      * @author Javier Arias <ja573@cam.ac.uk>
