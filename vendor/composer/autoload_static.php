@@ -307,6 +307,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         'AlterTagsCategory' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
         'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
         'AlterTalksTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
+        'AlterUsersAddOrcidid' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_105357_alter_users_add_orcidid.php',
         'CreateAddressesTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
         'CreateCommentTagsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',
         'CreateCommentsTable' => __DIR__ . '/../..' . '/database/migrations/2016_08_14_000024_create_comments_table.php',

@@ -11,6 +11,7 @@ return array(
     'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
     'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
     'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
+    'AlterUsersAddOrcidid' => $baseDir . '/database/migrations/2016_11_05_105357_alter_users_add_orcidid.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
     'CreateCommentTagsTable' => $baseDir . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',
     'CreateCommentsTable' => $baseDir . '/database/migrations/2016_08_14_000024_create_comments_table.php',
