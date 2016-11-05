@@ -4,261 +4,306 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3">
+        <div class="" ng-class="registerBasic ? '' : 'col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3'">
             <div class="panel panel-default">
-                <div class="panel-heading">Register</div>
+                <div class="panel-heading">
+                    Create account
+                    <span class="pull-right">Step
+                    <span ng-show="!registerBasic ? no=1 : no=2">@{{ no }} of 2</span>
+                    </span>
+                </div>
                 <div class="panel-body">
                     <form name="registrationForm" class="form-horizontal line-break-dbl-top"
-                          method="post" action="/register">
-                        
+                          method="post" action="/register" novalidate>
+
                         {{ csrf_field() }}
-                        <!-- title input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('title_id') ? ' has-error' : '' }}" ng-class="{
-        'has-error' : registrationForm.title_id.$touched && registrationForm.title_id.$invalid,
-        'has-success' : registrationForm.title_id.$touched && registrationForm.title_id.$valid}">
-                                <label for="title_id" class="sr-only">Title</label>
-                                <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
-                                <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}" 
-                                        title="Title" required="required">
-                                    @foreach($titles as $title)
-                                    <option value='{{ $title->id}}'>{{ $title->name}}</option>
-                                    @endforeach
-                                </select>
+                        <div id="basicRegister" ng-hide="registerBasic">
+                            <!-- title input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('title_id') ? ' has-error' : '' }}" ng-class="{
+            'has-error' : registrationForm.title_id.$touched && registrationForm.title_id.$invalid,
+            'has-success' : registrationForm.title_id.$touched && registrationForm.title_id.$valid}">
+                                    <label for="title_id" class="sr-only">Title</label>
+                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
+                                    <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}"
+                                            title="Title" required="required">
+                                        @foreach($titles as $title)
+                                        <option value='{{ $title->id}}'>{{ $title->name}}</option>
+                                        @endforeach
+                                    </select>
 
-                                <div class="text-danger" ng-messages="registrationForm.name.$error" role="alert"
-                                     ng-if="registrationForm.title_id.$touched && registrationForm.title_id.$invalid">
-                                    <div ng-message="required">Please specify your title</div>
+                                    <div class="text-danger" ng-messages="registrationForm.name.$error" role="alert"
+                                         ng-if="registrationForm.title_id.$touched && registrationForm.title_id.$invalid">
+                                        <div ng-message="required">Please specify your title</div>
+                                    </div>
+
+                                    @if ($errors->has('title_id'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors-> first('title_id')}}</strong>
+                                    </span>
+                                    @endif
                                 </div>
-
-                                @if ($errors->has('title_id'))
-                                <span class="help-block">
-                                    <strong>{{ $errors-> first('title_id')}}</strong>
-                                </span>
-                                @endif
                             </div>
-                        </div>
-                        <!-- Name input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('name') ? ' has-error' : ''}}" ng-class="{
-        'has-error' : registrationForm.name.$touched && registrationForm.name.$invalid,
-        'has-success' : registrationForm.name.$touched && registrationForm.name.$valid}">
-                                <label for='name' class="sr-only">First name</label>
-                                <input type="text" name="name" value="{{ old('name')}}" class="form-control"
-                                       placeholder="First name" required="required" ng-model="data.name">
-                                <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
+                            <!-- Name input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('name') ? ' has-error' : ''}}" ng-class="{
+            'has-error' : registrationForm.name.$touched && registrationForm.name.$invalid,
+            'has-success' : registrationForm.name.$touched && registrationForm.name.$valid}">
+                                    <label for='name' class="sr-only">First name</label>
+                                    <input type="text" name="name" value="{{ old('name')}}" class="form-control"
+                                           placeholder="First name" required="required" ng-model="data.name">
+                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
 
-                                <div class="text-danger" ng-messages="registrationForm.name.$error" role="alert"
-                                     ng-if="registrationForm.name.$touched && registrationForm.name.$invalid">
-                                    <div ng-message="required">Please specify your name</div>
+                                    <div class="text-danger" ng-messages="registrationForm.name.$error" role="alert"
+                                         ng-if="registrationForm.name.$touched && registrationForm.name.$invalid">
+                                        <div ng-message="required">Please specify your name</div>
+                                    </div>
+
+                                    @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name')}}</strong>
+                                    </span>
+                                    @endif
+
                                 </div>
-
-                                @if ($errors->has('name'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('name')}}</strong>
-                                </span>
-                                @endif
-                                
                             </div>
-                        </div>
-                        <!-- Name input - end -->
-                        <!-- Surname input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('surname') ? ' has-error' : ''}}" ng-class="{
-        'has-error' : registrationForm.surname.$touched && registrationForm.surname.$invalid,
-        'has-success' : registrationForm.surname.$touched && registrationForm.surname.$valid}">
-                                <label for='surname' class ="sr-only">Surname</label>
-                                <input type="text" id="surname" name="surname" value="{{ old('surname')}}" class="form-control"
-                                       placeholder="Surname" required="required" ng-model="data.surname">
-                                <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
+                            <!-- Name input - end -->
+                            <!-- Surname input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('surname') ? ' has-error' : ''}}" ng-class="{
+            'has-error' : registrationForm.surname.$touched && registrationForm.surname.$invalid,
+            'has-success' : registrationForm.surname.$touched && registrationForm.surname.$valid}">
+                                    <label for='surname' class ="sr-only">Surname</label>
+                                    <input type="text" id="surname" name="surname" value="{{ old('surname')}}" class="form-control"
+                                           placeholder="Surname" required="required" ng-model="data.surname">
+                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
 
-                                <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
-                                     ng-if="registrationForm.surname.$touched && registrationForm.surname.$invalid">
-                                    <div ng-message="required">Please specify your surname</div>
+                                    <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
+                                         ng-if="registrationForm.surname.$touched && registrationForm.surname.$invalid">
+                                        <div ng-message="required">Please specify your surname</div>
+                                    </div>
+
+                                    @if ($errors->has('surname'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('surname')}}</strong>
+                                    </span>
+                                    @endif
                                 </div>
-
-                                @if ($errors->has('surname'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('surname')}}</strong>
-                                </span>
-                                @endif
                             </div>
-                        </div>
-                        <!-- Surname input - end -->
-                        <!-- E-mail input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
-        'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid,
-        'has-success' : registrationForm.email.$touched && registrationForm.email.$valid}">
-                                <label for="email" class="sr-only">E-Mail Address</label>
-                                <input id="email" type="email" class="form-control" name="email" value="{{ old('email')}}"
-                                       placeholder="e-mail address" ng-model="data.email" required="required">
-                                <i class="form-control-feedback glyphicon glyphicon-envelope" aria-hidden="true"></i>
+                            <!-- Surname input - end -->
+                            <!-- E-mail input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
+            'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid,
+            'has-success' : registrationForm.email.$touched && registrationForm.email.$valid}">
+                                    <label for="email" class="sr-only">E-Mail Address</label>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email')}}"
+                                           placeholder="e-mail address" ng-model="data.email" required="required">
+                                    <i class="form-control-feedback glyphicon glyphicon-envelope" aria-hidden="true"></i>
 
-                                <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
-                                     ng-if="registrationForm.email.$touched && registrationForm.email.$invalid">
-                                    <div ng-message="required">Please specify your e-mail</div>
-                                    <div ng-message="email">Please enter valid e-mail</div>
+                                    <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
+                                         ng-if="registrationForm.email.$touched && registrationForm.email.$invalid">
+                                        <div ng-message="required">Please specify your e-mail</div>
+                                        <div ng-message="email">Please enter valid e-mail</div>
+                                    </div>
+
+                                    @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email')}}</strong>
+                                    </span>
+                                    @endif
                                 </div>
-
-                                @if ($errors->has('email'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('email')}}</strong>
-                                </span>
-                                @endif
                             </div>
-                        </div>
-                        <!-- E-mail input - end -->
-                        <!-- Password input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('password') ? ' has-error' : ''}}" ng-class="{
-        'has-error' : registrationForm.password.$touched && registrationForm.password.$invalid,
-        'has-success' : registrationForm.password.$touched && registrationForm.password.$valid}">
-                                <label for="password" class="sr-only">Password</label>
-                                <input id="password" type="password" class="form-control" name="password" 
-                                       placeholder="Password" required="required" ng-model="data.password" ng-minlength="6">
-                                <i class="form-control-feedback glyphicon glyphicon-lock" aria-hidden="true"></i>
-                                
-                                <div class="text-danger" ng-messages="registrationForm.password.$error" 
-                                     ng-if="registrationForm.password.$touched && registrationForm.password.$invalid" role="alert">
-                                    <div ng-message="minlength">Your passwords needs to be minimum of 6 characters long</div>
-                                    <div ng-message="required">Please specify your password</div>
-                                    
+                            <!-- E-mail input - end -->
+                            <!-- Password input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('password') ? ' has-error' : ''}}" ng-class="{
+            'has-error' : registrationForm.password.$touched && registrationForm.password.$invalid,
+            'has-success' : registrationForm.password.$touched && registrationForm.password.$valid}">
+                                    <label for="password" class="sr-only">Password</label>
+                                    <input id="password" type="password" class="form-control" name="password"
+                                           placeholder="Password" required="required" ng-model="data.password" ng-minlength="6">
+                                    <i class="form-control-feedback glyphicon glyphicon-lock" aria-hidden="true"></i>
+
+                                    <div class="text-danger" ng-messages="registrationForm.password.$error"
+                                         ng-if="registrationForm.password.$touched && registrationForm.password.$invalid" role="alert">
+                                        <div ng-message="minlength">Your passwords needs to be minimum of 6 characters long</div>
+                                        <div ng-message="required">Please specify your password</div>
+
+                                    </div>
+
+                                    @if ($errors->has('password'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password')}}</strong>
+                                    </span>
+                                    @endif
                                 </div>
-
-                                @if ($errors->has('password'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password')}}</strong>
-                                </span>
-                                @endif
                             </div>
-                        </div>
-                        <!-- Password input - end -->
-                        <!-- Password check input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors-> has('password_confirmation') ? ' has-error' : ''}}" ng-class="{
-        'has-error' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$invalid,
-        'has-success' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$valid}">
-                                <label for="password_confirmation" class="sr-only">Confirm Password</label>
-                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
-                                       placeholder="Confirm password" ng-model="data.password_confirmation" ng-pattern="data.password"
-                                       required="required" ng-minlength="6">
-                                <i class="form-control-feedback glyphicon glyphicon-lock" aria-hidden="true"></i>
+                            <!-- Password input - end -->
+                            <!-- Password check input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors-> has('password_confirmation') ? ' has-error' : ''}}" ng-class="{
+            'has-error' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$invalid,
+            'has-success' : registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$valid}">
+                                    <label for="password_confirmation" class="sr-only">Confirm Password</label>
+                                    <input id="password-confirm" type="password" class="form-control" name="password_confirmation"
+                                           placeholder="Confirm password" ng-model="data.password_confirmation" ng-pattern="data.password"
+                                           required="required" ng-minlength="6">
+                                    <i class="form-control-feedback glyphicon glyphicon-lock" aria-hidden="true"></i>
 
-                                <div class="text-danger" ng-messages="registrationForm.password_confirmation.$error"
-                                     ng-if="registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$invalid"
-                                     role="alert">
-                                    <div ng-message="minlength">Your passwords needs to be minimum of 6 characters long</div>
-                                    <div ng-message="required">Please specify your password</div>
-                                    <div ng-message="pattern">Password confirmation does not match</div>
+                                    <div class="text-danger" ng-messages="registrationForm.password_confirmation.$error"
+                                         ng-if="registrationForm.password_confirmation.$touched && registrationForm.password_confirmation.$invalid"
+                                         role="alert">
+                                        <div ng-message="minlength">Your passwords needs to be minimum of 6 characters long</div>
+                                        <div ng-message="required">Please specify your password</div>
+                                        <div ng-message="pattern">Password confirmation does not match</div>
+                                    </div>
+
+                                    @if ($errors->has('password_confirmation'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('password_confirmation')}}</strong>
+                                    </span>
+                                    @endif
                                 </div>
+                            </div>
+                            <!-- Password check input - end -->
+                            <!-- Next button - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group line-break-dbl-top">
+                                    <a href class="btn btn-success" ng-disabled="registrationForm.$invalid" ng-show="registrationForm.$invalid">
+                                        Next
+                                    </a>
+                                    <a href class="btn btn-success" ng-show="registrationForm.$valid" ng-click="registerBasic=true">
+                                        Next
+                                    </a>
+                                </div>
+                            </div>
+                            <!-- Next button - end -->
+                        </div>
+                        <div id="register2" ng-show="registerBasic && registrationForm.$valid">
+                            <!-- institutions input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                                    <label for="institutions" class="sr-only">Institution</label>
+                                    <select id="institutions" type="text" class="form-control multi" name="institutions[]"
+                                            value="{{ old('institutions')}}" placeholder="Institution" multiple>
+                                        @foreach($institutions as $institution)
+                                        <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <!-- institutions input - end -->
+                            <!-- sub-disciplines input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
+                                    <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
+                                    <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
+                                    <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]"
+                                            value="{{ old('disciplines')}}" placeholder="Fluids Sub-Discipline" multiple>
+                                        @foreach($subDisciplines as $key => $discipline)
+                                        @if ($curDisciplinesCategory !== $discipline->category)
+                                            <optgroup label="{{$discipline->category}}">
+                                            {{$curDisciplinesCategory = $discipline->category}}
 
-                                @if ($errors->has('password_confirmation'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('password_confirmation')}}</strong>
-                                </span>
-                                @endif
+                                        @endif
+                                                <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+
+                                        @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
+                                        </optgroup>
+
+                                        @endif
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <!-- Password check input - end -->
-                        <!-- institutions input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
-                                <label for="institutions" class="sr-only">Institution</label>
-                                <select id="institutions" type="text" class="form-control multi" name="institutions[]" 
-                                        value="{{ old('institutions')}}" placeholder="Institution" required="required" multiple>
-                                    @foreach($institutions as $institution)
-                                    <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
-                                    @endforeach
-                                </select>
-                                <!--i class="form-control-feedback glyphicon glyphicon-education" aria-hidden="true"></i-->
+                            <!-- sub-disciplines input - end -->
+                            <!-- applications input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
+                                    <label for="applications" class="sr-only">Application Area</label>
+                                    <select id="applications" type="text" class="tags form-control multi" name="applications[]"
+                                            value="{{ old('applications')}}" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" multiple>
+                                        @foreach($applicationAreas as $application)
+
+                                        @if ($curApplicationCategory !== $application->category)
+                                            <optgroup label="{{$application->category}}">
+                                            {{$curApplicationCategory = $application->category}}
+                                        @endif
+                                                <option value='{{ $application->id}}'>{{ $application->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <!-- institutions input - end -->
-                        <!-- sub-disciplines input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
-                                <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
-                                <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
-                                <select id="disciplines" type="text" class="tags form-control multi" name="disciplines[]" 
-                                        value="{{ old('disciplines')}}" placeholder="Fluids Sub-Discipline" required="required" multiple>
-                                    @foreach($subDisciplines as $discipline)
-                                    <?php
-                                    if ($curDisciplinesCategory !== $discipline->category) {
-                                        echo "<optgroup label=\"".$discipline->category."\">";
-                                        $curDisciplinesCategory = $discipline->category;
-                                    }
-                                    ?>
-                                    <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
-                                    @endforeach
-                                </select>
+                            <!-- applications input - end -->
+                            <!-- techniques input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
+                                    <label for="techniques" class="sr-only">Techniques</label>
+                                    <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
+                                    <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
+                                            value="{{ old('techniques')}}" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
+                                        @foreach($techniques as $technique)
+                                        <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
                             </div>
-                        </div>
-                        <!-- sub-disciplines input - end -->
-                        <!-- applications input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
-                                <label for="applications" class="sr-only">Application Area</label>
-                                <!--i class="form-control-feedback glyphicon glyphicon-tag" aria-hidden="true"></i-->
-                                <select id="applications" type="text" class="tags form-control multi" name="applications[]" 
-                                        value="{{ old('applications')}}" placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
-                                    @foreach($applicationAreas as $application)
-                                    <?php
-                                    if ($curApplicationCategory !== $application->category) {
-                                        echo "<optgroup label=\"".$application->category."\">";
-                                        $curApplicationCategory = $application->category;
-                                    }
-                                    ?>
-                                    <option value='{{ $application->id}}'>{{ $application->name}}</option>
-                                    @endforeach
-                                </select>
+                            <!-- applications input - end -->
+                            <!-- facilities input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
+                                    <label for='facilities' class="sr-only">Facilities</label>
+                                    <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
+                                            value="{{ old('facilities')}}" placeholder="Responsible for Facilities" data-create-item="true" multiple>
+                                        @foreach($facilities as $facilitie)
+                                        <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
+                                        @endforeach
+                                    </select>
+                                    <!--i class="form-control-feedback glyphicon glyphicon-compressed" aria-hidden="true"></i-->
+                                    @if ($errors->has('facilities'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('facilities')}}</strong>
+                                    </span>
+                                    @endif
+                                </div>
                             </div>
-                        </div>
-                        <!-- applications input - end -->
-                        <!-- techniques input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
-                                <label for="techniques" class="sr-only">Techniques</label>
-                                <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
-                                <select id="techniques" type="text" class="tags form-control multi" name="techniques[]" 
-                                        value="{{ old('techniques')}}" placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" required="required" multiple>
-                                    @foreach($techniques as $technique)
-                                    <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
-                                    @endforeach
-                                </select>
+                            <!-- facilities input - end -->
+                            <!-- user website input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                                    <label for='url' class ="sr-only">Personal Website</label>
+                                    <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
+                                           placeholder="Personal website">
+                                    <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
+                                </div>
                             </div>
-                        </div>
-                        <!-- applications input - end -->
-                        <!-- facilities input - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
-                                <label for='facilities' class="sr-only">Facilities</label>
-                                <select id="facilities" type="text" class="tags form-control multi" name="facilities[]" 
-                                        value="{{ old('facilities')}}" placeholder="Responsible for Facilities" data-create-item="true" multiple>
-                                    @foreach($facilities as $facilitie)
-                                    <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
-                                    @endforeach
-                                </select>
-                                <!--i class="form-control-feedback glyphicon glyphicon-compressed" aria-hidden="true"></i-->
-                                @if ($errors->has('facilities'))
-                                <span class="help-block">
-                                    <strong>{{ $errors->first('facilities')}}</strong>
-                                </span>
-                                @endif
+                            <!-- user website input - end -->
+                            <!-- orcid input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                                    <label for='orcidid' class ="sr-only">ORCID id</label>
+                                    <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
+                                           placeholder="ORCID id">
+                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
+                                </div>
                             </div>
-                        </div>
-                        <!-- facilities input - end -->
-                        <!-- Submit button - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group line-break-dbl-top">
-                                <button type="submit" class="btn" ng-class="{
-        'btn-primary' : registrationForm.$invalid,
-        'btn-success' : registrationForm.$valid}">
-                                    Register
-                                </button>
+                            <!-- orcid website input - end -->
+                            <!-- Submit button - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group line-break-dbl-top">
+                                    <a href class="btn btn-warning" ng-show="registrationForm.$valid" ng-click="registerBasic=false">
+                                        Previous
+                                    </a>
+                                    <button type="submit" class="btn" ng-class="{
+            'btn-primary' : registrationForm.$invalid,
+            'btn-success' : registrationForm.$valid}" ng-disabled="registrationForm.$invalid">
+                                        Register
+                                    </button>
+                                </div>
                             </div>
+                            <!-- Submit button - end -->
                         </div>
-                        <!-- Submit button - end -->
                     </form>
                 </div>
             </div>
@@ -270,8 +315,9 @@ var lastInstitution = <?php echo $lastInstitution; ?>;
 var lastTag = <?php echo $lastTag; ?>;
 
     $('#institutions').selectize({
-        plugins: ['remove_button'],
+        plugins: ['remove_button',],
         delimiter: ',',
+        framework: 'bootstrap',
         persist: false,
         create: function(input) {
             return {
@@ -280,9 +326,9 @@ var lastTag = <?php echo $lastTag; ?>;
             }
         }
     });
-    
+
     $('.tags').selectize({
-        plugins: ['remove_button'],
+        plugins: ['remove_button','optgroup_columns'],
         delimiter: ',',
         persist: false,
         create: function(input) {
@@ -292,14 +338,62 @@ var lastTag = <?php echo $lastTag; ?>;
             }
         }
     });
+
 </script>
 <style>
     .filter-option {
         margin-left: 22px;
     }
-    
+
     .form-control-feedback.glyphicon {
         z-index: 10;
     }
 </style>
+
+<style>
+    .filter-option {
+        margin-left: 22px;
+    }
+
+    .form-control-feedback.glyphicon {
+        z-index: 10;
+    }
+
+    .plugin-optgroup_columns {
+
+
+    }
+
+    .selectize-dropdown-content {
+
+        max-height: 666px !important;
+/*        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: flex-start;
+        align-content: flex-start;*/
+
+
+
+
+    }
+
+
+    /*WHOLO GROUP BOX*/
+    .optgroup {
+        width : 300px !important;
+        height : auto !important;
+        padding-bottom: 50px !important;
+        float: left !important;
+        border: none !important;
+    }
+    .option {
+        /*height: 40px !important;*/
+    }
+    .optgroup-header {
+        font-size:1.5em !important;
+    }
+</style>
+
 @endsection
