@@ -82,7 +82,7 @@
         <div class='form-group row line-break-dbl-top'>
             <div class='col-lg-2 col-md-2'></div>
             <div class='col-lg-10 col-md-10'>
-                {!! Form::submit('Send', ['class' => 'btn btn-default text-uppercase']) !!}
+                {!! Form::submit('Send', ['class' => 'btn btn-primary']) !!}
             </div>
         </div>  
     

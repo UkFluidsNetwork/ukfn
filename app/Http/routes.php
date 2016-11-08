@@ -36,6 +36,7 @@ Route::get('talks/view/{id}', 'TalksController@view');
 Route::get('talks/all', 'TalksController@viewall');
 Route::get('register', 'Auth\AuthController@registration');
 Route::get('myaccount', 'PagesController@myaccount')->middleware('auth');
+Route::get('myaccount/password', 'PagesController@changepassword')->middleware('auth');
 /** POST requests **/
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -48,6 +49,7 @@ Route::post('events', 'EventsController@create');
 Route::post('sendmail', 'MailingController@sendMail');
 Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
 Route::post('unsubscribe', 'MailingController@keepSubscription');
+Route::post('myaccount/password', 'PagesController@updatepassword');
 /** PATCH requests **/
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
 Route::patch('/news/update/{id}', 'NewsController@update');

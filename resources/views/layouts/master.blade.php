@@ -103,12 +103,24 @@
                                     </li-->
                                     @if(Auth::user()->group_id == 1)
                                     <li>
-                                        {{ Html::link('/panel', 'Admin Panel') }}
+                                        <a href='{{ URL::to('/panel') }}'>
+                                            <span class="glyphicon glyphicon-wrench margin-right"></span>
+                                            Admin Panel
+                                        </a>
                                     </li>
                                     @endif
-                                    <li role="separator" class="divider"></li>
                                     <li>
-                                        <a href="{{ URL::to('/logout') }}">Logout</a>
+                                        <a href='{{ URL::to('/myaccount') }}'>
+                                            <span class="glyphicon glyphicon-user margin-right"></span>
+                                            My Account
+                                        </a>
+                                    </li>
+<!--                                    <li role="separator" class="divider"></li>-->
+                                    <li>
+                                        <a href="{{ URL::to('/logout') }}">
+                                            <span class="glyphicon glyphicon-log-out margin-right"></span>
+                                            Logout
+                                        </a>
                                     </li>
                                 </ul>                                
                             </li>

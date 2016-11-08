@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use App\User;
+use App\Title;
+use App\Tag;
+use App\Institution;
 use App\Http\Requests\ContactUsRequest;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
@@ -84,12 +88,12 @@ class PagesController extends Controller
     {
         $tweets = [];
         // set twitters keys for app authentication
-        $settings = array(
+        $settings = [
             'oauth_access_token' => "",
             'oauth_access_token_secret' => "",
             'consumer_key' => "pPc6U4S4jqWE5xcYNMMz06ssS",
             'consumer_secret' => "FEp6gAME28NoymZOj3i2z6fhWeGdB1yAW4NPyYRqyjfmqvsvWn"
-        );
+        ];
         // define the type of query (user_timeline to get all tweets in an account)
         $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
         // query string to search by user name
@@ -123,5 +127,41 @@ class PagesController extends Controller
         }
 
         return $tweets;
+    }
+
+    public function myAccount()
+    {
+        SEO::setTitle('My Account');
+
+        $titles = Title::all();
+        $institutions = Institution::all();
+        $subDisciplines = Tag::getAllDisciplines();
+        $applicationAreas = Tag::getAllApplicationAreas();
+        $techniques = Tag::getAllTechniques();
+        $facilities = Tag::getAllFacilities();
+        $curDisciplinesCategory = null;
+        $curApplicationCategory = null;
+
+        $bread = [
+            ['label' => 'Home', 'path' => '/'],
+            ['label' => 'My Account', 'path' => '/myaccount']
+        ];
+        $breadCount = count($bread);
+
+        return view('pages.myaccount', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
+    }
+
+    public function changePassword()
+    {
+        SEO::setTitle('Change Password');
+
+        $bread = [
+            ['label' => 'Home', 'path' => '/'],
+            ['label' => 'My Account', 'path' => '/myaccount'],
+            ['label' => 'Change Password', 'path' => '/myaccount/password']
+        ];
+
+        $breadCount = count($bread);
+        return view('pages.password', compact('bread', 'breadCount'));
     }
 }
