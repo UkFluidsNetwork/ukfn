@@ -10,10 +10,13 @@ use App\Tag;
 use App\Institution;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\MyaccountRequest;
+use App\Http\Requests\PasswordUpdateRequest;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Session;
 use SEO;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Redirect;
 
 class PagesController extends Controller
 {
@@ -165,7 +168,7 @@ class PagesController extends Controller
             ['label' => 'My Account', 'path' => '/myaccount'],
             ['label' => 'Change Password', 'path' => '/myaccount/password']
         ];
-
+        
         $breadCount = count($bread);
         return view('pages.password', compact('bread', 'breadCount'));
     }
@@ -226,5 +229,25 @@ class PagesController extends Controller
         Session::flash('message', 'Details saved.');
         Session::flash('alert-class', 'alert-success');
         return redirect('/myaccount');
+    }
+    
+    /**
+     * Update user password
+     * @param PasswordUpdateRequest $request
+     * @return void
+     * @author Robert Barczyk <robert@barczyk.net>
+     */
+    public function updatePassword(PasswordUpdateRequest $request)
+    {        
+        if (Hash::check($request->password, Auth::user()->password)) {
+            $user = Auth::user();
+            $user->password = Hash::make($request->new_password);
+            $user->save();
+            Session::flash('message', 'Your password has been changed.');
+            Session::flash('alert-class', 'alert-success');
+            return redirect('/myaccount');
+        } else {
+            return Redirect::back()->withErrors(['password' => 'Current password is incorect']);
+        }
     }
 }

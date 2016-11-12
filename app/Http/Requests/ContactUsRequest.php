@@ -16,7 +16,7 @@ class ContactUsRequest extends Request
     public function authorize()
     {
       // allow everybody  
-      return TRUE;
+      return true;
     }
 
     /**

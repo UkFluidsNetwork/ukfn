@@ -2,9 +2,9 @@
 
 @section('content')
 
-<div class="container">
+<div class="container-fluid">
     <div class="row">
-        <div class="" ng-class="registerBasic ? '' : 'col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3'">
+        <div ng-class="registerBasic ? '' : 'col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3'">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     Create account
