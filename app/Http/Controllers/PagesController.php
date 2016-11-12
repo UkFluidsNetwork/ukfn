@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Page;
+use Auth;
 use App\User;
 use App\Title;
 use App\Tag;
@@ -133,6 +134,8 @@ class PagesController extends Controller
     {
         SEO::setTitle('My Account');
 
+        $user = Auth::user();
+        $tags = $user->getTagIds();
         $titles = Title::all();
         $institutions = Institution::all();
         $subDisciplines = Tag::getAllDisciplines();
@@ -148,7 +151,7 @@ class PagesController extends Controller
         ];
         $breadCount = count($bread);
 
-        return view('pages.myaccount', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
+        return view('pages.myaccount', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user'));
     }
 
     public function changePassword()

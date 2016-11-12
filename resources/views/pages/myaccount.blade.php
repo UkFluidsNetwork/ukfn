@@ -6,7 +6,6 @@
 <div class="container nopadding">
     <div class="row nopadding">
         <div class='col-lg-8'>
-            
             <form name="registrationForm" class="nopadding form-horizontal line-break-dbl-top"
                   method="post" action="/register">
 
@@ -21,7 +20,7 @@
                         <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}"
                                 title="Title" required="required">
                             @foreach($titles as $title)
-                            <option value='{{ $title->id}}'>{{ $title->name}}</option>
+                            <option {{ $user->title_id == $title->id ? "selected" : "" }} value='{{ $title->id}}'>{{ $title->name}}</option>
                             @endforeach
                         </select>
 
@@ -42,8 +41,8 @@
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('name') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.name.$touched && registrationForm.name.$invalid}">
                         <label for='name' class="sr-only">First name</label>
-                        <input type="text" name="name" value="{{ old('name')}}" class="form-control"
-                               placeholder="First name" required="required" ng-model="data.name">
+                        <input type="text" name="name" value="{{ $user->name }}" class="form-control"
+                               placeholder="First name" required="required" ng-model="data.name" ng-init="data.name='{{ $user->name }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
 
                         <div class="text-danger" ng-messages="registrationForm.name.$error" role="alert"
@@ -65,8 +64,8 @@
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('surname') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.surname.$touched && registrationForm.surname.$invalid}">
                         <label for='surname' class ="sr-only">Surname</label>
-                        <input type="text" id="surname" name="surname" value="{{ old('surname')}}" class="form-control"
-                               placeholder="Surname" required="required" ng-model="data.surname">
+                        <input type="text" id="surname" name="surname" value="{{ $user->surname }}" class="form-control"
+                               placeholder="Surname" required="required" ng-model="data.surname" ng-init="data.surname='{{ $user->surname }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
 
                         <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
@@ -87,8 +86,8 @@
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid}">
                         <label for="email" class="sr-only">E-Mail Address</label>
-                        <input id="email" type="email" class="form-control" name="email" value="{{ old('email')}}"
-                               placeholder="e-mail address" ng-model="data.email" required="required">
+                        <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}"
+                               placeholder="e-mail address" ng-model="data.email" required="required" ng-init="data.email='{{ $user->email }}'">
                         <i class="form-control-feedback glyphicon glyphicon-envelope" aria-hidden="true"></i>
 
                         <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
@@ -180,8 +179,8 @@
                         <label for='facilities' class="sr-only">Facilities</label>
                         <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
                             placeholder="Responsible for Facilities" data-create-item="true" multiple>
-                            @foreach($facilities as $facilitie)
-                            <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
+                            @foreach($facilities as $facility)
+                            <option value='{{ $facility->id}}'>{{ $facility->name}}</option>
                             @endforeach
                         </select>
                         <!--i class="form-control-feedback glyphicon glyphicon-compressed" aria-hidden="true"></i-->
@@ -195,20 +194,20 @@
                 <!-- facilities input - end -->
                 <!-- user website input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
                         <label for='url' class ="sr-only">Personal Website</label>
-                        <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
-                               placeholder="Personal website">
+                        <input type="url" id="surname" name="url" value="{{ $user->url }}" class="form-control"
+                               placeholder="Personal website" ng-init="data.url='{{ $user->url }}'">
                         <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
                     </div>
                 </div>
                 <!-- user website input - end -->
                 <!-- orcid input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
                         <label for='orcidid' class ="sr-only">ORCID id</label>
-                        <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
-                               placeholder="ORCID id">
+                        <input type="orcidid" id="surname" name="orcidid" value="{{ $user->orcidid }}" class="form-control"
+                               placeholder="ORCID Id" ng-init="data.orcidid='{{ $user->orcidid }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
                     </div>
                 </div>

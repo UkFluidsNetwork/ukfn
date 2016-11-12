@@ -35,7 +35,7 @@ use AuthenticatesAndRegistersUsers,
      *
      * @var string
      */
-    protected $redirectTo = '/';
+    protected $redirectTo = '/myaccount';
 
     /**
      * Create a new authentication controller instance.
@@ -74,7 +74,7 @@ use AuthenticatesAndRegistersUsers,
         $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
 
         $newUser = User::create([
-                'title_id' => $data['title_id'],
+                'title_id' => $data['title_id'] ? : null,
                 'group_id' => 3, // member
                 'name' => $data['name'],
                 'surname' => $data['surname'],
@@ -101,8 +101,9 @@ use AuthenticatesAndRegistersUsers,
         }
 
         if ($newUser) {
-            Authentication::login($newUser);
-            return redirect('myaccount')->with('message', 'Thank you for registering.');
+            Session::flash('message', 'Thank you for registering.');
+            Session::flash('alert-class', 'alert-success');
+            return Authentication::loginUsingId($newUser->getAuthIdentifier());
         } else {
             return false;
         }

@@ -79,7 +79,7 @@ class SuggestionsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/suggestions');
+        return redirect('/panel/suggestions');
     }
 
     public function delete($id)
@@ -91,6 +91,6 @@ class SuggestionsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/suggestions');
+        return redirect('/panel/suggestions');
     }
 }
