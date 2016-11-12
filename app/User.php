@@ -34,7 +34,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Institution', 'institution_users')->withTimestamps();
     }
-
+    
     /**
      * Get the sigs associated with the given user
      * 
