@@ -354,26 +354,9 @@
         z-index: 10;
     }
 
-    .plugin-optgroup_columns {
-
-
-    }
-
     .selectize-dropdown-content {
-
         max-height: 666px !important;
-/*        display: flex;
-        flex-wrap: wrap;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-start;
-        align-content: flex-start;*/
-
-
-
-
     }
-
 
     /*WHOLO GROUP BOX*/
     .optgroup {

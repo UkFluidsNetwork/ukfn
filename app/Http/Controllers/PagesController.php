@@ -9,6 +9,7 @@ use App\Title;
 use App\Tag;
 use App\Institution;
 use App\Http\Requests\ContactUsRequest;
+use App\Http\Requests\MyaccountRequest;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Session;
@@ -135,7 +136,8 @@ class PagesController extends Controller
         SEO::setTitle('My Account');
 
         $user = Auth::user();
-        $tags = $user->getTagIds();
+        $userTags = $user->getTagIds();
+        $userInstitutions = $user->getInstitutionIds();
         $titles = Title::all();
         $institutions = Institution::all();
         $subDisciplines = Tag::getAllDisciplines();
@@ -151,7 +153,7 @@ class PagesController extends Controller
         ];
         $breadCount = count($bread);
 
-        return view('pages.myaccount', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user'));
+        return view('pages.myaccount', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user', 'userTags', 'userInstitutions'));
     }
 
     public function changePassword()
@@ -166,5 +168,63 @@ class PagesController extends Controller
 
         $breadCount = count($bread);
         return view('pages.password', compact('bread', 'breadCount'));
+    }
+
+    public function updateDetails(MyaccountRequest $request)
+    {
+        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+
+        $user = User::findOrFail(Auth::user()->id);
+        $user->title_id = $request->title_id;
+        $user->name = $request->name;
+        $user->surname = $request->surname;
+        $user->email = $request->email;
+        $user->orcidid = $request->orcidid;
+        $user->url = $request->url;
+        $user->save();
+
+        // compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
+        $currentTags = $user->getTagIds();
+        $inputTags = array_merge($request->disciplines, $request->applications, $request->techniques, $request->facilities);
+        if (!empty($currentTags)) {
+            foreach ($currentTags as $curTag) {
+                if (!in_array($curTag, $inputTags)) {
+                    $user->tags()->detach($curTag);
+                }
+            }
+        }
+
+        foreach ($tagtypes as $type => $key) {
+            if (!empty($request->$type)) {
+                foreach ($request->$type as $element) {
+                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
+                    $user->tags()->attach($id);
+                }
+            }
+        }
+
+        // the same with institutions, we are attaching new institutions in input that are not in current and deattaching
+        // institutions that were in current but not in the new ones
+        $currentInstitutions = $user->getInstitutionIds();
+        if (!empty($currentInstitutions)) {
+            foreach ($currentInstitutions as $curInstitution) {
+                if (!in_array($curInstitution, $request->institutions)) {
+                    $user->institutions()->detach($curInstitution);
+                }
+            }
+        }
+
+        if (!empty($request->institutions)) {
+            foreach ($request->institutions as $inputInstitution) {
+                if (!in_array($inputInstitution, $currentInstitutions)) {
+                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
+                    $user->institutions()->attach($id);
+                }
+            }
+        }
+
+        Session::flash('message', 'Details saved.');
+        Session::flash('alert-class', 'alert-success');
+        return redirect('/myaccount');
     }
 }

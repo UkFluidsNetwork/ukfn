@@ -49,6 +49,7 @@ Route::post('events', 'EventsController@create');
 Route::post('sendmail', 'MailingController@sendMail');
 Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
 Route::post('unsubscribe', 'MailingController@keepSubscription');
+Route::post('myaccount', 'PagesController@updateDetails');
 Route::post('myaccount/password', 'PagesController@updatepassword');
 /** PATCH requests **/
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');

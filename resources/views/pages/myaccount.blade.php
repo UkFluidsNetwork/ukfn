@@ -6,8 +6,7 @@
 <div class="container nopadding">
     <div class="row nopadding">
         <div class='col-lg-8'>
-            <form name="registrationForm" class="nopadding form-horizontal line-break-dbl-top"
-                  method="post" action="/register">
+            <form name="registrationForm" class="nopadding form-horizontal line-break-dbl-top" method="post" action="/myaccount">
 
                 {{ csrf_field() }}
 
@@ -111,7 +110,7 @@
                         <select id="institutions" type="text" class="form-control multi" name="institutions[]"
                             placeholder="Institution" multiple>
                             @foreach($institutions as $institution)
-                            <option value='{{ $institution->id}}'>{{ $institution->name}}</option>
+                            <option {{ in_array($institution->id, $userInstitutions) ? 'selected' : '' }} value='{{ $institution->id}}'>{{ $institution->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -121,21 +120,16 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
                         <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
-                        <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
-                        <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]"
-                            placeholder="Fluids Sub-Discipline" multiple>
+                        <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids Sub-Discipline" multiple>
                             @foreach($subDisciplines as $key => $discipline)
-                            @if ($curDisciplinesCategory !== $discipline->category)
+                                @if ($curDisciplinesCategory !== $discipline->category)
                                 <optgroup label="{{$discipline->category}}">
                                 {{$curDisciplinesCategory = $discipline->category}}
-
-                            @endif
-                                    <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
-
-                            @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
-                            </optgroup>
-
-                            @endif
+                                @endif
+                                    <option {{ in_array($discipline->id, $userTags) ? 'selected' : '' }} value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+                                @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
+                                </optgroup>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -145,15 +139,16 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
                         <label for="applications" class="sr-only">Application Area</label>
-                        <select id="applications" type="text" class="tags form-control multi" name="applications[]"
-                            placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" multiple>
-                            @foreach($applicationAreas as $application)
-
-                            @if ($curApplicationCategory !== $application->category)
+                        <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application Area" multiple>
+                            @foreach($applicationAreas as $key => $application)
+                                @if ($curApplicationCategory !== $application->category)
                                 <optgroup label="{{$application->category}}">
                                 {{$curApplicationCategory = $application->category}}
-                            @endif
-                                    <option value='{{ $application->id}}'>{{ $application->name}}</option>
+                                @endif
+                                    <option {{ in_array($application->id, $userTags) ? 'selected' : '' }} value='{{ $application->id}}'>{{ $application->name}}</option>
+                                @if ($application === end($applicationAreas)) || ($curApplicationCategory !== $applicationAreas[$key+1]->category)
+                                </optgroup>
+                                @endif
                             @endforeach
                         </select>
                     </div>
@@ -163,11 +158,10 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
                         <label for="techniques" class="sr-only">Techniques</label>
-                        <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
                         <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
                             placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
                             @foreach($techniques as $technique)
-                            <option value='{{ $technique->id}}'>{{ $technique->name}}</option>
+                            <option {{ in_array($technique->id, $userTags) ? 'selected' : '' }} value='{{ $technique->id}}'>{{ $technique->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -180,10 +174,9 @@
                         <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
                             placeholder="Responsible for Facilities" data-create-item="true" multiple>
                             @foreach($facilities as $facility)
-                            <option value='{{ $facility->id}}'>{{ $facility->name}}</option>
+                            <option {{ in_array($facility->id, $userTags) ? 'selected' : '' }} value='{{ $facility->id}}'>{{ $facility->name}}</option>
                             @endforeach
                         </select>
-                        <!--i class="form-control-feedback glyphicon glyphicon-compressed" aria-hidden="true"></i-->
                         @if ($errors->has('facilities'))
                         <span class="help-block">
                             <strong>{{ $errors->first('facilities')}}</strong>
@@ -261,6 +254,25 @@
 
     .form-control-feedback.glyphicon {
         z-index: 10;
+    }
+
+    .selectize-dropdown-content {
+        max-height: 666px !important;
+    }
+
+    /*WHOLO GROUP BOX*/
+    .optgroup {
+        width : 300px !important;
+        height : auto !important;
+        padding-bottom: 50px !important;
+        float: left !important;
+        border: none !important;
+    }
+    .option {
+        /*height: 40px !important;*/
+    }
+    .optgroup-header {
+        font-size:1.5em !important;
     }
 </style>
 @stop
