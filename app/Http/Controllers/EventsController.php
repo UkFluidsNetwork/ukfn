@@ -108,7 +108,7 @@ class EventsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/events');
+        return redirect('/panel/events');
     }
 
     /**
@@ -155,7 +155,7 @@ class EventsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/events');
+        return redirect('/panel/events');
     }
 
     /**
@@ -174,6 +174,6 @@ class EventsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/events');
+        return redirect('/panel/events');
     }
 }

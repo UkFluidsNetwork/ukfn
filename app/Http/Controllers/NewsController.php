@@ -106,7 +106,7 @@ class NewsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/news');
+        return redirect('/panel/news');
     }
 
     /**
@@ -153,7 +153,7 @@ class NewsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/news');
+        return redirect('/panel/news');
     }
 
     /**
@@ -172,6 +172,6 @@ class NewsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/news');
+        return redirect('/panel/news');
     }
 }
