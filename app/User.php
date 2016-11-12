@@ -34,7 +34,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Institution', 'institution_users')->withTimestamps();
     }
-    
+
     /**
      * Get the sigs associated with the given user
      * 
@@ -123,6 +123,17 @@ class User extends Authenticatable
      */
     public function getTagIds()
     {
-        return $this->tags->lists('tag_id');
+        return $this->tags->lists('id')->toArray();
+    }
+
+    /**
+     * Get the list of institution ids associated with the user
+     * 
+     * @access public
+     * @return array
+     */
+    public function getInstitutionIds()
+    {
+        return $this->institutions->lists('id')->toArray();
     }
 }
