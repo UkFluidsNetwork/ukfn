@@ -178,7 +178,7 @@ class PagesController extends Controller
         $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
 
         $user = User::findOrFail(Auth::user()->id);
-        $user->title_id = $request->title_id;
+        $user->title_id = $request->title_id ? : null;
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
@@ -188,7 +188,13 @@ class PagesController extends Controller
 
         // compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
         $currentTags = $user->getTagIds();
-        $inputTags = array_merge($request->disciplines, $request->applications, $request->techniques, $request->facilities);
+        $inputTags = [];
+        foreach ($tagtypes as $type) {
+            if (is_array($request->$type)) {
+                array_merge($inputTags, $request->$type);
+            }
+        }
+        
         if (!empty($currentTags)) {
             foreach ($currentTags as $curTag) {
                 if (!in_array($curTag, $inputTags)) {
