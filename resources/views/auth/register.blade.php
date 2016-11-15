@@ -27,7 +27,7 @@
                                     <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}"
                                             title="Title" required="required">
                                         @foreach($titles as $title)
-                                        <option {{ $title->id == old('title_id') ? 'selected' : ''}} value='{{ $title->id}}'>{{ $title->name}}</option>
+                                        <option {{ $title->id == old('title_id') ? 'selected' : ''}} value='{{ $title->id}}'>{{ $title->shortname }}</option>
                                         @endforeach
                                     </select>
 
@@ -175,6 +175,39 @@
                             <!-- Next button - end -->
                         </div>
                         <div id="register2" ng-show="registerBasic && registrationForm.$valid">
+                        <!--div id="register2" -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left">
+                                    <p>
+                                        <b>Please provide some information about your research career and interests.</b>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- user website input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
+                                    <label for='url' class ="sr-only">Personal Website</label>
+                                    <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
+                                           placeholder="Personal website" ng-init="data.url='{{ old('url')}}'">
+                                    <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <!-- user website input - end -->
+                            <!-- orcid input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
+                                    <label for='orcidid' class ="sr-only">ORCID id</label>
+                                    <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
+                                           placeholder="ORCID id" ng-init="data.orcidid='{{ old('orcidid')}}'">
+                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <!-- orcid website input - end -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left">
+                                    The following are multi-option lists. You may add missing options by typing them.
+                                </div>
+                            </div>
                             <!-- institutions input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
@@ -263,26 +296,6 @@
                                 </div>
                             </div>
                             <!-- facilities input - end -->
-                            <!-- user website input - start -->
-                            <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
-                                    <label for='url' class ="sr-only">Personal Website</label>
-                                    <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
-                                           placeholder="Personal website" ng-init="data.url='{{ old('url')}}'">
-                                    <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <!-- user website input - end -->
-                            <!-- orcid input - start -->
-                            <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
-                                    <label for='orcidid' class ="sr-only">ORCID id</label>
-                                    <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
-                                           placeholder="ORCID id" ng-init="data.orcidid='{{ old('orcidid')}}'">
-                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <!-- orcid website input - end -->
                             <!-- Submit button - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group line-break-dbl-top">
@@ -343,16 +356,6 @@
     .form-control-feedback.glyphicon {
         z-index: 10;
     }
-</style>
-
-<style>
-    .filter-option {
-        margin-left: 22px;
-    }
-
-    .form-control-feedback.glyphicon {
-        z-index: 10;
-    }
 
     .selectize-dropdown-content {
         max-height: 666px !important;
@@ -366,9 +369,7 @@
         float: left !important;
         border: none !important;
     }
-    .option {
-        /*height: 40px !important;*/
-    }
+    
     .optgroup-header {
         font-size:1.5em !important;
     }
