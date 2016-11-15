@@ -349,10 +349,6 @@
 
 </script>
 <style>
-    .col-lg-4.col-lg-offset-4.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3 {
-        width: 80%;
-        margin-left: 15%;
-    }
     .filter-option {
         margin-left: 22px;
     }
@@ -373,9 +369,7 @@
         float: left !important;
         border: none !important;
     }
-    .option {
-        /*height: 40px !important;*/
-    }
+    
     .optgroup-header {
         font-size:1.5em !important;
     }
