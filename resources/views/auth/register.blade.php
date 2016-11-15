@@ -27,7 +27,7 @@
                                     <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}"
                                             title="Title" required="required">
                                         @foreach($titles as $title)
-                                        <option {{ $title->id == old('title_id') ? 'selected' : ''}} value='{{ $title->id}}'>{{ $title->name}}</option>
+                                        <option {{ $title->id == old('title_id') ? 'selected' : ''}} value='{{ $title->id}}'>{{ $title->shortname }}</option>
                                         @endforeach
                                     </select>
 
