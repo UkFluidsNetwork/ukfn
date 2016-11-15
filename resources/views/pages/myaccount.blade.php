@@ -14,7 +14,7 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('title_id') ? ' has-error' : '' }}" ng-class="{
 'has-error' : registrationForm.title_id.$touched && registrationForm.title_id.$invalid}">
-                        <label for="title_id" class="sr-only">Title</label>
+                        <label for="title_id" class="control-label text-left">Title</label>
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
                         <select id="title_id" type="text" class="form-control selectpicker show-tick" name="title_id" value="{{ old('title_id')}}"
                                 title="Title">
@@ -39,7 +39,7 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('name') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.name.$touched && registrationForm.name.$invalid}">
-                        <label for='name' class="sr-only">First name</label>
+                        <label for='name' class="control-label text-left">First name</label>
                         <input type="text" name="name" value="{{ $user->name }}" class="form-control"
                                placeholder="First name" required="required" ng-model="data.name" ng-init="data.name='{{ $user->name }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
@@ -62,7 +62,7 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('surname') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.surname.$touched && registrationForm.surname.$invalid}">
-                        <label for='surname' class ="sr-only">Surname</label>
+                        <label for='surname' class ="control-label text-left">Surname</label>
                         <input type="text" id="surname" name="surname" value="{{ $user->surname }}" class="form-control"
                                placeholder="Surname" required="required" ng-model="data.surname" ng-init="data.surname='{{ $user->surname }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
@@ -84,7 +84,7 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid}">
-                        <label for="email" class="sr-only">E-Mail Address</label>
+                        <label for="email" class="control-label text-left">E-Mail Address</label>
                         <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}"
                                placeholder="e-mail address" ng-model="data.email" required="required" ng-init="data.email='{{ $user->email }}'">
                         <i class="form-control-feedback glyphicon glyphicon-envelope" aria-hidden="true"></i>
@@ -106,7 +106,7 @@
                 <!-- institutions input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
-                        <label for="institutions" class="sr-only">Institution</label>
+                        <label for="institutions" class="control-label text-left">Institution</label>
                         <select id="institutions" type="text" class="form-control multi" name="institutions[]"
                             placeholder="Institution" multiple>
                             @foreach($institutions as $institution)
@@ -119,7 +119,7 @@
                 <!-- sub-disciplines input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
-                        <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
+                        <label for="disciplines" class="control-label text-left">Fluids Sub-Discipline</label>
                         <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids Sub-Discipline" multiple>
                             @foreach($subDisciplines as $key => $discipline)
                                 @if ($curDisciplinesCategory !== $discipline->category)
@@ -138,7 +138,7 @@
                 <!-- applications input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
-                        <label for="applications" class="sr-only">Application Area</label>
+                        <label for="applications" class="control-label text-left">Application Area</label>
                         <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application Area" multiple>
                             @foreach($applicationAreas as $key => $application)
                                 @if ($curApplicationCategory !== $application->category)
@@ -157,7 +157,7 @@
                 <!-- techniques input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
-                        <label for="techniques" class="sr-only">Techniques</label>
+                        <label for="techniques" class="control-label text-left">Techniques</label>
                         <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
                             placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
                             @foreach($techniques as $technique)
@@ -170,7 +170,7 @@
                 <!-- facilities input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
-                        <label for='facilities' class="sr-only">Facilities</label>
+                        <label for='facilities' class="control-label text-left">Facilities</label>
                         <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
                             placeholder="Responsible for Facilities" data-create-item="true" multiple>
                             @foreach($facilities as $facility)
@@ -188,7 +188,7 @@
                 <!-- user website input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
-                        <label for='url' class ="sr-only">Personal Website</label>
+                        <label for='url' class ="control-label text-left">Personal Website</label>
                         <input type="url" id="surname" name="url" value="{{ $user->url }}" class="form-control"
                                placeholder="Personal website" ng-init="data.url='{{ $user->url }}'">
                         <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
@@ -198,7 +198,7 @@
                 <!-- orcid input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
-                        <label for='orcidid' class ="sr-only">ORCID id</label>
+                        <label for='orcidid' class ="control-label text-left">ORCID id</label>
                         <input type="orcidid" id="surname" name="orcidid" value="{{ $user->orcidid }}" class="form-control"
                                placeholder="ORCID Id" ng-init="data.orcidid='{{ $user->orcidid }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>

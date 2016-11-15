@@ -205,7 +205,7 @@
                             <!-- orcid website input - end -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left">
-                                    The following are multi-option lists. You may add missing options by typing them.
+                                    The following are multi-option lists. You may add missing options by typing them and hitting return.
                                 </div>
                             </div>
                             <!-- institutions input - start -->
