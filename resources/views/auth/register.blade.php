@@ -175,6 +175,39 @@
                             <!-- Next button - end -->
                         </div>
                         <div id="register2" ng-show="registerBasic && registrationForm.$valid">
+                        <!--div id="register2" -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left">
+                                    <p>
+                                        <b>Please provide some information about your research career and interests.</b>
+                                    </p>
+                                </div>
+                            </div>
+                            <!-- user website input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
+                                    <label for='url' class ="sr-only">Personal Website</label>
+                                    <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
+                                           placeholder="Personal website" ng-init="data.url='{{ old('url')}}'">
+                                    <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <!-- user website input - end -->
+                            <!-- orcid input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
+                                    <label for='orcidid' class ="sr-only">ORCID id</label>
+                                    <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
+                                           placeholder="ORCID id" ng-init="data.orcidid='{{ old('orcidid')}}'">
+                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
+                                </div>
+                            </div>
+                            <!-- orcid website input - end -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left">
+                                    The following are multi-option lists. You may add missing options by typing them.
+                                </div>
+                            </div>
                             <!-- institutions input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
@@ -263,26 +296,6 @@
                                 </div>
                             </div>
                             <!-- facilities input - end -->
-                            <!-- user website input - start -->
-                            <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
-                                    <label for='url' class ="sr-only">Personal Website</label>
-                                    <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
-                                           placeholder="Personal website" ng-init="data.url='{{ old('url')}}'">
-                                    <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <!-- user website input - end -->
-                            <!-- orcid input - start -->
-                            <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
-                                    <label for='orcidid' class ="sr-only">ORCID id</label>
-                                    <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
-                                           placeholder="ORCID id" ng-init="data.orcidid='{{ old('orcidid')}}'">
-                                    <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
-                                </div>
-                            </div>
-                            <!-- orcid website input - end -->
                             <!-- Submit button - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group line-break-dbl-top">
@@ -336,16 +349,10 @@
 
 </script>
 <style>
-    .filter-option {
-        margin-left: 22px;
+    .col-lg-4.col-lg-offset-4.col-md-4.col-md-offset-4.col-sm-6.col-sm-offset-3 {
+        width: 80%;
+        margin-left: 15%;
     }
-
-    .form-control-feedback.glyphicon {
-        z-index: 10;
-    }
-</style>
-
-<style>
     .filter-option {
         margin-left: 22px;
     }
