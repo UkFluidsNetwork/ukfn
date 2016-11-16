@@ -13,20 +13,7 @@
 
                         <input type="hidden" name="token" value="{{ $token }}">
                         <!-- e-mail - start -->
-                        <div class="col-lg-10 col-lg-offset-1">
-                            <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : '' }}">
-                                <label for="email" class="sr-only">E-Mail Address</label>
-                                <input id="email" type="email" class="form-control" name="email" value="{{ $email or old('email') }}"
-                                       placeholder="Your e-mail addrress" disabled="disabled">
-                                <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
-
-                                @if ($errors->has('email'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
+                        <input id="email" type="hidden" class="form-control" name="email" value="{{ $email or old('email') }}">
                         <!-- e-mail - end -->
                         <!-- password - start -->
                         <div class="col-lg-10 col-lg-offset-1">
