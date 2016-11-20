@@ -84,7 +84,7 @@
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
 'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid}">
-                        <label for="email" class="control-label text-left">E-Mail Address</label>
+                        <label for="email" class="control-label text-left">E-Mail address</label>
                         <input id="email" type="email" class="form-control" name="email" value="{{ $user->email }}"
                                placeholder="e-mail address" ng-model="data.email" required="required" ng-init="data.email='{{ $user->email }}'">
                         <i class="form-control-feedback glyphicon glyphicon-envelope" aria-hidden="true"></i>
