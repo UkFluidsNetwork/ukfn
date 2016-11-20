@@ -265,8 +265,8 @@ footer {
 .square {
   width: 20%;
   height: 12vw;
-  min-width: 150px;
-  min-height: 150px; }
+  min-width: 130px;
+  min-height: 130px; }
 
 .relative {
   position: relative; }
