@@ -92,9 +92,9 @@
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('email') ? ' has-error' : ''}}" ng-class="{
             'has-error' : registrationForm.email.$touched && registrationForm.email.$invalid}">
-                                    <label for="email" class="sr-only">E-Mail Address</label>
+                                    <label for="email" class="sr-only">E-Mail address</label>
                                     <input id="email" type="email" class="form-control" name="email" value="{{ old('email')}}"
-                                           placeholder="e-mail address" ng-model="data.email" required="required" ng-init="data.email='{{ old('email')}}'">
+                                           placeholder="E-mail address" ng-model="data.email" required="required" ng-init="data.email='{{ old('email')}}'">
                                     <i class="form-control-feedback glyphicon glyphicon-envelope" aria-hidden="true"></i>
 
                                     <div class="text-danger" ng-messages="registrationForm.email.$error" role="alert"
@@ -186,7 +186,7 @@
                             <!-- user website input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
-                                    <label for='url' class ="sr-only">Personal Website</label>
+                                    <label for='url' class ="sr-only">Personal website</label>
                                     <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
                                            placeholder="Personal website" ng-init="data.url='{{ old('url')}}'">
                                     <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
@@ -196,9 +196,9 @@
                             <!-- orcid input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
-                                    <label for='orcidid' class ="sr-only">ORCID id</label>
+                                    <label for='orcidid' class ="sr-only">ORCID iD</label>
                                     <input type="orcidid" id="surname" name="orcidid" value="{{ old('orcidid')}}" class="form-control"
-                                           placeholder="ORCID id" ng-init="data.orcidid='{{ old('orcidid')}}'">
+                                           placeholder="ORCID iD" ng-init="data.orcidid='{{ old('orcidid')}}'">
                                     <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
                                 </div>
                             </div>
@@ -224,10 +224,11 @@
                             <!-- sub-disciplines input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
-                                    <label for="disciplines" class="sr-only">Fluids Sub-Discipline</label>
+                                    Select the tags from the drop-down list that best represent your research interests
+                                    <label for="disciplines" class="sr-only">Fluids sub-disciplines</label>
                                     <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
                                     <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]"
-                                             placeholder="Fluids Sub-Discipline" multiple>
+                                             placeholder="Fluids sub-disciplines" multiple>
                                         @foreach($subDisciplines as $key => $discipline)
                                         @if ($curDisciplinesCategory !== $discipline->category)
                                             <optgroup label="{{$discipline->category}}">
@@ -248,9 +249,10 @@
                             <!-- applications input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
-                                    <label for="applications" class="sr-only">Application Area</label>
+                                    Select the tags from the drop-down list that best represent the application areas of your research; you may also add your own (suggested max 40 chars each) 
+                                    <label for="applications" class="sr-only">Application areas</label>
                                     <select id="applications" type="text" class="tags form-control multi" name="applications[]"
-                                            placeholder="Application Area" data-live-search="true" data-selected-text-format="count > 2" multiple>
+                                            placeholder="Application areas" data-live-search="true" data-selected-text-format="count > 2" multiple>
                                         @foreach($applicationAreas as $application)
 
                                         @if ($curApplicationCategory !== $application->category)
@@ -266,6 +268,7 @@
                             <!-- techniques input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
+                                    Select the tags from the drop-down list that best represent your research techniques (analytical, numerical, experimental); you may also add your own (suggested max 40 chars each) 
                                     <label for="techniques" class="sr-only">Techniques</label>
                                     <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
                                     <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
@@ -282,7 +285,7 @@
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
                                     <label for='facilities' class="sr-only">Facilities</label>
                                     <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
-                                            placeholder="Responsible for Facilities" data-create-item="true" multiple>
+                                            placeholder="Responsible for facilities" data-create-item="true" multiple>
                                         @foreach($facilities as $facilitie)
                                         <option value='{{ $facilitie->id}}'>{{ $facilitie->name}}</option>
                                         @endforeach

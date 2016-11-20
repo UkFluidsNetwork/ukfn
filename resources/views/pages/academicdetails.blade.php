@@ -26,8 +26,8 @@
                 <!-- sub-disciplines input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
-                        <label for="disciplines" class="control-label text-left">Fluids Sub-Discipline</label>
-                        <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids Sub-Discipline" multiple>
+                        <label for="disciplines" class="control-label text-left">Fluids sub-disciplines</label>
+                        <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids sub-disciplines" multiple>
                             @foreach($subDisciplines as $key => $discipline)
                                 @if ($curDisciplinesCategory !== $discipline->category)
                                 <optgroup label="{{$discipline->category}}">
@@ -45,8 +45,8 @@
                 <!-- applications input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
-                        <label for="applications" class="control-label text-left">Application Area</label>
-                        <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application Area" multiple>
+                        <label for="applications" class="control-label text-left">Application areas</label>
+                        <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application areas" multiple>
                             @foreach($applicationAreas as $key => $application)
                                 @if ($curApplicationCategory !== $application->category)
                                 <optgroup label="{{$application->category}}">
@@ -79,7 +79,7 @@
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
                         <label for='facilities' class="control-label text-left">Facilities</label>
                         <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
-                            placeholder="Responsible for Facilities" data-create-item="true" multiple>
+                            placeholder="Responsible for facilities" data-create-item="true" multiple>
                             @foreach($facilities as $facility)
                             <option {{ in_array($facility->id, $userTags) ? 'selected' : '' }} value='{{ $facility->id}}'>{{ $facility->name}}</option>
                             @endforeach
@@ -95,7 +95,7 @@
                 <!-- user website input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
-                        <label for='url' class ="control-label text-left">Personal Website</label>
+                        <label for='url' class ="control-label text-left">Personal website</label>
                         <input type="url" id="surname" name="url" value="{{ $user->url }}" class="form-control"
                                placeholder="Personal website" ng-init="data.url='{{ $user->url }}'">
                         <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
@@ -105,9 +105,9 @@
                 <!-- orcid input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('orcidid') ? ' has-error' : ''}}">
-                        <label for='orcidid' class ="control-label text-left">ORCID id</label>
+                        <label for='orcidid' class ="control-label text-left">ORCID iD</label>
                         <input type="orcidid" id="surname" name="orcidid" value="{{ $user->orcidid }}" class="form-control"
-                               placeholder="ORCID Id" ng-init="data.orcidid='{{ $user->orcidid }}'">
+                               placeholder="ORCID iD" ng-init="data.orcidid='{{ $user->orcidid }}'">
                         <i class="form-control-feedback glyphicon glyphicon-user" aria-hidden="true"></i>
                     </div>
                 </div>
