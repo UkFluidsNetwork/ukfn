@@ -39,22 +39,38 @@ class MailingController extends Controller
     public function subscription(SubscriptionRequest $request)
     {
         $email = $request->input('subscription-email');
+        $user_id = isset(Auth::user()->id) ? Auth::user()->id : null;
 
-        $id = $this->getSubscriptionId($email);
-        echo $id;
-        if ($id) {
-            $subscription = Subscription::findOrFail($id);
-            $subscription->deleted = 0;
-            $subscription->save();
-        } else {
-            $subscription = new Subscription;
-            $subscription->email = $email;
-            $subscription->save();
-        }
+        $this->subscribe($email, $user_id);
 
         $this->addToQueue(env('MAIL_USERNAME'), $email, 'UK Fluids Network Mailing List', ['email' => $email], 'mail.subscribed');
 
         return Redirect::to(URL::previous() . "#subscription-sign-up-form")->with('subscription_signup_ok', 'Your email has been added to our database.');
+    }
+    
+    /**
+     * Register a new address in the subscriptions list
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public 
+     * @param string $email
+     * @param int $user_id
+     */
+    public function subscribe($email, $user_id = null)
+    {
+        $id = $this->getSubscriptionId($email);
+        
+        if ($id) {
+            $subscription = Subscription::findOrFail($id);
+            $subscription->deleted = 0;
+            $subscription->user_id = $user_id;
+            $subscription->save();
+        } else {
+            $subscription = new Subscription;
+            $subscription->email = $email;
+            $subscription->user_id = $user_id;
+            $subscription->save();
+        }
     }
 
     /**
@@ -230,14 +246,32 @@ class MailingController extends Controller
     public function removeSubscription($id)
     {
         try {
-            $subscription = Subscription::findOrFail($id);
-            $subscription->deleted = 1;
-            $subscription->save();
+            $this->cancelSubscription($id);
             Session::flash('success_message', 'You have been unsubscribed from the mailing list.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
         return redirect('/');
+    }
+    
+    /**
+     * Delete a subscription by id or email address
+     * 
+     * @param int $id
+     * @param string $email
+     * @return boolean
+     */
+    public function cancelSubscription($id = null, $email = null, $user_id = null)
+    {
+        if (!$id && !$email && !$user_id) {
+            return false;
+        }
+        
+        $subscription_id = $id ? $id : ($email ? $this->getSubscriptionId($email) : $this->getSubscriptionIdByUser($user_id));
+        $subscription = Subscription::findOrFail($subscription_id);
+        $subscription->deleted = 1;
+        
+        return $subscription->save();
     }
 
     /**
@@ -261,7 +295,19 @@ class MailingController extends Controller
      */
     private function getSubscriptionId($email)
     {
-        return isset(Subscription::getId($email)[0]) ? (int) Subscription::getId($email)[0] : null;
+        return isset(Subscription::getIdByEmail($email)[0]) ? (int) Subscription::getIdByEmail($email)[0] : null;
+    }
+
+    /**
+     * Get the id of a subscription given a user id
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access private
+     * @param int $user_id
+     * @return int|null
+     */
+    private function getSubscriptionIdByUser($user_id)
+    {
+        return isset(Subscription::getIdByUser($user_id)[0]) ? (int) Subscription::getIdByUser($user_id)[0] : null;
     }
 
     /**

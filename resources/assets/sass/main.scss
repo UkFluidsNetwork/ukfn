@@ -262,3 +262,54 @@ footer {
 .margin-left-dbl {
   margin-left: 2em;
 }
+
+.btn-primary2 {
+    background: #337ab7 none repeat scroll 0 0;
+    border-radius: 5px;
+    color: #fff !important;
+    font-weight: bold;
+    display: inline-block;
+    line-height: 1.6;
+    margin-right: 20px;
+    margin-top: 20px;
+    outline: 0 none !important;
+    padding: 15px;
+    text-align: center;
+}
+
+.btn-primary2:hover {
+    background-color: #275d8b;
+    transition: background-color 500ms linear 0s;
+    text-decoration: none !important;    
+}
+
+.add-shadow {
+    box-shadow: 0 12px 25px 0 rgba(0, 0, 0, 0.45) !important;
+    outline: 0 none !important;
+}
+
+.full-width {
+    width: 100% !important;
+}
+
+.glyphicon.glyphicon-large {
+    font-size: 30px;
+}
+
+.square {
+    width: 20%;
+    height: 12vw;
+    min-width: 200px;
+    min-height: 150px;
+}
+
+.relative {
+    position: relative;
+}
+
+.centered {
+    top: 50%;
+    left: 50%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
