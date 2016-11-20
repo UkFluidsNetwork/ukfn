@@ -4,6 +4,18 @@
   </div>
 
   <div>
+    <a href="{{ URL::to('#admin-subnav-tags') }}" data-parent="#adminnav" data-toggle="collapse"
+       class="panel-title list-group-item noborderradius {{ Request::is('panel/tags*') ? 'active' : '' }}">Tags</a>
+    <div id='admin-subnav-tags' class='collapse list-group' >
+      {{ Html::link('panel/tags', 'All tags', ['class' => 'list-group-item noborder']) }}
+      {{ Html::link('panel/tags/disciplines', 'Fluids sub-disciplines', ['class' => 'list-group-item noborder']) }}
+      {{ Html::link('panel/tags/applications', 'Application areas', ['class' => 'list-group-item noborder']) }}
+      {{ Html::link('panel/tags/techniques', 'Techniques', ['class' => 'list-group-item noborder']) }}
+      {{ Html::link('panel/tags/facilities', 'Facilities', ['class' => 'list-group-item noborder']) }}
+    </div>
+  </div>
+    
+  <div>
     <a href="{{ URL::to('#admin-subnav-sig') }}" data-parent="#adminnav" data-toggle="collapse"
        class="panel-title list-group-item noborderradius {{ Request::is('panel/suggestions*') ? 'active' : '' }}">SIG</a>
     <div id='admin-subnav-sig' class='collapse list-group' >

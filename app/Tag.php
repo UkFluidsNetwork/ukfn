@@ -4,6 +4,7 @@ namespace App;
 
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Tag extends Model
 {
@@ -16,6 +17,22 @@ class Tag extends Model
     protected $fillable = [
         'name', 'tagtype_id', 'category'
     ];
+    
+    /**
+     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access protected
+     * @static
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::addGlobalScope('deleted', function (Builder $builder) {
+           $builder->where('deleted', '=', '0'); 
+        });
+    }
 
     /**
      * Get all tags
@@ -156,5 +173,29 @@ class Tag extends Model
     public function institutions()
     {
         return $this->belongsToMany('App\Institution', 'institution_tags');
+    }
+
+    /**
+     * Get the tagtype of this tag
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function tagtype()
+    {
+        return $this->belongsTo('App\Tagtype', 'tagtype_id');
+    }
+
+
+    /**
+     * Get the list of user ids associated with the tag
+     * 
+     * @access public
+     * @return array
+     */
+    public function getUserIds()
+    {
+        return $this->users->lists('id')->toArray();
     }
 }
