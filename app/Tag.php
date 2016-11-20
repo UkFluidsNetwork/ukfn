@@ -30,7 +30,7 @@ class Tag extends Model
         parent::boot();
         
         static::addGlobalScope('deleted', function (Builder $builder) {
-           $builder->where('deleted', '=', '0'); 
+           $builder->where('tags.deleted', '=', '0'); 
         });
     }
 
