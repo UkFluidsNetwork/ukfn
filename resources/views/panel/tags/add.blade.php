@@ -1,45 +1,45 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-<h2 class='line-break'>Add news</h2>
+<h2 class='line-break'>Add tag</h2>
 
-{!! Form::open(['action' => ['NewsController@create'], 'class' => 'form-horizontal']) !!}
-<div class='form-group {{ $errors->has('title') ? ' has-error line-break-dbl' : '' }}'>
-  {!! Form::label('title', 'Title:', ['class' => 'control-label col-lg-2 text-left']) !!}
+{!! Form::open(['action' => ['TagsController@create'], 'class' => 'form-horizontal']) !!}
+<div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('name', 'Tag:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class=' col-lg-8'>
-    {!! Form::text('title', '', ['class' => 'form-control','placeholder' => 'The header of the news']) !!}
-    @if ($errors->has('title'))
+    {!! Form::text('name', '', ['class' => 'form-control','placeholder' => 'The name of the tag']) !!}
+    @if ($errors->has('name'))
     <span class="text-danger">
-      <span>{{ $errors->first('title') }}</span>
+      <span>{{ $errors->first('name') }}</span>
     </span>
     @endif
   </div>
 </div>
-<div class='form-group {{ $errors->has('description') ? ' has-error line-break-dbl' : '' }}'>
-  {!! Form::label('description', 'Description:', ['class' => 'control-label col-lg-2 text-left']) !!}
-  <div class='col-lg-8'>
-    {!! Form::textarea('description', '', ['class' => 'form-control','placeholder' => 'The body of the news']) !!}
-    @if ($errors->has('description'))
+<div class='form-group {{ $errors->has('category') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('category', 'Category:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::text('category', '', ['class' => 'form-control','placeholder' => 'The category of the tag']) !!}
+    @if ($errors->has('category'))
     <span class="text-danger">
-      <span>{{ $errors->first('description') }}</span>
+      <span>{{ $errors->first('category') }}</span>
     </span>
     @endif
   </div>
 </div>
-<div class='form-group {{ $errors->has('link') ? ' has-error line-break-dbl' : '' }}'>
-  {!! Form::label('link', 'Link:', ['class' => 'control-label col-lg-2 text-left']) !!}
-  <div class='col-lg-8'>
-    {!! Form::text('link', '', ['class' => 'form-control','placeholder' => 'The link to a page (View more)']) !!}
-    @if ($errors->has('link'))
+<div class='form-group {{ $errors->has('type') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('tagtype_id', 'Type:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::select('tagtype_id', $tagtypes, 0, ['class' => 'selectpicker show-tick']) !!}
+    @if ($errors->has('type'))
     <span class="text-danger">
-      <span>{{ $errors->first('link') }}</span>
+      <span>{{ $errors->first('type') }}</span>
     </span>
     @endif
   </div>
 </div>
 <div class=' col-lg-offset-2 col-lg-8'>
   <div class='form-group line-break-dbl-top'>
-    {!! Form::submit('Add', ['class' => 'btn btn-default btn-lg2']) !!}
+    {!! Form::submit('Save', ['class' => 'btn btn-success btn-lg2']) !!}
   </div>    
 </div>
 {!! Form::close() !!}

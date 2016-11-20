@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-  <h2 class='line-break'>{{ $tagtype }} tags</h2>
+  <h2 class='line-break'>{{ isset($tagtype) ? $tagtype : '' }} tags</h2>
   <div class="table-responsive">
     @if (!empty($tags))
     <table class='table' id="view_sigs_suggestions">

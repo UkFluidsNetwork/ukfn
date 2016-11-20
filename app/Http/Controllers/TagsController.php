@@ -137,7 +137,9 @@ class TagsController extends Controller
         ];
         $breadCount = count($bread);
 
-        return view('panel.tags.add', compact('bread', 'breadCount'));
+        $tagtypes = Tagtype::lists('name', 'id');
+        
+        return view('panel.tags.add', compact('bread', 'breadCount', 'tagtypes'));
     }
 
     /**
@@ -157,7 +159,6 @@ class TagsController extends Controller
             $tag = new Tag;
             $input = $request->all();
             $tag->fill($input);
-            $tag->user_id = Auth::user()->id;
             $tag->save();
             Session::flash('success_message', 'Added succesfully.');
         } catch (Exception $ex) {

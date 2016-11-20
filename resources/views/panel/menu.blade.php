@@ -12,6 +12,7 @@
       {{ Html::link('panel/tags/applications', 'Application areas', ['class' => 'list-group-item noborder']) }}
       {{ Html::link('panel/tags/techniques', 'Techniques', ['class' => 'list-group-item noborder']) }}
       {{ Html::link('panel/tags/facilities', 'Facilities', ['class' => 'list-group-item noborder']) }}
+      {{ Html::link('panel/tags/add', 'Add', ['class' => 'list-group-item noborder']) }}
     </div>
   </div>
     

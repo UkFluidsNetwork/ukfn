@@ -39,8 +39,8 @@ Route::get('myaccount/personal', 'PagesController@personalDetails')->middleware(
 Route::get('myaccount/academic', 'PagesController@academicDetails')->middleware('auth');
 Route::get('myaccount/password', 'PagesController@changepassword')->middleware('auth');
 Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('auth');
-Route::get('panel/tags/{show?}', 'TagsController@view')->middleware('auth');
 Route::get('panel/tags/add', 'TagsController@add')->middleware('auth');
+Route::get('panel/tags/{show?}', 'TagsController@view')->middleware('auth');
 Route::get('panel/tags/edit/{id}', 'TagsController@edit')->middleware('auth');
 /** POST requests * */
 Route::post('contact', 'PagesController@sendMessage');
@@ -59,7 +59,7 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('tags/delete/{id}', 'TagsController@delete')->middleware('auth');
-Route::post('tags', 'TagsController@create')->middleware('auth');
+Route::post('tags/add', 'TagsController@create')->middleware('auth');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');
