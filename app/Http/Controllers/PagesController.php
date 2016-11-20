@@ -9,8 +9,11 @@ use App\Title;
 use App\Tag;
 use App\Institution;
 use App\Http\Requests\ContactUsRequest;
-use App\Http\Requests\MyaccountRequest;
+use App\Http\Requests\PreferencesRequest;
+use App\Http\Requests\PersonalDetailsRequest;
+use App\Http\Requests\AcademicDetailsRequest;
 use App\Http\Requests\PasswordUpdateRequest;
+use App\Http\Controllers\MailingController;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
 use Illuminate\Support\Facades\Session;
@@ -137,11 +140,38 @@ class PagesController extends Controller
     public function myAccount()
     {
         SEO::setTitle('My Account');
+        
+        $bread = [
+            ['label' => 'My Account', 'path' => '/myaccount']
+        ];
+        $breadCount = count($bread);
+        
+        return view('pages.myaccount', compact('bread', 'breadCount'));
+    }
+
+    public function personalDetails()
+    {
+        SEO::setTitle('Personal Details');
+
+        $user = Auth::user();
+        $titles = Title::all();
+
+        $bread = [
+            ['label' => 'My Account', 'path' => '/myaccount'],
+            ['label' => 'Personal Details', 'path' => '/myaccount/personal']
+        ];
+        $breadCount = count($bread);
+
+        return view('pages.personaldetails', compact('titles', 'bread', 'breadCount', 'user'));
+    }
+
+    public function academicDetails()
+    {
+        SEO::setTitle('Academic Details');
 
         $user = Auth::user();
         $userTags = $user->getTagIds();
         $userInstitutions = $user->getInstitutionIds();
-        $titles = Title::all();
         $institutions = Institution::all();
         $subDisciplines = Tag::getAllDisciplines();
         $applicationAreas = Tag::getAllApplicationAreas();
@@ -151,12 +181,12 @@ class PagesController extends Controller
         $curApplicationCategory = null;
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
-            ['label' => 'My Account', 'path' => '/myaccount']
+            ['label' => 'My Account', 'path' => '/myaccount'],
+            ['label' => 'Academic Details', 'path' => '/myaccount/academic']
         ];
         $breadCount = count($bread);
 
-        return view('pages.myaccount', compact('titles', 'subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user', 'userTags', 'userInstitutions'));
+        return view('pages.academicdetails', compact('subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user', 'userTags', 'userInstitutions'));
     }
 
     public function changePassword()
@@ -164,7 +194,6 @@ class PagesController extends Controller
         SEO::setTitle('Change Password');
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'My Account', 'path' => '/myaccount'],
             ['label' => 'Change Password', 'path' => '/myaccount/password']
         ];
@@ -173,15 +202,71 @@ class PagesController extends Controller
         return view('pages.password', compact('bread', 'breadCount'));
     }
 
-    public function updateDetails(MyaccountRequest $request)
+    /**
+     * Render the preferences view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return Illuminate\Support\Facades\View
+     */
+    public function preferences()
     {
-        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+        SEO::setTitle('Preferences');
+        
+        $user = User::findOrFail(Auth::user()->id);
+        $subscription = !is_null($user->subscription['id']) && $user->subscription['deleted'] == 0;
 
+        $bread = [
+            ['label' => 'My Account', 'path' => '/myaccount'],
+            ['label' => 'Preferences', 'path' => '/myaccount/preferences']
+        ];
+        
+        $breadCount = count($bread);
+        return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
+    }
+    
+    public function updatePreferences(PreferencesRequest $request)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+        $mailing = new MailingController;
+        $subscription = $request->subscription;
+        
+        if ($subscription) {
+            $mailing->subscribe($user->email, $user->id);
+        } else {
+            $mailing->cancelSubscription(null, $user->email, $user->id);            
+        }
+        
+        Session::flash('message', 'Preferences saved.');
+        Session::flash('alert-class', 'alert-success');
+
+        return redirect('/myaccount');
+    }
+    
+    public function updatePersonalDetails(PersonalDetailsRequest $request)
+    {
         $user = User::findOrFail(Auth::user()->id);
         $user->title_id = $request->title_id ? : null;
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
+        
+        if ($user->save()) {
+            Session::flash('message', 'Details saved.');
+            Session::flash('alert-class', 'alert-success');
+        } else {
+            Session::flash('message', 'An error occurred.');
+            Session::flash('alert-class', 'alert-danger');            
+        }
+
+        return redirect('/myaccount');
+    }
+
+    public function updateAcademicDetails(AcademicDetailsRequest $request)
+    {
+        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+
+        $user = User::findOrFail(Auth::user()->id);
         $user->orcidid = $request->orcidid;
         $user->url = $request->url;
         $user->save();
@@ -253,7 +338,7 @@ class PagesController extends Controller
             Session::flash('alert-class', 'alert-success');
             return redirect('/myaccount');
         } else {
-            return Redirect::back()->withErrors(['password' => 'Current password is incorect']);
+            return Redirect::back()->withErrors(['password' => 'Current password is incorrect']);
         }
     }
 }

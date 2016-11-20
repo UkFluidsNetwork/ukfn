@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use Auth;
 use App\Http\Requests\Request;
 
-class MyaccountRequest extends Request
+class PreferencesRequest extends Request
 {
 
     /**
@@ -28,10 +28,7 @@ class MyaccountRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:255',
-            'surname' => 'required|max:255',
-            'email' => 'required|email|max:255',
-            'url' => 'url',
+            'subscription' => 'boolean'
         ];
     }
 }

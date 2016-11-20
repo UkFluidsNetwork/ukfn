@@ -54,7 +54,7 @@
                 <!-- Submit button - start -->
                 <div class="col-lg-8">
                     <div class="form-group line-break-dbl-top">
-                        {!! Form::submit('Save', ['class' => 'btn btn-primary']) !!}
+                        {!! Form::submit('Save Changes', ['class' => 'btn btn-success']) !!}
                     </div>
                 </div>
                 <!-- Submit button - end -->

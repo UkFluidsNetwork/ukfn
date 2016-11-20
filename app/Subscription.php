@@ -35,16 +35,29 @@ class Subscription extends Model
     }
 
     /**
-     * Find the id of a subscription given its id
+     * Find the id of a subscription given its email
      * @author Javier Arias <ja573@cam.ac.uk>
      * @access public
      * @static
      * @param string $email
      * @return array
      */
-    public static function getId($email)
+    public static function getIdByEmail($email)
     {
         return DB::table('subscriptions')->where('email', $email)->pluck('id');
+    }
+
+    /**
+     * Find the id of a subscription given its user id
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @static
+     * @param int $user_id
+     * @return array
+     */
+    public static function getIdByUser($user_id)
+    {
+        return DB::table('subscriptions')->where('user_id', $user_id)->pluck('id');
     }
 
     /**

@@ -7,6 +7,7 @@ use App\User;
 use App\Title;
 use App\Tag;
 use App\Institution;
+use App\Http\Controllers\MailingController;
 use Validator;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\Controller;
@@ -84,6 +85,7 @@ use AuthenticatesAndRegistersUsers,
                 'url' => isset($data['url']) ? $data['url'] : null
         ]);
 
+        // attach institutions
         if (!empty($data['institutions'])) {
             foreach ($data['institutions'] as $institution) {
                 $id = is_numeric($institution) ? $institution : Institution::create(['name' => $institution]);
@@ -91,6 +93,7 @@ use AuthenticatesAndRegistersUsers,
             }
         }
 
+        // attach tags
         foreach ($tagtypes as $type => $key) {
             if (!empty($data[$type])) {
                 foreach ($data[$type] as $element) {
@@ -98,6 +101,12 @@ use AuthenticatesAndRegistersUsers,
                     $newUser->tags()->attach($id);
                 }
             }
+        }
+        
+        //subscription
+        if ($data['subscription']) {
+            $mailing = new MailingController;
+            $mailing->subscribe($data['email'], $newUser->id);
         }
 
         if ($newUser) {

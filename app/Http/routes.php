@@ -1,17 +1,16 @@
 <?php
-
 /*
-|--------------------------------------------------------------------------
-| Application Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register all of the routes for an application.
-| It's a breeze. Simply tell Laravel the URIs it should respond to
-| and give it the controller to call when that URI is requested.
-|
-*/
+  |--------------------------------------------------------------------------
+  | Application Routes
+  |--------------------------------------------------------------------------
+  |
+  | Here is where you can register all of the routes for an application.
+  | It's a breeze. Simply tell Laravel the URIs it should respond to
+  | and give it the controller to call when that URI is requested.
+  |
+ */
 
-/** GET|HEAD requests **/
+/** GET|HEAD requests * */
 Route::get('/', 'PagesController@index');
 Route::get('sig', 'SigsController@index');
 Route::get('srv', 'SrvsController@index');
@@ -36,8 +35,11 @@ Route::get('talks/view/{id}', 'TalksController@view');
 Route::get('talks/all', 'TalksController@viewall');
 Route::get('register', 'Auth\AuthController@registration');
 Route::get('myaccount', 'PagesController@myaccount')->middleware('auth');
+Route::get('myaccount/personal', 'PagesController@personalDetails')->middleware('auth');
+Route::get('myaccount/academic', 'PagesController@academicDetails')->middleware('auth');
 Route::get('myaccount/password', 'PagesController@changepassword')->middleware('auth');
-/** POST requests **/
+Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('auth');
+/** POST requests * */
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
@@ -50,20 +52,19 @@ Route::post('sendmail', 'MailingController@sendMail');
 Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
 Route::post('unsubscribe', 'MailingController@keepSubscription');
 Route::post('myaccount', 'PagesController@updateDetails');
-Route::post('myaccount/password', 'PagesController@updatepassword');
-/** PATCH requests **/
+Route::post('myaccount/personal', 'PagesController@updatePersonalDetails');
+Route::post('myaccount/academic', 'PagesController@updateAcademicDetails');
+Route::post('myaccount/password', 'PagesController@updatePassword');
+Route::post('myaccount/preferences', 'PagesController@updatePreferences');
+/** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update');
 Route::patch('/news/update/{id}', 'NewsController@update');
 Route::patch('/events/update/{id}', 'EventsController@update');
 
-
-/** GET|HEAD|POST|PUT|PATCH|DELETE requests **/
+/** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([
     'auth' => 'Auth\AuthController',
     'password' => 'Auth\PasswordController',
 ]);
 
 Route::auth();
-
-// temporal workaround so that registering is not available
-//Route::get('register', 'PagesController@index');
