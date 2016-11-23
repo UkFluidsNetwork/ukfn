@@ -25,9 +25,8 @@ class MessagesController extends Controller
         $messages = self::formatMessages(Message::getAll(), "l jS F, H:i");
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Messages', 'path' => '/messages']
+            ['label' => 'Messages', 'path' => '/panel/messages']
         ];
         $breadCount = count($bread);
 

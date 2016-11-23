@@ -45,9 +45,8 @@ class EventsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Events', 'path' => '/events']
+            ['label' => 'Events', 'path' => '/panel/events']
         ];
         $breadCount = count($bread);
 
@@ -76,10 +75,9 @@ class EventsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Events', 'path' => '/events'],
-            ['label' => 'Edit', 'path' => '/events/edit'],
+            ['label' => 'Events', 'path' => '/panel/events'],
+            ['label' => 'Edit', 'path' => '/panel/events/edit'],
         ];
         $breadCount = count($bread);
 
@@ -126,10 +124,9 @@ class EventsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Events', 'path' => '/events'],
-            ['label' => 'Add', 'path' => '/events/add'],
+            ['label' => 'Events', 'path' => '/panel/events'],
+            ['label' => 'Add', 'path' => '/panel/events/add'],
         ];
         $breadCount = count($bread);
 
