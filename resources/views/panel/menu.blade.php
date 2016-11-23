@@ -52,6 +52,15 @@
     </div>
 
     <div>
+        <a href="{{ URL::to('#admin-subnav-titles') }}" data-parent="#adminnav" data-toggle="collapse"
+           class="panel-title list-group-item noborderradius {{ Request::is('panel/titles*') ? 'active' : '' }}">Titles</a>
+        <div id='admin-subnav-titles' class='collapse list-group' >
+            {{ Html::link('panel/titles', 'List', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('panel/titles/add', 'Add', ['class' => 'list-group-item noborder']) }}
+        </div>
+    </div>
+
+    <div>
         <a href="{{ URL::to('#admin-subnav-mailing') }}" data-parent="#adminnav" data-toggle="collapse"
            class="panel-title list-group-item noborderradius 
            {{ Request::is('panel/sendmail*', 'panel/subscriptions*', 'panel/messages*') ? 'active' : '' }}">Mailing</a>
