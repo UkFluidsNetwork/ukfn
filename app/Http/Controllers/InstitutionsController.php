@@ -24,7 +24,6 @@ class InstitutionsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Institutions', 'path' => '/panel/institutions']
         ];
@@ -54,7 +53,6 @@ class InstitutionsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Institutions', 'path' => '/panel/institutions'],
             ['label' => 'Edit', 'path' => '/panel/institutions/edit'],
@@ -104,7 +102,6 @@ class InstitutionsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Institutions', 'path' => '/panel/institutions'],
             ['label' => 'Add', 'path' => '/panel/institutions/add'],

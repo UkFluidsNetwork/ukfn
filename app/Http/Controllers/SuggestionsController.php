@@ -34,9 +34,8 @@ class SuggestionsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'SIG Suggestions', 'path' => '/suggestions']
+            ['label' => 'SIG Suggestions', 'path' => '/panel/suggestions']
         ];
         $breadCount = count($bread);
 
@@ -57,10 +56,9 @@ class SuggestionsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Admin', 'path' => '/admin'],
-            ['label' => 'SIG Suggestions', 'path' => '/suggestions'],
-            ['label' => 'Edit', 'path' => '/suggestions/edit'],
+            ['label' => 'SIG Suggestions', 'path' => '/panel/suggestions'],
+            ['label' => 'Edit', 'path' => '/panel/suggestions/edit'],
         ];
         $breadCount = count($bread);
 

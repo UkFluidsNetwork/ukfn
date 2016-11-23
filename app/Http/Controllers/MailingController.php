@@ -98,9 +98,8 @@ class MailingController extends Controller
 
         // Bread crumbs array
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Subscriptions', 'path' => '/subscriptions']
+            ['label' => 'Subscriptions', 'path' => '/panel/subscriptions']
         ];
         $breadCount = count($bread);
 
@@ -120,10 +119,9 @@ class MailingController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Subscriptions', 'path' => '/subscriptions'],
-            ['label' => 'Send Mail', 'path' => '/subscriptions/send']
+            ['label' => 'Subscriptions', 'path' => '/panel/subscriptions'],
+            ['label' => 'Send Mail', 'path' => '/panel/subscriptions/send']
         ];
         $breadCount = count($bread);
 
@@ -195,7 +193,7 @@ class MailingController extends Controller
         }
 
         Session::flash('success_message', 'Your e-mail has been sent.');
-        return redirect('/sendmail');
+        return redirect('/panel/sendmail');
     }
 
     /**

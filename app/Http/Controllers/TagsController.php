@@ -24,9 +24,8 @@ class TagsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Tags', 'path' => '/tags']
+            ['label' => 'Tags', 'path' => '/panel/tags']
         ];
         $breadCount = count($bread);
 
@@ -77,10 +76,9 @@ class TagsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Tags', 'path' => '/tags'],
-            ['label' => 'Edit', 'path' => '/tags/edit'],
+            ['label' => 'Tags', 'path' => '/panel/tags'],
+            ['label' => 'Edit', 'path' => '/panel/tags/edit'],
         ];
         $breadCount = count($bread);
 
@@ -130,10 +128,9 @@ class TagsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Tags', 'path' => '/tags'],
-            ['label' => 'Add', 'path' => '/tags/add'],
+            ['label' => 'Tags', 'path' => '/panel/tags'],
+            ['label' => 'Add', 'path' => '/panel/tags/add'],
         ];
         $breadCount = count($bread);
 

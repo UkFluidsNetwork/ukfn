@@ -44,9 +44,8 @@ class NewsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'News', 'path' => '/news']
+            ['label' => 'News', 'path' => '/panel/news']
         ];
         $breadCount = count($bread);
 
@@ -74,10 +73,9 @@ class NewsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'News', 'path' => '/news'],
-            ['label' => 'Edit', 'path' => '/news/edit'],
+            ['label' => 'News', 'path' => '/panel/news'],
+            ['label' => 'Edit', 'path' => '/panel/news/edit'],
         ];
         $breadCount = count($bread);
 
@@ -124,10 +122,9 @@ class NewsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Home', 'path' => '/'],
             ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'News', 'path' => '/news'],
-            ['label' => 'Add', 'path' => '/news/add'],
+            ['label' => 'News', 'path' => '/panel/news'],
+            ['label' => 'Add', 'path' => '/panel/news/add'],
         ];
         $breadCount = count($bread);
 
