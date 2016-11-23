@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Institution extends Model
 {
@@ -13,8 +14,24 @@ class Institution extends Model
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'institutiontype_id'
     ];
+    
+    /**
+     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access protected
+     * @static
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::addGlobalScope('deleted', function (Builder $builder) {
+           $builder->where('institutions.deleted', '=', '0'); 
+        });
+    }
 
     /**
      * Get the users associated with the given institution
@@ -29,11 +46,11 @@ class Institution extends Model
     /**
      * Get the institutiontype associated with the given institution
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function institutiontype()
     {
-        return $this->hasOne('App\Institutiontype');
+        return $this->belongsTo('App\Institutiontype', 'institutiontype_id');
     }
 
     /**

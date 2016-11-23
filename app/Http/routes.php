@@ -42,6 +42,9 @@ Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('
 Route::get('panel/tags/add', 'TagsController@add')->middleware('auth');
 Route::get('panel/tags/{show?}', 'TagsController@view')->middleware('auth');
 Route::get('panel/tags/edit/{id}', 'TagsController@edit')->middleware('auth');
+Route::get('panel/institutions', 'InstitutionsController@view')->middleware('auth');
+Route::get('panel/institutions/add', 'InstitutionsController@add')->middleware('auth');
+Route::get('panel/institutions/edit/{id}', 'InstitutionsController@edit')->middleware('auth');
 /** POST requests * */
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -60,11 +63,14 @@ Route::post('myaccount/password', 'PagesController@updatePassword')->middleware(
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('tags/delete/{id}', 'TagsController@delete')->middleware('auth');
 Route::post('tags/add', 'TagsController@create')->middleware('auth');
+Route::post('institutions/delete/{id}', 'InstitutionsController@delete')->middleware('auth');
+Route::post('institutions/add', 'InstitutionsController@create')->middleware('auth');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');
 Route::patch('/events/update/{id}', 'EventsController@update')->middleware('auth');
 Route::patch('/tags/update/{id}', 'TagsController@update')->middleware('auth');
+Route::patch('/institutions/update/{id}', 'InstitutionsController@update')->middleware('auth');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([
