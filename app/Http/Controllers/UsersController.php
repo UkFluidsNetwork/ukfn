@@ -69,7 +69,7 @@ class UsersController extends Controller
         $applicationAreas = Tag::getAllApplicationAreas();
         $techniques = Tag::getAllTechniques();
         $facilities = Tag::getAllFacilities();
-        $titles = Title::lists('name', 'id');
+        $titles = Title::lists('shortname', 'id');
         $groups = Group::lists('name', 'id');
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;

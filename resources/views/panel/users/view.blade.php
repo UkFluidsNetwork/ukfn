@@ -22,7 +22,7 @@
       @foreach ($users as $user)
       <tr>
         <td>{{ $user->id }}</td>
-        <td>{{ isset($user->title) ? $user->title['name'] : '' }}</td>
+        <td>{{ isset($user->title) ? $user->title['shortname'] : '' }}</td>
         <td>{{ $user->name }}</td>
         <td>{{ $user->surname }}</td>
         <td class="hide-this">{{ $user->group['name'] }}</td>
