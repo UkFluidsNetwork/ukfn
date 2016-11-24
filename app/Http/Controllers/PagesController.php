@@ -204,7 +204,22 @@ class PagesController extends Controller
         ];
         $breadCount = count($bread);
 
-        return view('pages.academicdetails', compact('subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user', 'userTags', 'userInstitutions'));
+        $vars = [
+            'subDisciplines',
+            'applicationAreas',
+            'techniques',
+            'institutions',
+            'facilities',
+            'curDisciplinesCategory',
+            'curApplicationCategory',
+            'bread',
+            'breadCount',
+            'user',
+            'userTags',
+            'userInstitutions'
+        ];
+
+        return view('pages.academicdetails', compact($vars));
     }
 
     /**

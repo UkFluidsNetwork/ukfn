@@ -124,31 +124,31 @@ class User extends Authenticatable
     /**
      * Get the title associated with the user
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function title()
     {
-        return $this->hasOne('App\Title');
+        return $this->belongsTo('App\Title');
     }
 
     /**
      * Get the group associated with the user
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function group()
     {
-        return $this->hasOne('App\Group');
+        return $this->belongsTo('App\Group');
     }
 
     /**
      * Get the group associated with the user
      * 
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function department()
     {
-        return $this->hasOne('App\Department');
+        return $this->belongsTo('App\Department');
     }
 
     /**

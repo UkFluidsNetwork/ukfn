@@ -48,6 +48,9 @@ Route::get('panel/institutions/edit/{id}', 'InstitutionsController@edit')->middl
 Route::get('panel/titles', 'TitlesController@view')->middleware('auth');
 Route::get('panel/titles/add', 'TitlesController@add')->middleware('auth');
 Route::get('panel/titles/edit/{id}', 'TitlesController@edit')->middleware('auth');
+Route::get('panel/users', 'UsersController@view')->middleware('auth');
+Route::get('panel/users/add', 'UsersController@add')->middleware('auth');
+Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('auth');
 /** POST requests * */
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -70,6 +73,8 @@ Route::post('institutions/delete/{id}', 'InstitutionsController@delete')->middle
 Route::post('institutions/add', 'InstitutionsController@create')->middleware('auth');
 Route::post('titles/delete/{id}', 'TitlesController@delete')->middleware('auth');
 Route::post('titles/add', 'TitlesController@create')->middleware('auth');
+Route::post('users/delete/{id}', 'UsersController@delete')->middleware('auth');
+Route::post('users/add', 'UsersController@create')->middleware('auth');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');
@@ -77,6 +82,7 @@ Route::patch('/events/update/{id}', 'EventsController@update')->middleware('auth
 Route::patch('/tags/update/{id}', 'TagsController@update')->middleware('auth');
 Route::patch('/institutions/update/{id}', 'InstitutionsController@update')->middleware('auth');
 Route::patch('/titles/update/{id}', 'TitlesController@update')->middleware('auth');
+Route::patch('/users/update/{id}', 'UsersController@update')->middleware('auth');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([
