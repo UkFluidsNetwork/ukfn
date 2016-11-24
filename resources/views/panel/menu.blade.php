@@ -17,6 +17,15 @@
     </div>
 
     <div>
+        <a href="{{ URL::to('#admin-subnav-users') }}" data-parent="#adminnav" data-toggle="collapse"
+           class="panel-title list-group-item noborderradius {{ Request::is('panel/users*') ? 'active' : '' }}">Users</a>
+        <div id='admin-subnav-users' class='collapse list-group' >
+            {{ Html::link('panel/users', 'List', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('panel/users/add', 'Add', ['class' => 'list-group-item noborder']) }}
+        </div>
+    </div>
+
+    <div>
         <a href="{{ URL::to('#admin-subnav-institutions') }}" data-parent="#adminnav" data-toggle="collapse"
            class="panel-title list-group-item noborderradius {{ Request::is('panel/institutions*') ? 'active' : '' }}">Institutions</a>
         <div id='admin-subnav-institutions' class='collapse list-group' >

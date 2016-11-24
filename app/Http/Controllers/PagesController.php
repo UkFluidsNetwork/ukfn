@@ -140,12 +140,12 @@ class PagesController extends Controller
     public function myAccount()
     {
         SEO::setTitle('My Account');
-        
+
         $bread = [
             ['label' => 'My Account', 'path' => '/myaccount']
         ];
         $breadCount = count($bread);
-        
+
         return view('pages.myaccount', compact('bread', 'breadCount'));
     }
 
@@ -186,7 +186,22 @@ class PagesController extends Controller
         ];
         $breadCount = count($bread);
 
-        return view('pages.academicdetails', compact('subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user', 'userTags', 'userInstitutions'));
+        $vars = [
+            'subDisciplines',
+            'applicationAreas',
+            'techniques',
+            'institutions',
+            'facilities',
+            'curDisciplinesCategory',
+            'curApplicationCategory',
+            'bread',
+            'breadCount',
+            'user',
+            'userTags',
+            'userInstitutions'
+        ];
+
+        return view('pages.academicdetails', compact($vars));
     }
 
     public function changePassword()
@@ -197,7 +212,7 @@ class PagesController extends Controller
             ['label' => 'My Account', 'path' => '/myaccount'],
             ['label' => 'Change Password', 'path' => '/myaccount/password']
         ];
-        
+
         $breadCount = count($bread);
         return view('pages.password', compact('bread', 'breadCount'));
     }
@@ -212,7 +227,7 @@ class PagesController extends Controller
     public function preferences()
     {
         SEO::setTitle('Preferences');
-        
+
         $user = User::findOrFail(Auth::user()->id);
         $subscription = !is_null($user->subscription['id']) && $user->subscription['deleted'] == 0;
 
@@ -220,29 +235,29 @@ class PagesController extends Controller
             ['label' => 'My Account', 'path' => '/myaccount'],
             ['label' => 'Preferences', 'path' => '/myaccount/preferences']
         ];
-        
+
         $breadCount = count($bread);
         return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
     }
-    
+
     public function updatePreferences(PreferencesRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
         $mailing = new MailingController;
         $subscription = $request->subscription;
-        
+
         if ($subscription) {
             $mailing->subscribe($user->email, $user->id);
         } else {
-            $mailing->cancelSubscription(null, $user->email, $user->id);            
+            $mailing->cancelSubscription(null, $user->email, $user->id);
         }
-        
+
         Session::flash('message', 'Preferences saved.');
         Session::flash('alert-class', 'alert-success');
 
         return redirect('/myaccount');
     }
-    
+
     public function updatePersonalDetails(PersonalDetailsRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -250,13 +265,13 @@ class PagesController extends Controller
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
-        
+
         if ($user->save()) {
             Session::flash('message', 'Details saved.');
             Session::flash('alert-class', 'alert-success');
         } else {
             Session::flash('message', 'An error occurred.');
-            Session::flash('alert-class', 'alert-danger');            
+            Session::flash('alert-class', 'alert-danger');
         }
 
         return redirect('/myaccount');
@@ -279,7 +294,7 @@ class PagesController extends Controller
                 array_merge($inputTags, $request->$type);
             }
         }
-        
+
         if (!empty($currentTags)) {
             foreach ($currentTags as $curTag) {
                 if (!in_array($curTag, $inputTags)) {
@@ -321,7 +336,7 @@ class PagesController extends Controller
         Session::flash('alert-class', 'alert-success');
         return redirect('/myaccount');
     }
-    
+
     /**
      * Update user password
      * @param PasswordUpdateRequest $request
@@ -329,7 +344,7 @@ class PagesController extends Controller
      * @author Robert Barczyk <robert@barczyk.net>
      */
     public function updatePassword(PasswordUpdateRequest $request)
-    {        
+    {
         if (Hash::check($request->password, Auth::user()->password)) {
             $user = Auth::user();
             $user->password = Hash::make($request->new_password);
