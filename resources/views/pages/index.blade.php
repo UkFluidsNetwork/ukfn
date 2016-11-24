@@ -14,8 +14,7 @@
     and a website containing resources for all fluid mechanics researchers.
   </p>
   <p>
-    You will be able to register in full from 1 November 2016, but in the meantime please {{ Html::link('#subscription-sign-up-form', 'sign up to our mailing list') }} 
-    to keep in touch with UKFN.
+    Registrations are open to anyone interested in contributing to UKFN, to do so please {{ Html::link('/register', 'register here') }}.
   </p>
 </div>
 <div class="container-fluid">
