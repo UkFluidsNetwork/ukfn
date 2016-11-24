@@ -87,7 +87,9 @@ use AuthenticatesAndRegistersUsers,
             return false;
         }
         
-        $newUser->updateInstitutions($data['institutions']);
+        if (isset($data['institutions'])) {
+            $newUser->updateInstitutions($data['institutions']);
+        }
         $newUser->updateTags($data);
 
         //subscription

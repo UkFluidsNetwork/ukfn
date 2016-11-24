@@ -109,6 +109,10 @@ class UsersController extends Controller
             $input = $request->all();
             $user->fill($input);
             $user->save();
+            
+            $institutions = $request->institutions ? : [];
+            $user->updateInstitutions($institutions);
+            $user->updateTags($request->toArray());
             Session::flash('success_message', 'Edited succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
@@ -136,10 +140,37 @@ class UsersController extends Controller
             ['label' => 'Add', 'path' => '/panel/users/add'],
         ];
         $breadCount = count($bread);
+        $user = new user;
+        $userTags = [];
+        $userInstitutions = [];
+        $institutions = Institution::all();
+        $subDisciplines = Tag::getAllDisciplines();
+        $applicationAreas = Tag::getAllApplicationAreas();
+        $techniques = Tag::getAllTechniques();
+        $facilities = Tag::getAllFacilities();
         $titles = Title::lists('name', 'id');
         $groups = Group::lists('name', 'id');
+        $curDisciplinesCategory = null;
+        $curApplicationCategory = null;
 
-        return view('panel.users.add', compact('bread', 'breadCount', 'titles', 'groups'));
+        $vars = [
+            'user',
+            'bread', 
+            'breadCount', 
+            'titles',
+            'groups',
+            'subDisciplines', 
+            'applicationAreas', 
+            'techniques',
+            'institutions', 
+            'facilities', 
+            'curDisciplinesCategory', 
+            'curApplicationCategory', 
+            'userTags',
+            'userInstitutions'
+        ];
+        
+        return view('panel.users.add', compact($vars));
     }
 
     /**
@@ -156,6 +187,9 @@ class UsersController extends Controller
             $input = $request->all();
             $user->fill($input);
             $user->save();
+            $institutions = $request->institutions ? : [];
+            $user->updateInstitutions($institutions);
+            $user->updateTags($request->toArray());
             Session::flash('success_message', 'Added succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);

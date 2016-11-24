@@ -63,7 +63,6 @@
         @endif
     </div>
 </div>
-
 <!-- institutions input - start -->
 <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
     <label for="institutions" class="control-label col-lg-2  text-left">Institution</label>
