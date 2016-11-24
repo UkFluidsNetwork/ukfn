@@ -93,7 +93,7 @@ use AuthenticatesAndRegistersUsers,
         $newUser->updateTags($data);
 
         //subscription
-        if ($data['subscription']) {
+        if (isset($data['subscription']) && $data['subscription']) {
             $mailing = new MailingController;
             $mailing->subscribe($data['email'], $newUser->id);
         }
