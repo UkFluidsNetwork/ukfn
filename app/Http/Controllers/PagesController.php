@@ -137,6 +137,12 @@ class PagesController extends Controller
         return $tweets;
     }
 
+    /**
+     * Render my account view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @return Illuminate\Support\Facades\View
+     */
     public function myAccount()
     {
         SEO::setTitle('My Account');
@@ -149,6 +155,12 @@ class PagesController extends Controller
         return view('pages.myaccount', compact('bread', 'breadCount'));
     }
 
+    /**
+     * Render the personal details view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @return Illuminate\Support\Facades\View
+     */
     public function personalDetails()
     {
         SEO::setTitle('Personal Details');
@@ -165,6 +177,12 @@ class PagesController extends Controller
         return view('pages.personaldetails', compact('titles', 'bread', 'breadCount', 'user'));
     }
 
+    /**
+     * Render the academic details view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @return Illuminate\Support\Facades\View
+     */
     public function academicDetails()
     {
         SEO::setTitle('Academic Details');
@@ -204,6 +222,12 @@ class PagesController extends Controller
         return view('pages.academicdetails', compact($vars));
     }
 
+    /**
+     * Render the change password interface
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return Illuminate\Support\Facades\View
+     */
     public function changePassword()
     {
         SEO::setTitle('Change Password');
@@ -240,6 +264,13 @@ class PagesController extends Controller
         return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
     }
 
+    /**
+     * Save the preferences of the user
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param PreferencesRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePreferences(PreferencesRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -258,6 +289,13 @@ class PagesController extends Controller
         return redirect('/myaccount');
     }
 
+    /**
+     * Save the personal details of the user
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param PersonalDetailsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePersonalDetails(PersonalDetailsRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -277,60 +315,22 @@ class PagesController extends Controller
         return redirect('/myaccount');
     }
 
+    /**
+     * Save the academic details of the user
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param AcademicDetailsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateAcademicDetails(AcademicDetailsRequest $request)
     {
-        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
-
         $user = User::findOrFail(Auth::user()->id);
         $user->orcidid = $request->orcidid;
         $user->url = $request->url;
         $user->save();
-
-        // compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
-        $currentTags = $user->getTagIds();
-        $inputTags = [];
-        foreach ($tagtypes as $type) {
-            if (is_array($request->$type)) {
-                array_merge($inputTags, $request->$type);
-            }
-        }
-
-        if (!empty($currentTags)) {
-            foreach ($currentTags as $curTag) {
-                if (!in_array($curTag, $inputTags)) {
-                    $user->tags()->detach($curTag);
-                }
-            }
-        }
-
-        foreach ($tagtypes as $type => $key) {
-            if (!empty($request->$type)) {
-                foreach ($request->$type as $element) {
-                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
-                    $user->tags()->attach($id);
-                }
-            }
-        }
-
-        // the same with institutions, we are attaching new institutions in input that are not in current and deattaching
-        // institutions that were in current but not in the new ones
-        $currentInstitutions = $user->getInstitutionIds();
-        if (!empty($currentInstitutions)) {
-            foreach ($currentInstitutions as $curInstitution) {
-                if (!in_array($curInstitution, $request->institutions)) {
-                    $user->institutions()->detach($curInstitution);
-                }
-            }
-        }
-
-        if (!empty($request->institutions)) {
-            foreach ($request->institutions as $inputInstitution) {
-                if (!in_array($inputInstitution, $currentInstitutions)) {
-                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
-                    $user->institutions()->attach($id);
-                }
-            }
-        }
+        
+        $user->updateTags($request->toArray());
+        $user->updateInstitutions($request->institutions);
 
         Session::flash('message', 'Details saved.');
         Session::flash('alert-class', 'alert-success');
