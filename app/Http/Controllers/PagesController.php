@@ -137,18 +137,30 @@ class PagesController extends Controller
         return $tweets;
     }
 
+    /**
+     * Render my account view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @return Illuminate\Support\Facades\View
+     */
     public function myAccount()
     {
         SEO::setTitle('My Account');
-        
+
         $bread = [
             ['label' => 'My Account', 'path' => '/myaccount']
         ];
         $breadCount = count($bread);
-        
+
         return view('pages.myaccount', compact('bread', 'breadCount'));
     }
 
+    /**
+     * Render the personal details view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @return Illuminate\Support\Facades\View
+     */
     public function personalDetails()
     {
         SEO::setTitle('Personal Details');
@@ -165,6 +177,12 @@ class PagesController extends Controller
         return view('pages.personaldetails', compact('titles', 'bread', 'breadCount', 'user'));
     }
 
+    /**
+     * Render the academic details view
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @return Illuminate\Support\Facades\View
+     */
     public function academicDetails()
     {
         SEO::setTitle('Academic Details');
@@ -189,6 +207,12 @@ class PagesController extends Controller
         return view('pages.academicdetails', compact('subDisciplines', 'applicationAreas', 'techniques', 'institutions', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount', 'user', 'userTags', 'userInstitutions'));
     }
 
+    /**
+     * Render the change password interface
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return Illuminate\Support\Facades\View
+     */
     public function changePassword()
     {
         SEO::setTitle('Change Password');
@@ -197,7 +221,7 @@ class PagesController extends Controller
             ['label' => 'My Account', 'path' => '/myaccount'],
             ['label' => 'Change Password', 'path' => '/myaccount/password']
         ];
-        
+
         $breadCount = count($bread);
         return view('pages.password', compact('bread', 'breadCount'));
     }
@@ -212,7 +236,7 @@ class PagesController extends Controller
     public function preferences()
     {
         SEO::setTitle('Preferences');
-        
+
         $user = User::findOrFail(Auth::user()->id);
         $subscription = !is_null($user->subscription['id']) && $user->subscription['deleted'] == 0;
 
@@ -220,29 +244,43 @@ class PagesController extends Controller
             ['label' => 'My Account', 'path' => '/myaccount'],
             ['label' => 'Preferences', 'path' => '/myaccount/preferences']
         ];
-        
+
         $breadCount = count($bread);
         return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
     }
-    
+
+    /**
+     * Save the preferences of the user
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param PreferencesRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePreferences(PreferencesRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
         $mailing = new MailingController;
         $subscription = $request->subscription;
-        
+
         if ($subscription) {
             $mailing->subscribe($user->email, $user->id);
         } else {
-            $mailing->cancelSubscription(null, $user->email, $user->id);            
+            $mailing->cancelSubscription(null, $user->email, $user->id);
         }
-        
+
         Session::flash('message', 'Preferences saved.');
         Session::flash('alert-class', 'alert-success');
 
         return redirect('/myaccount');
     }
-    
+
+    /**
+     * Save the personal details of the user
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param PersonalDetailsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updatePersonalDetails(PersonalDetailsRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
@@ -250,78 +288,40 @@ class PagesController extends Controller
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
-        
+
         if ($user->save()) {
             Session::flash('message', 'Details saved.');
             Session::flash('alert-class', 'alert-success');
         } else {
             Session::flash('message', 'An error occurred.');
-            Session::flash('alert-class', 'alert-danger');            
+            Session::flash('alert-class', 'alert-danger');
         }
 
         return redirect('/myaccount');
     }
 
+    /**
+     * Save the academic details of the user
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param AcademicDetailsRequest $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function updateAcademicDetails(AcademicDetailsRequest $request)
     {
-        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
-
         $user = User::findOrFail(Auth::user()->id);
         $user->orcidid = $request->orcidid;
         $user->url = $request->url;
         $user->save();
-
-        // compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
-        $currentTags = $user->getTagIds();
-        $inputTags = [];
-        foreach ($tagtypes as $type) {
-            if (is_array($request->$type)) {
-                array_merge($inputTags, $request->$type);
-            }
-        }
         
-        if (!empty($currentTags)) {
-            foreach ($currentTags as $curTag) {
-                if (!in_array($curTag, $inputTags)) {
-                    $user->tags()->detach($curTag);
-                }
-            }
-        }
-
-        foreach ($tagtypes as $type => $key) {
-            if (!empty($request->$type)) {
-                foreach ($request->$type as $element) {
-                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
-                    $user->tags()->attach($id);
-                }
-            }
-        }
-
-        // the same with institutions, we are attaching new institutions in input that are not in current and deattaching
-        // institutions that were in current but not in the new ones
-        $currentInstitutions = $user->getInstitutionIds();
-        if (!empty($currentInstitutions)) {
-            foreach ($currentInstitutions as $curInstitution) {
-                if (!in_array($curInstitution, $request->institutions)) {
-                    $user->institutions()->detach($curInstitution);
-                }
-            }
-        }
-
-        if (!empty($request->institutions)) {
-            foreach ($request->institutions as $inputInstitution) {
-                if (!in_array($inputInstitution, $currentInstitutions)) {
-                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
-                    $user->institutions()->attach($id);
-                }
-            }
-        }
+        $user->updateTags($request->toArray());
+        $user->updateInstitutions($request->institutions);
 
         Session::flash('message', 'Details saved.');
         Session::flash('alert-class', 'alert-success');
         return redirect('/myaccount');
     }
-    
+
     /**
      * Update user password
      * @param PasswordUpdateRequest $request
@@ -329,7 +329,7 @@ class PagesController extends Controller
      * @author Robert Barczyk <robert@barczyk.net>
      */
     public function updatePassword(PasswordUpdateRequest $request)
-    {        
+    {
         if (Hash::check($request->password, Auth::user()->password)) {
             $user = Auth::user();
             $user->password = Hash::make($request->new_password);

@@ -72,8 +72,6 @@ use AuthenticatesAndRegistersUsers,
      */
     protected function create(array $data)
     {
-        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
-
         $newUser = User::create([
                 'title_id' => $data['title_id'] ? : null,
                 'group_id' => 3, // member
@@ -85,37 +83,22 @@ use AuthenticatesAndRegistersUsers,
                 'url' => isset($data['url']) ? $data['url'] : null
         ]);
 
-        // attach institutions
-        if (!empty($data['institutions'])) {
-            foreach ($data['institutions'] as $institution) {
-                $id = is_numeric($institution) ? $institution : Institution::create(['name' => $institution]);
-                $newUser->institutions()->attach($id);
-            }
-        }
-
-        // attach tags
-        foreach ($tagtypes as $type => $key) {
-            if (!empty($data[$type])) {
-                foreach ($data[$type] as $element) {
-                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
-                    $newUser->tags()->attach($id);
-                }
-            }
+        if (!$newUser) {
+            return false;
         }
         
+        $newUser->updateInstitutions($data['institutions']);
+        $newUser->updateTags($data);
+
         //subscription
         if ($data['subscription']) {
             $mailing = new MailingController;
             $mailing->subscribe($data['email'], $newUser->id);
         }
 
-        if ($newUser) {
-            Session::flash('message', 'Thank you for registering.');
-            Session::flash('alert-class', 'alert-success');
-            return Authentication::loginUsingId($newUser->getAuthIdentifier());
-        } else {
-            return false;
-        }
+        Session::flash('message', 'Thank you for registering.');
+        Session::flash('alert-class', 'alert-success');
+        return Authentication::loginUsingId($newUser->getAuthIdentifier());
     }
 
     /**
