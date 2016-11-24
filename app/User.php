@@ -26,6 +26,72 @@ class User extends Authenticatable
     ];
 
     /**
+     * Compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param array $tags Multidimensional array containing an array per tagtype
+     * @return void
+     */
+    public function updateTags($tags)
+    {
+        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+
+        $currentTags = $this->getTagIds();
+        if (!empty($currentTags)) {
+            // merge all input tags for comparison
+            $inputTags = [];
+            foreach ($tagtypes as $type) {
+                if (!empty($tags[$type]) && is_array($tags[$type])) {
+                    array_merge($inputTags, $tags[$type]);
+                }
+            }
+            // detach all tags that were not input
+            foreach ($currentTags as $curTag) {
+                if (!in_array($curTag, $inputTags)) {
+                    $this->tags()->detach($curTag);
+                }
+            }
+        }
+
+        foreach ($tagtypes as $type => $key) {
+            if (!empty($tags[$type])) {
+                foreach ($tags[$type] as $element) {
+                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
+                    $this->tags()->attach($id);
+                }
+            }
+        }
+    }
+
+    /**
+     * Compare old and new institutions to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param array $institutions
+     * @return void
+     */
+    public function updateInstitutions($institutions)
+    {
+        $currentInstitutions = $this->getInstitutionIds();
+        if (!empty($currentInstitutions)) {
+            foreach ($currentInstitutions as $curInstitution) {
+                if (!in_array($curInstitution, $institutions)) {
+                    $this->institutions()->detach($curInstitution);
+                }
+            }
+        }
+
+        if (!empty($institutions)) {
+            foreach ($institutions as $inputInstitution) {
+                if (!in_array($inputInstitution, $currentInstitutions)) {
+                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
+                    $this->institutions()->attach($id);
+                }
+            }
+        }
+    }
+
+    /**
      * Get the institutions associated with the given user
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
