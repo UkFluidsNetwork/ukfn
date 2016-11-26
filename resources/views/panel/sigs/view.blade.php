@@ -21,9 +21,10 @@
         <td>{{ $sig->name }}</td>
         <td class="hide-this">
             @foreach ($sig->institutions as $key => $institution)
-            {{ Html::link('/panel/institutions/edit/' . $institution['id'], $institution['name'])}}
             @if ($key < count($sig->institutions) - 1)
-            ,
+            {{ Html::link('/panel/institutions/edit/' . $institution['id'], $institution['name'])}},
+            @else
+            {{ Html::link('/panel/institutions/edit/' . $institution['id'], $institution['name'])}}
             @endif
             @endforeach
         </td>
