@@ -9,6 +9,7 @@
           <th>ID</th>
           <th>SIG Title</th>
           <th>Contact</th>
+          <th>Leader</th>
           <th>Organisation</th>
           <th class="hide-this">Contact Email Address</th>
           <th class="hide-this">Created</th>
@@ -22,11 +23,12 @@
         <td>{{ $suggestion->id }}</td>
         <td>{{ $suggestion->suggestion }}</td>
         <td>{{ $suggestion->name }}</td>
+        <td>{{ $suggestion->leader ? 'yes' : '-' }}</td>
         <td>{{ $suggestion->institution }}</td>
-        <td class="hide-this">{{ Html::link('mailto'.$suggestion->email, $suggestion->email)}}</td>
+        <td class="hide-this">{{ Html::link('mailto:'.$suggestion->email, $suggestion->email)}}</td>
         <td class="hide-this">{{ $suggestion->created }}</td>
         <td>{{ $suggestion->updated }}</td>
-        <td>{{ Html::link('/suggestions/edit/' . $suggestion->id, "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/suggestions/edit/' . $suggestion->id, "Edit", ["class" => "btn btn-primary"])}}</td>
         <td>
              {{ Form::open(['action' => ['SuggestionsController@delete', $suggestion->id]]) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}

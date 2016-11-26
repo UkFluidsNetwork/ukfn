@@ -308,7 +308,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         'AlterLogsUsers' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
         'AlterMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
         'AlterSigAddCoordinates' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_122956_alter_sig_add_coordinates.php',
-        'AlterSigsAddDescription' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_140009_alter_sigs_add_description.php',
+        'AlterSuggestionsAddLeader' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_172747_alter_suggestions_add_leader.php',
         'AlterTagsCategory' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
         'AlterTagsMakeModeratedNullable' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
         'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',

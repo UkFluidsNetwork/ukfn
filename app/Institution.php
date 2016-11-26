@@ -72,6 +72,6 @@ class Institution extends Model
      */
     public function sigs()
     {
-        return $this->belongsToMany('App\Sig', 'sig_institutions');
+        return $this->belongsToMany('App\Sig', 'sig_institutions')->withTimestamps()->withPivot('main');
     }
 }
