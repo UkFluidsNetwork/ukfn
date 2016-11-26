@@ -1,1 +1,1 @@
-angular.module('ukfn', ['ngMessages']);
+angular.module('ukfn', ['ngStorage','ngMessages', 'ngMap']);
