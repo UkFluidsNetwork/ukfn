@@ -13,17 +13,7 @@ class Suggestion extends Model
      * 
      * @var array
      */
-    protected $fillable = ['name', 'email', 'institution', 'suggestion'];
-    
-    public static function addSuggestion($name, $email, $institution, $suggestions)
-    {
-        $sug = new Suggestion();
-        $sug->name = $name;
-        $sug->email = $email;
-        $sug->institution = $institution;
-        $sug->suggestion = $suggestions;
-        $sug->save();
-    }
+    protected $fillable = ['name', 'email', 'institution', 'suggestion', 'leader'];
 
     public static function getAllSuggestions()
     {

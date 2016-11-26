@@ -116,7 +116,7 @@ class Sig extends Model
      */
     public function institutions()
     {
-        return $this->belongsToMany('App\Institution', 'sig_institutions')->withTimestamps();
+        return $this->belongsToMany('App\Institution', 'sig_institutions')->withTimestamps()->withPivot('main');
     }
 
     /**
@@ -149,5 +149,47 @@ class Sig extends Model
     public function getInstitutionIds()
     {
         return $this->institutions->lists('id')->toArray();
+    }
+    
+    /**
+     * Get the main institution of this sig
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function mainInstitution()
+    {
+        return $this->belongsToMany('App\Institution', 'sig_institutions')->wherePivot('main', 1);
+    }
+    
+    /**
+     * Get the main institution of this sig
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function secondaryInstitutions()
+    {
+        return $this->belongsToMany('App\Institution', 'sig_institutions')->wherePivot('main', 2);
+    }
+
+    /**
+     * Get the id of the main institution associated with the sig
+     * 
+     * @access public
+     * @return array
+     */
+    public function getMainInstitutionId()
+    {
+        return $this->mainInstitution->lists('id')->toArray();
+    }
+
+    /**
+     * Get the id of the secondary institutions associated with the sig
+     * 
+     * @access public
+     * @return array
+     */
+    public function getSecondaryInstitutionIds()
+    {
+        return $this->secondaryInstitutions->lists('id')->toArray();
     }
 }
