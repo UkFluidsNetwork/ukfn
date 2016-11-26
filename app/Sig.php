@@ -3,9 +3,101 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Sig extends Model
 {
+
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name', 'description'
+    ];
+    
+    /**
+     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access protected
+     * @static
+     */
+    protected static function boot()
+    {
+        parent::boot();
+        
+        static::addGlobalScope('deleted', function (Builder $builder) {
+           $builder->where('sigs.deleted', '=', '0'); 
+        });
+    }
+
+    /**
+     * Compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param array $tags Multidimensional array containing an array per tagtype
+     * @return void
+     */
+    public function updateTags($tags)
+    {
+        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+
+        $currentTags = $this->getTagIds();
+        if (!empty($currentTags)) {
+            // merge all input tags for comparison
+            $inputTags = [];
+            foreach ($tagtypes as $type) {
+                if (!empty($tags[$type]) && is_array($tags[$type])) {
+                    array_merge($inputTags, $tags[$type]);
+                }
+            }
+            // detach all tags that were not input
+            foreach ($currentTags as $curTag) {
+                if (!in_array($curTag, $inputTags)) {
+                    $this->tags()->detach($curTag);
+                }
+            }
+        }
+
+        foreach ($tagtypes as $type => $key) {
+            if (!empty($tags[$type])) {
+                foreach ($tags[$type] as $element) {
+                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
+                    $this->tags()->attach($id);
+                }
+            }
+        }
+    }
+
+    /**
+     * Compare old and new institutions to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param array $institutions
+     * @return void
+     */
+    public function updateInstitutions($institutions)
+    {
+        $currentInstitutions = $this->getInstitutionIds();
+        if (!empty($currentInstitutions)) {
+            foreach ($currentInstitutions as $curInstitution) {
+                if (!in_array($curInstitution, $institutions)) {
+                    $this->institutions()->detach($curInstitution);
+                }
+            }
+        }
+
+        if (!empty($institutions)) {
+            foreach ($institutions as $inputInstitution) {
+                if (!in_array($inputInstitution, $currentInstitutions)) {
+                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
+                    $this->institutions()->attach($id);
+                }
+            }
+        }
+    }
 
     /**
      * Get the users associated with the given sig
@@ -26,7 +118,7 @@ class Sig extends Model
     {
         return $this->belongsToMany('App\Institution', 'sig_institutions')->withTimestamps();
     }
-    
+
     /**
      * Get the tags associated with the given sig
      * 
@@ -35,5 +127,27 @@ class Sig extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag', 'sig_tags')->withTimestamps();
+    }
+
+    /**
+     * Get the list of tag ids associated with the sig
+     * 
+     * @access public
+     * @return array
+     */
+    public function getTagIds()
+    {
+        return $this->tags->lists('id')->toArray();
+    }
+
+    /**
+     * Get the list of institution ids associated with the sig
+     * 
+     * @access public
+     * @return array
+     */
+    public function getInstitutionIds()
+    {
+        return $this->institutions->lists('id')->toArray();
     }
 }

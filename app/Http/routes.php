@@ -51,6 +51,9 @@ Route::get('panel/titles/edit/{id}', 'TitlesController@edit')->middleware('auth'
 Route::get('panel/users', 'UsersController@view')->middleware('auth');
 Route::get('panel/users/add', 'UsersController@add')->middleware('auth');
 Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('auth');
+Route::get('panel/sig', 'SigsController@view')->middleware('auth');
+Route::get('panel/sig/add', 'SigsController@add')->middleware('auth');
+Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('auth');
 /** POST requests * */
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -75,6 +78,8 @@ Route::post('titles/delete/{id}', 'TitlesController@delete')->middleware('auth')
 Route::post('titles/add', 'TitlesController@create')->middleware('auth');
 Route::post('users/delete/{id}', 'UsersController@delete')->middleware('auth');
 Route::post('users/add', 'UsersController@create')->middleware('auth');
+Route::post('sig/delete/{id}', 'SigsController@delete')->middleware('auth');
+Route::post('sig/add', 'SigsController@create')->middleware('auth');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');
@@ -83,6 +88,7 @@ Route::patch('/tags/update/{id}', 'TagsController@update')->middleware('auth');
 Route::patch('/institutions/update/{id}', 'InstitutionsController@update')->middleware('auth');
 Route::patch('/titles/update/{id}', 'TitlesController@update')->middleware('auth');
 Route::patch('/users/update/{id}', 'UsersController@update')->middleware('auth');
+Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('auth');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([

@@ -6,10 +6,13 @@ $vendorDir = dirname(dirname(__FILE__));
 $baseDir = dirname($vendorDir);
 
 return array(
+    'AddDisciplinesTags' => $baseDir . '/database/migrations/2016_11_06_145513_add_disciplines_tags.php',
     'AlterInstitutions' => $baseDir . '/database/migrations/2016_10_29_114949_alter_institutions.php',
     'AlterInstitutionsMakenullable' => $baseDir . '/database/migrations/2016_11_05_120939_alter_institutions_makenullable.php',
     'AlterLogsUsers' => $baseDir . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
     'AlterMessagesTable' => $baseDir . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+    'AlterSigAddCoordinates' => $baseDir . '/database/migrations/2016_11_26_122956_alter_sig_add_coordinates.php',
+    'AlterSigsAddDescription' => $baseDir . '/database/migrations/2016_11_26_140009_alter_sigs_add_description.php',
     'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
     'AlterTagsMakeModeratedNullable' => $baseDir . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
     'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
@@ -523,6 +526,7 @@ return array(
     'PHP_Token_XOR_EQUAL' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
     'PHP_Token_YIELD_FROM' => $vendorDir . '/phpunit/php-token-stream/src/Token.php',
+    'PopulateSig' => $baseDir . '/database/migrations/2016_11_26_110732_populate_sig.php',
     'SebastianBergmann\\Comparator\\ArrayComparator' => $vendorDir . '/sebastian/comparator/src/ArrayComparator.php',
     'SebastianBergmann\\Comparator\\Comparator' => $vendorDir . '/sebastian/comparator/src/Comparator.php',
     'SebastianBergmann\\Comparator\\ComparisonFailure' => $vendorDir . '/sebastian/comparator/src/ComparisonFailure.php',

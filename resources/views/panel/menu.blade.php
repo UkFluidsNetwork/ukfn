@@ -36,9 +36,11 @@
 
     <div>
         <a href="{{ URL::to('#admin-subnav-sig') }}" data-parent="#adminnav" data-toggle="collapse"
-           class="panel-title list-group-item noborderradius {{ Request::is('panel/suggestions*') ? 'active' : '' }}">SIG</a>
+           class="panel-title list-group-item noborderradius {{ Request::is('panel/sig*') || Request::is('panel/suggestions*') ? 'active' : '' }}">SIG</a>
         <div id='admin-subnav-sig' class='collapse list-group' >
+            {{ Html::link('panel/sig', 'List', ['class' => 'list-group-item noborder']) }}
             {{ Html::link('panel/suggestions', 'Suggestions', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('panel/sig/add', 'Add', ['class' => 'list-group-item noborder']) }}
         </div>
     </div>
 

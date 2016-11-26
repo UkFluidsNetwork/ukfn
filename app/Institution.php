@@ -14,7 +14,7 @@ class Institution extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'institutiontype_id'
+        'name', 'institutiontype_id', 'url', 'lng', 'lat'
     ];
     
     /**
@@ -61,5 +61,17 @@ class Institution extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag', 'institution_tags')->withTimestamps();
+    }
+    
+    /**
+     * Get the sigs associated with this institutions
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sigs()
+    {
+        return $this->belongsToMany('App\Sig', 'sig_institutions');
     }
 }
