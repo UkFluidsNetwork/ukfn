@@ -20,8 +20,11 @@
         <td>{{ $sig->id }}</td>
         <td>{{ $sig->name }}</td>
         <td class="hide-this">
-            @foreach ($sig->institutions as $institution)
-            {{ $institution['name'] }},
+            @foreach ($sig->institutions as $key => $institution)
+            {{ Html::link('/panel/institutions/edit/' . $institution['id'], $institution['name'])}}
+            @if ($key < count($sig->institutions) - 1)
+            ,
+            @endif
             @endforeach
         </td>
         <td class="hide-this">{{ $sig->created }}</td>
