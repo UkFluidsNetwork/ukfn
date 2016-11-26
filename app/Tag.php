@@ -198,4 +198,16 @@ class Tag extends Model
     {
         return $this->users->lists('id')->toArray();
     }
+    
+    /**
+     * Get the sigs associated with this tag
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function sigs()
+    {
+        return $this->belongsToMany('App\Sig', 'sig_tags');
+    }
 }
