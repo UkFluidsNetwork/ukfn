@@ -1,76 +1,28 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-<h2 class='line-break'>Edit: {{ $user->name }} {{ $user->surname }}</h2>
+<h2 class='line-break'>Add SIG</h2>
 
-{!! Form::model($user, [
-'method' => 'PATCH',
-'action' => ['UsersController@update', $user->id],
-'class' => 'form-horizontal'
-]) !!}
-<div class='form-group {{ $errors->has('group_id') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('group_id', 'Access group:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::select('group_id', $groups, $user->group_id, ['class' => 'selectpicker show-tick']) !!}
-        @if ($errors->has('group_id'))
-        <span class="text-danger">
-            <span>{{ $errors->first('group_id ') }}</span>
-        </span>
-        @endif
-    </div>
-</div>
-<div class='form-group {{ $errors->has('title_id') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('title_id', 'Title:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::select('title_id', $titles, $user->title_id, ['class' => 'selectpicker show-tick']) !!}
-        @if ($errors->has('title_id'))
-        <span class="text-danger">
-            <span>{{ $errors->first('title_id') }}</span>
-        </span>
-        @endif
-    </div>
-</div>
+{!! Form::open(['action' => ['NewsController@create'], 'class' => 'form-horizontal']) !!}
 <div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('name', 'Name:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::text('name', $user->name, ['class' => 'form-control','placeholder' => 'The name of the user']) !!}
-        @if ($errors->has('name'))
-        <span class="text-danger">
-            <span>{{ $errors->first('name') }}</span>
-        </span>
-        @endif
-    </div>
-</div>
-<div class='form-group {{ $errors->has('surname') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('surname', 'Surname:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::text('surname', $user->surname, ['class' => 'form-control','placeholder' => 'The surname of the user']) !!}
-        @if ($errors->has('surname'))
-        <span class="text-danger">
-            <span>{{ $errors->first('surname') }}</span>
-        </span>
-        @endif
-    </div>
-</div>
-<div class='form-group {{ $errors->has('email') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('email', 'Email:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::text('email', $user->email, ['class' => 'form-control','placeholder' => 'The email of the user']) !!}
-        @if ($errors->has('email'))
-        <span class="text-danger">
-            <span>{{ $errors->first('email') }}</span>
-        </span>
-        @endif
-    </div>
+  {!! Form::label('name', 'Title:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::text('name', '', ['class' => 'form-control','placeholder' => 'The name of the SIG']) !!}
+    @if ($errors->has('name'))
+    <span class="text-danger">
+      <span>{{ $errors->first('name') }}</span>
+    </span>
+    @endif
+  </div>
 </div>
 <!-- institutions input - start -->
 <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
-    <label for="institutions" class="control-label col-lg-2  text-left">Institution</label>
+    <label for="institutions" class="control-label col-lg-2  text-left">Institutions</label>
     <div class=' col-lg-8'>
         <select id="institutions" type="text" class="form-control multi" name="institutions[]"
                 placeholder="Institution" multiple>
             @foreach($institutions as $institution)
-            <option {{ in_array($institution->id, $userInstitutions) ? 'selected' : '' }} value='{{ $institution->id}}'>{{ $institution->name}}</option>
+            <option {{ in_array($institution->id, $sigInstitutions) ? 'selected' : '' }} value='{{ $institution->id}}'>{{ $institution->name}}</option>
             @endforeach
         </select>
     </div>
@@ -86,7 +38,7 @@
             <optgroup label="{{$discipline->category}}">
                 {{$curDisciplinesCategory = $discipline->category}}
                 @endif
-                <option {{ in_array($discipline->id, $userTags) ? 'selected' : '' }} value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+                <option {{ in_array($discipline->id, $sigTags) ? 'selected' : '' }} value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
                 @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
             </optgroup>
             @endif
@@ -105,7 +57,7 @@
             <optgroup label="{{$application->category}}">
                 {{$curApplicationCategory = $application->category}}
                 @endif
-                <option {{ in_array($application->id, $userTags) ? 'selected' : '' }} value='{{ $application->id}}'>{{ $application->name}}</option>
+                <option {{ in_array($application->id, $sigTags) ? 'selected' : '' }} value='{{ $application->id}}'>{{ $application->name}}</option>
                 @if ($application === end($applicationAreas)) || ($curApplicationCategory !== $applicationAreas[$key+1]->category)
             </optgroup>
             @endif
@@ -121,7 +73,7 @@
         <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
                 placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
             @foreach($techniques as $technique)
-            <option {{ in_array($technique->id, $userTags) ? 'selected' : '' }} value='{{ $technique->id}}'>{{ $technique->name}}</option>
+            <option {{ in_array($technique->id, $sigTags) ? 'selected' : '' }} value='{{ $technique->id}}'>{{ $technique->name}}</option>
             @endforeach
         </select>
     </div>
@@ -134,7 +86,7 @@
         <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
                 placeholder="Responsible for facilities" data-create-item="true" multiple>
             @foreach($facilities as $facility)
-            <option {{ in_array($facility->id, $userTags) ? 'selected' : '' }} value='{{ $facility->id}}'>{{ $facility->name}}</option>
+            <option {{ in_array($facility->id, $sigTags) ? 'selected' : '' }} value='{{ $facility->id}}'>{{ $facility->name}}</option>
             @endforeach
         </select>
         @if ($errors->has('facilities'))
@@ -145,27 +97,16 @@
     </div>
 </div>
 <!-- facilities input - end -->
-<div class='form-group {{ $errors->has('orcidid') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('orcidid', 'ORCID iD:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::text('orcidid', $user->orcidid, ['class' => 'form-control','placeholder' => 'The ORCID iD of the user']) !!}
-        @if ($errors->has('orcidid'))
-        <span class="text-danger">
-            <span>{{ $errors->first('orcidid') }}</span>
-        </span>
-        @endif
-    </div>
-</div>
-<div class='form-group {{ $errors->has('url') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('url', 'Website:', ['class' => 'control-label col-lg-2 text-left']) !!}
-    <div class=' col-lg-8'>
-        {!! Form::text('url', $user->url, ['class' => 'form-control','placeholder' => 'The personal website of the user']) !!}
-        @if ($errors->has('url'))
-        <span class="text-danger">
-            <span>{{ $errors->first('url') }}</span>
-        </span>
-        @endif
-    </div>
+<div class='form-group {{ $errors->has('description') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('description', 'Description:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class='col-lg-8'>
+    {!! Form::textarea('description', '', ['class' => 'form-control','placeholder' => 'The description of the SIG']) !!}
+    @if ($errors->has('description'))
+    <span class="text-danger">
+      <span>{{ $errors->first('description') }}</span>
+    </span>
+    @endif
+  </div>
 </div>
 <div class=' col-lg-offset-2 col-lg-8'>
   <div class='form-group line-break-dbl-top'>

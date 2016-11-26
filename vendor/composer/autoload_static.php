@@ -302,10 +302,13 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
     );
 
     public static $classMap = array (
+        'AddDisciplinesTags' => __DIR__ . '/../..' . '/database/migrations/2016_11_06_145513_add_disciplines_tags.php',
         'AlterInstitutions' => __DIR__ . '/../..' . '/database/migrations/2016_10_29_114949_alter_institutions.php',
         'AlterInstitutionsMakenullable' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_120939_alter_institutions_makenullable.php',
         'AlterLogsUsers' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
         'AlterMessagesTable' => __DIR__ . '/../..' . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
+        'AlterSigAddCoordinates' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_122956_alter_sig_add_coordinates.php',
+        'AlterSigsAddDescription' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_140009_alter_sigs_add_description.php',
         'AlterTagsCategory' => __DIR__ . '/../..' . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
         'AlterTagsMakeModeratedNullable' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
         'AlterTagtypesAddName' => __DIR__ . '/../..' . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
@@ -819,6 +822,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
         'PHP_Token_XOR_EQUAL' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
         'PHP_Token_YIELD_FROM' => __DIR__ . '/..' . '/phpunit/php-token-stream/src/Token.php',
+        'PopulateSig' => __DIR__ . '/../..' . '/database/migrations/2016_11_26_110732_populate_sig.php',
         'SebastianBergmann\\Comparator\\ArrayComparator' => __DIR__ . '/..' . '/sebastian/comparator/src/ArrayComparator.php',
         'SebastianBergmann\\Comparator\\Comparator' => __DIR__ . '/..' . '/sebastian/comparator/src/Comparator.php',
         'SebastianBergmann\\Comparator\\ComparisonFailure' => __DIR__ . '/..' . '/sebastian/comparator/src/ComparisonFailure.php',

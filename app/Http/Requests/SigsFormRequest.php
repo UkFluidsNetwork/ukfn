@@ -5,13 +5,13 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 use App\Http\Controllers\PanelController;
 
-class InstitutionsFormRequest extends Request
+class SigsFormRequest extends Request
 {
 
     /**
      * Determine if the user is authorized to make this request.
      *
-     * @return boolean
+     * @return bool
      * @author Javier Arias <ja573@cam.ac.uk>
      */
     public function authorize()
@@ -33,9 +33,7 @@ class InstitutionsFormRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required',
-            'institutiontype_id' => 'required',
-            'url' => 'url'
+            'name' => 'required|max:255'
         ];
     }
 }
