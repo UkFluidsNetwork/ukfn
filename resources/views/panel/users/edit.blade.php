@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-<h2 class='line-break'>Edit: {{ $user->name }} {{ $user->surname }}</h2>
+<h2 class='line-break'>Edit user: {{ $user->name }} {{ $user->surname }}</h2>
 
 {!! Form::model($user, [
 'method' => 'PATCH',

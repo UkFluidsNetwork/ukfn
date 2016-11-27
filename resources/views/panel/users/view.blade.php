@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-  <h2 class='line-break'>Events (What's on)</h2>
+  <h2 class='line-break'>Users</h2>
   <div class="table-responsive">
     <table class='table' id="view_sigs_suggestions">
       <thead>
