@@ -88,6 +88,7 @@
         <thead>
             <tr>
                 <th>ID</th>
+                <th>Leader</th>
                 <th>SIG title</th>
                 <th>Contact</th>
                 <th>Organisation</th>
@@ -99,6 +100,7 @@
             @foreach ($allSuggestions as $suggestion)
             <tr>
                 <td>{{ $suggestion->id }}</td>
+                <td>{{ $suggestion->leader ? 'yes' : '-' }}</td>
                 <td>{{ $suggestion->suggestion }}</td>
                 <td>{{ $suggestion->name }}</td>
                 <td>{{ $suggestion->institution }}</td>

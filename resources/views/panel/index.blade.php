@@ -11,5 +11,10 @@
     full control over all modules of the application.
   </p>
 </div>
+<p>
+  Email client details (<a href="https://mail.one.com">https://mail.one.com</a>): <br>
+  <b>Email:</b> info@ukfluids.net<br>
+  <b>Password:</b> 8$Yy_>rPb8
+</p>
 
   @endsection
