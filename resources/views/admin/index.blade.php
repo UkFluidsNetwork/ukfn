@@ -46,6 +46,10 @@
         [<a href="{{ asset('files/meetings/Agenda_090916_EC_meeting.pdf') }}">Agenda_090916_EC_meeting.pdf</a>], 
         [<a href="{{ asset('files/meetings/Minutes_090916_EC_meeting.pdf') }}">Minutes_090916_EC_meeting</a>]
       </li>
+      <li>
+        Executive Committee meeting, Friday 11th November 2016: 
+        [<a href="{{ asset('files/meetings/Minutes_111116_EC_meeting.pdf') }}">Minutes_111116_EC_meeting.pdf</a>]
+      </li>
     </ul>
     </p>
   </div>
