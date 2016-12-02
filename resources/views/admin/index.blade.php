@@ -44,7 +44,7 @@
       <li>
         Executive Committee meeting, Friday 9th September 2016: 
         [<a href="{{ asset('files/meetings/Agenda_090916_EC_meeting.pdf') }}">Agenda_090916_EC_meeting.pdf</a>], 
-        [<a href="{{ asset('files/meetings/Minutes_090916_EC_meeting.pdf') }}">Minutes_090916_EC_meeting</a>]
+        [<a href="{{ asset('files/meetings/Minutes_090916_EC_meeting.pdf') }}">Minutes_090916_EC_meeting.pdf</a>]
       </li>
       <li>
         Executive Committee meeting, Friday 11th November 2016: 
