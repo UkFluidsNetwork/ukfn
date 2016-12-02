@@ -80,7 +80,7 @@
     {!! Form::close() !!}
 </div>
 <!--  List of suggestions -->
-<div class="table-responsive pull-left">
+<div class="table-responsive clear-both">
     <p>
         Total entries: {{ $totalSuggestions }}
     </p>

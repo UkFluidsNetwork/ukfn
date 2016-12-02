@@ -28,7 +28,7 @@
         A total of 46 proposals were received in response to the first call for SIG proposals, of which 26 were approved for funding. 
         These are listed in alphabetical order below.
     </p>
-    <div class="table-responsive pull-left">
+    <div class="table-responsive clear-both">
         <table class="table">
             <thead>
                 <tr>
