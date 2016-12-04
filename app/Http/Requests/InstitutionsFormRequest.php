@@ -35,6 +35,8 @@ class InstitutionsFormRequest extends Request
         return [
             'name' => 'required',
             'institutiontype_id' => 'required',
+            'lat' => 'numeric',
+            'lng' => 'numeric',
             'url' => 'url'
         ];
     }
