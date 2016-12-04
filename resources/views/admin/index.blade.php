@@ -58,7 +58,7 @@
   <div>
     <p class="h4 text-danger">Institutional points of contact</p>
     <p class="line-break-dbl-top">
-      <a href="{{ asset('files/UKFN_instn_PoC_160921.pdf') }}">List of points of contact</a>
+      <a href="{{ asset('files/UKFN_instn_PoC_161024.pdf') }}">List of points of contact</a>
     </p>
   </div>
 </section>
@@ -66,7 +66,7 @@
   <div>
     <p class="h4 text-danger">Communications</p>
     <p class="line-break-dbl-top">
-      User guide to communications via the UKFN website <span class="text-muted">(pending)</span>
+     <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">User guide to communications via the UKFN website</a>
     </p>
   </div>
 </section>
