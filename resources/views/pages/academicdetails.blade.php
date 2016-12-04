@@ -10,88 +10,6 @@
 
                 {{ csrf_field() }}
                 
-                <!-- institutions input - start -->
-                <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
-                        <label for="institutions" class="control-label text-left">Institution</label>
-                        <select id="institutions" type="text" class="form-control multi" name="institutions[]"
-                            placeholder="Institution" multiple>
-                            @foreach($institutions as $institution)
-                            <option {{ in_array($institution->id, $userInstitutions) ? 'selected' : '' }} value='{{ $institution->id}}'>{{ $institution->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- institutions input - end -->
-                <!-- sub-disciplines input - start -->
-                <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
-                        <label for="disciplines" class="control-label text-left">Fluids sub-disciplines</label>
-                        <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids sub-disciplines" multiple>
-                            @foreach($subDisciplines as $key => $discipline)
-                                @if ($curDisciplinesCategory !== $discipline->category)
-                                <optgroup label="{{$discipline->category}}">
-                                {{$curDisciplinesCategory = $discipline->category}}
-                                @endif
-                                    <option {{ in_array($discipline->id, $userTags) ? 'selected' : '' }} value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
-                                @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
-                                </optgroup>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- sub-disciplines input - end -->
-                <!-- applications input - start -->
-                <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
-                        <label for="applications" class="control-label text-left">Application areas</label>
-                        <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application areas" multiple>
-                            @foreach($applicationAreas as $key => $application)
-                                @if ($curApplicationCategory !== $application->category)
-                                <optgroup label="{{$application->category}}">
-                                {{$curApplicationCategory = $application->category}}
-                                @endif
-                                    <option {{ in_array($application->id, $userTags) ? 'selected' : '' }} value='{{ $application->id}}'>{{ $application->name}}</option>
-                                @if ($application === end($applicationAreas)) || ($curApplicationCategory !== $applicationAreas[$key+1]->category)
-                                </optgroup>
-                                @endif
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- applications input - end -->
-                <!-- techniques input - start -->
-                <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
-                        <label for="techniques" class="control-label text-left">Techniques</label>
-                        <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
-                            placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
-                            @foreach($techniques as $technique)
-                            <option {{ in_array($technique->id, $userTags) ? 'selected' : '' }} value='{{ $technique->id}}'>{{ $technique->name}}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!-- applications input - end -->
-                <!-- facilities input - start -->
-                <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
-                        <label for='facilities' class="control-label text-left">Facilities</label>
-                        <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
-                            placeholder="Responsible for facilities" data-create-item="true" multiple>
-                            @foreach($facilities as $facility)
-                            <option {{ in_array($facility->id, $userTags) ? 'selected' : '' }} value='{{ $facility->id}}'>{{ $facility->name}}</option>
-                            @endforeach
-                        </select>
-                        @if ($errors->has('facilities'))
-                        <span class="help-block">
-                            <strong>{{ $errors->first('facilities')}}</strong>
-                        </span>
-                        @endif
-                    </div>
-                </div>
-                <!-- facilities input - end -->
                 <!-- user website input - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
@@ -112,6 +30,97 @@
                     </div>
                 </div>
                 <!-- orcid website input - end -->
+                <div class="col-lg-8 nopadding">
+                    <div class="form-group has-feedback input-icon-left">
+                        The following are multi-option lists. You may add missing options by typing them and hitting return.
+                    </div>
+                </div>
+                <!-- institutions input - start -->
+                <div class="col-lg-8 nopadding">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                        <label for="institutions" class="control-label text-left">Institution</label>
+                        <select id="institutions" type="text" class="form-control multi" name="institutions[]"
+                            placeholder="Institution" multiple>
+                            @foreach($institutions as $institution)
+                            <option {{ in_array($institution->id, $userInstitutions) ? 'selected' : '' }} value='{{ $institution->id}}'>{{ $institution->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!-- institutions input - end -->
+                <!-- sub-disciplines input - start -->
+                <div class="col-lg-8 nopadding">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
+                        <label for="disciplines" class="control-label text-left">Fluids sub-disciplines</label><br>                  
+                        Select the tags from the drop-down list that best represent your research interests
+                        <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids sub-disciplines" multiple>
+                            @foreach($subDisciplines as $key => $discipline)
+                                @if ($curDisciplinesCategory !== $discipline->category)
+                                <optgroup label="{{$discipline->category}}">
+                                {{$curDisciplinesCategory = $discipline->category}}
+                                @endif
+                                    <option {{ in_array($discipline->id, $userTags) ? 'selected' : '' }} value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+                                @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
+                                </optgroup>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!-- sub-disciplines input - end -->
+                <!-- applications input - start -->
+                <div class="col-lg-8 nopadding">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
+                        <label for="applications" class="control-label text-left">Application areas</label><br>
+                        Select the tags from the drop-down list that best represent the application areas of your research; you may also add your own (suggested max 40 chars each) 
+                        <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application areas" multiple>
+                            @foreach($applicationAreas as $key => $application)
+                                @if ($curApplicationCategory !== $application->category)
+                                <optgroup label="{{$application->category}}">
+                                {{$curApplicationCategory = $application->category}}
+                                @endif
+                                    <option {{ in_array($application->id, $userTags) ? 'selected' : '' }} value='{{ $application->id}}'>{{ $application->name}}</option>
+                                @if ($application === end($applicationAreas)) || ($curApplicationCategory !== $applicationAreas[$key+1]->category)
+                                </optgroup>
+                                @endif
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!-- applications input - end -->
+                <!-- techniques input - start -->
+                <div class="col-lg-8 nopadding">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
+                        <label for="techniques" class="control-label text-left">Techniques</label><br>
+                         Select the tags from the drop-down list that best represent your research techniques (analytical, numerical, experimental); you may also add your own (suggested max 40 chars each) 
+                        <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
+                            placeholder="Techniques" data-create-item="true" data-live-search="true" data-selected-text-format="count > 2" multiple>
+                            @foreach($techniques as $technique)
+                            <option {{ in_array($technique->id, $userTags) ? 'selected' : '' }} value='{{ $technique->id}}'>{{ $technique->name}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <!-- applications input - end -->
+                <!-- facilities input - start -->
+                <div class="col-lg-8 nopadding">
+                    <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
+                        <label for='facilities' class="control-label text-left">Facilities</label><br>
+                        Please list any facilities at your institution, such as wind tunnels, rotating tables, etc, for which you are responsible
+                        <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
+                            placeholder="Responsible for facilities" data-create-item="true" multiple>
+                            @foreach($facilities as $facility)
+                            <option {{ in_array($facility->id, $userTags) ? 'selected' : '' }} value='{{ $facility->id}}'>{{ $facility->name}}</option>
+                            @endforeach
+                        </select>
+                        @if ($errors->has('facilities'))
+                        <span class="help-block">
+                            <strong>{{ $errors->first('facilities')}}</strong>
+                        </span>
+                        @endif
+                    </div>
+                </div>
+                <!-- facilities input - end -->
                 <!-- Submit button - start -->
                 <div class="col-lg-8 nopadding">
                     <div class="form-group line-break-dbl-top">
