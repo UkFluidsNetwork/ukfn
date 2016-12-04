@@ -283,6 +283,7 @@
                             <!-- facilities input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
+                                    Please list any facilities at your institution, such as wind tunnels, rotating tables, etc, for which you are responsible
                                     <label for='facilities' class="sr-only">Facilities</label>
                                     <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
                                             placeholder="Responsible for facilities" data-create-item="true" multiple>
