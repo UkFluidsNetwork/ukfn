@@ -25,6 +25,13 @@ and open the template in the editor.
 .checkboxText {
   padding-left: 8px; }
 
+.mapHeight {
+  height: 800px !important; }
+
+@media only screen and (max-width: 1200px) {
+  .mobile-nopadding-from-md {
+    padding: 0 !important; } }
+
 /* Google font */
 body {
   font-family: 'Lato', sans-serif;
@@ -66,6 +73,9 @@ body {
   padding: 0 !important;
   margin: 0 !important; }
 
+.nopadding-left {
+  padding-left: 0 !important; }
+
 .nosidepadding {
   padding-left: 0 !important;
   padding-right: 0 !important; }
@@ -76,6 +86,10 @@ body {
 .noborderradius {
   border-radius: 0 !important; }
 
+.no-li-style {
+  list-style-type: none !important;
+  padding: 0 !important; }
+
 .jumbotron p {
   font-size: 17px; }
 
@@ -83,6 +97,10 @@ body {
 input[type="submit"], input[type="button"],
 input[type="text"], textarea, button {
   -webkit-appearance: none; }
+
+.axis-y {
+  overflow: hidden;
+  overflow-y: auto; }
 
 /********************************************************************
   NAVIGATION

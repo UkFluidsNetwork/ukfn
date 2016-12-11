@@ -205,4 +205,29 @@ class SigsController extends Controller
         }
         return redirect('/panel/sig');
     }
+
+    public function getAllJson()
+    {
+        $sigs = [];
+        $key = 0;
+         $allSigs = Sig::all();
+
+         foreach ($allSigs as $sig) {
+             $sigs[$key] = $sig;
+             $sigs[$key]->institutions = $sig->institutions;
+             $key++;
+         }
+         return json_encode($sigs, JSON_PRETTY_PRINT);
+//         foreach ()
+//             $sig->instutions = $sig->institutions();
+    }
+
+    public function getSigInstitutionsJson($id)
+    {
+        $sig = Sig::findOrFail($id);
+        $sig->institutions;
+        return json_encode($sig, JSON_PRETTY_PRINT);
+    }
+
+
 }

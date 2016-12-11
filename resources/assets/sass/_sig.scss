@@ -1,0 +1,9 @@
+.mapHeight { 
+    height: 800px !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  .mobile-nopadding-from-md {
+    padding: 0 !important;
+  }
+}

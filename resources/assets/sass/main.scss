@@ -6,6 +6,7 @@
 @import "variables";
 @import "talks";
 @import "forms";
+@import "sig";
 
 
 
@@ -55,6 +56,9 @@ body {
    padding                              : 0 !important;
    margin                               : 0 !important;
 }
+.nopadding-left {
+    padding-left : 0 !important;
+}
 .nosidepadding {
     padding-left: 0! important;
     padding-right: 0! important;
@@ -67,6 +71,11 @@ body {
     border-radius: 0 !important;
 }
 
+.no-li-style {
+    list-style-type: none !important;
+    padding: 0 !important;
+}
+
 .jumbotron p {
   font-size:17px;
 }
@@ -75,6 +84,11 @@ body {
 input[type="submit"], input[type="button"],
 input[type="text"], textarea, button {
     -webkit-appearance                  : none;
+}
+
+.axis-y {
+    overflow: hidden; 
+    overflow-y: auto;
 }
 
 

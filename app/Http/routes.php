@@ -23,6 +23,8 @@ Route::get('talks/view/{id}', 'TalksController@view');
 Route::get('talks/all', 'TalksController@viewall');
 Route::get('register', 'Auth\AuthController@registration');
 Route::get('api/institutions', 'InstitutionsController@getAllJson');
+Route::get('api/sigs', 'SigsController@getAllJson');
+Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 Route::get('panel', 'PanelController@index')->middleware('auth');
 Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('panel/suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
