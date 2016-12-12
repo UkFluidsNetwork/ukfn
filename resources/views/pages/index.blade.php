@@ -6,7 +6,7 @@
   <h2 class="line-break">Welcome</h2>
   <p>
     The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics. 
-    Activities start in September 2016 and are funded for 3 years.
+    Activities started in September 2016 and are funded for 3 years.
   </p>
   <p>
     The UKFN will fund {{ Html::link('/sig', 'Special Interest Group (SIG) meetings', ['title'=>'Special Interest Group (SIG)']) }},
@@ -14,7 +14,7 @@
     and a website containing resources for all fluid mechanics researchers.
   </p>
   <p>
-    Registrations are open to anyone interested in contributing to UKFN, to do so please {{ Html::link('/register', 'register here') }}.
+    Registration is open to anyone interested in contributing to UKFN, to do so please {{ Html::link('/register', 'register here') }}.
   </p>
 </div>
 <div class="container-fluid">
