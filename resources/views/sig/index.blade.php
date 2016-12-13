@@ -7,12 +7,12 @@
         <!-- UK map -->
         <div class="col-lg-6 col-lg-push-3 col-md-12 mobile-nopadding-from-md">
             <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
-                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" zoom="6" class="mapHeight">
+                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
                     <marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}">
+                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}">
                     </marker>
                     <marker ng-if="sigCtrl.displayAll" ng-repeat="institution in sigCtrl.distinctInstitutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}">
+                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}">
                     </marker>
                 </ng-map>
             </div>
