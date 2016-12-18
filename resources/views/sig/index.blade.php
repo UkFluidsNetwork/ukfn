@@ -8,12 +8,12 @@
         <div class="col-lg-6 col-lg-push-3 col-sm-6 col-sm-push-6 mobile-nopadding-from-md">
             <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
                 <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
-                    <marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}">
-                    </marker>
-                    <marker ng-if="sigCtrl.displayAll" ng-repeat="institution in sigCtrl.distinctInstitutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}">
-                    </marker>
+                    <custom-marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
+                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="circle"></span>
+                    </custom-marker>
+                    <custom-marker ng-if="sigCtrl.displayAll" ng-repeat="institution in sigCtrl.distinctInstitutions" position="@{{ institution.lat }},@{{ institution.lng }}"
+                                   title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="circle"></span>
+                    </custom-marker>
                 </ng-map>
             </div>
         </div>
@@ -75,4 +75,15 @@
         </div>
     </div>
 </div>
+<style>
+    .circle {
+        background-image: radial-gradient(circle farthest-corner at 45px 45px , red, #a94442);
+        height: 12px;
+        width: 12px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right:20px;
+        border: white 3px;
+    }
+</style>
 @endsection

@@ -84,11 +84,6 @@ angular.module('ukfn')
                         'longtitude': '-4.40'
                     };
             
-            controller.customIcon = {
-                    "scaledSize": ['8', '8'],
-                    "url": "/pictures/drop.png"
-            };         
-                    
             controller.options = {
                 styles: [
                     {
