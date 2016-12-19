@@ -77,7 +77,10 @@ class Talk extends Model
      */
     public static function getUpcomingTalks($limit = 20)
     {
-        return DB::table('talks')->orderBy('start', 'ASC')->limit($limit)->get();
+        return DB::table('talks')
+            ->where('start', '>=', Carbon::now())
+            ->orderBy('start', 'ASC')
+            ->limit($limit)->get();
     }
 
     /**
