@@ -107,9 +107,11 @@ input[type="text"], textarea, button {
   width: 12px;
   border-radius: 50%;
   display: inline-block;
-  margin-right: 20px;
   border: solid white 1px;
   background-image: radial-gradient(circle farthest-corner at 45px 45px, red, #a94442); }
+
+.custom-marker.map-pointer {
+  margin-top: 14px; }
 
 .nomargin {
   margin: 0 !important; }

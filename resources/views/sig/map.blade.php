@@ -12,10 +12,10 @@
                         map-type-control="false" street-view-control="false" 
                         zoom-control="true" zoom-control-options="{style:'SMALL', position:'TOP_RIGHT'}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
                     <custom-marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="map-pointer"></span>
+                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><div class="map-pointer"></div>
                     </custom-marker>
                     <custom-marker ng-if="sigCtrl.displayAll" ng-repeat="institution in sigCtrl.distinctInstitutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                                   title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="map-pointer"></span>
+                                   title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><div class="map-pointer"></div>
                     </custom-marker>
                 </ng-map>
             </div>
