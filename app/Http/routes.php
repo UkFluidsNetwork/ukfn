@@ -13,6 +13,7 @@
 /** GET|HEAD requests * */
 Route::get('/', 'PagesController@index');
 Route::get('sig', 'SigsController@index');
+Route::get('sig/map', 'SigsController@map');
 Route::get('srv', 'SrvsController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('contact', 'PagesController@contact');

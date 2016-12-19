@@ -17,7 +17,7 @@ class SigsController extends Controller
     public function index()
     {
         SEO::setTitle('Special Interest Groups');
-        SEO::setDescription('UKFN is pleased to invite proposals for the first round of Special Interest Groups. '
+        SEO::setDescription('UKFN is pleased to invite proposals for the second round of Special Interest Groups. '
             . 'The call is open to anyone working in fluid mechanics in the UK. ');
 
         $allSuggestions = Suggestion::getAllSuggestions();
@@ -41,6 +41,20 @@ class SigsController extends Controller
     }
 
     /**
+     * Render the SIG overview map
+     * 
+     * @return void
+     */
+    public function map()
+    {
+        SEO::setTitle('Special Interest Groups');
+        SEO::setDescription('UKFN is pleased to invite proposals for the second round of Special Interest Groups. '
+            . 'The call is open to anyone working in fluid mechanics in the UK.');
+
+        return view('sig.map');
+    }
+
+    /**
      * List all sigs
      * @author Javier Arias <ja573@cam.ac.uk>
      * @access public
@@ -53,8 +67,8 @@ class SigsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'SIG', 'path' => '/panel/sig']
+                ['label' => 'Panel', 'path' => '/panel'],
+                ['label' => 'SIG', 'path' => '/panel/sig']
         ];
         $breadCount = count($bread);
 
@@ -81,9 +95,9 @@ class SigsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'SIG', 'path' => '/panel/sig'],
-            ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+                ['label' => 'Panel', 'path' => '/panel'],
+                ['label' => 'SIG', 'path' => '/panel/sig'],
+                ['label' => 'Edit', 'path' => '/panel/sig/edit'],
         ];
         $breadCount = count($bread);
 
@@ -97,7 +111,7 @@ class SigsController extends Controller
         $facilities = Tag::getAllFacilities();
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
-        
+
         return view('panel.sigs.edit', compact('sig', 'sigTags', 'sigInstitutions', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
     }
 
@@ -116,8 +130,8 @@ class SigsController extends Controller
             $input = $request->all();
             $sig->fill($input);
             $sig->save();
-            
-            $institutions = $request->institutions ? : [];
+
+            $institutions = $request->institutions ?: [];
             $sig->updateInstitutions($institutions);
             $sig->updateTags($request->toArray());
             Session::flash('success_message', 'Edited succesfully.');
@@ -141,9 +155,9 @@ class SigsController extends Controller
         }
 
         $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'SIG', 'path' => '/panel/sig'],
-            ['label' => 'Add', 'path' => '/panel/sig/add'],
+                ['label' => 'Panel', 'path' => '/panel'],
+                ['label' => 'SIG', 'path' => '/panel/sig'],
+                ['label' => 'Add', 'path' => '/panel/sig/add'],
         ];
         $breadCount = count($bread);
 
@@ -158,7 +172,7 @@ class SigsController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        return view('panel.sigs.add', compact('sig', 'sigInstitutions', 'sigTags', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory','bread', 'breadCount'));
+        return view('panel.sigs.add', compact('sig', 'sigInstitutions', 'sigTags', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
     }
 
     /**
@@ -175,8 +189,8 @@ class SigsController extends Controller
             $input = $request->all();
             $sig->fill($input);
             $sig->save();
-            
-            $institutions = $request->institutions ? : [];
+
+            $institutions = $request->institutions ?: [];
             $sig->updateInstitutions($institutions);
             $sig->updateTags($request->toArray());
             Session::flash('success_message', 'Added succesfully.');
@@ -210,14 +224,14 @@ class SigsController extends Controller
     {
         $sigs = [];
         $key = 0;
-         $allSigs = Sig::all();
+        $allSigs = Sig::all();
 
-         foreach ($allSigs as $sig) {
-             $sigs[$key] = $sig;
-             $sigs[$key]->institutions = $sig->institutions;
-             $key++;
-         }
-         return json_encode($sigs, JSON_PRETTY_PRINT);
+        foreach ($allSigs as $sig) {
+            $sigs[$key] = $sig;
+            $sigs[$key]->institutions = $sig->institutions;
+            $key++;
+        }
+        return json_encode($sigs, JSON_PRETTY_PRINT);
 //         foreach ()
 //             $sig->instutions = $sig->institutions();
     }
@@ -228,6 +242,4 @@ class SigsController extends Controller
         $sig->institutions;
         return json_encode($sig, JSON_PRETTY_PRINT);
     }
-
-
 }

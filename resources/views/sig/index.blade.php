@@ -2,77 +2,219 @@
 @section('content')
 @include('flash.success')
 <h2 class='line-break'>Special Interest Groups</h2>
-<div ng-controller="sigController as sigCtrl">
-    <div class="container-fluid nopadding">
-        <!-- UK map -->
-        <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
-            <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
-                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" 
-                        map-type-control="false" street-view-control="false" 
-                        zoom-control="true" zoom-control-options="{style:'SMALL', position:'TOP_RIGHT'}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
-                    <custom-marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="map-pointer"></span>
-                    </custom-marker>
-                    <custom-marker ng-if="sigCtrl.displayAll" ng-repeat="institution in sigCtrl.distinctInstitutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                                   title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="map-pointer"></span>
-                    </custom-marker>
-                </ng-map>
-            </div>
-        </div>
-        <!-- Sig institutions -->
-        <div class="col-md-3 col-md-pull-6 col-sm-5 mapHeight axis-y">
-            <div class="line-break hidden-sm hidden-md hidden-lg"></div>
-            <div ng-if="sigCtrl.displayAll">
-                <div class="page-header nomargin-top">
-                    <div class="text-danger line-break">
-                        <strong>All SIGs</strong>
-                    </div>
-                </div>
-                <p>
-                    <strong class="line-break">Institutions</strong>
-                </p>
-                <ul ng-repeat="ins in sigCtrl.distinctInstitutions" class="no-li-style">
-                    <li>
-                        @{{ ins.name }}
-                    </li>
-                </ul>
-            </div>
-            <div ng-if="!sigCtrl.displayAll">
-                <div class="page-header" style="margin-top: 0px;">
-                    <div class="text-danger line-break">
-                        <strong>@{{ sigCtrl.thisSig.data.name }}</strong>
-                    </div>
-                    <p class="linre-break">
-                        @{{ sigCtrl.thisSig.data.description }}
-                    </p>
-                </div>
-                <p>
-                    <strong class="line-break">Institutions</strong>
-                </p>
-                <ul ng-repeat="ins in sigCtrl.thisSig.data.institutions" class="no-li-style">
-                    <li>
-                        @{{ ins.name }}</li>
-                </ul>
-            </div>
-        </div>
-        <!-- SIG list -->
-        <div class="col-md-3 col-md-12 mapHeight axis-y">
-            <div class="line-break hidden-sm hidden-md hidden-lg"></div>
-            <ul class="nav nav-pills nav-stacked">
-                <li ng-class="sigCtrl.displayAll ? 'active' : ''">
-                    <a href="" ng-click="sigCtrl.dispAll(); sigCtrl.setActive(false)">
-                        All SIGs
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav nav-pills nav-stacked" ng-repeat="sig in sigCtrl.allSigs.data">
-                <li ng-class="sigCtrl.sigActive === sig.id ? 'active' : ''" >
-                    <a href="" ng-click="sigCtrl.getSigInstitution(sig.id); sigCtrl.setActive(sig.id)">
-                        @{{ sig.name }}
-                    </a>
-                </li>
-            </ul>
-        </div>
-    </div>
+<div class="well">
+    <p>
+        <span class="larger bold">Second call</span>
+    </p>
+    <p>
+        UKFN is pleased to invite proposals for a second round of Special Interest Groups. 
+        This call is open to anyone working in fluid mechanics in the UK. 
+        The following pdf gives the context of the call and sets out the information you need to provide in your proposal:
+    </p>
+    <p>
+        <a href="{{ asset('files/UKFN_SIGs_2nd_call_for_proposals.pdf') }}">[UKFN_SIGs_2nd_call_for_proposals.pdf]</a>
+    </p>
+    <p>
+        The closing date is 31 January 2017.
+    </p>
+    <p>
+        Information about the results of the first call, which you may find helpful, is given below.
+    </p>
 </div>
+
+<div>
+    <h3>Results of the first call</h3>
+    <p>
+        A total of 46 proposals were received in response to the first call for SIG proposals, of which 26 were approved for funding. 
+        These are listed in alphabetical order below.
+    </p>
+    <p class="line-break line-break-top">
+        {{ Html::link('/sig/map', 'SIG Overview', ['class'=> 'btn btn-default btn-lg text-uppercase']) }}
+    </p>
+    <div class="table-responsive clear-both">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Title</th>
+                    <th>Lead</th>
+                    <th>Co-lead(s)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Aeroacoustics</td>
+                    <td>Cambridge</td>
+                    <td>Bristol</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Biologically active fluids</td>
+                    <td>Cambridge</td>
+                    <td>Birmingham</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Boundary layers in complex rotating systems</td>
+                    <td>Leicester</td>
+                    <td>Cardiff</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Challenges in cardiovascular flow modelling</td>
+                    <td>Swansea</td>
+                    <td>Bristol</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Drop dynamics</td>
+                    <td>Oxford</td>
+                    <td>QMUL</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Droplet and flow interactions with bio-inspired and smart surfaces</td>
+                    <td>Northumbria</td>
+                    <td>Durham</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Experimental flow diagnostics (xFD)</td>
+                    <td>ICL</td>
+                    <td>Cambridge</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Flow instability, modelling and control</td>
+                    <td>ICL</td>
+                    <td>Southampton</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Fluid dynamics of liquid crystalline materials</td>
+                    <td>Strathclyde</td>
+                    <td>Nottinham Trent</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Fluid mechanics of cleaning and decontamination</td>
+                    <td>Manchester</td>
+                    <td>Cambridge</td>
+                </tr>
+                <tr>
+                    <td>11</td>
+                    <td>Fluid mechanics of the eye</td>
+                    <td>ICL</td>
+                    <td>Oxford</td>
+                </tr>
+                <tr>
+                    <td>12</td>
+                    <td>Granular flows in the environment and industry</td>
+                    <td>Cambridge</td>
+                    <td>Edinburgh/Sheffield</td>
+                </tr>
+                <tr>
+                    <td>13</td>
+                    <td>Low-energy ventilation</td>
+                    <td>Leeds</td>
+                    <td>ICL</td>
+                </tr>
+                <tr>
+                    <td>14</td>
+                    <td>Marine hydrodynamics</td>
+                    <td>Southampton</td>
+                    <td>Newcastle</td>
+                </tr>
+                <tr>
+                    <td>15</td>
+                    <td>Multicore and Manycore Algorithms to Tackle Turbulent flows (MUMATUR)</td>
+                    <td>ICL</td>
+                    <td>STFC</td>
+                </tr>
+                <tr>
+                    <td>16</td>
+                    <td>Multiphase flows and transport phenomena</td>
+                    <td>Edinburgh</td>
+                    <td>UCL</td>
+                </tr>
+                <tr>
+                    <td>17</td>
+                    <td>Multi-scale and non-continuum flows</td>
+                    <td>Edinburgh</td>
+                    <td>Warwick</td>
+                </tr>
+                <tr>
+                    <td>18</td>
+                    <td>Multi-scale processes in geophysical fluid dynamics</td>
+                    <td>UCL</td>
+                    <td>Oxford/St. Andrews</td>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>Next generation time-stepping strategies for computer simulations of multi-scale fluid flows </td>
+                    <td>Leeds</td>
+                    <td>Exeter/ICL</td>
+                </tr>
+                <tr>
+                    <td>20</td>
+                    <td>Non-Newtonian fluid mechanics</td>
+                    <td>Liverpool</td>
+                    <td>Edinburgh</td>
+                </tr>
+                <tr>
+                    <td>21</td>
+                    <td>Particulate matter filtration flows in automotive and marine applications</td>
+                    <td>Coventry</td>
+                    <td>Loughborough</td>
+                </tr>
+                <tr>
+                    <td>22</td>
+                    <td>Turbulent free shear flows</td>
+                    <td>Edinburgh</td>
+                    <td>Leicester</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>Turbulent skin-friction drag reduction</td>
+                    <td>ICL</td>
+                    <td>Nottingham</td>
+                </tr>
+                <tr>
+                    <td>24</td>
+                    <td>Urban fluid mechanics</td>
+                    <td>Southampton</td>
+                    <td>ICL</td>
+                </tr>
+                <tr>
+                    <td>25</td>
+                    <td>User's forum for National Wind Tunnel Facility</td>
+                    <td>Nottingham</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>26</td>
+                    <td>Wave-structure interaction</td>
+                    <td>Plymouth</td>
+                    <td>MMU</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <p>
+        Further statistics on proposals received for the first call may be found here:
+    </p>
+    <p>
+        <a href="{{ asset('files/UKFN_SIGs_Call1_summary.xlsx') }}">[UKFN_SIGs_Call1_summary.xlsx]</a>
+    </p>
+    <p>
+        This workbook contains the following additional information:<br>
+        <span class='margin-left'>(a) List of all proposals submitted</span><br>
+        <span class='margin-left'>(b) Charts showing distribution of proposals across institutions and subject areas</span><br>
+        <span class='margin-left'>(c) List of activities and outputs proposed</span><br>
+        <span class='margin-left'>(d) List of suggestions compiled on SIG web page during first call</span>
+    </p>
+</div>
+
+@include('sig.suggestions')
 @endsection
