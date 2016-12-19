@@ -152,4 +152,9 @@ class InstitutionsController extends Controller
         }
         return redirect('/panel/institutions');
     }
+
+    public function getAllJson()
+    {
+        return Institution::all()->toJson();
+    }
 }

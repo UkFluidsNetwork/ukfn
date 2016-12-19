@@ -16,11 +16,13 @@
         <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
         <script src="{{ asset('js/vendor/angular.js')}}"></script>
         <script src="{{ asset('js/vendor/angular-messages.js')}}"></script>
+        <script src="{{ asset('js/vendor/ngStorage.min.js')}}"></script>
+        <script src="{{ asset('js/vendor/ng-map.min.js')}}"></script>
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/analytics.js')}}"></script>
         <script src="{{ asset('js/main.js')}}"></script>
-        <script src="{{ asset('js/angCtrl.js')}}"></script>
         <script src="{{ asset('js/angApp.js')}}"></script>
+        <script src="{{ asset('js/angCtrl.js')}}"></script>
         <script src="{{ asset('js/bootstrap-select.min.js')}}"></script>
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <!-- favicon -->

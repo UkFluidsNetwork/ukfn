@@ -13,6 +13,7 @@
 /** GET|HEAD requests * */
 Route::get('/', 'PagesController@index');
 Route::get('sig', 'SigsController@index');
+Route::get('sig/map', 'SigsController@map');
 Route::get('srv', 'SrvsController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('contact', 'PagesController@contact');
@@ -22,6 +23,9 @@ Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/view/{id}', 'TalksController@view');
 Route::get('talks/all', 'TalksController@viewall');
 Route::get('register', 'Auth\AuthController@registration');
+Route::get('api/institutions', 'InstitutionsController@getAllJson');
+Route::get('api/sigs', 'SigsController@getAllJson');
+Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 Route::get('panel', 'PanelController@index')->middleware('auth');
 Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('panel/suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');

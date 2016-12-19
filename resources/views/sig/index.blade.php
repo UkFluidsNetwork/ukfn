@@ -28,6 +28,9 @@
         A total of 46 proposals were received in response to the first call for SIG proposals, of which 26 were approved for funding. 
         These are listed in alphabetical order below.
     </p>
+    <p class="line-break line-break-top">
+        {{ Html::link('/sig/map', 'SIG Overview', ['class'=> 'btn btn-default btn-lg text-uppercase']) }}
+    </p>
     <div class="table-responsive clear-both">
         <table class="table">
             <thead>
