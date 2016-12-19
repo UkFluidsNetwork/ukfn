@@ -18,7 +18,7 @@ class SigsController extends Controller
     {
         SEO::setTitle('Special Interest Groups');
         SEO::setDescription('UKFN is pleased to invite proposals for the second round of Special Interest Groups. '
-            . 'The call is open to anyone working in fluid mechanics in the UK. ');
+            . 'The call is open to anyone working in fluid mechanics in the UK.');
 
         $allSuggestions = Suggestion::getAllSuggestions();
         $newCount = 0;
