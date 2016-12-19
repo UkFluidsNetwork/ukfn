@@ -102,6 +102,30 @@ input[type="text"], textarea, button {
   overflow: hidden;
   overflow-y: auto; }
 
+.map-pointer {
+  height: 12px;
+  width: 12px;
+  border-radius: 50%;
+  display: inline-block;
+  margin-right: 20px;
+  border: solid white 1px;
+  background-image: radial-gradient(circle farthest-corner at 45px 45px, red, #a94442); }
+
+.nomargin {
+  margin: 0 !important; }
+
+.nomargin-top {
+  margin-top: 0 !important; }
+
+.nomargin-bottom {
+  margin-bottom: 0 !important; }
+
+.nomargin-left {
+  margin-left: 0 !important; }
+
+.nomargin-right {
+  margin-right: 0 !important; }
+
 /********************************************************************
   NAVIGATION
 ********************************************************************/

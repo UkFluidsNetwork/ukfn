@@ -7,12 +7,14 @@
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
             <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
-                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
+                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" 
+                        map-type-control="false" street-view-control="false" 
+                        zoom-control="true" zoom-control-options="{style:'SMALL', position:'TOP_RIGHT'}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
                     <custom-marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="circle"></span>
+                        title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="map-pointer"></span>
                     </custom-marker>
                     <custom-marker ng-if="sigCtrl.displayAll" ng-repeat="institution in sigCtrl.distinctInstitutions" position="@{{ institution.lat }},@{{ institution.lng }}"
-                                   title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="circle"></span>
+                                   title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><span class="map-pointer"></span>
                     </custom-marker>
                 </ng-map>
             </div>
@@ -21,7 +23,7 @@
         <div class="col-md-3 col-md-pull-6 col-sm-5 mapHeight axis-y">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <div ng-if="sigCtrl.displayAll">
-                <div class="page-header" style="margin-top: 0px;">
+                <div class="page-header nomargin-top">
                     <div class="text-danger line-break">
                         <strong>All SIGs</strong>
                     </div>
@@ -73,15 +75,4 @@
         </div>
     </div>
 </div>
-<style>
-    .circle {
-        height: 12px;
-        width: 12px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right:20px;
-        border: solid white 1px;
-        background-image: radial-gradient(circle farthest-corner at 45px 45px , red, #a94442);
-    }
-</style>
 @endsection

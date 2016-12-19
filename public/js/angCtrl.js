@@ -83,7 +83,7 @@ angular.module('ukfn')
                         'latitude'  : '54.8',
                         'longtitude': '-4.40'
                     };
-            
+                             
             controller.options = {
                 styles: [
                     {
