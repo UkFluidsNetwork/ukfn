@@ -15,6 +15,17 @@
     @endif
   </div>
 </div>
+<div class='form-group {{ $errors->has('shortname') ? ' has-error' : '' }}'>
+  {!! Form::label('shortname', 'Short name:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::text('shortname', '', ['class' => 'form-control','placeholder' => 'The short name of the SIG']) !!}
+    @if ($errors->has('shortname'))
+    <span class="text-danger">
+      <span>{{ $errors->first('shortname') }}</span>
+    </span>
+    @endif
+  </div>
+</div>
 <!-- institutions input - start -->
 <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
     <label for="institutions" class="control-label col-lg-2  text-left">Institutions</label>
