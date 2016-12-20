@@ -192,4 +192,46 @@ class Sig extends Model
     {
         return $this->secondaryInstitutions->lists('id')->toArray();
     }
+    
+    /**
+     * Get the leader (main user) of this sig
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function leader()
+    {
+        return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 1);
+    }
+    
+    /**
+     * Get the co-leaders of this sig
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function coleaders()
+    {
+        return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 2);
+    }
+
+    /**
+     * Get the id of the user who is the leader of the SIG
+     * 
+     * @access public
+     * @return array
+     */
+    public function getLeaderId()
+    {
+        return $this->leader->lists('id')->toArray();
+    }
+
+    /**
+     * Get the ids of the users who are co-leaders of the SIG
+     * 
+     * @access public
+     * @return array
+     */
+    public function getColeaderIds()
+    {
+        return $this->coleaders->lists('id')->toArray();
+    }
 }
