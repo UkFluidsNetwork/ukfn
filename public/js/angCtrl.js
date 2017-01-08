@@ -68,6 +68,18 @@ angular.module('ukfn')
                     controller.thisSig = response;
                 });
             };
+            
+            controller.getSigLeader = function (id) {
+                $http(
+                    {
+                        method: 'GET',
+                        url: '/api/sigs/leader/'+id
+                    }
+                ).then(function (response) {
+                    controller.displayAll = false;
+                    controller.thisSig = response;
+                });
+            };
            
             controller.setActive = function(id) {
                 controller.sigActive = id;

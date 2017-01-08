@@ -47,6 +47,15 @@
                         @{{ sigCtrl.thisSig.data.description }}
                     </p>
                 </div>
+                <div class="page-header" style="margin-top: 0px;">
+                    <p>
+                        <strong class="line-break">Leader</strong>
+                    </p>
+                    <ul ng-repeat="leader in sigCtrl.thisSig.data.leader" class="no-li-style">
+                        <li>
+                            @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i></li>
+                    </ul>
+                </div>
                 <p>
                     <strong class="line-break">Institutions</strong>
                 </p>
@@ -68,7 +77,7 @@
             </ul>
             <ul class="nav nav-pills nav-stacked" ng-repeat="sig in sigCtrl.allSigs.data">
                 <li ng-class="sigCtrl.sigActive === sig.id ? 'active' : ''" >
-                    <a href="" ng-click="sigCtrl.getSigInstitution(sig.id); sigCtrl.setActive(sig.id)">
+                    <a href="" ng-click="sigCtrl.getSigInstitution(sig.id); sigCrtl.getSigLeader(sig.id); sigCtrl.setActive(sig.id);">
                         @{{ sig.name }}
                     </a>
                 </li>
