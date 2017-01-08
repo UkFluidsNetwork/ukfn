@@ -106,7 +106,7 @@ class Sig extends Model
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'sig_users')->withTimestamps();
+        return $this->belongsToMany('App\User', 'sig_users')->withTimestamps()->withPivot('main');
     }
 
     /**

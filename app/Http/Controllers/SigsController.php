@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Sig;
 use App\Tag;
+use App\User;
 use App\Suggestion;
 use App\Institution;
 use App\Http\Requests\SigsFormRequest;
@@ -100,7 +101,7 @@ class SigsController extends Controller
 
         return view('panel.sigs.edit', compact('sig', 'sigTags', 'sigInstitutions', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
     }
-
+    
     /**
      * Update sigs
      * @author Javier Arias <ja573@cam.ac.uk>
@@ -218,14 +219,18 @@ class SigsController extends Controller
             $key++;
         }
         return json_encode($sigs, JSON_PRETTY_PRINT);
-//         foreach ()
-//             $sig->instutions = $sig->institutions();
     }
 
     public function getSigInstitutionsJson($id)
     {
         $sig = Sig::findOrFail($id);
         $sig->institutions;
+        $sig->leader;
+        foreach ($sig->leader as $key => $leader) {
+            $leader = User::findOrFail($sig->leader[$key]->id);
+            $sig->leader[$key]->institutions = $leader->institutions;
+        }
+        
         return json_encode($sig, JSON_PRETTY_PRINT);
     }
 }
