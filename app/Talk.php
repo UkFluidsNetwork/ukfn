@@ -16,10 +16,24 @@ class Talk extends Model
      * @access public
      * @author Robert Barczyk <robert@barczyk.net>
      */
-    public static function getAllCurrentTalks()
+    public static function getAllCurrentTalks($endFromThisWeek = false)
     {
-        $talks = DB::table('talks')->where('end', '>', Carbon::now())->orderBy('start', 'ASC')->get();
-
+        if ($endFromThisWeek) {
+            $talks = DB::table('talks')
+                ->join('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
+                ->where('end', '>', Carbon::now()->startOfWeek())
+                ->select('talks.*', 'aggregators.longname', 'aggregators.name')
+                ->orderBy('start', 'ASC')
+                ->get();
+        } else {
+            $talks = DB::table('talks')
+                ->join('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
+                ->where('end', '>', Carbon::now())
+                ->select('talks.*', 'aggregators.longname', 'aggregators.name')
+                ->orderBy('start', 'ASC')
+                ->get();
+        }
+        
         return $talks;
     }
 
@@ -37,8 +51,10 @@ class Talk extends Model
         $thisWeekEnd = Carbon::now()->endOfWeek();
 
         return $talks = DB::table('talks')
+            ->join('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
             ->where('start', '>=', $thisWeekStart->addDays($addDays))
             ->where('start', '<=', $thisWeekEnd->addDays($addDays))
+            ->select('talks.*', 'aggregators.longname', 'aggregators.name')
             ->orderBy('start', 'ASC')
             ->get();
     }
@@ -105,7 +121,7 @@ class Talk extends Model
     }
 
     /**
-     * Find a talk given its talkid
+     * Find a talk given its talk id
      * @author Javier Arias <ja573@cam.ac.uk>
      * @access public
      * @static

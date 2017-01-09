@@ -4,23 +4,12 @@ namespace App\Http\Controllers;
 
 use SEO;
 use App\Talk;
+use App\Aggregator;
 use Carbon\Carbon;
 
 class TalksController extends Controller
 {
 
-    private static $talksRSS = [
-        [
-            'name' => 'Cambridge Fluids Network - fluids-related seminars',
-            'path' => 'http://talks.cam.ac.uk/show/xml/54169',
-            'aggr' => 'talks.cam'
-        ],
-        [
-            'name' => 'Imperial College Turbulence Seminar',
-            'path' => 'http://www3.imperial.ac.uk/imperialnewsevents/eventsfront?pid=69_189112051_69_189111978_189111978',
-            'aggr' => 'lonimperial'
-        ],
-    ];
     private static $exceptions = [
         "TBC",
         "tbc",
@@ -39,7 +28,8 @@ class TalksController extends Controller
         SEO::setTitle('Talks');
         self::setSEODescription();
 
-        $talksRSS = static::$talksRSS;
+        $talksRSS = Aggregator::getAggregators();
+        
         $talksMenu = $this->talksWeekMenu();
 
         return view('talks.index', compact('talksRSS', 'talksMenu'));
@@ -58,8 +48,13 @@ class TalksController extends Controller
 
         $talk = Talk::findOrFail($id);
         $talk->when = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
-
-        return view('talks.view', compact('talk', 'talksMenu'));
+        
+        $aggregator = Aggregator::findOrFail($talk->aggregator_id);
+        
+        $displayRecording = self::displayRecording($talk->recordinguntil);
+        $displayStreaming = self::displayRecording($talk->start, $talk->end, true);
+        
+        return view('talks.view', compact('talk', 'talksMenu', 'displayRecording', 'displayStreaming', 'aggregator'));
     }
 
     /**
@@ -117,11 +112,14 @@ class TalksController extends Controller
      */
     public static function updateTalks()
     {
-        foreach (static::$talksRSS as $rss) {
-            $xml = simplexml_load_file($rss['path']);
+        $aggregators = Aggregator::getAggregators();
+        
+        foreach ($aggregators as $aggregator) {
+            $xml = simplexml_load_file($aggregator->url);
 
-            switch ($rss['aggr']) {
-                case 'talks.cam' :
+            switch ($aggregator->id) {
+                // TALKS CAM FLUIDS
+                case '1' :
                     foreach ($xml->talk as $value) {
                         $existingTalk = Talk::findByTalkid($value->id);
 
@@ -141,7 +139,7 @@ class TalksController extends Controller
                         $talk->venue = $value->venue;
                         $talk->organiser = $value->organiser;
                         $talk->series = $value->series;
-                        $talk->aggregator = 'Cambridge Fluids Network';
+                        $talk->aggregator_id = $aggregator->id;
                         $talk->abstract = $value->abstract;
                         $talk->message = $value->special_message;
                         $talk->created_at = Carbon::createFromFormat('D, d M Y H:i:s e', $value->created_at)->format('Y-m-d H:i:s');
@@ -151,7 +149,8 @@ class TalksController extends Controller
                     }
 
                     break;
-                case 'lonimperial' :
+                // LON IMPERIAL
+                case '2' :    
                     foreach ($xml as $value) {
                         // skip empty object at the begining of RSS feed
                         if ($value->id) {
@@ -173,7 +172,7 @@ class TalksController extends Controller
                             $talk->end = Carbon::parse($imperialnewsevents->event_end_date);
                             $talk->url = $value->id;
                             $talk->venue = $imperialnewsevents->source . ", " . $imperialnewsevents->location;
-                            $talk->aggregator = 'Imperial College Turbulence Seminar';
+                            $talk->aggregator_id = $aggregator->id;
                             $talk->organiser = $imperialnewsevents->source;
                             $talk->created_at = Carbon::parse($value->published);
                             $talk->updated_at = Carbon::parse($value->updated);
@@ -203,7 +202,9 @@ class TalksController extends Controller
             if (in_array($talk->title, static::$exceptions)) {
                 continue;
             }
+            
             $formattedTalks[$index] = $talk;
+            $formattedTalks[$index]->aggregator = Aggregator::findOrFail($talk->aggregator_id);
             $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
             $index++;
         }
@@ -212,7 +213,7 @@ class TalksController extends Controller
     }
 
     /**
-     * Genereate the page description for the talks section
+     * Generate the page description for the talks section
      * @author Javier Arias <ja573@cam.ac.uk>
      * @access private
      * @static
@@ -221,16 +222,61 @@ class TalksController extends Controller
     private static function getSEODescription()
     {
         $description = 'Fluids-related seminars and talks in the UK, imported from the ';
-        foreach (static::$talksRSS as $key => $feed) {
-            $description.= $feed['name'];
-            if ($key + 1 < count(static::$talksRSS) - 1) {
+        
+        $talksRSS = Aggregator::getAggregators();
+        
+        foreach ($talksRSS as $key => $feed) {
+            $description.= $feed->name;
+            if ($key + 1 < count($talksRSS) - 1) {
                 $description .= ', ';
-            } elseif ($key + 1 === count(static::$talksRSS) - 1) {
+            } elseif ($key + 1 === count($talksRSS) - 1) {
                 $description .= ', and ';
             }
         }
         $description.= ' RSS Feeds';
         return $description;
+    }
+    
+    /**
+     * Pass first param only as date to get bool value of until what time recording / streaming icon and embeded video should appear
+     * 2nd and 3rd parameter are for streaming only. Stream video will appear 15 minutes before and after scheduled time start/end  
+     * @param string $dateStart
+     * @param string $dateEnd
+     * @param bool $stream
+     * @return boolean
+     * @author Robert Barczyk <rb783@cam.ac.uk>
+     * @access public
+     * @static
+     */
+    public static function displayRecording($dateStart, $dateEnd = false, $stream = false)
+    {
+        $recordinguntil = Carbon::parse($dateStart);
+        
+        if ($stream) { 
+            $streamingStart = Carbon::parse($dateStart);
+            $streamingEnd = Carbon::parse($dateEnd);
+                            
+            if(Carbon::now() >= $streamingStart->addMinutes(-15) && Carbon::now() <= $streamingEnd->addMinutes(15)) {            
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            $today = Carbon::today();
+
+            $dateDiff = $today->diff($recordinguntil);
+        
+            if ($dateDiff->invert === 0) {
+                return true;
+            } else {
+                return false;
+            }
+        }        
+    }
+    
+    public function getTaksJsonMenu()
+    {
+        return response()->json($this->talksWeekMenu());
     }
     
     /**

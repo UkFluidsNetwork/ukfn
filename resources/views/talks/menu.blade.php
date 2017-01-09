@@ -9,6 +9,10 @@
                         <div class="panel-title line-break-half">{{ $menuItem->title }} </div>
                     </span>
                     <span class="display-block text-muted">
+                        <icon class="glyphicon glyphicon-bullhorn icon-item-padding display-table-cell"></icon> 
+                        <span class="display-table-cell"> {{ $menuItem->longname }}</span>
+                    </span>
+                    <span class="display-block text-muted">
                         <icon class="glyphicon glyphicon-user icon-item-padding display-table-cell"></icon> 
                         <span class="display-table-cell"> {{ $menuItem->speaker }}</span>
                     </span>
@@ -20,6 +24,29 @@
                         <icon class="glyphicon glyphicon-map-marker icon-item-padding display-table-cell" style=""></icon>
                         <span class="display-table-cell">{{ $menuItem->venue }}</span>
                     </span>
+                    
+                    @if ($menuItem->recordingurl && $menuItem->recordinguntil)
+                    <span class="display-block text-muted">
+                        <icon class="glyphicon glyphicon-facetime-video icon-item-padding display-table-cell"></icon>
+                        <span class="display-table-cell"> Recording available</span>
+                    </span>
+                    @endif
+                   
+                    @if ($menuItem->streamingurl)
+                    <span class="display-block text-muted">
+                        <icon class="glyphicon glyphicon-play icon-item-padding display-table-cell"></icon>
+                        <span class="display-table-cell">Live Streaming</span>
+                    </span>
+                    @endif
+                    
+                    @if ($menuItem->teradekip)
+                    
+                    <span class="display-block text-muted">
+                        <icon class="glyphicon glyphicon-play icon-item-padding display-table-cell"></icon>
+                        <span class="display-table-cell">Live Streaming</span>
+                    </span>
+                    @endif
+                    
                 </a>
             </div>
                         

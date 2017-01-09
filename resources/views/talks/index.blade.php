@@ -7,9 +7,9 @@
                     All the talks listed in this section are imported from the 
                     @foreach ($talksRSS as $talkRSS)
                         @if ($talkRSS !== end($talksRSS)) 
-                            {{ Html::link($talkRSS['path'], $talkRSS['name'], ['target' => '_blank']) }}, 
+                            {{ Html::link($talkRSS->url, $talkRSS->longname, ['target' => '_blank']) }}, 
                         @else
-                            and {{ Html::link($talkRSS['path'], $talkRSS['name'], ['target' => '_blank']) }} RSS feeds.    
+                            and {{ Html::link($talkRSS->url, $talkRSS->longname, ['target' => '_blank']) }} RSS feeds.    
                         @endif
                     @endforeach
                 </p>

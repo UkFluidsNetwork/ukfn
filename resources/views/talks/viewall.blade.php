@@ -2,7 +2,7 @@
 @section('talkscontent')
 <h2 class='line-break'>All Talks</h2>
          @foreach ($talks as $talk)
-        
+         
             <section class="page-header">
                 <div>
                     <span class="h4 text-danger display-block">
@@ -12,7 +12,7 @@
                         {{ $talk->speaker }} 
                     </span>
                     <span class="display-block line-break">
-                        {{ $talk->aggregator }} 
+                        {{ $talk->aggregator->longname }}
                     </span>
                     <span class="text-muted display-block">
                         {{ $talk->when }}
