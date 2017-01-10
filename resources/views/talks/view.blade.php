@@ -9,23 +9,25 @@
             <span class="text-muted line-break-dbl display-block">{{ $talk->venue }}</span>
             <span class="line-break-dbl-top display-block line-breakdbl">{{ $talk->abstract }}</span>
 
-            @if ($talk->recordingurl && $displayRecording)
- 
-             <div class="embed-responsive embed-responsive-16by9">
+            <div class="line-break-dbl-top">
+                
+                @if ($talk->recordingurl && $displayRecording)
 
-                <iframe class="embed-responsive-item" src="{{ $talk->recordingurl }}" scrolling="no" allowfullscreen></iframe>
-             </div>
- 
-            @elseif ($talk->streamingurl)
-            
-            {{ $talk->streamingurl }}
-                                                
-            @elseif ($talk->teradekip )
-            
-            Feed From Teradek<br>
-            {{ $talk->teradekip }}
-                        
-             @endif
+                <div class="embed-responsive embed-responsive-16by9">
+                    <iframe class="embed-responsive-item" src="{{ $talk->recordingurl }}" scrolling="no" frameborder="0" allowfullscreen></iframe>
+                </div>
+
+                @elseif ($talk->streamingurl)
+
+                    {{ $talk->streamingurl }}
+
+                @elseif ($talk->teradekip )
+
+                    {{ $talk->teradekip }}
+
+                @endif
+                
+            </div>
         </section>
             
 @endsection

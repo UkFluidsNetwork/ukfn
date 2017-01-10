@@ -58,6 +58,8 @@ Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('auth');
 Route::get('panel/sig', 'SigsController@view')->middleware('auth');
 Route::get('panel/sig/add', 'SigsController@add')->middleware('auth');
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('auth');
+Route::get('panel/talks', 'TalksController@panelviewcurrent')->middleware('auth');
+Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('auth');
 /** POST requests * */
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
@@ -93,6 +95,7 @@ Route::patch('/institutions/update/{id}', 'InstitutionsController@update')->midd
 Route::patch('/titles/update/{id}', 'TitlesController@update')->middleware('auth');
 Route::patch('/users/update/{id}', 'UsersController@update')->middleware('auth');
 Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('auth');
+Route::patch('/panel/talks/update/{id}', 'TalksController@update');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([

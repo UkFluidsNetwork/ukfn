@@ -6,6 +6,8 @@ use SEO;
 use App\Talk;
 use App\Aggregator;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Session;
+use App\Http\Requests\TalkUpdateRequest;
 
 class TalksController extends Controller
 {
@@ -289,5 +291,83 @@ class TalksController extends Controller
     private static function setSEODescription()
     {
         SEO::setDescription(self::getSEODescription());
+    }
+    
+    /**
+     * View all current talks in Admin Panel
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @access public
+     * @return void
+     */
+    public function panelViewCurrent()
+    {
+        $allTalks = Talk::getAllCurrentTalks(true);   
+        $talks = self::formatTalks($allTalks);
+                        
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Talks', 'path' => '/panel/talks']
+        ];
+        
+        $breadCount = count($bread);
+        
+        return view('panel.talks.viewcurrent', compact('talks', 'bread', 'breadCount'));
+    } 
+    
+    /**
+     * Edit news
+     * @access public
+     * @param int $id
+     * @return void
+     * @author Robert Barczyk <rb783@cam.ac.uk>
+     */
+    public function edit($id)
+    {
+        $admin = new PanelController();
+        if (!$admin->checkIsAdmin()) {
+            return redirect('/');
+        }
+
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Talks', 'path' => '/panel/talks'],
+            ['label' => 'Edit', 'path' => '/panel/talks/edit'],
+        ];
+        
+        $breadCount = count($bread);
+
+        $talk = Talk::findOrFail($id);
+
+        return view('panel.talks.edit', compact('talk', 'bread', 'breadCount'));
+    }
+    
+    /**
+     * Update selected talk
+     * @param type $id
+     * @param TalkUpdateRequest $request
+     * @return void
+     * @author Robert Barczyk <rb783@cam.ac.uk>
+     */
+    public function update($id, TalkUpdateRequest $request)
+    {
+        try {
+            $talk = Talk::findOrFail($id);
+            $talk->recordingurl = $request->input('recordingurl');
+            $talk->streamingurl = $request->input('streamingurl');
+            $talk->teradekip = $request->input('teradekip');
+            
+            if ($request->input('recordinguntil') != '') {
+                $talk->recordinguntil = $request->input('recordinguntil');    
+            } else {
+                $talk->recordinguntil = null;    
+            }
+                        
+            $talk->save();
+            
+            Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/talks');
     }
 }

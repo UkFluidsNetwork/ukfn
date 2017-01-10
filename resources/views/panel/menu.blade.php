@@ -70,6 +70,15 @@
             {{ Html::link('panel/titles/add', 'Add', ['class' => 'list-group-item noborder']) }}
         </div>
     </div>
+    
+    <div>
+        <a href="{{ URL::to('#admin-subnav-talks') }}" data-parent="#adminnav" data-toggle="collapse"
+            class="panel-title list-group-item noborderradius {{ Request::is('edittalks*', 'talksarchive*') ? 'active' : '' }}">Talks</a>
+        <div id='admin-subnav-talks' class='collapse list-group' >
+            {{ Html::link('/panel/talks', 'View Talks', ['class' => 'list-group-item noborder']) }}
+        </div>
+    </div>
+    
 
     <div>
         <a href="{{ URL::to('#admin-subnav-mailing') }}" data-parent="#adminnav" data-toggle="collapse"

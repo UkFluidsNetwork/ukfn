@@ -20,9 +20,8 @@
                     <span class="text-muted line-break-dbl display-block">
                         {{ $talk->venue }}
                     </span>
-                    <span class="line-break-dbl-top display-block line-break"> 
-                        {{ $talk->abstract }}
-                    </span>
+                    
+                    {{ Html::link('/talks/view/' . $talk->id, 'View more', ['title' => 'View more']) }}
                 </div>
             </section>
             @endforeach
