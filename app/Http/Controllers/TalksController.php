@@ -207,6 +207,8 @@ class TalksController extends Controller
             
             $formattedTalks[$index] = $talk;
             $formattedTalks[$index]->aggregator = Aggregator::findOrFail($talk->aggregator_id);
+            $formattedTalks[$index]->displayRecording = self::displayRecording($talk->recordinguntil);
+            $formattedTalks[$index]->displayStreaming = self::displayRecording($talk->start, $talk->end, true);
             $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
             $index++;
         }
@@ -279,6 +281,13 @@ class TalksController extends Controller
     public function getTaksJsonMenu()
     {
         return response()->json($this->talksWeekMenu());
+    }
+    
+    public function getAllJson()
+    {
+        $allTalks = Talk::getAllCurrentTalks();
+        $talks = self::formatTalks($allTalks);
+        return response()->json($talks);
     }
     
     /**

@@ -25,6 +25,7 @@ Route::get('talks/all', 'TalksController@viewall');
 Route::get('register', 'Auth\AuthController@registration');
 Route::get('api/institutions', 'InstitutionsController@getAllJson');
 Route::get('api/sigs', 'SigsController@getAllJson');
+Route::get('api/talks', 'TalksController@getAllJson');
 Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 Route::get('panel', 'PanelController@index')->middleware('auth');
 Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('auth');

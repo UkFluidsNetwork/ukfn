@@ -17,11 +17,12 @@
                     <iframe class="embed-responsive-item" src="{{ $talk->recordingurl }}" scrolling="no" frameborder="0" allowfullscreen></iframe>
                 </div>
 
-                @elseif ($talk->streamingurl)
+                
+                @elseif ($talk->streamingurl && $displayStreaming)
 
                     {{ $talk->streamingurl }}
 
-                @elseif ($talk->teradekip )
+                @elseif ($talk->teradekip && $displayStreaming)
 
                     {{ $talk->teradekip }}
 

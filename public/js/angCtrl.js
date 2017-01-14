@@ -1,5 +1,5 @@
 /**
- * SIF Controlelr
+ * SIG Controlelr
  * @param {storage} $localStorage 
  * @param {$http} $http
  */
@@ -9,7 +9,6 @@ angular.module('ukfn')
 
             // this scope name
             var controller = this;
-            controller.test = "HELLO";
             controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
             controller.$storage = $localStorage;
 
@@ -164,3 +163,104 @@ angular.module('ukfn')
                 ]
             };
         });
+
+
+/**
+ * Talks Controlelr
+ * @param {storage} $localStorage 
+ * @param {$http} $http
+ */
+angular.module('ukfn')
+        .controller('talksController', function ($http, $localStorage) {
+            
+            // this scope name
+            var controller = this;
+            controller.$storage = $localStorage;
+            
+            // filter types
+            controller.types = {};
+        
+            /**
+             * Get all future talks
+             * 
+             * @author Robert Barczyk <robert@barczyk.net>  
+             * @returns {json}
+             */
+            (function () {
+                $http(
+                    {
+                        method: 'GET',
+                        url: '/api/talks'
+                    }
+                ).then(function (response) {
+                    controller.talks = response;
+                    var lookup = {};
+                    var talks = response.data;
+                    var aggregators = [];
+                   
+                        
+                    //for (var item, i = 0; item = talks[i++];) {
+                    
+                    for (var i = 0; i < talks.length; i++)  {
+                        var aggregator = talks[i].longname;
+
+                        if (!(aggregator in lookup)) {
+                            lookup[aggregator] = 1;
+                            //controller.types[aggregator] = false;
+                            aggregators.push(aggregator);
+                        }
+                        
+                        
+                    }
+                    
+                    controller.thisAggregators = aggregators;
+                });
+            })();
+            
+            controller.types = {
+              teradekip: false,
+              recordingurl: false
+              //streamingurl: false 
+            };
+            
+            controller.search=[];
+            
+        });
+
+
+
+
+
+
+angular.module('ukfn').filter('myfilter', function() {
+    return function( items, types) {
+        var filtered = [];
+    
+        angular.forEach(items, function(item) {
+            // show all
+            if(types.teradekip === false && types.recordingurl === false) {
+                filtered.push(item);
+            }
+            // all with recording
+            else if(types.teradekip === true && types.recordingurl === false && item.recordingurl !== null && item.recordingurl !== '') {
+                filtered.push(item);
+            }
+            // all with teradekip
+            else if(types.teradekip === false && types.recordingurl === true && item.teradekip !== null && item.teradekip !== '' ) {
+                filtered.push(item);
+            }
+        });
+
+        return filtered;
+      };
+});
+             
+angular.module('ukfn').directive('inverted', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attrs, ngModel) {
+      ngModel.$parsers.push(function(val) { return !val; });
+      ngModel.$formatters.push(function(val) { return !val; });
+    }
+  };
+});

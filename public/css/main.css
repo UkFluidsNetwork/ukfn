@@ -45,6 +45,9 @@ body {
 .display-table-cell {
   display: table-cell !important; }
 
+.display-none {
+  display: none; }
+
 .icon-item-padding {
   padding-right: 5px; }
 
@@ -110,6 +113,7 @@ input[type="text"], textarea, button {
   border: solid white 1px;
   background-image: radial-gradient(circle farthest-corner at 45px 45px, red, #a94442); }
 
+/* Important! without this margin the custom map pointer is offset */
 .custom-marker.map-pointer {
   margin-top: 14px; }
 

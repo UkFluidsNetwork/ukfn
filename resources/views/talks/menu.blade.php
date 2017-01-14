@@ -25,7 +25,7 @@
                         <span class="display-table-cell">{{ $menuItem->venue }}</span>
                     </span>
                     
-                    @if ($menuItem->recordingurl && $menuItem->recordinguntil)
+                    @if ($menuItem->recordingurl && $menuItem->displayRecording)
                     <span class="display-block text-muted">
                         <icon class="glyphicon glyphicon-facetime-video icon-item-padding display-table-cell"></icon>
                         <span class="display-table-cell"> Recording available</span>
