@@ -230,7 +230,7 @@ angular.module('ukfn')
                     var aggregator = controller.talks[i].longname;
                     if (!(aggregator in lookup)) {
                         lookup[aggregator] = true;
-                        controller.filterAggregators.push(aggregator);
+                        //controller.filterAggregators.push(aggregator);
                         controller.thisAggregators.push(aggregator);
                     }                        
                 }
@@ -247,10 +247,10 @@ angular.module('ukfn')
          */
         controller.updateFilterAggregators = function(value) {
             var index = controller.filterAggregators.indexOf(value);
-            if (index > -1) {
-                controller.filterAggregators.splice(index, 1);
-            } else {
+            if (index === -1) {
                 controller.filterAggregators.push(value);
+            } else {
+                controller.filterAggregators.splice(index, 1);
             }
         };
     });
@@ -266,43 +266,54 @@ angular.module('ukfn').filter('allTalksFilter', function() {
      * @author Robert Barczyk <robert@barczyk.net>
      * @param {array} items
      * @param {object} types
-     * @param {array} thisAggregators
+     * @param {array} filterAggregators
      * @returns {array}
      */
-    return function( items, types, thisAggregators) {
+    return function( items, types, filterAggregators) {
         var filtered = [];
     
         angular.forEach(items, function(item) {
-            if (!types['Recording'] && item.displayRecording === true && types['Streaming'] && thisAggregators.indexOf(item.longname) !== -1) {
+            // if everything is unticked
+            if (!types['Streaming'] && !types['Recording'] && filterAggregators.length === 0) {
+                filtered.push(item);
+            }
+            
+            // if recording and streaming is unticked but one of the aggregators is selected
+            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.longname) !== -1) {
+                filtered.push(item);
+            }
+            
+            // recording only ticked
+            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.length === 0) {
                 filtered.push(item);
             } 
             
-            if (!types['Streaming'] && item.displayStreaming === true && types['Recording'] && thisAggregators.indexOf(item.longname) !== -1) {
+            // streaming only ticked
+            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.length === 0) {
                 filtered.push(item);
             }
             
-            if (types['Streaming'] && types['Recording'] && thisAggregators.indexOf(item.longname) !== -1) {
+            // if streaming and recording is ticked
+            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.length === 0) {
+                filtered.push(item);
+                
+            }
+
+            // if streaming and recording is ticked and at least one of the aggreagators
+            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.longname) !== -1) {
+                filtered.push(item);   
+            }
+            
+            // if streaming is ticked and one of the aggregators 
+            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.longname) !== -1) {
                 filtered.push(item);
             }
             
-            if (!types['Streaming'] && !types['Recording'] && thisAggregators.indexOf(item.longname) !== -1) {
+            // if recording is ticked and one of the aggregators 
+            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.longname) !== -1) {
                 filtered.push(item);
             }
-            
         });
         return filtered;
-    };
-});
-             
-/**
- * Talks filter directive for inverting checkboxes values
- */
-angular.module('ukfn').directive('inverted', function() {
-    return {
-        require: 'ngModel',
-        link: function(scope, element, attrs, ngModel) {
-            ngModel.$parsers.push(function(val) { return !val; });
-            ngModel.$formatters.push(function(val) { return !val; });
-        }
     };
 });

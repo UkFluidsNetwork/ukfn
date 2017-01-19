@@ -21,7 +21,6 @@ Route::get('admin', 'AdminController@index');
 Route::get('viewmessage/{id}', 'AdminController@viewmessage');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/view/{id}', 'TalksController@view');
-Route::get('talks/all', 'TalksController@viewall');
 Route::get('register', 'Auth\AuthController@registration');
 Route::get('api/institutions', 'InstitutionsController@getAllJson');
 Route::get('api/sigs', 'SigsController@getAllJson');

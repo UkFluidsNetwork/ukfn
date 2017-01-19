@@ -17,9 +17,45 @@
                     To link another RSS feed to this page, please {{ Html::link('/contact', 'contact us') }}.
                 </p>
                 <p>
-                  Click on any of the talks in the "{{ $talksMenu['header'] }}" menu to see details of them, or click 
-                  {{ Html::link('/talks/all', 'here') }} to see the full list of talks.
+                  Click on any of the talks in the "{{ $talksMenu['header'] }}" menu to see details of them, or browse through the full list of talks.
                 </p>
+            </div>
+           
+            <!-- Filters - start -->
+            <div ng-repeat="(key,value) in talkCtrl.thisAggregators">
+                <input type="checkbox" ng-click="talkCtrl.updateFilterAggregators(value)"> @{{ value }}</input>    
+            </div>
+            <div ng-repeat="(key,value) in talkCtrl.types">
+                <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
+            </div>
+            <!-- Filters - end -->
+                
+            <div ng-if="!filteredTalks.length" class="alert alert-info">
+                <i class="glyphicon glyphicon-info-sign"></i> Could not find talks matching your criteria. Please try again.
+            </div>
+            <div ng-repeat="talk in filteredTalks = (talkCtrl.talks | allTalksFilter: talkCtrl.types : talkCtrl.filterAggregators)">
+
+                <section class="page-header">
+                    <div>
+                        <span class="h4 text-danger display-block">
+                           @{{ talk.title }}
+                        </span>
+                        <span class="talks-speaker display-block line-break">
+                            @{{ talk.speaker }}
+                        </span>
+                        <span class="display-block line-break">
+                            @{{ talk.longname }}
+                        </span>
+                        <span class="text-muted display-block">
+                            @{{ talk.when }}
+                        </span>
+                        <span class="text-muted line-break-dbl display-block">
+                            @{{ talk.venue }}
+                        </span>
+
+                        <a ng-href="/talks/view/ @{{talk.id}}" title="View more">View more</a>
+                    </div>
+                </section>
             </div>
             
 @endsection                      

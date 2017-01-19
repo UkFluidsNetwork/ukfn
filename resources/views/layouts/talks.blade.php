@@ -7,11 +7,7 @@
                 @yield('talkscontent')
             </div>
             <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1">
-                @if (Request::is('talks/all'))
-                    @include('talks.filterMenu')
-                @else
-                    @include('talks.menu')
-                @endif
+                @include('talks.menu')
             </div>
         </div>
     </div>

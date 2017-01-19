@@ -58,26 +58,7 @@ class TalksController extends Controller
         
         return view('talks.view', compact('talk', 'talksMenu', 'displayRecording', 'displayStreaming', 'aggregator'));
     }
-
-    /**
-     * View all talks
-     * @return view
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @access public
-     */
-    public function viewAll()
-    {
-        SEO::setTitle('Talks');
-        self::setSEODescription();
-
-        $allTalks = Talk::getAllCurrentTalks();
-        $talks = self::formatTalks($allTalks);
-
-        $talksMenu = $this->talksWeekMenu();
-
-        return view('talks.viewall', compact('talksMenu', 'talks'));
-    }
-
+    
     /**
      * Get menu talks menu items
      * @return array    ['talksMenu'] = array, ['menuHeader'] = string
