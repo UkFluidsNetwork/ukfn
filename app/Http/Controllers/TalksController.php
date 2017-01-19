@@ -207,7 +207,7 @@ class TalksController extends Controller
             
             $formattedTalks[$index] = $talk;
             $formattedTalks[$index]->aggregator = Aggregator::findOrFail($talk->aggregator_id);
-            $formattedTalks[$index]->displayRecording = self::displayRecording($talk->recordinguntil);
+            $formattedTalks[$index]->displayRecording = self::displayRecording($talk->recordinguntil);     
             $formattedTalks[$index]->displayStreaming = self::displayRecording($talk->start, $talk->end, true);
             $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
             $index++;
@@ -254,7 +254,11 @@ class TalksController extends Controller
      */
     public static function displayRecording($dateStart, $dateEnd = false, $stream = false)
     {
-        $recordinguntil = Carbon::parse($dateStart);
+        if ($dateStart !== null) {
+            $recordinguntil = Carbon::parse($dateStart);
+        } else {
+            return false;
+        }
         
         if ($stream) { 
             $streamingStart = Carbon::parse($dateStart);
@@ -269,7 +273,7 @@ class TalksController extends Controller
             $today = Carbon::today();
 
             $dateDiff = $today->diff($recordinguntil);
-        
+            
             if ($dateDiff->invert === 0) {
                 return true;
             } else {

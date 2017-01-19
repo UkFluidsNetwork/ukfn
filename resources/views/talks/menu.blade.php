@@ -32,15 +32,14 @@
                     </span>
                     @endif
                    
-                    @if ($menuItem->streamingurl)
+                    @if ($menuItem->streamingurl && $menuItem->displayStreaming)
                     <span class="display-block text-muted">
                         <icon class="glyphicon glyphicon-play icon-item-padding display-table-cell"></icon>
                         <span class="display-table-cell">Live Streaming</span>
                     </span>
                     @endif
                     
-                    @if ($menuItem->teradekip)
-                    
+                    @if ($menuItem->teradekip && $menuItem->displayStreaming)
                     <span class="display-block text-muted">
                         <icon class="glyphicon glyphicon-play icon-item-padding display-table-cell"></icon>
                         <span class="display-table-cell">Live Streaming</span>
