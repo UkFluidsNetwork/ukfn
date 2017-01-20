@@ -260,10 +260,11 @@ angular.module('ukfn')
                 controller.filterAggregators.push(controller.filterAggregatorsLookup[f].id);
             }
         };
-        
+              
         // multiselect aggregator settings
         controller.multiselectSettings = {
-            enableSearch: true
+            enableSearch: true,
+            smartButtonMaxItems: 1000
         };
            
         //multiselect aggregator tranlations

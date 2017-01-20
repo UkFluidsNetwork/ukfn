@@ -26,7 +26,7 @@
                 <div class="form-group margin-right">
                     <label for="aggr_multiselect" class="sr-only"></label>
                     <div id="aggr_multiselect" ng-dropdown-multiselect="" options="talkCtrl.thisAggregators" selected-model="talkCtrl.filterAggregatorsLookup" 
-                        events="talkCtrl.multiselectEvents" translation-texts="talkCtrl.multiselectTranslations" extra-settings="talkCtrl.multiselectSettings"></div>
+                       events="talkCtrl.multiselectEvents" translation-texts="talkCtrl.multiselectTranslations" extra-settings="talkCtrl.multiselectSettings"></div>
                 </div>
                 <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
                     <label>
