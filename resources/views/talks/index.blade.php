@@ -37,8 +37,8 @@
             <!-- Filters - end -->
                 
             <!-- no match message - start -->
-            <div ng-if="!filteredTalks.length" class="alert alert-info">
-                <i class="glyphicon glyphicon-info-sign"></i> Could not find talks matching your criteria. Please try again.
+            <div ng-if="!filteredTalks.length" class="alert alert-info line-break-dbl-top">
+                <i class="glyphicon glyphicon-info-sign margin-right"></i> Could not find talks matching your criteria.
             </div>
             <!-- no match message - end -->
             
