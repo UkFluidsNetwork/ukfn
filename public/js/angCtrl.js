@@ -205,6 +205,9 @@ angular.module('ukfn')
                     'Streaming': false
                 };
 
+        // aggregator objects are added here from multiselect
+        controller.filterAggregatorsLookup = [];
+        
         // aggregators for this talks set
         controller.thisAggregators = [];
 
@@ -228,30 +231,52 @@ angular.module('ukfn')
                 // get uniqe aggregators for this set of talks
                 for (var i = 0; i < controller.talks.length; i++)  {
                     var aggregator = controller.talks[i].longname;
+                    var aggregatorId = controller.talks[i].aggregator_id;
                     if (!(aggregator in lookup)) {
                         lookup[aggregator] = true;
-                        //controller.filterAggregators.push(aggregator);
-                        controller.thisAggregators.push(aggregator);
+                        controller.thisAggregators.push({id: aggregatorId, label: aggregator});
                     }                        
                 }
             });
         })();
-
-
+                
         /**
-         * Update list of aggragators used for litering, extracted from this talk set 
-         * 
+         * Reset aggregator filter array to empty
          * @author Robert Barczyk <robert@barczyk.net>
-         * @param {string} value
          * @returns {void}
          */
-        controller.updateFilterAggregators = function(value) {
-            var index = controller.filterAggregators.indexOf(value);
-            if (index === -1) {
-                controller.filterAggregators.push(value);
-            } else {
-                controller.filterAggregators.splice(index, 1);
+        controller.deleteAggregatorFilter = function() {
+             controller.filterAggregators = [];
+        };
+        
+        /**
+         * Create array with selected aggregator ids used by talks filter
+         * @author Robert Barczyk <robert@barczyk.net>
+         * @returns {array}
+         */
+        controller.generateAggregatorFilter = function() {
+            controller.filterAggregators = [];
+            for (var f = 0; f < controller.filterAggregatorsLookup.length; f++) {
+                controller.filterAggregators.push(controller.filterAggregatorsLookup[f].id);
             }
+        };
+        
+        // multiselect aggregator settings
+        controller.multiselectSettings = {
+            enableSearch: true
+        };
+           
+        //multiselect aggregator tranlations
+        controller.multiselectTranslations = {
+            buttonDefaultText: 'Select Aggregators'
+        };
+
+        // multiselect aggregator events
+        controller.multiselectEvents = {
+            onItemSelect: controller.generateAggregatorFilter, 
+            onItemDeselect: controller.generateAggregatorFilter,
+            onSelectAll: controller.generateAggregatorFilter,
+            onDeselectAll: controller.deleteAggregatorFilter
         };
     });
 
@@ -279,7 +304,7 @@ angular.module('ukfn').filter('allTalksFilter', function() {
             }
             
             // if recording and streaming is unticked but one of the aggregators is selected
-            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.longname) !== -1) {
+            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id) !== -1) {
                 filtered.push(item);
             }
             
@@ -300,17 +325,17 @@ angular.module('ukfn').filter('allTalksFilter', function() {
             }
 
             // if streaming and recording is ticked and at least one of the aggreagators
-            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.longname) !== -1) {
+            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.aggregator_id) !== -1) {
                 filtered.push(item);   
             }
             
             // if streaming is ticked and one of the aggregators 
-            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.longname) !== -1) {
+            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id) !== -1) {
                 filtered.push(item);
             }
             
             // if recording is ticked and one of the aggregators 
-            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.longname) !== -1) {
+            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id) !== -1) {
                 filtered.push(item);
             }
         });

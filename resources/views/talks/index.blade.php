@@ -22,19 +22,28 @@
             </div>
            
             <!-- Filters - start -->
-            <div ng-repeat="(key,value) in talkCtrl.thisAggregators">
-                <input type="checkbox" ng-click="talkCtrl.updateFilterAggregators(value)"> @{{ value }}</input>    
-            </div>
-            <div ng-repeat="(key,value) in talkCtrl.types">
-                <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
-            </div>
+            <form class="form-inline">
+                <div class="form-group margin-right">
+                    <label for="aggr_multiselect" class="sr-only"></label>
+                    <div id="aggr_multiselect" ng-dropdown-multiselect="" options="talkCtrl.thisAggregators" selected-model="talkCtrl.filterAggregatorsLookup" 
+                        events="talkCtrl.multiselectEvents" translation-texts="talkCtrl.multiselectTranslations" extra-settings="talkCtrl.multiselectSettings"></div>
+                </div>
+                <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
+                    <label>
+                        <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
+                    </label>
+                </div>
+            </form>
             <!-- Filters - end -->
                 
+            <!-- no match message - start -->
             <div ng-if="!filteredTalks.length" class="alert alert-info">
                 <i class="glyphicon glyphicon-info-sign"></i> Could not find talks matching your criteria. Please try again.
             </div>
+            <!-- no match message - end -->
+            
+            <!-- all talks list - start -->
             <div ng-repeat="talk in filteredTalks = (talkCtrl.talks | allTalksFilter: talkCtrl.types : talkCtrl.filterAggregators)">
-
                 <section class="page-header">
                     <div>
                         <span class="h4 text-danger display-block">
@@ -57,5 +66,5 @@
                     </div>
                 </section>
             </div>
-            
+            <!-- all talks list - end -->
 @endsection                      

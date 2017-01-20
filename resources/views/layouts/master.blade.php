@@ -25,6 +25,7 @@
         <script src="{{ asset('js/angCtrl.js')}}"></script>
         <script src="{{ asset('js/bootstrap-select.min.js')}}"></script>
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
+        <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>
         <!-- favicon -->
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png?v=2') }}">
