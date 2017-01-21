@@ -75,7 +75,10 @@
         <a href="{{ URL::to('#admin-subnav-talks') }}" data-parent="#adminnav" data-toggle="collapse"
             class="panel-title list-group-item noborderradius {{ Request::is('edittalks*', 'talksarchive*') ? 'active' : '' }}">Talks</a>
         <div id='admin-subnav-talks' class='collapse list-group' >
-            {{ Html::link('/panel/talks', 'View Talks', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('/panel/talks/add', 'Add talk', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('/panel/talks', 'View talks', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('/panel/talks/feeds/add', 'Add RSS feed', ['class' => 'list-group-item noborder']) }}
+            {{ Html::link('/panel/talks/feeds', 'View RSS feeds', ['class' => 'list-group-item noborder']) }}
         </div>
     </div>
     

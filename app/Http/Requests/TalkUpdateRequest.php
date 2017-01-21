@@ -24,7 +24,17 @@ class TalkUpdateRequest extends Request
     public function rules()
     {
         return [
-            "recordinguntil" => "date"
+            "recordinguntil" => "date",
+            "title" => "required",
+            "speaker" => "required",
+            "start" => "required | date",
+            'end' => "required | date",
+            'speakerurl' => 'url',
+            'venue' => 'string',
+            'organiser' => 'string',
+            'aggregator_id' => 'number',
+            'abstract'=> 'string'
+
         ];
     }
 }

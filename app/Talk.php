@@ -2,12 +2,38 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use DB;
 use Carbon\Carbon;
 
 class Talk extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'title', 'speaker', 'start', 'end', 'speakerurl', 'venue', 'organiser', 'aggregator_id', 'abstract'
+    ];
+
+
+    /**
+     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
+     *
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access protected
+     * @static
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('deleted', function (Builder $builder) {
+            $builder->where('talks.deleted', '=', '0');
+        });
+    }
 
     /**
      * Get current talks only
@@ -22,6 +48,7 @@ class Talk extends Model
             $talks = DB::table('talks')
                 ->join('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
                 ->where('end', '>', Carbon::now()->startOfWeek())
+                ->where('talks.deleted', '=', 0)
                 ->select('talks.*', 'aggregators.longname', 'aggregators.name')
                 ->orderBy('start', 'ASC')
                 ->get();
@@ -29,6 +56,7 @@ class Talk extends Model
             $talks = DB::table('talks')
                 ->join('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
                 ->where('end', '>', Carbon::now())
+                ->where('talks.deleted', '=', 0)
                 ->select('talks.*', 'aggregators.longname', 'aggregators.name')
                 ->orderBy('start', 'ASC')
                 ->get();
@@ -54,6 +82,7 @@ class Talk extends Model
             ->join('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
             ->where('start', '>=', $thisWeekStart->addDays($addDays))
             ->where('start', '<=', $thisWeekEnd->addDays($addDays))
+            ->where('talks.deleted', '=', 0)
             ->select('talks.*', 'aggregators.longname', 'aggregators.name')
             ->orderBy('start', 'ASC')
             ->get();
@@ -95,6 +124,7 @@ class Talk extends Model
     {
         return DB::table('talks')
             ->where('start', '>=', Carbon::now())
+            ->where('talks.deleted', '=', 0)
             ->orderBy('start', 'ASC')
             ->limit($limit)->get();
     }
@@ -116,6 +146,7 @@ class Talk extends Model
         return $talks = DB::table('talks')
             ->where('start', '>=', $thisMonthStart->addMonth($addMonth))
             ->where('start', '<=', $thisMonthEnd->addDays($addMonth))
+            ->where('talks.deleted', '=', 0)
             ->orderBy('start', 'ASC')
             ->get();
     }
@@ -130,6 +161,9 @@ class Talk extends Model
      */
     public static function findByTalkid($talkid)
     {
-        return DB::table('talks')->where('talkid', '=', $talkid)->get();
+        return DB::table('talks')
+            ->where('talkid', '=', $talkid)
+            ->where('talks.deleted', '=', 0)
+            ->get();
     }
 }

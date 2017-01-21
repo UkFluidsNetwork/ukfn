@@ -346,6 +346,8 @@ class TalksController extends Controller
     {
         try {
             $talk = Talk::findOrFail($id);
+            $input = $request->all();
+            
             $talk->recordingurl = $request->input('recordingurl');
             $talk->streamingurl = $request->input('streamingurl');
             $talk->teradekip = $request->input('teradekip');
@@ -355,10 +357,30 @@ class TalksController extends Controller
             } else {
                 $talk->recordinguntil = null;    
             }
-                        
+
+            $talk->fill($input);
             $talk->save();
             
             Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/talks');
+    }
+
+    /**
+     * Delete selected talk via admin panel
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param intiger $id aggregator id
+     * @return void
+     */
+    public function delete($id)
+    {
+        try {
+            $talk = Talk::findOrFail($id);
+            $talk->deleted = 1;
+            $talk->save();
+            Session::flash('success_message', 'Deleted successfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }

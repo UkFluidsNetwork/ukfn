@@ -303,6 +303,7 @@ class ComposerStaticInit2e586e913e475cb088fb9ab1820057ff
 
     public static $classMap = array (
         'AddDisciplinesTags' => __DIR__ . '/../..' . '/database/migrations/2016_11_06_145513_add_disciplines_tags.php',
+        'AlterAggregators' => __DIR__ . '/../..' . '/database/migrations/2017_01_21_120723_alter_aggregators.php',
         'AlterInstitutions' => __DIR__ . '/../..' . '/database/migrations/2016_10_29_114949_alter_institutions.php',
         'AlterInstitutionsMakenullable' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_120939_alter_institutions_makenullable.php',
         'AlterLogsUsers' => __DIR__ . '/../..' . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
