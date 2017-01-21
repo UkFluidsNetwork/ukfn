@@ -263,13 +263,15 @@ angular.module('ukfn')
               
         // multiselect aggregator settings
         controller.multiselectSettings = {
-            enableSearch: true,
+            enableSearch: false,
+            showCheckAll: false,
+            showUncheckAll: false,
             smartButtonMaxItems: 1000
         };
            
         //multiselect aggregator tranlations
         controller.multiselectTranslations = {
-            buttonDefaultText: 'Select Aggregators'
+            buttonDefaultText: 'Select Feeds'
         };
 
         // multiselect aggregator events
