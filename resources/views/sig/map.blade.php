@@ -43,6 +43,9 @@
                     <div class="text-danger line-break">
                         <strong>@{{ sigCtrl.thisSig.data.name }}</strong>
                     </div>
+                    <div class='sig-map-image' class="">
+                        <img class='sig-map-image' src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}" class="thumb" alt="@{{ sigCtrl.thisSig.data.smallimage }}">
+                    </div>
                     <p class="linre-break">
                         @{{ sigCtrl.thisSig.data.description }}
                     </p>

@@ -110,6 +110,7 @@ input[type="text"], textarea, button {
   border: solid white 1px;
   background-image: radial-gradient(circle farthest-corner at 45px 45px, red, #a94442); }
 
+/* Important! without this margin the custom map pointer is offset */
 .custom-marker.map-pointer {
   margin-top: 14px; }
 
@@ -332,5 +333,13 @@ footer {
 
 .clear-both {
   clear: both; }
+
+div.sig-map-image {
+  padding: 5px 0px 10px 0px; }
+
+img.sig-map-image {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
 
 /*# sourceMappingURL=main.css.map */
