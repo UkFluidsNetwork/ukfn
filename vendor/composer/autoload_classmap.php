@@ -19,6 +19,7 @@ return array(
     'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
     'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
     'AlterTalksTableWithAggregator' => $baseDir . '/database/migrations/2017_01_07_113116_alter_talks_table_with_aggregator.php',
+    'AlterTalksTableWithInstitution' => $baseDir . '/database/migrations/2017_01_22_161458_alter_talks_table_with_institution.php',
     'AlterUsersAddOrcidid' => $baseDir . '/database/migrations/2016_11_05_105357_alter_users_add_orcidid.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
     'CreateAggregatorsTable' => $baseDir . '/database/migrations/2017_01_07_112829_create_aggregators_table.php',

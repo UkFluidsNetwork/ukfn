@@ -15,7 +15,8 @@ class Talk extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'speaker', 'start', 'end', 'speakerurl', 'venue', 'organiser', 'aggregator_id', 'abstract'
+        'title', 'speaker', 'start', 'end', 'speakerurl', 'venue', 'organiser', 'aggregator_id', 'abstract', 'institution_id', 
+        'teradekip', 'streamingurl', 'recordingurl', 'recordinguntil'
     ];
 
 

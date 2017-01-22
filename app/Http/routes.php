@@ -58,6 +58,7 @@ Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('auth');
 Route::get('panel/sig', 'SigsController@view')->middleware('auth');
 Route::get('panel/sig/add', 'SigsController@add')->middleware('auth');
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('auth');
+Route::get('panel/talks/add', 'TalksController@add')->middleware('auth');
 Route::get('panel/talks', 'TalksController@panelviewcurrent')->middleware('auth');
 Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('auth');
 Route::get('panel/talks/feeds/', 'AggregatorsController@view')->middleware('auth');
@@ -92,6 +93,7 @@ Route::post('sig/add', 'SigsController@create')->middleware('auth');
 Route::post('panel/talks/feeds/delete/{id}', 'AggregatorsController@delete')->middleware('auth');
 Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware('auth');
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('auth');
+Route::post('panel/talks/add', 'TalksController@create')->middleware('auth');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');

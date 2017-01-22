@@ -7,7 +7,7 @@ use App\Talk;
 use App\Aggregator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
-use App\Http\Requests\TalkUpdateRequest;
+use App\Http\Requests\TalksFormRequest;
 
 class TalksController extends Controller
 {
@@ -263,11 +263,21 @@ class TalksController extends Controller
         }        
     }
     
+    /**
+     * Get weekly talks
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return Json
+     */
     public function getTaksJsonMenu()
     {
         return response()->json($this->talksWeekMenu());
     }
     
+    /**
+     * Get all talks from today 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return Json
+     */
     public function getAllJson()
     {
         $allTalks = Talk::getAllCurrentTalks();
@@ -308,33 +318,55 @@ class TalksController extends Controller
         return view('panel.talks.viewcurrent', compact('talks', 'bread', 'breadCount'));
     } 
     
+    
     /**
-     * Edit news
+     * Add new talk
+     * @author Robert Barczyk <robert@barczyk.net>
      * @access public
-     * @param int $id
      * @return void
-     * @author Robert Barczyk <rb783@cam.ac.uk>
      */
-    public function edit($id)
+    public function add()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
+        if (!PanelController::checkIsAdmin()) {
             return redirect('/');
         }
 
         $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Talks', 'path' => '/panel/talks'],
-            ['label' => 'Edit', 'path' => '/panel/talks/edit'],
+                ['label' => 'Panel', 'path' => '/panel'],
+                ['label' => 'Talks', 'path' => '/panel/talks'],
+                ['label' => 'Add', 'path' => '/panel/talks/add'],
         ];
-        
         $breadCount = count($bread);
 
-        $talk = Talk::findOrFail($id);
-
-        return view('panel.talks.edit', compact('talk', 'bread', 'breadCount'));
+        $talk = new Talk();
+        $aggregators = AggregatorsController::getSelect();
+        $institutions = InstitutionsController::getSelect();
+        
+        return view('panel.talks.add', compact('talk', 'bread', 'breadCount', 'aggregators', 'institutions'));
     }
     
+     /**
+     * Create new talk
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param TalksFormRequest $request
+     * @return void
+     */
+    public function create(TalksFormRequest $request)
+    {
+        try {
+            $talk = new Talk();
+            $input = $request->all();
+            $talk->fill($input);
+            $talk->save();
+
+            Session::flash('success_message', 'Added succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+
+        return redirect('/panel/talks/');
+    }
+       
     /**
      * Update selected talk
      * @param type $id
@@ -342,7 +374,7 @@ class TalksController extends Controller
      * @return void
      * @author Robert Barczyk <rb783@cam.ac.uk>
      */
-    public function update($id, TalkUpdateRequest $request)
+    public function update($id, TalksFormRequest $request)
     {
         try {
             $talk = Talk::findOrFail($id);
@@ -366,6 +398,35 @@ class TalksController extends Controller
             Session:flash('error_message', $ex);
         }
         return redirect('/panel/talks');
+    }
+    
+    /**
+     * Edit news
+     * @access public
+     * @param int $id
+     * @return void
+     * @author Robert Barczyk <rb783@cam.ac.uk>
+     */
+    public function edit($id)
+    {
+        $admin = new PanelController();
+        if (!$admin->checkIsAdmin()) {
+            return redirect('/');
+        }
+
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Talks', 'path' => '/panel/talks'],
+            ['label' => 'Edit', 'path' => '/panel/talks/edit'],
+        ];
+        
+        $breadCount = count($bread);
+
+        $talk = Talk::findOrFail($id);
+        $aggregators = AggregatorsController::getSelect();
+        $institutions = InstitutionsController::getSelect();
+
+        return view('panel.talks.edit', compact('talk', 'aggregators', 'bread', 'breadCount', 'institutions'));
     }
 
     /**

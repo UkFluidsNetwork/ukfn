@@ -144,4 +144,20 @@ class AggregatorsController extends Controller
 
         return redirect('/panel/talks/feeds');
     }
+    
+    /**
+     * Return array of aggregator_id => name
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return array
+     */
+    public static function getSelect()
+    {
+        $aggregators = Aggregator::getAggregators();
+        $formated = [];
+        foreach ($aggregators as $aggregator) {
+            $formated[$aggregator->id] = $aggregator->longname;
+        }
+        return $formated;
+    }
 }

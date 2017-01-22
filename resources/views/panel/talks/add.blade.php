@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 @section('admincontent')
-<h2 class='line-break'>Edit talk no: {{ $talk->id }}</h2>
+<h2 class='line-break'>Add new talk</h2>
 
 {!! Form::model($talk, [
-'method' => 'PATCH',
-'action' => ['TalksController@update', $talk->id],
+'method' => 'POST',
+'action' => ['TalksController@create', $talk->id],
 'class' => 'form-horizontal'
 ]) !!}
 

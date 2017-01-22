@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class TalkUpdateRequest extends Request
+class TalksFormRequest extends Request
 {
     /**
      * Determine if the user is authorised to make this request.
@@ -27,14 +27,14 @@ class TalkUpdateRequest extends Request
             "recordinguntil" => "date",
             "title" => "required",
             "speaker" => "required",
+            'speakerurl' => 'url',
             "start" => "required | date",
             'end' => "required | date",
-            'speakerurl' => 'url',
-            'venue' => 'string',
+            'venue' => 'required | string',
             'organiser' => 'string',
-            'aggregator_id' => 'number',
-            'abstract'=> 'string'
-
+            'aggregator_id' => 'required | integer',
+            'institution_id' => 'integer',
+            'abstract'=> 'required | string'
         ];
     }
 }
