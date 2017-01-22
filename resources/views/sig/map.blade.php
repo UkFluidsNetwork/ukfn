@@ -49,6 +49,9 @@
                     <p class="linre-break">
                         @{{ sigCtrl.thisSig.data.description }}
                     </p>
+                    <p>
+                        <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">More details</a>
+                    </p>
                 </div>
                 <div class="page-header" style="margin-top: 0px;">
                     <p>

@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Support\Facades\DB;
 
 class Sig extends Model
 {
@@ -16,7 +17,7 @@ class Sig extends Model
     protected $fillable = [
         'name', 'shortname', 'description'
     ];
-    
+
     /**
      * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
      * 
@@ -27,9 +28,9 @@ class Sig extends Model
     protected static function boot()
     {
         parent::boot();
-        
+
         static::addGlobalScope('deleted', function (Builder $builder) {
-           $builder->where('sigs.deleted', '=', '0'); 
+            $builder->where('sigs.deleted', '=', '0');
         });
     }
 
@@ -100,6 +101,19 @@ class Sig extends Model
     }
 
     /**
+     * Find a SIG given its short name
+     * 
+     * @param string $slug
+     * @return array
+     */
+    public static function findBySlug($slug)
+    {
+        return DB::table('sigs')
+                ->where('shortname', 'like', "%${slug}%")
+                ->get();
+    }
+
+    /**
      * Get the users associated with the given sig
      * 
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
@@ -150,7 +164,7 @@ class Sig extends Model
     {
         return $this->institutions->lists('id')->toArray();
     }
-    
+
     /**
      * Get the main institution of this sig
      * 
@@ -160,7 +174,7 @@ class Sig extends Model
     {
         return $this->belongsToMany('App\Institution', 'sig_institutions')->wherePivot('main', 1);
     }
-    
+
     /**
      * Get the main institution of this sig
      * 
@@ -192,7 +206,7 @@ class Sig extends Model
     {
         return $this->secondaryInstitutions->lists('id')->toArray();
     }
-    
+
     /**
      * Get the leader (main user) of this sig
      * 
@@ -202,7 +216,7 @@ class Sig extends Model
     {
         return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 1);
     }
-    
+
     /**
      * Get the co-leaders of this sig
      * 

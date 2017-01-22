@@ -40,7 +40,7 @@ class PagesController extends Controller
         $eventsController = new EventsController();
         $events = $eventsController->getEvents();
         // get tweets to display
-        $tweets = $this->getTweets();
+        $tweets = self::getTweets('UKFluidsNetwork');
         $totalTweets = count($tweets);
 
         return view('pages.index', compact('news', 'events', 'tweets', 'totalTweets'));
@@ -92,9 +92,14 @@ class PagesController extends Controller
      * @access public
      * @author Javier Arias <javier@arias.re>
      */
-    public function getTweets()
+    public static function getTweets($screenName, $maxTweets = 10)
     {
         $tweets = [];
+
+        if (!$screenName) {
+            return $tweets;
+        }
+
         // set twitters keys for app authentication
         $settings = [
             'oauth_access_token' => "",
@@ -105,7 +110,7 @@ class PagesController extends Controller
         // define the type of query (user_timeline to get all tweets in an account)
         $url = 'https://api.twitter.com/1.1/statuses/user_timeline.json';
         // query string to search by user name
-        $getfield = '?screen_name=UKFluidsNetwork&count=10';
+        $getfield = "?screen_name=${screenName}&count=${maxTweets}";
         $requestMethod = 'GET';
 
         $twitter = new TwitterAPIExchange($settings);
@@ -299,7 +304,7 @@ class PagesController extends Controller
     public function updatePersonalDetails(PersonalDetailsRequest $request)
     {
         $user = User::findOrFail(Auth::user()->id);
-        $user->title_id = $request->title_id ? : null;
+        $user->title_id = $request->title_id ?: null;
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
@@ -328,7 +333,7 @@ class PagesController extends Controller
         $user->orcidid = $request->orcidid;
         $user->url = $request->url;
         $user->save();
-        
+
         $user->updateTags($request->toArray());
         $user->updateInstitutions($request->institutions);
 
