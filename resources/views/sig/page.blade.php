@@ -91,6 +91,7 @@
     });
 
     function switchTab(id) {
+        if (!id) { return; }
         $('.sig-page').addClass('hidden');
         $('.sig-tab').removeClass('active');
         $('#' + id + '-page').removeClass('hidden');
