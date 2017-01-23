@@ -14,7 +14,7 @@ class Institution extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'institutiontype_id', 'url', 'lng', 'lat'
+        'name', 'shortname', 'institutiontype_id', 'url', 'lng', 'lat'
     ];
     
     /**

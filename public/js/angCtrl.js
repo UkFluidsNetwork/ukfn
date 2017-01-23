@@ -73,6 +73,19 @@ angular.module('ukfn')
                 controller.thisSig = response;
             });
         };
+        
+                           
+        controller.getSigLeader = function (id) {
+            $http(
+                {
+                    method: 'GET',
+                    url: '/api/sigs/leader/'+id
+                }
+            ).then(function (response) {
+                controller.displayAll = false;
+                controller.thisSig = response;
+            });
+        };
 
         /**
          * Set active sig on sig map
@@ -268,7 +281,7 @@ angular.module('ukfn')
             showUncheckAll: false,
             smartButtonMaxItems: 1000
         };
-           
+
         //multiselect aggregator tranlations
         controller.multiselectTranslations = {
             buttonDefaultText: 'Select Feeds'
