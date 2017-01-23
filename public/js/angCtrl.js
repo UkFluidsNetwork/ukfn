@@ -230,7 +230,7 @@ angular.module('ukfn')
 
                 // get uniqe aggregators for this set of talks
                 for (var i = 0; i < controller.talks.length; i++)  {
-                    var aggregator = controller.talks[i].longname;
+                    var aggregator = controller.talks[i].name;
                     var aggregatorId = controller.talks[i].aggregator_id;
                     if (!(aggregator in lookup)) {
                         lookup[aggregator] = true;
