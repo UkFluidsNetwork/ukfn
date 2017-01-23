@@ -84,7 +84,10 @@
 
 <script>
     $(function () {
-        switchTab('sig-<?php echo $page ?>');
+        var page = '<?php echo $page; ?>';
+        if (page !== '') {
+            switchTab('sig-<?php echo $page ?>');
+        }
     });
 
     function switchTab(id) {
