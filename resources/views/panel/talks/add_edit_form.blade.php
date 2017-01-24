@@ -81,14 +81,19 @@
         @endif
     </div>
 </div>    
-    
+
 <div class='form-group {{ $errors->has('start') ? ' has-error line-break-dbl' : '' }}'>
     {!! Form::label('start', 'Start:', ['class' => 'control-label col-lg-3 text-left']) !!}
     <div class=' col-lg-7'>
-        {!! Form::datetime('start', $talk->start, ['class' => 'form-control','placeholder' => 'Talk start']) !!}
+        <div class='input-group date' id='talk_start'>
+            {!! Form::text('start', $talk->start, ['class' => 'form-control',  'data-date-format' => 'YYYY-MM-DD HH:mm', 'placeholder' => 'Talk start']) !!}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
         @if ($errors->has('start'))
         <span class="text-danger">
-          <span>{{ $errors->first('start') }}</span>
+            <span>{{ $errors->first('start') }}</span>
         </span>
         @endif
     </div>
@@ -97,10 +102,15 @@
 <div class='form-group {{ $errors->has('end') ? ' has-error line-break-dbl' : '' }}'>
     {!! Form::label('end', 'End:', ['class' => 'control-label col-lg-3 text-left']) !!}
     <div class=' col-lg-7'>
-        {!! Form::datetime('end', $talk->end, ['class' => 'form-control','placeholder' => 'Talk end']) !!}
+        <div class='input-group date' id='talk_end'>
+            {!! Form::text('end', $talk->end, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm', 'placeholder' => 'Talk end']) !!}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
         @if ($errors->has('end'))
         <span class="text-danger">
-          <span>{{ $errors->first('end') }}</span>
+            <span>{{ $errors->first('end') }}</span>
         </span>
         @endif
     </div>
@@ -141,8 +151,13 @@
     
 <div class='form-group {{ $errors->has('recordinguntil') ? ' has-error line-break-dbl' : '' }}'>
     {!! Form::label('recordinguntil', 'Recording Available Until:', ['class' => 'control-label col-lg-3 text-left']) !!}
-    <div class=' col-lg-3'>
-        {!! Form::date('recordinguntil', $talk->recordinguntil, ['class' => 'form-control','placeholder' => 'Recording Available Until Date']) !!}
+    <div class=' col-lg-7'>
+        <div class='input-group date' id='recording_until'>
+            {!! Form::text('recordinguntil', $talk->recordinguntil, ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD', 'placeholder' => 'Display recording until']) !!}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
         @if ($errors->has('recordinguntil'))
         <span class="text-danger">
           <span>{{ $errors->first('recordinguntil') }}</span>
@@ -156,3 +171,21 @@
         {!! Form::submit('Save', ['class' => 'btn btn-default']) !!}
     </div>    
 </div>
+
+<!-- date time picker initialisation -->
+<script type="text/javascript">
+    $(function () {
+        $('#talk_start').datetimepicker();
+        $('#talk_end').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#talk_start").on("dp.change", function (e) {
+            $('#talk_end').data("DateTimePicker").minDate(e.date);
+        });
+        $("#talk_end").on("dp.change", function (e) {
+            $('#talk_start').data("DateTimePicker").maxDate(e.date);
+        });
+        
+        $('#recording_until').datetimepicker();
+    });
+</script>
