@@ -1,6 +1,31 @@
 @extends('layouts.master')
 @section('content')
 
+<div>
+    <nav aria-label="Page navigation" class="pull-left" style="margin-top: -60px;">
+        <ul class="pagination">
+            <li>
+                @if ($sig->id > 1)
+                <a href="/sig/<?php echo $allSig[$sig->id - 2]->shortname; ?>" aria-label="Previous">
+                    <span aria-hidden="true">&laquo; Previous</span>
+                </a>
+                @endif
+            </li>
+        </ul>
+    </nav>
+    <nav aria-label="Page navigation" class="pull-right" style="margin-top: -60px;">
+        <ul class="pagination">
+            <li>
+                @if ($sig->id < count($allSig))
+                <a href="/sig/<?php echo $allSig[$sig->id]->shortname; ?>" aria-label="Next">
+                    <span aria-hidden="true">Next &raquo;</span>
+                </a>
+                @endif
+            </li>
+        </ul>
+    </nav>
+</div>
+
 @if ($sig->url)
 <h3 class="text-danger line-break">{{ $sig->name }}{{ Html::link($sig->url, 'Visit page ', ['class'=> 'btn btn-default btn-lg text-uppercase pull-right', 'target' => '_blank']) }}</h3>
 @else
@@ -95,7 +120,9 @@
     });
 
     function switchTab(id) {
-        if (!id) { return; }
+        if (!id) {
+            return;
+        }
         $('.sig-page').addClass('hidden');
         $('.sig-tab').removeClass('active');
         $('#' + id + '-page').removeClass('hidden');

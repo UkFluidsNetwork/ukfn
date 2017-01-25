@@ -261,7 +261,9 @@ class SigsController extends Controller
         
         $sig->twitterurl = 'UKFluidsNetwork';
         $tweets = PagesController::getTweets($sig->twitterurl, 5);
+        
+        $allSig = Sig::all();
 
-        return view('sig.page', compact('sig', 'tweets', 'page'));
+        return view('sig.page', compact('sig', 'tweets', 'page', 'allSig'));
     }
 }
