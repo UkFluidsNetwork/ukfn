@@ -1,1 +1,1 @@
-angular.module('ukfn', ['ngStorage', 'ngMessages', 'ngMap', 'angularjs-dropdown-multiselect']);
+angular.module('ukfn', ['ngStorage', 'ngMessages', 'ngMap', 'angularjs-dropdown-multiselect', 'selectize']);

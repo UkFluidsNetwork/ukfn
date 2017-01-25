@@ -20,20 +20,28 @@
                   Click on any of the talks in the "{{ $talksMenu['header'] }}" menu to see details of them, or browse through the full list of talks.
                 </p>
             </div>
-           
+                       
             <!-- Filters - start -->
-            <form class="form-inline">
-                <div class="form-group margin-right">
+            <div class="container-fluid nopadding">
+                <div class='col-lg-6 col-md-6 col-sm-6 nopadding'>     
                     <label for="aggr_multiselect" class="sr-only"></label>
-                    <div id="aggr_multiselect" ng-dropdown-multiselect="" options="talkCtrl.thisAggregators" selected-model="talkCtrl.filterAggregatorsLookup" 
-                       events="talkCtrl.multiselectEvents" translation-texts="talkCtrl.multiselectTranslations" extra-settings="talkCtrl.multiselectSettings"></div>
+                    <selectize id="aggr_multiselect" options='talkCtrl.thisAggregators' config='talkCtrl.selectizeConfig' ng-model="talkCtrl.filterAggregators"></selectize>
                 </div>
-                <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
-                    <label>
-                        <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
-                    </label>
+                <div class='form-inline col-lg-6 col-md-6 col-sm-6 hidden-xs'>
+                    <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
+                        <label>
+                            <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
+                        </label>
+                    </div>
                 </div>
-            </form>
+                <div class='form-inline col-xs-12 visible-xs nopadding'>
+                    <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
+                        <label>
+                            <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
+                        </label>
+                    </div>
+                </div>
+            </div>
             <!-- Filters - end -->
                 
             <!-- no match message - start -->

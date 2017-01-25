@@ -252,48 +252,17 @@ angular.module('ukfn')
                 }
             });
         })();
-                
-        /**
-         * Reset aggregator filter array to empty
-         * @author Robert Barczyk <robert@barczyk.net>
-         * @returns {void}
-         */
-        controller.deleteAggregatorFilter = function() {
-             controller.filterAggregators = [];
-        };
-        
-        /**
-         * Create array with selected aggregator ids used by talks filter
-         * @author Robert Barczyk <robert@barczyk.net>
-         * @returns {array}
-         */
-        controller.generateAggregatorFilter = function() {
-            controller.filterAggregators = [];
-            for (var f = 0; f < controller.filterAggregatorsLookup.length; f++) {
-                controller.filterAggregators.push(controller.filterAggregatorsLookup[f].id);
-            }
-        };
-              
-        // multiselect aggregator settings
-        controller.multiselectSettings = {
-            enableSearch: false,
-            showCheckAll: false,
-            showUncheckAll: false,
-            smartButtonMaxItems: 1000
-        };
-
-        //multiselect aggregator tranlations
-        controller.multiselectTranslations = {
-            buttonDefaultText: 'Select Feeds'
-        };
-
-        // multiselect aggregator events
-        controller.multiselectEvents = {
-            onItemSelect: controller.generateAggregatorFilter, 
-            onItemDeselect: controller.generateAggregatorFilter,
-            onSelectAll: controller.generateAggregatorFilter,
-            onDeselectAll: controller.deleteAggregatorFilter
-        };
+       
+        controller.selectizeConfig = {
+            create: false,
+            plugins: ['remove_button'],
+            delimiter: ',',
+            searchField: 'label',
+            framework: 'bootstrap',
+            valueField: 'id',
+            labelField: 'label',
+            placeholder: 'Select feed'
+          };
     });
 
 /**
@@ -320,7 +289,7 @@ angular.module('ukfn').filter('allTalksFilter', function() {
             }
             
             // if recording and streaming is unticked but one of the aggregators is selected
-            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id) !== -1) {
+            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);
             }
             
@@ -341,17 +310,17 @@ angular.module('ukfn').filter('allTalksFilter', function() {
             }
 
             // if streaming and recording is ticked and at least one of the aggreagators
-            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.aggregator_id) !== -1) {
+            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);   
             }
             
             // if streaming is ticked and one of the aggregators 
-            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id) !== -1) {
+            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);
             }
             
             // if recording is ticked and one of the aggregators 
-            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id) !== -1) {
+            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);
             }
         });
