@@ -31,7 +31,7 @@
                 @endif
             </div>
             <div id="sig-home-page" class="sig-page">
-                <img style="width: 100%; margin-top: 20px;" src="/pictures/sig/{{ $sig->smallimage }}" class="thumb" alt="@{{ $sig->smallimage }}">
+                <img style="width: 100%; margin-top: 20px;" src="/pictures/sig/{{ $sig->bigimage }}" class="thumb" alt="@{{ $sig->smallimage }}">
                 <div class="bs-callout bs-callout-info">
                     <h4>Description</h4>
                     <p>
