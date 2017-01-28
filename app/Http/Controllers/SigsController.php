@@ -8,6 +8,7 @@ use App\User;
 use App\Suggestion;
 use App\Institution;
 use App\Http\Requests\SigsFormRequest;
+use Storage;
 use Illuminate\Support\Facades\Session;
 use SEO;
 
@@ -98,13 +99,14 @@ class SigsController extends Controller
         $facilities = Tag::getAllFacilities();
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
-
+        
         return view('panel.sigs.edit', compact('sig', 'sigTags', 'sigInstitutions', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
     }
     
     /**
      * Update sigs
      * @author Javier Arias <ja573@cam.ac.uk>
+     * @author Robert Barczyk <rb783@cam.ac.uk>
      * @access public
      * @param int $id
      * @param EventsFormRequest $request
@@ -116,6 +118,22 @@ class SigsController extends Controller
             $sig = Sig::findOrFail($id);
             $input = $request->all();
             $sig->fill($input);
+            $bigImage = $request->file('bigimage');
+            $smallImage = $request->file('smallimage');
+            $finalDestination = Storage::disk('sig-pictures')->getDriver()->getAdapter()->getPathPrefix();
+                        
+            if ($bigImage) {
+                $newFilenameB = strtolower($request->shortname) . "_big_" . time() . "." . $bigImage->getClientOriginalExtension();
+                $bigImage->move($finalDestination, $newFilenameB);
+                $sig->bigimage = $newFilenameB;
+            }
+
+            if ($smallImage) {
+                $newFilenameS = strtolower($request->shortname) . "_small_" . time() . "." . $smallImage->getClientOriginalExtension();
+                $smallImage->move($finalDestination, $newFilenameS);
+                $sig->smallimage = $newFilenameS;
+            }
+            
             $sig->save();
 
             $institutions = $request->institutions ?: [];

@@ -6,8 +6,10 @@
 {!! Form::model($sig, [
 'method' => 'PATCH',
 'action' => ['SigsController@update', $sig->id],
-'class' => 'form-horizontal'
+'class' => 'form-horizontal',
+'files' => true
 ]) !!}
+
 <div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('name', 'SIG:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class=' col-lg-8'>
@@ -112,6 +114,56 @@
     </div>
 </div>
 <!-- facilities input - end -->
+<!-- big image input - start -->
+<div class="form-group {{ $errors->has('bigiamge') ? ' has-error' : ''}}">
+    <label for='bigimage' class="control-label col-lg-2 text-left">Big image</label>
+    <div class=' col-lg-8'>
+        <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 nopadding'>
+            <label class="btn btn-default">
+                Select image {!! Form::file('bigimage', ['class' => 'control-label col-lg-2 text-left hide',
+                'id' => 'sigbigimage', 'onchange' => 'getFileDetails("sigbigimage")', 'accept' => 'image/*']) !!}
+            </label>
+        </div>
+        <div id="sigbigimage_details" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            No file selected
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-info">
+            Big bla
+        </div>
+        @if ($errors->has('bigimage'))
+        <span class="help-block">
+            <strong>{{ $errors->first('bigimage')}}</strong>
+        </span>
+        @endif
+    </div>
+</div>
+<!-- big image input - end -->
+
+<!-- small image input - start -->
+<div class="form-group {{ $errors->has('smallimage') ? ' has-error' : ''}}">
+    <label for='smallimage' class="control-label col-lg-2 text-left">Small image</label>
+    <div class=' col-lg-8'>
+        <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 nopadding'>
+            <label class="btn btn-default">
+                Select image {!! Form::file('smallimage', ['class' => 'control-label col-lg-2 text-left hide',
+                'id' => 'sigsmallimage', 'onchange' => 'getFileDetails("sigsmallimage")','accept' => 'image/*']) !!}
+            </label>
+        </div>
+        <div id="sigsmallimage_details" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            No file selected
+        </div>
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-info">
+            Little bla
+        </div>
+        @if ($errors->has('smallimage'))
+        <span class="help-block">
+            <strong>{{ $errors->first('smallimage')}}</strong>
+        </span>
+        @endif
+    </div>
+</div>
+<!-- small image input - end -->
+
 <div class='form-group {{ $errors->has('description') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('description', 'Description:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class='col-lg-8'>
@@ -131,7 +183,7 @@
 {!! Form::close() !!}
 <script>
     $('#institutions').selectize({
-        plugins: ['remove_button', ],
+        plugins: ['remove_button' ],
         delimiter: ',',
         framework: 'bootstrap',
         persist: false,
@@ -139,7 +191,7 @@
             return {
                 value: input,
                 text: input
-            }
+            };
         }
     });
 
@@ -151,10 +203,9 @@
             return {
                 value: input,
                 text: input
-            }
+            };
         }
     });
-
 </script>
 <style>
     .selectize-dropdown-content {

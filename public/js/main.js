@@ -18,3 +18,9 @@ function hideSendMail()
         unhide('mail-to');
     }
 }
+
+function getFileDetails(id) 
+{
+    var selectedFile = document.getElementById(id).files[0];
+    $('#'+id+'_details').html(selectedFile.name);
+}
