@@ -28,6 +28,36 @@ and open the template in the editor.
 .mapHeight {
   height: 800px !important; }
 
+#sig-navigation > nav {
+  margin-top: -60px !important; }
+
+div.sig-map-image {
+  padding: 5px 0px 10px 0px; }
+
+img.sig-map-image {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.bs-callout-info {
+  border-left-color: #1B75BB !important; }
+
+.bs-callout-info h4 {
+  color: #1B75BB !important; }
+
+.bs-callout {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #eee;
+  border-image: none;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  margin: 20px 0;
+  padding: 20px; }
+
 @media only screen and (max-width: 1200px) {
   .mobile-nopadding-from-md {
     padding: 0 !important; } }
@@ -334,31 +364,7 @@ footer {
 .clear-both {
   clear: both; }
 
-div.sig-map-image {
-  padding: 5px 0px 10px 0px; }
-
-img.sig-map-image {
-  max-width: 100%;
-  margin-left: auto;
-  margin-right: auto; }
-
-.bs-callout-info {
-  border-left-color: #1B75BB !important; }
-
-.bs-callout-info h4 {
-  color: #1B75BB !important; }
-
-.bs-callout {
-  -moz-border-bottom-colors: none;
-  -moz-border-left-colors: none;
-  -moz-border-right-colors: none;
-  -moz-border-top-colors: none;
-  border-color: #eee;
-  border-image: none;
-  border-radius: 3px;
-  border-style: solid;
-  border-width: 1px 1px 1px 5px;
-  margin: 20px 0;
-  padding: 20px; }
+.text-no-decoration {
+  text-decoration: none !important; }
 
 /*# sourceMappingURL=main.css.map */

@@ -12,7 +12,8 @@ angular.module('ukfn')
             controller.test = "HELLO";
             controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
             controller.$storage = $localStorage;
-
+            controller.selectedSigId = null; // initially selected SIG
+            
             (function() {
                 $http(
                     {
@@ -47,9 +48,16 @@ angular.module('ukfn')
                     controller.displayAll = true;
                     // return unique institutions
                     controller.distinctInstitutions = output;
+                    
+                    // check if we want to display a specific sig
+                    if (controller.selectedSigId) {
+                        controller.setActive(controller.selectedSigId);
+                        controller.getSig(controller.selectedSigId);
+                    }
                 });
             })();
-
+            
+            
             /**
              * Get selected sig and its institutions
              * 
@@ -57,23 +65,11 @@ angular.module('ukfn')
              * @param {intiger} id
              * @returns {json}
              */
-            controller.getSigInstitution = function (id) {
+            controller.getSig = function (id) {
                 $http(
                     {
                         method: 'GET',
                         url: '/api/sigs/'+id
-                    }
-                ).then(function (response) {
-                    controller.displayAll = false;
-                    controller.thisSig = response;
-                });
-            };
-            
-            controller.getSigLeader = function (id) {
-                $http(
-                    {
-                        method: 'GET',
-                        url: '/api/sigs/leader/'+id
                     }
                 ).then(function (response) {
                     controller.displayAll = false;

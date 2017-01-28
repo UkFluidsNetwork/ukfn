@@ -1,37 +1,26 @@
 @extends('layouts.master')
 @section('content')
 
-<div>
-    <nav aria-label="Page navigation" class="pull-left" style="margin-top: -60px;">
+<div id='sig-navigation'>
+    @foreach ($navigation as $element)
+    <nav aria-label="Page navigation" class="pull-{{ $element['position'] }}">
         <ul class="pagination">
             <li>
-                @if ($sig->id > 1)
-                <a href="/sig/<?php echo $allSig[$sig->id - 2]->shortname; ?>" aria-label="Previous">
-                    <span aria-hidden="true">&laquo; Previous</span>
+                <a href="{{ $element['path'] }}" aria-label="Previous">
+                    <span class="glyphicon {{ $element['icon'] }}" aria-hidden="true"></span>
                 </a>
-                @endif
             </li>
         </ul>
     </nav>
-    <nav aria-label="Page navigation" class="pull-right" style="margin-top: -60px;">
-        <ul class="pagination">
-            <li>
-                @if ($sig->id < count($allSig))
-                <a href="/sig/<?php echo $allSig[$sig->id]->shortname; ?>" aria-label="Next">
-                    <span aria-hidden="true">Next &raquo;</span>
-                </a>
-                @endif
-            </li>
-        </ul>
-    </nav>
+    @endforeach
 </div>
 
-@if ($sig->url)
-<h3 class="text-danger line-break">{{ $sig->name }}{{ Html::link($sig->url, 'Visit page ', ['class'=> 'btn btn-default btn-lg text-uppercase pull-right', 'target' => '_blank']) }}</h3>
-@else
-<h3 class="text-danger line-break">{{ $sig->name }}</h3>
-@endif
-<div class="container-fluid">
+<h2 class="text-danger line-break">
+    {{ Html::link('/sig/map/' . $sig->shortname, '', ['class'=> 'text-danger glyphicon glyphicon-map-marker text-no-decoration']) }}
+    {{ $sig->name }}
+</h2>
+
+<div class="container-fluid nopadding-left">
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8">
             <ul class="nav nav-tabs nav-justified">
@@ -88,11 +77,19 @@
                     </p>
                 </div>
                 @endif
+                @if ($sig->url)
+                <div class="bs-callout bs-callout-info">
+                    <h4>External website</h4>
+                    <p>
+                        {{ Html::link($sig->url, $sig->url, ['class'=> '', 'target' => '_blank']) }}
+                    </p>
+                </div>
+                @endif
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
+            <h2 class="nomargin-top">Tweets</h2>
             @if (!empty($tweets))
-            <h2>Tweets</h2>
             @foreach ($tweets as $key => $tweet)
             <div class="line-break-dbl"></div>
             <section class="page-header">
@@ -106,6 +103,8 @@
                 <a href="{{ $tweet['link'] }}" target="_blank">View tweet</a>
             </section>
             @endforeach
+            @else
+            <div class="text-muted">No tweets to show</div>
             @endif
         </div>
     </div>

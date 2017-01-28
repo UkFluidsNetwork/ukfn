@@ -3,7 +3,7 @@
 @include('flash.success')
 <h2 class='line-break'>Special Interest Groups{{ Html::link('/sig', 'Back ', ['class'=> 'btn btn-default btn-lg text-uppercase pull-right']) }}</h2>
 
-<div ng-controller="sigController as sigCtrl">
+<div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
@@ -45,9 +45,9 @@
                             <strong>@{{ sigCtrl.thisSig.data.name }}</strong>
                         </div>
                     </a>
-                    <div class='sig-map-image' class="">
+                    <div ng-if="sigCtrl.thisSig.data.smallimage" class='sig-map-image' class="">
                         <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">
-                            <img class='sig-map-image' src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}" class="thumb" alt="@{{ sigCtrl.thisSig.data.smallimage }}">
+                            <img class='sig-map-image' src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}" class="thumb" alt="@{{sigCtrl.thisSig.data.smallimage}}">
                         </a>
                     </div>
                     <p class="linre-break">
@@ -87,7 +87,7 @@
             </ul>
             <ul class="nav nav-pills nav-stacked" ng-repeat="sig in sigCtrl.allSigs.data">
                 <li ng-class="sigCtrl.sigActive === sig.id ? 'active' : ''" >
-                    <a href="" ng-click="sigCtrl.getSigInstitution(sig.id); sigCrtl.getSigLeader(sig.id); sigCtrl.setActive(sig.id);">
+                    <a href="" ng-click="sigCtrl.getSig(sig.id); sigCtrl.setActive(sig.id);">
                         @{{ sig.name }}
                     </a>
                 </li>
