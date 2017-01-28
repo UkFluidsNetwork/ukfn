@@ -114,7 +114,7 @@ class PagesController extends Controller
         $requestMethod = 'GET';
 
         $twitter = new TwitterAPIExchange($settings);
-        $rawTweeets = $twitter->setGetfield($getfield)
+        $rawTweets = $twitter->setGetfield($getfield)
             ->buildOauth($url, $requestMethod)
             ->performRequest();
 
@@ -122,7 +122,7 @@ class PagesController extends Controller
             return $tweets;
         }
         
-        $decodedTweets = json_decode($rawTweeets);
+        $decodedTweets = json_decode($rawTweets);
 
         foreach ($decodedTweets as $key => $tweet) {
             // retweets start with: RT @username: 
