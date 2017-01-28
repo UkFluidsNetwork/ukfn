@@ -110,6 +110,7 @@ input[type="text"], textarea, button {
   border: solid white 1px;
   background-image: radial-gradient(circle farthest-corner at 45px 45px, red, #a94442); }
 
+/* Important! without this margin the custom map pointer is offset */
 .custom-marker.map-pointer {
   margin-top: 14px; }
 
@@ -332,5 +333,32 @@ footer {
 
 .clear-both {
   clear: both; }
+
+div.sig-map-image {
+  padding: 5px 0px 10px 0px; }
+
+img.sig-map-image {
+  max-width: 100%;
+  margin-left: auto;
+  margin-right: auto; }
+
+.bs-callout-info {
+  border-left-color: #1B75BB !important; }
+
+.bs-callout-info h4 {
+  color: #1B75BB !important; }
+
+.bs-callout {
+  -moz-border-bottom-colors: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #eee;
+  border-image: none;
+  border-radius: 3px;
+  border-style: solid;
+  border-width: 1px 1px 1px 5px;
+  margin: 20px 0;
+  padding: 20px; }
 
 /*# sourceMappingURL=main.css.map */

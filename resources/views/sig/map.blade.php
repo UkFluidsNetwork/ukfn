@@ -40,11 +40,21 @@
             </div>
             <div ng-if="!sigCtrl.displayAll">
                 <div class="page-header" style="margin-top: 0px;">
-                    <div class="text-danger line-break">
-                        <strong>@{{ sigCtrl.thisSig.data.name }}</strong>
+                    <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}" class="text-danger">
+                        <div class="text-danger line-break">
+                            <strong>@{{ sigCtrl.thisSig.data.name }}</strong>
+                        </div>
+                    </a>
+                    <div class='sig-map-image' class="">
+                        <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">
+                            <img class='sig-map-image' src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}" class="thumb" alt="@{{ sigCtrl.thisSig.data.smallimage }}">
+                        </a>
                     </div>
                     <p class="linre-break">
                         @{{ sigCtrl.thisSig.data.description }}
+                    </p>
+                    <p>
+                        <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">More details</a>
                     </p>
                 </div>
                 <div class="page-header" style="margin-top: 0px;">

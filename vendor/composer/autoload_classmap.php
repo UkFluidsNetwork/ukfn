@@ -12,6 +12,8 @@ return array(
     'AlterLogsUsers' => $baseDir . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
     'AlterMessagesTable' => $baseDir . '/database/migrations/2016_10_01_133852_alter_messages_table.php',
     'AlterSigAddCoordinates' => $baseDir . '/database/migrations/2016_11_26_122956_alter_sig_add_coordinates.php',
+    'AlterSigAddPictures' => $baseDir . '/database/migrations/2017_01_21_115234_alter_sig_add_pictures.php',
+    'AlterSigExternalurl' => $baseDir . '/database/migrations/2017_01_21_142425_alter_sig_externalurl.php',
     'AlterSigInstitutionsShortnames' => $baseDir . '/database/migrations/2016_12_20_052445_alter_sig_institutions_shortnames.php',
     'AlterSuggestionsAddLeader' => $baseDir . '/database/migrations/2016_11_26_172747_alter_suggestions_add_leader.php',
     'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',

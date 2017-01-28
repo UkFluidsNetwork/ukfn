@@ -54,8 +54,8 @@ class SigsController extends Controller
         }
 
         $bread = [
-                ['label' => 'Panel', 'path' => '/panel'],
-                ['label' => 'SIG', 'path' => '/panel/sig']
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'SIG', 'path' => '/panel/sig']
         ];
         $breadCount = count($bread);
 
@@ -82,9 +82,9 @@ class SigsController extends Controller
         }
 
         $bread = [
-                ['label' => 'Panel', 'path' => '/panel'],
-                ['label' => 'SIG', 'path' => '/panel/sig'],
-                ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'SIG', 'path' => '/panel/sig'],
+            ['label' => 'Edit', 'path' => '/panel/sig/edit'],
         ];
         $breadCount = count($bread);
 
@@ -101,7 +101,7 @@ class SigsController extends Controller
 
         return view('panel.sigs.edit', compact('sig', 'sigTags', 'sigInstitutions', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
     }
-    
+
     /**
      * Update sigs
      * @author Javier Arias <ja573@cam.ac.uk>
@@ -142,9 +142,9 @@ class SigsController extends Controller
         }
 
         $bread = [
-                ['label' => 'Panel', 'path' => '/panel'],
-                ['label' => 'SIG', 'path' => '/panel/sig'],
-                ['label' => 'Add', 'path' => '/panel/sig/add'],
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'SIG', 'path' => '/panel/sig'],
+            ['label' => 'Add', 'path' => '/panel/sig/add'],
         ];
         $breadCount = count($bread);
 
@@ -224,13 +224,46 @@ class SigsController extends Controller
     public function getSigInstitutionsJson($id)
     {
         $sig = Sig::findOrFail($id);
+        // json will get rid of all this stuff, so we need to explicitely load it @todo find a better way
         $sig->institutions;
         $sig->leader;
         foreach ($sig->leader as $key => $leader) {
             $leader = User::findOrFail($sig->leader[$key]->id);
             $sig->leader[$key]->institutions = $leader->institutions;
         }
-        
+
         return json_encode($sig, JSON_PRETTY_PRINT);
+    }
+
+    /**
+     * Render a SIG individual page
+     * 
+     * @access public
+     * @param string $slug
+     * @return void
+     */
+    public function sigPage($slug, $page = "home")
+    {
+        $sig = Sig::findBySlug($slug)[0]; // this gives us a std object, containing little information...
+
+        if (empty($sig)) {
+            App::abort(404);
+        }
+        $sig = Sig::findOrfail($sig->id); // ...we want the full object
+
+        SEO::setTitle($sig->name);
+        SEO::setDescription($sig->description);
+
+        $tabs = ['home', 'members'];
+        if (!in_array($page, $tabs)) {
+            $page = 'home';
+        }
+        
+        $sig->twitterurl = 'UKFluidsNetwork';
+        $tweets = PagesController::getTweets($sig->twitterurl, 5);
+        
+        $allSig = Sig::all();
+
+        return view('sig.page', compact('sig', 'tweets', 'page', 'allSig'));
     }
 }
