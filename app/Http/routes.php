@@ -14,6 +14,7 @@
 Route::get('/', 'PagesController@index');
 Route::get('sig', 'SigsController@index');
 Route::get('sig/map', 'SigsController@map');
+Route::get('sig/map/{slug}', 'SigsController@map');
 Route::get('sig/{slug}', 'SigsController@sigPage');
 Route::get('sig/{slug}/{page}', 'SigsController@sigPage');
 Route::get('srv', 'SrvsController@index');

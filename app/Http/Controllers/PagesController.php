@@ -118,6 +118,10 @@ class PagesController extends Controller
             ->buildOauth($url, $requestMethod)
             ->performRequest();
 
+        if (empty($rawTweets)) {
+            return $tweets;
+        }
+        
         $decodedTweets = json_decode($rawTweeets);
 
         foreach ($decodedTweets as $key => $tweet) {

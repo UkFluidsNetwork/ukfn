@@ -32,13 +32,15 @@ class SigsController extends Controller
      * 
      * @return void
      */
-    public function map()
+    public function map($slug = null)
     {
         SEO::setTitle('Special Interest Groups');
         SEO::setDescription('UKFN is pleased to invite proposals for the second round of Special Interest Groups. '
             . 'The call is open to anyone working in fluid mechanics in the UK.');
 
-        return view('sig.map');
+        $selectedSigId = $slug ? self::getIdBySlug($slug) : 0;
+        
+        return view('sig.map', compact('selectedSigId'));
     }
 
     /**
@@ -244,26 +246,48 @@ class SigsController extends Controller
      */
     public function sigPage($slug, $page = "home")
     {
-        $sig = Sig::findBySlug($slug)[0]; // this gives us a std object, containing little information...
-
-        if (empty($sig)) {
-            App::abort(404);
-        }
-        $sig = Sig::findOrfail($sig->id); // ...we want the full object
+        $sig = Sig::findOrfail(self::getIdBySlug($slug));
 
         SEO::setTitle($sig->name);
         SEO::setDescription($sig->description);
 
+        // define the selected tab
         $tabs = ['home', 'members'];
         if (!in_array($page, $tabs)) {
             $page = 'home';
         }
         
-        $sig->twitterurl = 'UKFluidsNetwork';
-        $tweets = PagesController::getTweets($sig->twitterurl, 5);
-        
+        // get tweet feeds
+        $tweets = [];
+        if ($sig->twitterurl) {
+            $tweets = PagesController::getTweets($sig->twitterurl, 5);
+        }
+        // generate navigation buttons
         $allSig = Sig::all();
+        $previousSigShortname = $sig->id > 1 ? $allSig[$sig->id - 2]->shortname : $allSig[count($allSig) - 1]->shortname;
+        $nextSigShortname = $sig->id < count($allSig) ? $allSig[$sig->id]->shortname : $allSig[0]->shortname;
+        $navigation = [
+            ['position' => 'left', 'icon' => 'glyphicon-arrow-left', 'path' => "/sig/${previousSigShortname}"],
+            ['position' => 'right', 'icon' => 'glyphicon-arrow-right', 'path' => "/sig/${nextSigShortname}"]
+        ];
 
-        return view('sig.page', compact('sig', 'tweets', 'page', 'allSig'));
+        return view('sig.page', compact('sig', 'tweets', 'page', 'navigation'));
+    }
+    
+    /**
+     * Find the id of a SIG given its slug
+     * 
+     * @param string $slug
+     * @return int|null
+     */
+    public static function getIdBySlug($slug)
+    {
+        $sigStd = Sig::findBySlug($slug)[0];
+        
+        if (!empty($sigStd)) {
+            return $sigStd->id;
+        }
+        
+        return null;
     }
 }
