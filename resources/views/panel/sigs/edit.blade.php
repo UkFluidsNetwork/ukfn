@@ -127,7 +127,7 @@
         <div id="sigbigimage_details" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
             No file selected
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-info">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-muted">
             Big bla
         </div>
         @if ($errors->has('bigimage'))
@@ -152,7 +152,7 @@
         <div id="sigsmallimage_details" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
             No file selected
         </div>
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-info">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-muted">
             Little bla
         </div>
         @if ($errors->has('smallimage'))
