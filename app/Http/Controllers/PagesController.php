@@ -33,12 +33,25 @@ class PagesController extends Controller
     public function index()
     {
         SEO::setTitle('Home');
+        
         // get news to display
+        $news = [];
         $newsController = new NewsController();
-        $news = $newsController->getNews();
+        $rawNews = $newsController->getNews();
+        foreach ($rawNews as $new) {
+            $new['description'] = self::makeLinksInText($new['description']);
+            $news[] = $new;
+        }
+        
         // get events to display
+        $events = [];
         $eventsController = new EventsController();
-        $events = $eventsController->getEvents();
+        $rawEvents = $eventsController->getEvents();
+        foreach ($rawEvents as $event) {
+            $event['description'] = self::makeLinksInText($event['description']);
+            $events[] = $event;
+        }
+        
         // get tweets to display
         $tweets = self::getTweets('UKFluidsNetwork');
         $totalTweets = count($tweets);
@@ -138,9 +151,10 @@ class PagesController extends Controller
             // date posted
             $tweets[$key]['date'] = date("l jS F", strtotime($tweet->created_at));
             // format the text
-            $text1 = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $textToFormat); // replace @user with link to user
-            $text2 = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text1); // replace #hashtag with link to hashtag
-            $tweets[$key]['text'] = $text2;
+            $text = self::makeLinksInText($textToFormat); // replace urls with anchor tags
+            $text = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $text); // replace @user with link to user
+            $text = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text); // replace #hashtag with link to hashtag
+            $tweets[$key]['text'] = $text;
         }
 
         return $tweets;
@@ -364,5 +378,21 @@ class PagesController extends Controller
         } else {
             return Redirect::back()->withErrors(['password' => 'Current password is incorrect']);
         }
+    }
+    
+    /**
+     * Convert raw URIs into anchor tags
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param string $textToFormat
+     * @return string
+     */
+    public static function makeLinksInText($textToFormat)
+    {
+        return preg_replace(
+                "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/",
+                "<a href=\"$0\">$0</a>",
+                $textToFormat
+            );
     }
 }
