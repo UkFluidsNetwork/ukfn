@@ -114,7 +114,7 @@ class PagesController extends Controller
         $requestMethod = 'GET';
 
         $twitter = new TwitterAPIExchange($settings);
-        $rawTweeets = $twitter->setGetfield($getfield)
+        $rawTweets = $twitter->setGetfield($getfield)
             ->buildOauth($url, $requestMethod)
             ->performRequest();
 
@@ -122,7 +122,7 @@ class PagesController extends Controller
             return $tweets;
         }
         
-        $decodedTweets = json_decode($rawTweeets);
+        $decodedTweets = json_decode($rawTweets);
 
         foreach ($decodedTweets as $key => $tweet) {
             // retweets start with: RT @username: 
@@ -138,9 +138,14 @@ class PagesController extends Controller
             // date posted
             $tweets[$key]['date'] = date("l jS F", strtotime($tweet->created_at));
             // format the text
-            $text1 = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $textToFormat); // replace @user with link to user
-            $text2 = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text1); // replace #hashtag with link to hashtag
-            $tweets[$key]['text'] = $text2;
+            $text = preg_replace(
+                "/(http|https|ftp|ftps)\:\/\/[a-zA-Z0-9\-\.]+\.[a-zA-Z]{2,3}(\/\S*)?/",
+                "<a href=\"$0\">$0</a>",
+                $textToFormat
+            ); // replace urls with anchor tags
+            $text = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $text); // replace @user with link to user
+            $text = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text); // replace #hashtag with link to hashtag
+            $tweets[$key]['text'] = $text;
         }
 
         return $tweets;
