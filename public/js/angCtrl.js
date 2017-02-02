@@ -1,5 +1,7 @@
 /**
- * SIF Controlelr
+ * SIG Controler
+ * 
+ * @author Robert Barczyk <robert@barczyk.net>
  * @param {storage} $localStorage 
  * @param {$http} $http
  */
@@ -80,95 +82,243 @@ angular.module('ukfn')
             controller.setActive = function(id) {
                 controller.sigActive = id;
             };
+        /**
+         * Set active sig on sig map
+         * 
+         * @author Robert Barczyk <robert@barczyk.net>
+         * @param {type} id
+         * @returns {undefined}
+         */
+        controller.setActive = function(id) {
+            controller.sigActive = id;
+        };
+
+        /**
+         * Display all sigs on sig map
+         * 
+         * @author Robert Barczyk <robert@barczyk.net>
+         * @returns {undefined}
+         */
+        controller.dispAll = function() {
+            controller.displayAll = true;
+        };
+
+        // default UK map coordinates
+        controller.map =
+                {
+                    'latitude'  : '54.8',
+                    'longtitude': '-4.40'
+                };
+                
+        // map options
+        controller.options = {
+            styles: [
+                {
+                    "featureType":"administrative",
+                    "elementType":"all",
+                    "stylers":[
+                        {"saturation":"-100"}
+                    ]
+                }, 
+                {
+                    "featureType":"administrative.province",
+                    "elementType":"all",
+                    "stylers":[{"visibility":"off"}]
+                },
+                {
+                    "featureType":"landscape",
+                    "elementType":"all",
+                    "stylers":[
+                        {"saturation":-100},
+                        {"lightness":65},
+                        {"visibility":"on"}
+                    ]
+                },
+                {
+                    "featureType":"poi",
+                    "elementType":"all",
+                    "stylers":[
+                        {"saturation":-100},
+                        {"lightness":"50"},
+                        {"visibility":"simplified"}
+                    ]
+                },
+                {
+                    "featureType":"road",
+                    "elementType":"all",
+                    "stylers":[{"saturation":"-100"}]
+                },
+                {
+                    "featureType":"road.highway",
+                    "elementType":"all",
+                    "stylers":[{"visibility":"simplified"}]
+                },
+                {
+                    "featureType":"road.arterial",
+                    "elementType":"all",
+                    "stylers":[{"lightness":"30"}]
+                },
+                {
+                    "featureType":"road.local",
+                    "elementType":"all",
+                    "stylers":[{"lightness":"40"}]
+                },
+                {
+                    "featureType":"transit",
+                    "elementType":"all",
+                    "stylers":[
+                        {"saturation":-100},
+                        {"visibility":"simplified"}
+                    ]
+                },
+                {
+                    "featureType":"water",
+                    "elementType":"geometry",
+                    "stylers":[
+                        {"hue":"#ffff00"},
+                        {"lightness":-25},
+                        {"saturation":-97}
+                    ]
+                },
+                {
+                    "featureType":"water",
+                    "elementType":"labels",
+                    "stylers":[
+                        {"lightness":-25},
+                        {"saturation":-100}
+                    ]
+                }
+            ]
+        };
+    });
+
+/**
+ * Talks Controler
+ * 
+ * @author Robert Barczyk <robert@barczyk.net>
+ * @param {storage} $localStorage 
+ * @param {$http} $http
+ */
+angular.module('ukfn')
+    .controller('talksController', function ($http, $localStorage) {
+        // this scope name
+        var controller = this;
+        controller.$storage = $localStorage;
+
+        // filter types
+        controller.filterAggregators = [];
+        controller.types = 
+                {
+                    'Recording': false, 
+                    'Streaming': false
+                };
+
+        // aggregator objects are added here from multiselect
+        controller.filterAggregatorsLookup = [];
+        
+        // aggregators for this talks set
+        controller.thisAggregators = [];
+
+        /**
+         * Get all future talks
+         * 
+         * @author Robert Barczyk <robert@barczyk.net>  
+         * @returns {json}
+         */
+        (function () {
+            $http(
+                {
+                    method: 'GET',
+                    url: '/api/talks'
+                }
+            ).then(function (response) {
+                controller.talks = response.data;
+
+                var lookup = {};
+
+                // get uniqe aggregators for this set of talks
+                for (var i = 0; i < controller.talks.length; i++)  {
+                    var aggregator = controller.talks[i].name;
+                    var aggregatorId = controller.talks[i].aggregator_id;
+                    if (!(aggregator in lookup)) {
+                        lookup[aggregator] = true;
+                        controller.thisAggregators.push({id: aggregatorId, label: aggregator});
+                    }                        
+                }
+            });
+        })();
+       
+        controller.selectizeConfig = {
+            create: false,
+            plugins: ['remove_button'],
+            delimiter: ',',
+            searchField: 'label',
+            framework: 'bootstrap',
+            valueField: 'id',
+            labelField: 'label',
+            placeholder: 'Select feed'
+          };
+    });
+
+/**
+ * Talks filter
+ * @author Robert Barczyk <robert@barczyk.net>
+ */
+angular.module('ukfn').filter('allTalksFilter', function() {
+    /**
+     * Filter all talks
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param {array} items
+     * @param {object} types
+     * @param {array} filterAggregators
+     * @returns {array}
+     */
+    return function( items, types, filterAggregators) {
+        var filtered = [];
+    
+        angular.forEach(items, function(item) {
+            // if everything is unticked
+            if (!types['Streaming'] && !types['Recording'] && filterAggregators.length === 0) {
+                filtered.push(item);
+            }
             
-            controller.dispAll = function() {
-                controller.displayAll = true;
-            };
+            // if recording and streaming is unticked but one of the aggregators is selected
+            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+                filtered.push(item);
+            }
             
-            // default UK map coordinates
-            controller.map =
-                    {
-                        'latitude'  : '54.8',
-                        'longtitude': '-4.40'
-                    };
-                             
-            controller.options = {
-                styles: [
-                    {
-                        "featureType":"administrative",
-                        "elementType":"all",
-                        "stylers":[
-                            {"saturation":"-100"}
-                        ]
-                    }, 
-                    {
-                        "featureType":"administrative.province",
-                        "elementType":"all",
-                        "stylers":[{"visibility":"off"}]
-                    },
-                    {
-                        "featureType":"landscape",
-                        "elementType":"all",
-                        "stylers":[
-                            {"saturation":-100},
-                            {"lightness":65},
-                            {"visibility":"on"}
-                        ]
-                    },
-                    {
-                        "featureType":"poi",
-                        "elementType":"all",
-                        "stylers":[
-                            {"saturation":-100},
-                            {"lightness":"50"},
-                            {"visibility":"simplified"}
-                        ]
-                    },
-                    {
-                        "featureType":"road",
-                        "elementType":"all",
-                        "stylers":[{"saturation":"-100"}]
-                    },
-                    {
-                        "featureType":"road.highway",
-                        "elementType":"all",
-                        "stylers":[{"visibility":"simplified"}]
-                    },
-                    {
-                        "featureType":"road.arterial",
-                        "elementType":"all",
-                        "stylers":[{"lightness":"30"}]
-                    },
-                    {
-                        "featureType":"road.local",
-                        "elementType":"all",
-                        "stylers":[{"lightness":"40"}]
-                    },
-                    {
-                        "featureType":"transit",
-                        "elementType":"all",
-                        "stylers":[
-                            {"saturation":-100},
-                            {"visibility":"simplified"}
-                        ]
-                    },
-                    {
-                        "featureType":"water",
-                        "elementType":"geometry",
-                        "stylers":[
-                            {"hue":"#ffff00"},
-                            {"lightness":-25},
-                            {"saturation":-97}
-                        ]
-                    },
-                    {
-                        "featureType":"water",
-                        "elementType":"labels",
-                        "stylers":[
-                            {"lightness":-25},
-                            {"saturation":-100}
-                        ]
-                    }
-                ]
-            };
+            // recording only ticked
+            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.length === 0) {
+                filtered.push(item);
+            } 
+            
+            // streaming only ticked
+            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.length === 0) {
+                filtered.push(item);
+            }
+            
+            // if streaming and recording is ticked
+            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.length === 0) {
+                filtered.push(item);
+                
+            }
+
+            // if streaming and recording is ticked and at least one of the aggreagators
+            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+                filtered.push(item);   
+            }
+            
+            // if streaming is ticked and one of the aggregators 
+            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+                filtered.push(item);
+            }
+            
+            // if recording is ticked and one of the aggregators 
+            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+                filtered.push(item);
+            }
         });
+        return filtered;
+    };
+});

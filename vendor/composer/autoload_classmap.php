@@ -7,6 +7,7 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'AddDisciplinesTags' => $baseDir . '/database/migrations/2016_11_06_145513_add_disciplines_tags.php',
+    'AlterAggregators' => $baseDir . '/database/migrations/2017_01_21_120723_alter_aggregators.php',
     'AlterInstitutions' => $baseDir . '/database/migrations/2016_10_29_114949_alter_institutions.php',
     'AlterInstitutionsMakenullable' => $baseDir . '/database/migrations/2016_11_05_120939_alter_institutions_makenullable.php',
     'AlterLogsUsers' => $baseDir . '/database/migrations/2016_11_05_140502_alter_logs_users.php',
@@ -20,8 +21,11 @@ return array(
     'AlterTagsMakeModeratedNullable' => $baseDir . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
     'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
     'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
+    'AlterTalksTableWithAggregator' => $baseDir . '/database/migrations/2017_01_07_113116_alter_talks_table_with_aggregator.php',
+    'AlterTalksTableWithInstitution' => $baseDir . '/database/migrations/2017_01_22_161458_alter_talks_table_with_institution.php',
     'AlterUsersAddOrcidid' => $baseDir . '/database/migrations/2016_11_05_105357_alter_users_add_orcidid.php',
     'CreateAddressesTable' => $baseDir . '/database/migrations/2016_08_14_000009_create_addresses_table.php',
+    'CreateAggregatorsTable' => $baseDir . '/database/migrations/2017_01_07_112829_create_aggregators_table.php',
     'CreateCommentTagsTable' => $baseDir . '/database/migrations/2016_08_14_000030_create_comment_tags_table.php',
     'CreateCommentsTable' => $baseDir . '/database/migrations/2016_08_14_000024_create_comments_table.php',
     'CreateCountiesTable' => $baseDir . '/database/migrations/2016_08_14_000002_create_counties_table.php',

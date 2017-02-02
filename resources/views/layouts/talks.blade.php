@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 
-    <div class="container-fluid nopadding">
+    <div class="container-fluid nopadding" ng-controller="talksController as talkCtrl">
         <div class="row">
             <div class="col-lg-7 col-md-7">
                 @yield('talkscontent')

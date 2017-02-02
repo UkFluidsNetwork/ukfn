@@ -157,4 +157,20 @@ class InstitutionsController extends Controller
     {
         return Institution::all()->toJson();
     }
+    
+    /**
+     * Return array of institution_id => name
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return array
+     */
+    public static function getSelect()
+    {
+        $institutions = Institution::all();
+        $foramated = [];        
+        foreach ($institutions as $institution) {
+            $foramated[$institution->id] = $institution->name;
+        }
+        return $foramated;
+    }
 }
