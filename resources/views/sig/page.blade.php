@@ -16,7 +16,7 @@
 </div>
 
 <h2 class="text-danger line-break">
-    {{ Html::link('/sig/map/' . $sig->shortname, '', ['class'=> 'text-danger glyphicon glyphicon-map-marker text-no-decoration']) }}
+    {{ Html::link('/sig/' . $sig->shortname . '/map/', '', ['class'=> 'text-danger glyphicon glyphicon-map-marker text-no-decoration']) }}
     {{ $sig->name }}
 </h2>
 

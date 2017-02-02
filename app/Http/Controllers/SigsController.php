@@ -14,19 +14,6 @@ use SEO;
 class SigsController extends Controller
 {
 
-    public function index()
-    {
-        SEO::setTitle('Special Interest Groups');
-        SEO::setDescription('UKFN is pleased to invite proposals for the second round of Special Interest Groups. '
-            . 'The call is open to anyone working in fluid mechanics in the UK.');
-
-        $sigs = Sig::all();
-        $allSuggestions = Suggestion::getAllSuggestions();
-        $totalSuggestions = count($allSuggestions);
-
-        return view('sig.index', compact('sigs', 'allSuggestions', 'totalSuggestions'));
-    }
-
     /**
      * Render the SIG overview map
      * 
@@ -40,7 +27,7 @@ class SigsController extends Controller
 
         $selectedSigId = $slug ? self::getIdBySlug($slug) : 0;
         
-        return view('sig.map', compact('selectedSigId'));
+        return view('sig.index', compact('selectedSigId'));
     }
 
     /**
@@ -251,6 +238,10 @@ class SigsController extends Controller
         SEO::setTitle($sig->name);
         SEO::setDescription($sig->description);
 
+        if ($page === 'map') {
+            return $this->map($slug);
+        }
+        
         // define the selected tab
         $tabs = ['home', 'members'];
         if (!in_array($page, $tabs)) {
