@@ -257,6 +257,9 @@ class SigsController extends Controller
             $page = 'home';
         }
         
+        // temporary so that tweets are displayed
+        $sig->twitterurl = $sig->twitterurl ? : 'UKFluidsNetwork';
+        
         // get tweet feeds
         $tweets = [];
         if ($sig->twitterurl) {
