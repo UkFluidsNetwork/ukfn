@@ -52,23 +52,9 @@
         <!-- end of favicon -->
     </head>
     <body ng-app="ukfn">
-        <div class="container-fluid" id="top-content">
-            <div class="row">
-                <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-2 col-sm-1 col-xs-1">
-                            <img src="{{ asset('pictures/logo.png') }}" class="logo">
-                        </div>
-                        <div class="col-lg-8 col-md-10 col-sm-11 col-xs-11 text-right h1 text-uppercase text-muted">
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+       
         <!-- TOP NAV - START -->
-        <img src="{{ asset('pictures/beta.png') }}" border="0" width="150" height="130" style="position:absolute; right:0px; top:0px; margin:0px; padding:0px; z-index:100;">
-        <div data-spy="affix" data-offset-top="130">
+        <div data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
                 <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12" >
                     <div class="navbar-header">
@@ -78,12 +64,12 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="{{ URL::to('/')}}">
-                            <span class="glyphicon glyphicon-home"></span>
+                            <img src="{{ asset('pictures/logo.png') }}" class="logo">
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="top-nav-bar">
                         <ul class="nav navbar-nav">
-                            <li class="{{ Request::is('sig') ? 'active' : '' }}">
+                            <li class="{{ Request::is('sig*') ? 'active' : '' }}">
                                 {{ Html::link('/sig', 'SIG') }}
                             </li>
                             <li class="{{ Request::is('srv*') ? 'active' : '' }}">

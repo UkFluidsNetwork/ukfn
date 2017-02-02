@@ -170,6 +170,52 @@ ADMIN
   padding-top                         : 50px;
 }
 
+.affix > nav > .container-fluid > #top-nav-bar > .nav.navbar-nav {
+    margin-top: 17px !important;
+}
+
+.affix > nav > .container-fluid > .navbar-header > .navbar-brand > img {
+    height: 60px !important;
+}
+
+.navbar-header {
+    height: auto !important;
+}
+
+.navbar-brand {
+    padding: 0px 15px !important;
+    height: auto !important;
+}
+
+.nav.navbar-nav {
+    margin-top: 35px !important;
+}
+
+.navbar-default
+.navbar-nav > li > a {
+    color: #000 !important;
+}
+
+.navbar-default
+.navbar-nav > li > a:focus,
+.navbar-default
+.navbar-nav > li > a:hover {
+    color: $ukfn-darkblue !important;
+}
+
+.navbar-default
+.navbar-nav > .active > a,
+.navbar-default
+.navbar-nav > .active > a:focus,
+.navbar-default
+.navbar-nav > .active > a:hover {
+    color: $ukfn-darkblue !important;
+    background-color: transparent !important;
+}
+
+.navbar-toggle {
+    margin-top: 23px !important;
+}
 
 /********************************************************************
   TOP 
@@ -182,8 +228,8 @@ ADMIN
   background-repeat                   : no-repeat;
 }
 .logo {
-  margin-top                          : 15px;
-  margin-bottom                       : 15px;
+  margin-top                          : 10px;
+  margin-bottom                       : 10px;
   height                              : 100px;
   
 }
@@ -194,7 +240,7 @@ ADMIN
 ********************************************************************/
 
 #main-content {
-  margin-top                          : 50px;
+  margin-top                          : 30px;
   margin-bottom                       : 150px;
 }
 /* custom red hyperlink */
@@ -253,34 +299,6 @@ footer {
     color: #fff;
 }
 
-
-
-
-/* Pictures for carousel 
-#car1 {
-    background-image                    : url("../pics/pic1.jpg");    
-    height                              : 300px;
-    background-repeat                   : no-repeat;
-}
-
-#car2 {
-    background-image                    : url("../pics/pic2.jpg");    
-    height                              : 300px;
-    background-repeat                   : no-repeat;
-}
-
-#car3 {
-    background-image                    : url("../pics/pic3.jpg");    
-    height                              : 300px;
-    background-repeat                   : no-repeat;
-}
-
-#car4 {
-    background-image                    : url("../pics/pic4.jpg");    
-    height                              : 300px;
-    background-repeat                   : no-repeat;
-}*/
-
 @media only screen and (max-width: 1400px) and (min-width:1200px) {
   .hide-this {
     display: none;
@@ -290,6 +308,14 @@ footer {
 @media only screen and (max-width: 1000px) and (min-width:0px) {
   .hide-this {
     display: none;
+  }
+  
+  #top-nav-bar > .nav.navbar-nav {
+    margin-top: 17px !important;
+  }
+
+  .navbar-brand > img {
+    height: 60px !important;
   }
 }
 
