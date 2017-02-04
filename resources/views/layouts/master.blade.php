@@ -14,17 +14,19 @@
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
-        <script src="{{ asset('js/jquery-2.2.4.min.js')}}"></script>
+
+        <script src="{{ asset('js/vendor/jquery/jquery.min.js')}}"></script>
         <script src="{{ asset('js/vendor/angular/angular.min.js')}}"></script>
         <script src="{{ asset('js/vendor/angular-messages/angular-messages.min.js')}}"></script>
         <script src="{{ asset('js/vendor/ngstorage/ngStorage.min.js')}}"></script>
         <script src="{{ asset('js/vendor/ngmap/build/scripts/ng-map.min.js')}}"></script>
+
         <script src="{{ asset('js/bootstrap.min.js')}}"></script>
         <script src="{{ asset('js/analytics.js')}}"></script>
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/angApp.js')}}"></script>
         <script src="{{ asset('js/angCtrl.js')}}"></script>
-        <script src="{{ asset('js/bootstrap-select.min.js')}}"></script>
+       
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <script src="{{ asset('/js/vendor/angular-selectize2/dist/selectize.js')}}"></script>
         <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>               
@@ -54,7 +56,7 @@
     <body ng-app="ukfn">
        
         <!-- TOP NAV - START -->
-        <div data-spy="affix" data-offset-top="40">
+        <div id="menu-bar" data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
                 <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12" >
                     <div class="navbar-header">

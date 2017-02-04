@@ -10,6 +10,7 @@
     "bootstrap-sass": "^3.0.0"
   },
   "dependencies": {
+    "jquery": "2.2.4",
     "angular": "~1.5.8",
     "angular-messages": "~1.5.8",
     "angular-selectize2": "^1.2.3",

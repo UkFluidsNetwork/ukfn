@@ -15,7 +15,7 @@
           <th class="hide-this">Category</th>
           <th class="hide-this">Created</th>
           <th>Updated</th>
-          <th>Action</th>
+          <th colspan="2">Action</th>
         </tr>
       </thead>
       <tbody>
