@@ -31,10 +31,8 @@ class TalksController extends Controller
         self::setSEODescription();
 
         $talksRSS = Aggregator::getAggregators();
-        
-        $talksMenu = $this->talksWeekMenu();
 
-        return view('talks.index', compact('talksRSS', 'talksMenu'));
+        return view('talks.index', compact('talksRSS'));
     }
 
     /**
@@ -46,8 +44,6 @@ class TalksController extends Controller
      */
     public function view($id)
     {
-        $talksMenu = $this->talksWeekMenu();
-
         $talk = Talk::findOrFail($id);
         $talk->when = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
         
@@ -56,36 +52,7 @@ class TalksController extends Controller
         $displayRecording = self::displayRecording($talk->recordinguntil);
         $displayStreaming = self::displayRecording($talk->start, $talk->end, true);
         
-        return view('talks.view', compact('talk', 'talksMenu', 'displayRecording', 'displayStreaming', 'aggregator'));
-    }
-    
-    /**
-     * Get menu talks menu items
-     * @return array    ['talksMenu'] = array, ['menuHeader'] = string
-     * @access public
-     * @author Robert Barczyk <robert@barczyk.net>
-     */
-    public function talksWeekMenu()
-    {
-        $weeklyTalks = Talk::getTalksThisWeek();
-        $menuHeader = "Talks this week";
-
-        if (empty($weeklyTalks)) {
-            $weeklyTalks = Talk::getTalksNextWeek();
-            $menuHeader = "Talks next week";
-        }
-
-        if (empty($weeklyTalks)) {
-            $weeklyTalks = Talk::getUpcomingTalks();
-            $menuHeader = "Upcoming talks";
-        }
-
-        $talksMenu = self::formatTalks($weeklyTalks);
-
-        return [
-            "talks" => $talksMenu,
-            "header" => $menuHeader
-        ];
+        return view('talks.view', compact('talk', 'displayRecording', 'displayStreaming', 'aggregator'));
     }
 
     /**
@@ -261,16 +228,6 @@ class TalksController extends Controller
                 return false;
             }
         }        
-    }
-    
-    /**
-     * Get weekly talks
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @return Json
-     */
-    public function getTaksJsonMenu()
-    {
-        return response()->json($this->talksWeekMenu());
     }
     
     /**

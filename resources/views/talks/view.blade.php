@@ -1,5 +1,5 @@
-@extends('layouts.talks')
-@section('talkscontent')
+@extends('layouts.master')
+@section('content')
 
         <section class="line-break-dbl">
             <h3 class="text-danger line-break">{{ $talk->title }}</h3>
