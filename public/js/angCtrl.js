@@ -200,7 +200,7 @@ angular.module('ukfn')
  * @param {$http} $http
  */
 angular.module('ukfn')
-    .controller('talksController', function ($http, $localStorage) {
+    .controller('talksController', function ($http, $localStorage, $sce) {
         // this scope name
         var controller = this;
         controller.$storage = $localStorage;
@@ -243,7 +243,11 @@ angular.module('ukfn')
                     if (!(aggregator in lookup)) {
                         lookup[aggregator] = true;
                         controller.thisAggregators.push({id: aggregatorId, label: aggregator});
-                    }                        
+                    }
+                    
+                    if (controller.talks[i].recordingurl) {
+                        controller.talks[i].recordingurl = $sce.trustAsResourceUrl(controller.talks[i].recordingurl);
+                    }
                 }
             });
         })();

@@ -26,10 +26,11 @@
                     <i class="glyphicon glyphicon-info-sign margin-right"></i> Could not find talks matching your criteria.
                 </div>
                 <!-- no match message - end -->
-                
+
                 <!-- all talks list - start -->
                 <div class='panel panel-default' ng-repeat="talk in filteredTalks = (talkCtrl.talks | allTalksFilter: talkCtrl.types : talkCtrl.filterAggregators)">
-                    <a  ng-href="/talks/view/ @{{talk.id}}" class="list-group-item noborder panel-body">
+                    <a  ng-href="#collapse_@{{talk.id}}" data-toggle='collapse' class="noborder list-group-item panel-body accordion-toggle">
+                            <i class='icon-chevron-down'></i>
                         <span class="display-block text-danger">
                             <div class="panel-title line-break-half">
                                @{{ talk.title }}
@@ -68,6 +69,21 @@
                             <span class="display-table-cell">Live Streaming</span>
                         </span>
                     </a>
+                    <div ng-attr-id="@{{ 'collapse_' + talk.id }}" class='accordion-body collapse padding'>
+                        <div class="line-break">
+                            @{{ talk.abstract }}
+                        </div>
+                        <div class="pull-right" style="margin-top:-10px;">
+                            <a ng-href="/talks/@{{talk.id}}" target="_blank" title="Open in a new tab">
+                                <span class="glyphicon glyphicon-new-window"></span> Open in a new tab
+                            </a>
+                        </div>
+                        <div ng-if="talk.recordingurl" class="line-break-dbl-top">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" ng-src="@{{talk.recordingurl}}" scrolling="no" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <!-- all talks list - end -->
             </div>

@@ -111,6 +111,9 @@ body {
 .display-block {
   display: block; }
 
+.padding {
+  padding: 15px; }
+
 .nopadding {
   padding: 0 !important;
   margin: 0 !important; }
