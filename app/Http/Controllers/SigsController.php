@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Sig;
 use App\Tag;
 use App\User;
@@ -60,23 +61,39 @@ class SigsController extends Controller
     /**
      * Edit sigs
      * @author Javier Arias <ja573@cam.ac.uk>
+     * @author Robert Barczyk <robert@barczyk.net>
      * @access public
      * @param int $id
      * @return void
      */
     public function edit($id)
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
+        $sigLeader = Auth::user()->sigLeader();
+                        
+        // if requested SIG is not associated with this user
+        if (!in_array((int)$id, $sigLeader)) {
+            if (!PanelController::checkIsAdmin()) {
+                return redirect('/');
+            } else {
+                $bread = [
+                    ['label' => 'Panel', 'path' => '/panel'],
+                    ['label' => 'SIG', 'path' => '/panel/sig'],
+                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+                ];        
+            }
+        } elseif (Auth::user()->group_id != 1) {
+            $bread = [
+                ['label' => 'My SIG', 'path' => '/panel/sig/edit/'.$sigLeader[0]],
+            ];
+        } else {
+            $bread = [
+                    ['label' => 'Panel', 'path' => '/panel'],
+                    ['label' => 'SIG', 'path' => '/panel/sig'],
+                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+                ];        
         }
 
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'SIG', 'path' => '/panel/sig'],
-            ['label' => 'Edit', 'path' => '/panel/sig/edit'],
-        ];
         $breadCount = count($bread);
-
         $sig = Sig::findOrFail($id);
         $sigTags = $sig->getTagIds();
         $sigInstitutions = $sig->getInstitutionIds();
@@ -114,7 +131,12 @@ class SigsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/panel/sig');
+
+        if (!empty(Auth::user()->sigLeader())) {
+            return redirect('/panel/sig/edit/'.$id);
+        } else {
+            return redirect('/panel/sig');    
+        }
     }
 
     /**

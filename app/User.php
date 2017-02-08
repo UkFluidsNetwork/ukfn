@@ -110,7 +110,7 @@ class User extends Authenticatable
     {
         return $this->belongsToMany('App\Sig', 'sig_users')->withTimestamps();
     }
-
+    
     /**
      * Get the tags associated with the given user
      * 
@@ -201,5 +201,32 @@ class User extends Authenticatable
     public function getInstitutionIds()
     {
         return $this->institutions->lists('id')->toArray();
+    }
+
+    public function sigLeader()
+    {
+        $userSigLeader = [];
+        $userSigs = $this->sigs; 
+        // get SIGs that user is associated with
+        if (!empty($userSigs)) {
+
+            foreach ($userSigs as $sig) {
+            
+                $thisSig = Sig::findOrFail($sig->id);
+                $thisSig->getLeaderId();
+
+                if (!empty($thisSig->leader[0])) {
+                    $thisSigLeader = $thisSig->leader[0]->id;
+
+                    if ($this->id === $thisSigLeader) {
+                        $userSigLeader[] = $thisSig->id;
+                    }
+                }
+            
+            }
+        }
+    
+        return $userSigLeader;    
+        
     }
 }

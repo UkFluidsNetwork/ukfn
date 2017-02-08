@@ -51,8 +51,7 @@
         <link rel="manifest" href="{{ asset('/manifest.json') }}">
         <!-- end of favicon -->
     </head>
-    <body ng-app="ukfn">
-       
+    <body ng-app="ukfn"> 
         <!-- TOP NAV - START -->
         <div data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
@@ -102,6 +101,13 @@
                                             Admin Panel
                                         </a>
                                     </li>
+                                    @elseif(Auth::user()->sigLeader())
+                                    <li>
+                                        <a href='{{ URL::to('/panel/sig/edit/'.Auth::user()->sigLeader()[0]) }}'>
+                                            <span class="glyphicon glyphicon-wrench margin-right"></span>
+                                            Edit My SIG
+                                        </a>
+                                    </li>
                                     @endif
                                     <li>
                                         <a href='{{ URL::to('/myaccount') }}'>
@@ -109,7 +115,6 @@
                                             My Account
                                         </a>
                                     </li>
-<!--                                    <li role="separator" class="divider"></li>-->
                                     <li>
                                         <a href="{{ URL::to('/logout') }}">
                                             <span class="glyphicon glyphicon-log-out margin-right"></span>

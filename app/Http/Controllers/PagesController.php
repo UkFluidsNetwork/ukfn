@@ -8,6 +8,7 @@ use App\User;
 use App\Title;
 use App\Tag;
 use App\Institution;
+use App\Sig;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\PreferencesRequest;
 use App\Http\Requests\PersonalDetailsRequest;
@@ -55,7 +56,6 @@ class PagesController extends Controller
         // get tweets to display
         $tweets = self::getTweets('UKFluidsNetwork');
         $totalTweets = count($tweets);
-
         return view('pages.index', compact('news', 'events', 'tweets', 'totalTweets'));
     }
 

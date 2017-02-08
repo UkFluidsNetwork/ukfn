@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Http\Requests;
-
+use Auth;
 use App\Http\Requests\Request;
 use App\Http\Controllers\PanelController;
 
@@ -17,8 +17,16 @@ class SigsFormRequest extends Request
     public function authorize()
     {
         $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return false;
+        $sigLeader = Auth::user()->sigLeader();
+        
+        // if not leader of this sig
+        if (empty($sigLeader)) {
+            // if not admin
+            if (!$admin->checkIsAdmin()) {
+                return false;
+            } else {
+                return true;
+            }
         } else {
             return true;
         }
