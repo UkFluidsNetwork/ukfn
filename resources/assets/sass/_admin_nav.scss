@@ -1,16 +1,22 @@
 /* parrent */
 .admin-panel-sidebar {
-    padding-top: 20px;
+    padding-top: 22px;
     background-color: white;
 }
 
 /* all links */
 .admin-panel-sidebar .nav>li>a {
     color: #999;
-    padding: 4px 20px;
+    padding: 4px 20px 4px 0;
     font-size: 1em;
     font-weight: 400;
-    border-left: transparent 1px solid;
+    border-right: transparent 1px solid;
+    display: block !important;
+    word-wrap: break-word;
+}
+
+#admin-side-bar > ul {
+    padding-right: 0 !important;
 }
 
 /* all links in hover and focus */
@@ -20,21 +26,21 @@
 }
 /* link on mouse over */
 .admin-panel-sidebar .nav>li>a:hover {
-    border-left: $ukfn-darkblue 1px solid;
+    border-right: $ukfn-darkblue 1px solid;
 }
 
 /* nested links - submenu */
 .admin-panel-sidebar .nav .nav>li>a {
     padding-top: 1px;
     padding-bottom: 1px;
-    padding-left: 30px;
+    padding-left: 15px;
     font-size: 0.85em;
 }
 
 /* active links - menu items */
 .admin-panel-sidebar .nav>li>a.active {  
     color: $ukfn-darkblue !important; 
-    border-left: $ukfn-darkblue 2px solid;
+    border-right: $ukfn-darkblue 2px solid;
 }
 
 /* hide all (inactive) nested list */
@@ -48,9 +54,9 @@
 
 /* collapsed menu item ovveride*/
 #admin-nav-mobile {
-	margin-right: 0 !important;
-  	margin-top: 8px !important;
-  	background-color: transparent;
+    margin-right: 0 !important;
+    margin-top: 8px !important;
+    background-color: transparent;
     border: 1px solid #ddd;
     text-align: left;
 } 

@@ -67,16 +67,21 @@ img.sig-map-image {
 
 /* parrent */
 .admin-panel-sidebar {
-  padding-top: 20px;
+  padding-top: 22px;
   background-color: white; }
 
 /* all links */
 .admin-panel-sidebar .nav > li > a {
   color: #999;
-  padding: 4px 20px;
+  padding: 4px 20px 4px 0;
   font-size: 1em;
   font-weight: 400;
-  border-left: transparent 1px solid; }
+  border-right: transparent 1px solid;
+  display: block !important;
+  word-wrap: break-word; }
+
+#admin-side-bar > ul {
+  padding-right: 0 !important; }
 
 /* all links in hover and focus */
 .admin-panel-sidebar .nav > li > a:hover,
@@ -85,19 +90,19 @@ img.sig-map-image {
 
 /* link on mouse over */
 .admin-panel-sidebar .nav > li > a:hover {
-  border-left: #1B75BB 1px solid; }
+  border-right: #1B75BB 1px solid; }
 
 /* nested links - submenu */
 .admin-panel-sidebar .nav .nav > li > a {
   padding-top: 1px;
   padding-bottom: 1px;
-  padding-left: 30px;
+  padding-left: 15px;
   font-size: 0.85em; }
 
 /* active links - menu items */
 .admin-panel-sidebar .nav > li > a.active {
   color: #1B75BB !important;
-  border-left: #1B75BB 2px solid; }
+  border-right: #1B75BB 2px solid; }
 
 /* hide all (inactive) nested list */
 .admin-panel-sidebar .nav ul.nav {

@@ -77,7 +77,7 @@
                {{ Request::is('panel/sendmail*', 'panel/subscriptions*', 'panel/messages*') ? 'active' : '' }}">Mailing</a>
             <ul id='admin-subnav-mailing' class='nav nav-stacked' >
                 <li><a href="{{ URL::to('panel/sendmail') }}" class="{{ Request::is('panel/sendmail') ? 'active' : '' }}">Send Mail</a></li>
-                <li><a href="{{ URL::to('panel/subscriptions') }}" class="{{ Request::is('panel/subscriptions/') ? 'active' : '' }}">Subscriptions</a></li>
+                <li><a href="{{ URL::to('panel/subscriptions') }}" class="{{ Request::is('panel/subscriptions') ? 'active' : '' }}">Subscriptions</a></li>
             </ul>
         </li>
     </ul> 
