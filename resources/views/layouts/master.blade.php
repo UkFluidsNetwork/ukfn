@@ -105,7 +105,7 @@
                                     <li>
                                         <a href='{{ URL::to('/panel/sig/edit/'.Auth::user()->sigLeader()[0]) }}'>
                                             <span class="glyphicon glyphicon-wrench margin-right"></span>
-                                            Edit My SIG
+                                            Manage SIG
                                         </a>
                                     </li>
                                     @endif

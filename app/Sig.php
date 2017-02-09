@@ -15,7 +15,7 @@ class Sig extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'shortname', 'description'
+        'name', 'shortname', 'description', 'bigimage', 'smallimage', 'twitterurl'
     ];
 
     /**
