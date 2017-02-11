@@ -1,10 +1,28 @@
 @extends('layouts.master')
 @section('content')
 
+    <h2 class='line-break'>Talks</h2>
     <div class="container-fluid nopadding" ng-controller="talksController as talkCtrl">
         <div class="row">
-            <div class="col-lg-7 col-md-7">
-                <h2 class='line-break'>Talks</h2>
+            <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-md-push-7">
+                <!-- Filters - start -->
+                <div id="talks-filters" class="bs-callout bs-callout-info container-fluid">
+                    <h4>Filter talks</h4>
+                    <div class='nopadding full-width'>     
+                        <label for="aggr_multiselect" class="sr-only"></label>
+                        <selectize id="aggr_multiselect" options='talkCtrl.thisAggregators' config='talkCtrl.selectizeConfig' ng-model="talkCtrl.filterAggregators"></selectize>
+                    </div>
+                    <div class='form-inline col-lg-6 col-md-6 col-sm-6 nopadding-left'>
+                        <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
+                            <label>
+                                <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+                <!-- Filters - end -->
+            </div>
+            <div id="talks-col" class="col-lg-7 col-md-7 col-md-pull-5 axis-y">
                 <div class="well">
                     <p>
                         All the talks listed in this section are imported from the 
@@ -87,24 +105,6 @@
                     </div>
                 </div>
                 <!-- all talks list - end -->
-            </div>
-            <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1">
-                <div id="talks-filters" class="bs-callout bs-callout-info container-fluid" style="min-height: 180px;">
-                    <h4>Filter talks</h4>
-                    <!-- Filters - start -->
-                    <div class='nopadding full-width'>     
-                        <label for="aggr_multiselect" class="sr-only"></label>
-                        <selectize id="aggr_multiselect" options='talkCtrl.thisAggregators' config='talkCtrl.selectizeConfig' ng-model="talkCtrl.filterAggregators"></selectize>
-                    </div>
-                    <div class='form-inline col-lg-6 col-md-6 col-sm-6 nopadding-left'>
-                        <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
-                            <label>
-                                <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
-                            </label>
-                        </div>
-                    </div>
-                    <!-- Filters - end -->
-                </div>
             </div>
         </div>
     </div>

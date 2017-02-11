@@ -12,6 +12,7 @@ a.list-group-item.talk:focus {
   outline: 0 !important; }
 
 #talks-filters {
+  background-color: white !important;
   position: fixed !important;
   width: 30% !important;
   top: 214px !important;
@@ -329,7 +330,14 @@ footer {
   #top-nav-bar > .nav.navbar-nav {
     margin-top: 17px !important; }
   .navbar-brand > img {
-    height: 60px !important; } }
+    height: 60px !important; }
+  #talks-filters {
+    position: relative !important;
+    width: 98.5% !important;
+    top: 0 !important;
+    min-height: 150px !important; }
+  #talks-col {
+    height: 58vh !important; } }
 
 .text-left {
   text-align: left !important; }
