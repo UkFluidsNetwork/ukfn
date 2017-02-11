@@ -3,6 +3,11 @@
     font-style: italic;
 }
 
+a.list-group-item.talk:focus {
+    background-color: transparent !important;
+    outline: 0 !important;
+}
+
 #talks-filters {
     position: fixed !important;
     width: 30% !important;

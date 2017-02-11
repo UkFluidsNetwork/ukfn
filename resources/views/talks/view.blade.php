@@ -11,7 +11,7 @@
 
             <div class="line-break-dbl-top">
                 
-                @if ($talk->recordingurl && $displayRecording)
+                @if ($talk->recordingurl)
 
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="{{ $talk->recordingurl }}" scrolling="no" frameborder="0" allowfullscreen></iframe>

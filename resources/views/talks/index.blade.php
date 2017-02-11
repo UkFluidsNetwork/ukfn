@@ -29,8 +29,9 @@
 
                 <!-- all talks list - start -->
                 <div class='panel panel-default' ng-repeat="talk in filteredTalks = (talkCtrl.talks | allTalksFilter: talkCtrl.types : talkCtrl.filterAggregators)">
-                    <a  ng-href="#collapse_@{{talk.id}}" data-toggle='collapse' class="noborder list-group-item panel-body accordion-toggle">
-                            <i class='icon-chevron-down'></i>
+                    <a  ng-href="#collapse_@{{talk.id}}" ng-click="isCollapsed = !isCollapsed" data-toggle='collapse' 
+                        class="noborder list-group-item talk panel-body accordion-toggle">
+                        <i ng-class="{'glyphicon-chevron-down': isCollapsed, 'glyphicon-chevron-up': !isCollapsed}" class='glyphicon pull-right'></i>
                         <span class="display-block text-danger">
                             <div class="panel-title line-break-half">
                                @{{ talk.title }}
