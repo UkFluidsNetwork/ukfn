@@ -1,7 +1,8 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-  <h2 class='line-break'>Users</h2>
+  <h2 class='line-break'>Users {{ Html::link('/panel/users/export/', "Export", ["class" => "btn btn-default pull-right"])}}</h2>
+  
   <div class="table-responsive">
     <table class='table' id="view_sigs_suggestions">
       <thead>

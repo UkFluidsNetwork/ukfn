@@ -196,4 +196,28 @@ class UsersController extends Controller
         }
         return redirect('/panel/users');
     }
+    
+    /**
+     * Full list of users to export to CSV
+     * 
+     * @return void
+     */
+    public function export()
+    {
+        $admin = new PanelController();
+        if (!$admin->checkIsAdmin()) {
+            return redirect('/');
+        }
+        
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Users', 'path' => '/panel/users'],
+            ['label' => 'Export', 'path' => '/panel/users/export'],
+        ];
+        $breadCount = count($bread);
+        
+        $users = User::all();
+
+        return view('panel.users.export', compact('users', 'bread', 'breadCount'));
+    }
 }

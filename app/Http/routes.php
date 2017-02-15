@@ -54,6 +54,7 @@ Route::get('panel/titles', 'TitlesController@view')->middleware('auth');
 Route::get('panel/titles/add', 'TitlesController@add')->middleware('auth');
 Route::get('panel/titles/edit/{id}', 'TitlesController@edit')->middleware('auth');
 Route::get('panel/users', 'UsersController@view')->middleware('auth');
+Route::get('panel/users/export', 'UsersController@export')->middleware('auth');
 Route::get('panel/users/add', 'UsersController@add')->middleware('auth');
 Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('auth');
 Route::get('panel/sig', 'SigsController@view')->middleware('auth');
