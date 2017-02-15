@@ -70,6 +70,14 @@
     </p>
   </div>
 </section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Set of values</p>
+    <p class="line-break-dbl-top">
+     <a href="{{ asset('files/UKFN_set_of_values_170110.pdf') }}">Set of values underpinning the running of the UK Fluids Network</a>
+    </p>
+  </div>
+</section>
 @if($totalListEmails)
 <section class="page-header">
   <div>
