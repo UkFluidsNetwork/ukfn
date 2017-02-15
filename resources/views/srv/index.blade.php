@@ -12,7 +12,7 @@
       <a href="{{ asset('files/UKFN_SRVs_call_Rev.161212.pdf') }}">[UKFN_SRVs_call_Rev.161212.pdf]</a>
     </p>
     <p>
-      Proposals will be assessed in batches every 4 months. The next deadline is 31 January 2017.
+      Proposals will be assessed in batches every 4 months. The next deadline is 31 May 2017.
     </p>
   </div>
 

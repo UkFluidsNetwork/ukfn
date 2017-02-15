@@ -4,6 +4,19 @@
 <h2 class='line-break'>Admin</h2>
 <section class="page-header">
   <div>
+    <p class="h4 text-danger">Proposal documents</p>
+    <p class="line-break-dbl-top">
+    <ul>
+      <li><a href="{{ asset('files/UKFN_CfS_151020.pdf') }}">Case for Support</a></li>
+      <li><a href="{{ asset('files/UKFN_CfS_Gantt_151102.pdf') }}">Workplan</a></li>
+      <li><a href="{{ asset('files/UKFN_PtI__151020.pdf') }}">Pathways to Impact</a></li>
+      <li><a href="{{ asset('files/UKFN_JoR_151020.pdf') }}">Justification of Resources</a></li>
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
     <p class="h4 text-danger">Grants on the Web</p>
     <p class="line-break-dbl-top">
       Web pages giving details of the EPSRC grant for UK Fluids Network.
@@ -14,19 +27,6 @@
       <li>Leeds: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/P000851/1') }}</li>
       <li>Manchester: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032411/1') }}</li>
       <li>Southampton: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032152/1') }}</li>
-    </ul>
-    </p>
-  </div>
-</section>
-<section class="page-header">
-  <div>
-    <p class="h4 text-danger">Proposal documents</p>
-    <p class="line-break-dbl-top">
-    <ul>
-      <li><a href="{{ asset('files/UKFN_CfS_151020.pdf') }}">Case for Support</a></li>
-      <li><a href="{{ asset('files/UKFN_CfS_Gantt_151102.pdf') }}">Workplan</a></li>
-      <li><a href="{{ asset('files/UKFN_PtI__151020.pdf') }}">Pathways to Impact</a></li>
-      <li><a href="{{ asset('files/UKFN_JoR_151020.pdf') }}">Justification of Resources</a></li>
     </ul>
     </p>
   </div>
