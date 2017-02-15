@@ -2,3 +2,16 @@
     font-weight: bold;
     font-style: italic;
 }
+
+a.list-group-item.talk:focus {
+    background-color: transparent !important;
+    outline: 0 !important;
+}
+
+#talks-filters {
+    background-color: white !important;
+    position: fixed !important;
+    width: 30% !important;
+    top: 214px !important;
+    min-height: 180px !important;
+}

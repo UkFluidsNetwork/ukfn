@@ -1,5 +1,5 @@
-@extends('layouts.talks')
-@section('talkscontent')
+@extends('layouts.master')
+@section('content')
 
         <section class="line-break-dbl">
             <h3 class="text-danger line-break">{{ $talk->title }}</h3>
@@ -11,7 +11,7 @@
 
             <div class="line-break-dbl-top">
                 
-                @if ($talk->recordingurl && $displayRecording)
+                @if ($talk->recordingurl)
 
                 <div class="embed-responsive embed-responsive-16by9">
                     <iframe class="embed-responsive-item" src="{{ $talk->recordingurl }}" scrolling="no" frameborder="0" allowfullscreen></iframe>

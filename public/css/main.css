@@ -7,6 +7,17 @@
   font-weight: bold;
   font-style: italic; }
 
+a.list-group-item.talk:focus {
+  background-color: transparent !important;
+  outline: 0 !important; }
+
+#talks-filters {
+  background-color: white !important;
+  position: fixed !important;
+  width: 30% !important;
+  top: 214px !important;
+  min-height: 180px !important; }
+
 /*
 To change this license header, choose License Headers in Project Properties.
 To change this template file, choose Tools | Templates
@@ -159,6 +170,9 @@ body {
 
 .display-block {
   display: block; }
+
+.padding {
+  padding: 15px; }
 
 .nopadding {
   padding: 0 !important;
@@ -365,7 +379,14 @@ footer {
   #top-nav-bar > .nav.navbar-nav {
     margin-top: 17px !important; }
   .navbar-brand > img {
-    height: 60px !important; } }
+    height: 60px !important; }
+  #talks-filters {
+    position: relative !important;
+    width: 98.5% !important;
+    top: 0 !important;
+    min-height: 150px !important; }
+  #talks-col {
+    height: 58vh !important; } }
 
 .text-left {
   text-align: left !important; }

@@ -55,6 +55,10 @@ body {
   display                             : block;
 }
 
+.padding {
+    padding: 15px;
+}
+
 .nopadding {
    padding                              : 0 !important;
    margin                               : 0 !important;
@@ -310,6 +314,17 @@ footer {
 
   .navbar-brand > img {
     height: 60px !important;
+  }
+  
+  #talks-filters {
+      position: relative !important;
+      width: 98.5% !important;
+      top: 0 !important;
+      min-height: 150px !important;
+  }
+  
+  #talks-col {
+      height: 58vh !important;
   }
 }
 
