@@ -3,8 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use DB;
-use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Builder;
 
 class Aggregator extends Model
 {
@@ -16,18 +15,20 @@ class Aggregator extends Model
     protected $fillable = [
         'name', 'longname'
     ];
-
+    
     /**
-     * Get all aggregators
-     * @return objects
-     * @author Robert Barczyk <robert@barczyk.net>
+     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access protected
      * @static
-     * @access public
      */
-    public static function getAggregators()
+    protected static function boot()
     {
-        return DB::table('aggregators')
-        ->where('deleted', '=', 0)
-        ->get();
-    } 
+        parent::boot();
+        
+        static::addGlobalScope('deleted', function (Builder $builder) {
+           $builder->where('aggregators.deleted', '=', '0'); 
+        });
+    }
 }

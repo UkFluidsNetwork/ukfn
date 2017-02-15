@@ -31,7 +31,7 @@ class AggregatorsController extends Controller
 
         $breadCount = count($bread);
 
-        $aggregators = Aggregator::getAggregators();
+        $aggregators = Aggregator::all();
 
         return view('panel.aggregators.viewall', compact('aggregators','bread', 'breadCount'));
     }
@@ -153,7 +153,7 @@ class AggregatorsController extends Controller
      */
     public static function getSelect()
     {
-        $aggregators = Aggregator::getAggregators();
+        $aggregators = Aggregator::all();
         $formated = [];
         foreach ($aggregators as $aggregator) {
             $formated[$aggregator->id] = $aggregator->longname;
