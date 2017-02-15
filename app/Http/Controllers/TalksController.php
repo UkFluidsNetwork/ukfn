@@ -30,7 +30,7 @@ class TalksController extends Controller
         SEO::setTitle('Talks');
         self::setSEODescription();
 
-        $talksRSS = Aggregator::getAggregators();
+        $talksRSS = Aggregator::all();
 
         return view('talks.index', compact('talksRSS'));
     }
@@ -62,7 +62,7 @@ class TalksController extends Controller
      */
     public static function updateTalks()
     {
-        $aggregators = Aggregator::getAggregators();
+        $aggregators = Aggregator::all();
         
         foreach ($aggregators as $aggregator) {
             $xml = simplexml_load_file($aggregator->url);
@@ -100,7 +100,8 @@ class TalksController extends Controller
 
                     break;
                 // LON IMPERIAL
-                case '2' :    
+                case '2' :
+                case '3' :
                     foreach ($xml as $value) {
                         // skip empty object at the begining of RSS feed
                         if ($value->id) {
@@ -175,7 +176,7 @@ class TalksController extends Controller
     {
         $description = 'Fluids-related seminars and talks in the UK, imported from the ';
         
-        $talksRSS = Aggregator::getAggregators();
+        $talksRSS = Aggregator::all();
         
         foreach ($talksRSS as $key => $feed) {
             $description.= $feed->name;
