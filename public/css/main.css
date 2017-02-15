@@ -65,6 +65,61 @@ img.sig-map-image {
   .mobile-nopadding-from-md {
     padding: 0 !important; } }
 
+/* parrent */
+.admin-panel-sidebar {
+  padding-top: 22px;
+  background-color: white; }
+
+/* all links */
+.admin-panel-sidebar .nav > li > a {
+  color: #999;
+  padding: 4px 20px 4px 0;
+  font-size: 1em;
+  font-weight: 400;
+  border-right: transparent 1px solid;
+  display: block !important;
+  word-wrap: break-word; }
+
+#admin-side-bar > ul {
+  padding-right: 0 !important; }
+
+/* all links in hover and focus */
+.admin-panel-sidebar .nav > li > a:hover,
+.admin-panel-sidebar .nav > li > a:focus {
+  background-color: transparent !important; }
+
+/* link on mouse over */
+.admin-panel-sidebar .nav > li > a:hover {
+  border-right: #1B75BB 1px solid; }
+
+/* nested links - submenu */
+.admin-panel-sidebar .nav .nav > li > a {
+  padding-top: 1px;
+  padding-bottom: 1px;
+  padding-left: 15px;
+  font-size: 0.85em; }
+
+/* active links - menu items */
+.admin-panel-sidebar .nav > li > a.active {
+  color: #1B75BB !important;
+  border-right: #1B75BB 2px solid; }
+
+/* hide all (inactive) nested list */
+.admin-panel-sidebar .nav ul.nav {
+  display: none; }
+
+/* show active nested list */
+.admin-panel-sidebar .nav > .active > ul.nav {
+  display: block !important; }
+
+/* collapsed menu item ovveride*/
+#admin-nav-mobile {
+  margin-right: 0 !important;
+  margin-top: 8px !important;
+  background-color: transparent;
+  border: 1px solid #ddd;
+  text-align: left; }
+
 /* Google font */
 body {
   font-family: 'Lato', sans-serif;
@@ -100,7 +155,7 @@ body {
   margin-top: 1em; }
 
 .line-break-dbl-top {
-  margin-top: 2em; }
+  margin-top: 2em !important; }
 
 .display-block {
   display: block; }
@@ -171,12 +226,6 @@ input[type="text"], textarea, button {
 /**************
 ADMIN
 *****************/
-#adminnav > li.active > a {
-  background-color: none !important; }
-
-#adminnav {
-  padding-top: 20px; }
-
 /* Font in Top Naviation Bar */
 .navbar-nav > li > a {
   font-size: 1.2em; }
@@ -195,19 +244,19 @@ ADMIN
   margin-right: 8px; }
 
 /* Style to "glue" navbar to the top */
-.affix {
+#menu-bar.affix {
   top: 0;
   width: 100%;
   position: fixed;
   z-index: 99999; }
 
-.affix + .container-fluid {
+#menu-bar.affix + .container-fluid {
   padding-top: 50px; }
 
-.affix > nav > .container-fluid > #top-nav-bar > .nav.navbar-nav {
+#menu-bar.affix > nav > .container-fluid > #top-nav-bar > .nav.navbar-nav {
   margin-top: 17px !important; }
 
-.affix > nav > .container-fluid > .navbar-header > .navbar-brand > img {
+#menu-bar.affix > nav > .container-fluid > .navbar-header > .navbar-brand > img {
   height: 60px !important; }
 
 .navbar-header {

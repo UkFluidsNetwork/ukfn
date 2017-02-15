@@ -13,10 +13,10 @@
     </ol>
     <div class="container-fluid nopadding">
         <div class="row">
-            <div class="col-lg-2 col-md-2">
+            <div class="col-lg-2 col-md-2 col-sm-2 col-xs-12">
                 @include('panel.menu')
             </div>
-            <div class="col-lg-10 col-md-10">
+            <div class="col-lg-10 col-md-10 col-sm-10 col-xs-12">
                 @yield('admincontent')
             </div>
         </div>

@@ -7,7 +7,7 @@
 @import "talks";
 @import "forms";
 @import "sig";
-
+@import "admin_nav";
 
 
 /* Google font */
@@ -49,7 +49,7 @@ body {
   margin-top                          :1em;
 }
 .line-break-dbl-top {
-  margin-top                          : 2em;
+  margin-top                          : 2em !important;
 }
 .display-block {
   display                             : block;
@@ -135,12 +135,6 @@ input[type="text"], textarea, button {
 /**************
 ADMIN
 *****************/
-#adminnav> li.active > a {
-   background-color                     : none !important;
-}
-#adminnav {
-    padding-top                         : 20px;
-}
 
 /* Font in Top Naviation Bar */
 .navbar-nav>li>a {
@@ -160,21 +154,21 @@ ADMIN
     margin-right                      : 8px;
 }
 /* Style to "glue" navbar to the top */
-.affix {
+#menu-bar.affix {
   top                                 : 0;
   width                               : 100%;
   position                            : fixed;
   z-index                             : 99999;
 }
-.affix + .container-fluid {
+#menu-bar.affix + .container-fluid {
   padding-top                         : 50px;
 }
 
-.affix > nav > .container-fluid > #top-nav-bar > .nav.navbar-nav {
+#menu-bar.affix > nav > .container-fluid > #top-nav-bar > .nav.navbar-nav {
     margin-top: 17px !important;
 }
 
-.affix > nav > .container-fluid > .navbar-header > .navbar-brand > img {
+#menu-bar.affix > nav > .container-fluid > .navbar-header > .navbar-brand > img {
     height: 60px !important;
 }
 
