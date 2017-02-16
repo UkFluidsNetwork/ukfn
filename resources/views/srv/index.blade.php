@@ -9,7 +9,7 @@
       The following pdf gives the context of the call and sets out the information you need to provide in your proposal:
     <p>
     <p>
-      <a href="{{ asset('files/UKFN_SRVs_call_Rev.161212.pdf') }}">[UKFN_SRVs_call_Rev.161212.pdf]</a>
+      [<a href="{{ asset('files/UKFN_SRVs_call_170216.pdf') }}">UKFN_SRVs_call_170216.pdf</a>]
     </p>
     <p>
       Proposals will be assessed in batches every 4 months. The next deadline is 31 May 2017.
