@@ -20,6 +20,7 @@ return array(
     'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
     'AlterTagsMakeModeratedNullable' => $baseDir . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
     'AlterTagtypesAddName' => $baseDir . '/database/migrations/2016_10_15_161419_alter_tagtypes_add_name.php',
+    'AlterTalksSpeakerNullable' => $baseDir . '/database/migrations/2017_02_16_171635_alter_talks_speaker_nullable.php',
     'AlterTalksTable' => $baseDir . '/database/migrations/2016_10_08_140727_alter_talks_table.php',
     'AlterTalksTableWithAggregator' => $baseDir . '/database/migrations/2017_01_07_113116_alter_talks_table_with_aggregator.php',
     'AlterTalksTableWithInstitution' => $baseDir . '/database/migrations/2017_01_22_161458_alter_talks_table_with_institution.php',
