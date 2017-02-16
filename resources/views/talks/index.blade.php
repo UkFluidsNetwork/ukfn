@@ -55,25 +55,25 @@
                                @{{ talk.title }}
                             </div>
                         </span>
-                        <span class="display-block text-muted">
+                        <span ng-show="talk.speaker != null" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-user icon-item-padding display-table-cell"></icon> 
                             <span class="display-table-cell">
                                @{{ talk.speaker }}
                             </span>
                         </span>
-                        <span class="display-block text-muted">
+                        <span ng-show="talk.longname != null" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-bullhorn icon-item-padding display-table-cell"></icon> 
                             <span class="display-table-cell">
                                @{{ talk.longname }}
                             </span>
                         </span>
-                        <span class="display-block text-muted">
+                        <span ng-show="talk.when != null" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-time icon-item-padding display-table-cell"></icon> 
                             <span class="display-table-cell">
                                @{{ talk.when }}
                             </span>
                         </span>
-                        <span class="display-block text-muted">
+                        <span ng-show="talk.venue != null" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-map-marker icon-item-padding display-table-cell" style=""></icon>
                             <span class="display-table-cell">
                                @{{ talk.venue }}

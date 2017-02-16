@@ -118,7 +118,7 @@ class TalksController extends Controller
 
                             $talk->talkid = $imperialnewsevents->articleid;
                             $talk->title = $value->title;
-                            $talk->speaker = $value->summary;
+                            $talk->speaker = $aggregator->id == 3 ? null : $value->summary; // aggregator === 3 does not include speakers
                             $talk->start = Carbon::parse($imperialnewsevents->event_start_date);
                             $talk->end = Carbon::parse($imperialnewsevents->event_end_date);
                             $talk->url = $value->id;
