@@ -258,10 +258,12 @@ class SigsController extends Controller
         }
         // generate navigation buttons
         $allSig = Sig::all();
+        $shortname = $sig->shortname;
         $previousSigShortname = $sig->id > 1 ? $allSig[$sig->id - 2]->shortname : $allSig[count($allSig) - 1]->shortname;
         $nextSigShortname = $sig->id < count($allSig) ? $allSig[$sig->id]->shortname : $allSig[0]->shortname;
         $navigation = [
             ['position' => 'left', 'icon' => 'glyphicon-arrow-left', 'path' => "/sig/${previousSigShortname}"],
+            ['position' => 'center', 'icon' => 'glyphicon-arrow-up', 'path' => "/sig/${shortname}/map"],
             ['position' => 'right', 'icon' => 'glyphicon-arrow-right', 'path' => "/sig/${nextSigShortname}"]
         ];
 
