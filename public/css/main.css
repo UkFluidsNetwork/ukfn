@@ -461,4 +461,12 @@ footer {
 .text-no-decoration {
   text-decoration: none !important; }
 
+.pull-center {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 48%;
+  right: 0;
+  margin: auto; }
+
 /*# sourceMappingURL=main.css.map */

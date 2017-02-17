@@ -3,7 +3,7 @@
 
 <div id='sig-navigation'>
     @foreach ($navigation as $element)
-    <nav aria-label="Page navigation" class="pull-{{ $element['position'] }}">
+    <nav aria-label="Page navigation" style="width:auto;" class="pull-{{ $element['position'] }}">
         <ul class="pagination">
             <li>
                 <a href="{{ $element['path'] }}" aria-label="Previous">
@@ -15,10 +15,7 @@
     @endforeach
 </div>
 
-<h2 class="text-danger line-break">
-    {{ Html::link('/sig/' . $sig->shortname . '/map/', '', ['class'=> 'text-danger glyphicon glyphicon-map-marker text-no-decoration']) }}
-    {{ $sig->name }}
-</h2>
+<h2 class="text-danger line-break">{{ $sig->name }}</h2>
 
 <div class="container-fluid nopadding-left">
     <div class="row">
