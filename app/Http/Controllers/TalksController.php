@@ -80,13 +80,19 @@ class TalksController extends Controller
                         }
 
                         $talk->talkid = $value->id;
-                        $talk->title = $value->title;
-                        $talk->speaker = $value->speaker;
-                        $talk->start = Carbon::createFromFormat('D, d M Y H:i:s e', $value->start_time)->format('Y-m-d H:i:s');
-                        $talk->end = Carbon::createFromFormat('D, d M Y H:i:s e', $value->end_time)->format('Y-m-d H:i:s');
-                        $talk->url = $value->url;
-                        $talk->speakerurl = $value->speaker_url;
-                        $talk->venue = $value->venue;
+                        $talk->title = $value->title !== $talk->title && $value->title !== "" ? $value->title : $talk->title;
+                        $talk->speaker = $value->speaker !== $talk->speaker && $value->speaker !== "" ? $value->speaker : $talk->speaker;
+                        $talk->start = Carbon::createFromFormat('D, d M Y H:i:s e', $value->start_time)->format('Y-m-d H:i:s')
+                            !== $talk->start && Carbon::createFromFormat('D, d M Y H:i:s e', $value->start_time)->format('Y-m-d H:i:s')
+                            ? Carbon::createFromFormat('D, d M Y H:i:s e', $value->start_time)->format('Y-m-d H:i:s')
+                            : $talk->start;
+                        $talk->end = Carbon::createFromFormat('D, d M Y H:i:s e', $value->end_time)->format('Y-m-d H:i:s')
+                            !== $talk->end && Carbon::createFromFormat('D, d M Y H:i:s e', $value->end_time)->format('Y-m-d H:i:s')
+                            ? Carbon::createFromFormat('D, d M Y H:i:s e', $value->end_time)->format('Y-m-d H:i:s')
+                            : $talk->end;
+                        $talk->url = $value->url !== $talk->url && $value->url !== "" ? $value->url : $talk->url;
+                        $talk->speakerurl = $value->speaker_url !== $talk->speaker_url && $value->speaker_url !== "" ? $value->speaker_url : $talk->speaker_url;
+                        $talk->venue = $value->venue !== $talk->venue && $value->venue !== "" ? $value->venue : $talk->venue;
                         $talk->organiser = $value->organiser;
                         $talk->series = $value->series;
                         $talk->aggregator_id = $aggregator->id;
@@ -117,12 +123,19 @@ class TalksController extends Controller
                             }
 
                             $talk->talkid = $imperialnewsevents->articleid;
-                            $talk->title = $value->title;
-                            $talk->speaker = $aggregator->id == 3 ? null : $value->summary; // aggregator === 3 does not include speakers
-                            $talk->start = Carbon::parse($imperialnewsevents->event_start_date);
-                            $talk->end = Carbon::parse($imperialnewsevents->event_end_date);
+                            $talk->title = $value->title !== $talk->title && $value->title !== "" ? $value->title : $talk->title;
+                            $talk->speaker = $value->summary !== $talk->summary && $value->summary !== "" ? $value->summary : $talk->summary;
+                            $talk->start = Carbon::parse($imperialnewsevents->event_start_date) !== $talk->start 
+                                && Carbon::parse($imperialnewsevents->event_start_date) !== "" 
+                                ? Carbon::parse($imperialnewsevents->event_start_date) : $talk->start;
+                            $talk->end = Carbon::parse($imperialnewsevents->event_end_date) !== $talk->end
+                                && Carbon::parse($imperialnewsevents->event_end_date) !== "" 
+                                ? Carbon::parse($imperialnewsevents->event_end_date) : $talk->end;
                             $talk->url = $value->id;
-                            $talk->venue = $imperialnewsevents->source . ", " . $imperialnewsevents->location;
+                            $talk->venue = $imperialnewsevents->source . ", " . $imperialnewsevents->location !== $talk->venue 
+                                && ($imperialnewsevents->source && $imperialnewsevents->location) 
+                                ? $imperialnewsevents->source . ", " . $imperialnewsevents->location
+                                : $talk->venue;
                             $talk->aggregator_id = $aggregator->id;
                             $talk->organiser = $imperialnewsevents->source;
                             $talk->created_at = Carbon::parse($value->published);
