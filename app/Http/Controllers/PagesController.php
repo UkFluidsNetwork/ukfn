@@ -140,7 +140,7 @@ class PagesController extends Controller
                 $tweet->media = [];
                 foreach ($fullTweet->entities->media as $media) {
                     $tweetMedia = new stdClass();
-                    $tweetMedia->url = $media->media_url;
+                    $tweetMedia->url = isset($media->media_url_https) ? $media->media_url_https : $media->media_url;
                     $tweetMedia->type = $media->type;
                     $tweet->media[] = $tweetMedia;
                 }
