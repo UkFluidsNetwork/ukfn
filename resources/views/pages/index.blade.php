@@ -54,18 +54,7 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4">
       <h1>Tweets</h1>
-      @foreach ($tweets as $key => $tweet)
-      <section class="page-header">
-        <div class="line-break">
-          <div class="text-primary">
-            <strong class="panel-title">{{ $tweet['user'] }}</strong>
-          </div>
-          <div class="text-muted">{{ $tweet['date'] }}</div>
-        </div>
-        <p class="line-break">{!! $tweet['text'] !!}</p>
-        <a href="{{ $tweet['link'] }}" target="_blank">View tweet</a>
-      </section>
-      @endforeach
+      @include('pages.tweets')
     </div>
   </div>
 </div>
