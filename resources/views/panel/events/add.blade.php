@@ -38,12 +38,33 @@
   </div>
 </div>
 <div class='form-group {{ $errors->has('start') ? ' has-error line-break-dbl' : '' }}'>
-  {!! Form::label('', 'DateTime:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  {!! Form::label('', 'Start DateTime:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class='col-lg-8'>
-    {!! Form::text('start', '', ['class' => 'form-control','placeholder' => 'The date and time the event takes place (yyyy-mm-dd h:m:s)']) !!}
+        <div class='input-group date' id='event_start'>
+            {!! Form::text('start', '', ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm', 'placeholder' => 'The date and time the event takes place (yyyy-mm-dd h:m:s)']) !!}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
     @if ($errors->has('start'))
     <span class="text-danger">
       <span>{{ $errors->first('start') }}</span>
+    </span>
+    @endif
+  </div>
+</div>
+<div class='form-group {{ $errors->has('end') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('', 'End DateTime:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class='col-lg-8'>
+        <div class='input-group date' id='event_end'>
+            {!! Form::text('end', '', ['class' => 'form-control', 'data-date-format' => 'YYYY-MM-DD HH:mm', 'placeholder' => 'If date range']) !!}
+            <span class="input-group-addon">
+                <span class="glyphicon glyphicon-calendar"></span>
+            </span>
+        </div>
+    @if ($errors->has('end'))
+    <span class="text-danger">
+      <span>{{ $errors->first('end') }}</span>
     </span>
     @endif
   </div>
@@ -54,4 +75,14 @@
   </div>    
 </div>
 {!! Form::close() !!}
+
+<script type="text/javascript">
+    $(function () {
+        $('#event_start').datetimepicker();
+        $('#event_end').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+    });
+</script>
+
 @endsection

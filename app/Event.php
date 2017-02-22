@@ -13,7 +13,7 @@ class Event extends Model
      * 
      * @var array
      */
-    protected $fillable = ['title', 'subtitle', 'description', 'start'];
+    protected $fillable = ['title', 'subtitle', 'description', 'start', 'end'];
 
     /**
      * Get all events

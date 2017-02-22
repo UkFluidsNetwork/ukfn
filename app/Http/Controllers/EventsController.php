@@ -16,17 +16,17 @@ class EventsController extends Controller
      * @access public
      * @author Javier Arias <javier@arias.re>
      */
-    public function getEvents()
+    public static function getEvents()
     {
 
         $events = [];
         $eventsData = Event::getEvents("start", "desc", 15);
 
-        foreach ($eventsData as $key => $event) {
-            $events[$key]['title'] = $event->title;
-            $events[$key]['subtitle'] = $event->subtitle ? ", " . $event->subtitle : '';
-            $events[$key]['start'] = date("g:ia l jS F", strtotime($event->start));
-            $events[$key]['description'] = $event->description;
+        foreach ($eventsData as $event) {
+            $event->subtitle = $event->subtitle ? ", " . $event->subtitle : '';            
+            $event->date = PagesController::formatDate($event->start, $event->end);
+            $event->description = PagesController::makeLinksInText($event->description);
+            $events[] = $event;
         }
 
         return $events;

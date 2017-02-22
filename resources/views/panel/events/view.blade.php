@@ -22,7 +22,7 @@
         <td>{{ $event->date }}</td>
         <td>{{ $event->created }}</td>
         <td>{{ $event->updated }}</td>
-        <td>{{ Html::link('/events/edit/' . $event->id, "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/events/edit/' . $event->id, "Edit", ["class" => "btn btn-primary"])}}</td>
         <td>
              {{ Form::open(['action' => ['EventsController@delete', $event->id]]) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
