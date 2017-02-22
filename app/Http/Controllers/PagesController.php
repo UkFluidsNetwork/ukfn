@@ -21,6 +21,7 @@ use SEO;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use DateTime;
+use stdClass;
 
 class PagesController extends Controller
 {
@@ -124,24 +125,37 @@ class PagesController extends Controller
         
         $decodedTweets = json_decode($rawTweets);
 
-        foreach ($decodedTweets as $key => $tweet) {
+        foreach ($decodedTweets as $fullTweet) {
+            $tweet = new stdClass();
             // retweets start with: RT @username: 
-            if (preg_match('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', $tweet->text)) {
-                $tweets[$key]['user'] = $tweet->entities->user_mentions[0]->name; // it is a retweet, use original author
-                $textToFormat = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $tweet->text);
+            if (preg_match('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', $fullTweet->text)) {
+                $tweet->user = $fullTweet->entities->user_mentions[0]->name; // it is a retweet, use original author
+                $textToFormat = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $fullTweet->text);
             } else {
-                $tweets[$key]['user'] = $tweet->user->name; // not a retweet
-                $textToFormat = $tweet->text; // use original text
+                $tweet->user = $fullTweet->user->name; // not a retweet
+                $textToFormat = $fullTweet->text; // use original text
+            }
+            // include images/videos if it has any
+            if (isset($fullTweet->entities->media)) {
+                $tweet->media = [];
+                foreach ($fullTweet->entities->media as $media) {
+                    $tweetMedia = new stdClass();
+                    $tweetMedia->url = $media->media_url;
+                    $tweetMedia->type = $media->type;
+                    $tweet->media[] = $tweetMedia;
+                }
             }
             // link to tweet on twitter
-            $tweets[$key]['link'] = "https://twitter.com/" . $tweet->user->screen_name . "/status/" . $tweet->id;
+            $tweet->link = "https://twitter.com/" . $fullTweet->user->screen_name . "/status/" . $fullTweet->id;
             // date posted
-            $tweets[$key]['date'] = self::formatDate($tweet->created_at);
+            $tweet->date = self::formatDate($fullTweet->created_at);
             // format the text
             $text = self::makeLinksInText($textToFormat); // replace urls with anchor tags
             $text = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $text); // replace @user with link to user
             $text = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text); // replace #hashtag with link to hashtag
-            $tweets[$key]['text'] = $text;
+            $tweet->text = $text;
+            
+            $tweets[] = $tweet;
         }
 
         return $tweets;

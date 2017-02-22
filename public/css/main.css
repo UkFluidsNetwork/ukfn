@@ -469,4 +469,8 @@ footer {
   right: 0;
   margin: auto; }
 
+.thumb {
+  max-width: 150px !important;
+  max-height: 150px !important; }
+
 /*# sourceMappingURL=main.css.map */

@@ -9,7 +9,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
 
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/main.css') }}?v=2" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/main.css') }}?v=3" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
