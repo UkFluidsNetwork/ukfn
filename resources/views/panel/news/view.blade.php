@@ -20,7 +20,7 @@
         <td>{{ $new->title }}</td>
         <td>{{ $new->created }}</td>
         <td>{{ $new->updated }}</td>
-        <td>{{ Html::link('/news/edit/' . $new->id, "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/news/edit/' . $new->id, "Edit", ["class" => "btn btn-primary"])}}</td>
         <td>
              {{ Form::open(['action' => ['NewsController@delete', $new->id]]) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}

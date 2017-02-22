@@ -25,15 +25,15 @@
       <section class="page-header">
         <div class="line-break">
           <div class="text-danger">
-            <strong class="panel-title">{{ $new['title'] }}</strong>
+            <strong class="panel-title">{{ $new->title }}</strong>
           </div>
-          <div class="text-muted">{{ $new['start'] }}</div>
+          <div class="text-muted">{{ $new->date }}</div>
         </div>
-        @if ($new['link'])
-        <p class="line-break">{!! $new['description'] !!}</p>
-        <a href="{{ $new['link'] }}">Read More</a>
+        @if ($new->link)
+        <p class="line-break">{!! $new->description !!}</p>
+        <a href="{{ $new->link }}">Read More</a>
         @else 
-        <p>{!! $new['description'] !!}</p>
+        <p>{!! $new->description !!}</p>
         @endif
       </section>
       @endforeach
@@ -44,11 +44,11 @@
       <section class="page-header">
         <div class="line-break">
           <div class="text-danger">
-            <strong class="panel-title">{{ $event['title'] }}</strong>
+            <strong class="panel-title">{{ $event->title }}</strong>
           </div>
-          <div class="text-muted">{{ $event['start'] }}{{ $event['subtitle'] }}</div>
+          <div class="text-muted">{{ $event->date }}{{ $event->subtitle }}</div>
         </div>
-        <p>{!! $event['description'] !!}</p>
+        <p>{!! $event->description !!}</p>
       </section>
       @endforeach
     </div>

@@ -16,16 +16,15 @@ class NewsController extends Controller
      * @access public
      * @author Javier Arias <javier@arias.re>
      */
-    public function getNews()
+    public static function getNews()
     {
         $news = [];
         $newsData = News::getNews("created_at", "desc", 15);
 
-        foreach ($newsData as $key => $new) {
-            $news[$key]['title'] = $new->title;
-            $news[$key]['start'] = date("l jS F", strtotime($new->created_at));
-            $news[$key]['description'] = $new->description;
-            $news[$key]['link'] = $new->link;
+        foreach ($newsData as $new) {
+            $new->date = PagesController::formatDate($new->created_at);
+            $new->description = PagesController::makeLinksInText($new->description);
+            $news[] = $new;
         }
 
         return $news;

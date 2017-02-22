@@ -20,6 +20,7 @@ use Illuminate\Support\Facades\Session;
 use SEO;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
+use DateTime;
 
 class PagesController extends Controller
 {
@@ -35,23 +36,9 @@ class PagesController extends Controller
         SEO::setTitle('Home');
         
         // get news to display
-        $news = [];
-        $newsController = new NewsController();
-        $rawNews = $newsController->getNews();
-        foreach ($rawNews as $new) {
-            $new['description'] = self::makeLinksInText($new['description']);
-            $news[] = $new;
-        }
-        
+        $news = NewsController::getNews();
         // get events to display
-        $events = [];
-        $eventsController = new EventsController();
-        $rawEvents = $eventsController->getEvents();
-        foreach ($rawEvents as $event) {
-            $event['description'] = self::makeLinksInText($event['description']);
-            $events[] = $event;
-        }
-        
+        $events = EventsController::getEvents();
         // get tweets to display
         $tweets = self::getTweets('UKFluidsNetwork');
         $totalTweets = count($tweets);
@@ -149,7 +136,7 @@ class PagesController extends Controller
             // link to tweet on twitter
             $tweets[$key]['link'] = "https://twitter.com/" . $tweet->user->screen_name . "/status/" . $tweet->id;
             // date posted
-            $tweets[$key]['date'] = date("l jS F", strtotime($tweet->created_at));
+            $tweets[$key]['date'] = self::formatDate($tweet->created_at);
             // format the text
             $text = self::makeLinksInText($textToFormat); // replace urls with anchor tags
             $text = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $text); // replace @user with link to user
@@ -394,5 +381,42 @@ class PagesController extends Controller
                 "<a href=\"$0\">$0</a>",
                 $textToFormat
             );
+    }
+    
+    /**
+     * Format a date or date range
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @param string $start
+     * @param string $end
+     * @return string
+     */
+    public static function formatDate($start, $end = null)
+    {
+        $dateStart = new DateTime($start);
+
+        $includeTime = $dateStart->format("H:i:s") !== "00:00:00";
+        $format = $includeTime ? "j F Y g:ia" : "j F Y";
+        $date = $dateStart->format($format);
+
+        if ($end === null || $end === "" || $end === "0000-00-00 00:00:00" || $start === $end) {
+            return $date;
+        }
+
+        $dateEnd = new DateTime($end);
+        $sameMonth = $dateStart->format("m") === $dateEnd->format("m");
+        $sameYear = $dateStart->format("Y") === $dateEnd->format("Y");
+
+        $date = $dateStart->format("j F Y - ") . $dateEnd->format("j F Y");
+
+        if ($sameYear) {
+            $date = $dateStart->format("j F - ") . $dateEnd->format("j F Y");
+        }
+
+        if ($sameMonth && $sameYear) {
+            $date = $dateStart->format("j-") . $dateEnd->format("j F Y");
+        }
+
+        return $date;
     }
 }
