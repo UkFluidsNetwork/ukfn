@@ -286,4 +286,9 @@ class SigsController extends Controller
         
         return null;
     }
+    
+    public function results()
+    {
+        return view('sig.siglist');
+    }
 }
