@@ -5,6 +5,7 @@
 
 <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
+            <div style="float:right; margin-top:-50px;margin-right:10px;font-size:larger;"><b>New:</b> {{Html::link('/sig/second-call', 'second round of SIGs')}}</div>
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
             <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
