@@ -43,9 +43,9 @@
             </div>
             <div id="sig-home-page" class="sig-page">
                 @if ($sig->bigimage)
-                <img style="width: 100%; margin-top: 20px;" src="/pictures/sig/{{ $sig->bigimage }}" class="thumb" alt="@{{ $sig->bigimage }}">
+                    {{ HTML::image("/pictures/sig/" . $sig->bigimage, $sig->bigimage, ['class' => 'sig-big-image']) }}
                 @elseif ($sig->smallimage)
-                <img style="width: 100%; margin-top: 20px;" src="/pictures/sig/{{ $sig->smallimage }}" class="thumb" alt="@{{ $sig->smallimage }}">
+                    {{ HTML::image("/pictures/sig/" . $sig->smallimage, $sig->smallimage, ['class' => 'sig-big-image']) }}
                 @endif
                 <div class="bs-callout bs-callout-info">
                     <h4>Description</h4>

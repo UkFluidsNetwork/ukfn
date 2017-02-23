@@ -473,4 +473,8 @@ footer {
   max-width: 150px !important;
   max-height: 150px !important; }
 
+.sig-big-image {
+  width: 100%;
+  margin-top: 20px; }
+
 /*# sourceMappingURL=main.css.map */
