@@ -419,7 +419,12 @@ class TalksController extends Controller
         return redirect('/panel/talks');
     }
     
-    
+    /**
+     * Set up to test SMS streaming facility.
+     * 
+     * @todo if it works, embed the code within /talks and /talks:id, otherwise remove
+     * @return \Illuminate\View\View
+     */
     public function stream()
     {
         return view('talks.stream');        
