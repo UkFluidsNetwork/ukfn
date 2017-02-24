@@ -418,4 +418,10 @@ class TalksController extends Controller
         }
         return redirect('/panel/talks');
     }
+    
+    
+    public function stream()
+    {
+        return view('talks.stream');        
+    }
 }

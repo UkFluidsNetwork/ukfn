@@ -18,6 +18,7 @@ Route::get('sig/{slug}', 'SigsController@sigPage');
 Route::get('sig/{slug}/{page}', 'SigsController@sigPage');
 Route::get('srv', 'SrvsController@index');
 Route::get('talks', 'TalksController@index');
+Route::get('talks/stream', 'TalksController@stream');
 Route::get('contact', 'PagesController@contact');
 Route::get('admin', 'AdminController@index');
 Route::get('viewmessage/{id}', 'AdminController@viewmessage');
