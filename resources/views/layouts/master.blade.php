@@ -27,7 +27,7 @@
         <script src="{{ asset('js/bootstrap-select.min.js')}}"></script>
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <script src="{{ asset('/js/vendor/angular-selectize2/dist/selectize.js')}}"></script>
-        <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>               
+        <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>
         <script src="{{ asset('js/vendor/moment/moment.js')}}"></script>
         <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
                 
@@ -91,9 +91,6 @@
                                    aria-expanded="false">{{ Auth::user()->name }} {{ Auth::user()->surname }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <!--li>
-                                        <a href="#">My account</a>
-                                    </li-->
                                     @if(Auth::user()->group_id == 1)
                                     <li>
                                         <a href='{{ URL::to('/panel') }}'>

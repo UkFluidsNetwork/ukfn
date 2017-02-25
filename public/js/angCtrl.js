@@ -6,12 +6,11 @@
  * @param {$http} $http
  */
 angular.module('ukfn')
-        .controller('sigController', function ($http, $localStorage) {
+        .controller('sigController', function ($http, $localStorage, $location, CSRF_TOKEN) {
             // no undeclared variables
 
             // this scope name
             var controller = this;
-            controller.test = "HELLO";
             controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
             controller.$storage = $localStorage;
             controller.selectedSigId = null; // initially selected SIG
@@ -79,9 +78,7 @@ angular.module('ukfn')
                 });
             };
            
-            controller.setActive = function(id) {
-                controller.sigActive = id;
-            };
+
         /**
          * Set active sig on sig map
          * 
@@ -190,6 +187,117 @@ angular.module('ukfn')
                 }
             ]
         };
+        
+        controller.ukfnUsers = [];
+         controller.thisMembers = [];
+         
+         controller.sigMemebrships = [
+             {name: "Leader", id: 1},
+             {name: "Co-Leader", id: 2},
+             {name: "Member", id: 3}
+         ];
+         
+        controller.getSigMembers = function(id) {
+            $http(
+                    {
+                        method: 'GET',
+                        url: '/api/sigs/members/' + id
+                    }
+                ).then(function (response) {
+                    controller.thisMembers = response.data;
+                                        
+                });
+        };
+        
+       
+        
+        
+        controller.getAllUsers = function() {
+            $http(
+                    {
+                        method: 'GET',
+                        url: '/api/users'
+                    }
+                ).then(function (response) {
+            
+                    // get all SIGs and their institutions
+                    var users = response.data;
+                    for (var i = 0; i < users.length; i++) {
+                        
+                        for (var j = 0; j < controller.thisMembers.length; j++) {
+                            
+                            if (users[i].id !== controller.thisMembers[j].id) {
+                                controller.ukfnUsers.push(users[i]);
+                                break;
+                            }
+                            
+                            
+                        }
+                        
+                    }
+                    
+                });
+        };
+        
+        
+        
+        controller.userSigMain;
+        controller.addMember = function(userId, sigMain, sigId)
+        {
+            $http({method: 'GET', url: '/api/users/' + userId})
+                    .then(function (data){
+
+                        if (controller.thisMembers.length !== 0) {
+                            var existing = false;
+                            for (var i =0; i< controller.thisMembers.length; i++) {
+                                if(data.data.id === controller.thisMembers[i].id) {
+                                    existing = true;
+                                    break;
+                                }
+                            }
+                        } else {
+                            existing = false;
+                        }
+                        
+                        if (!existing) {
+                            controller.thisMembers.push(data.data);
+                                                 
+                            
+                            var dane = {user_id: userId,
+                              "main": sigMain,
+                              "sig_id" : sigId
+                            //"_token":   CSRF_TOKEN
+                            };
+                          
+                            $http({
+                                method : 'POST',
+                                url: '/sig/addmember',
+                                headers: { 'X-CSRF-TOKEN' : CSRF_TOKEN},
+                              data: $.param(dane)
+                              
+                            })
+                            .success(function(response){
+                                console.log(response);
+                            }).error(function(data){
+                              console.log("error");  
+                            });
+                            
+                            
+                            for (var i = 0; i <  controller.ukfnUsers.length; i++) {
+                                if (data.data.id === controller.ukfnUsers[i].id) {
+                                    controller.ukfnUsers.splice(i,1);
+                                    break;
+                                }
+                            }
+                        }
+                    
+//                        
+                   //console.log(controller.thisMembers.length);
+            });
+            
+        };
+        
+        controller.addMemberSearch = '';
     });
 
 /**

@@ -7,8 +7,11 @@ use App\Sig;
 use App\Tag;
 use App\User;
 use App\Suggestion;
+use App\Sig_users;
 use App\Institution;
+use App\Http\Requests;
 use App\Http\Requests\SigsFormRequest;
+use App\Http\Requests\SigsAddMemberRequest;
 use Storage;
 use Illuminate\Support\Facades\Session;
 use SEO;
@@ -269,6 +272,11 @@ class SigsController extends Controller
 
         return json_encode($sig, JSON_PRETTY_PRINT);
     }
+    
+    public function getSigUSers($id) {
+        $users = Sig::findOrFail($id);
+        $users->users();
+    }
 
     /**
      * Render a SIG individual page
@@ -329,5 +337,49 @@ class SigsController extends Controller
         }
         
         return null;
+    }
+    
+    public function addMembers($id)
+    {
+        if (Auth::user()->group_id != 1) {
+            if (Auth::user()->sigLeader()[0] != $id) {
+                die("Javi to do :)");
+            }
+        }
+        
+        $sig = Sig::findOrFail($id);
+        $sig->users;
+        
+        
+        $bread = [
+                    ['label' => 'Panel', 'path' => '/panel'],
+                    ['label' => 'SIG', 'path' => '/panel/sig'],
+                    ['label' => 'Add Memebers', 'path' => '/panel/sig/addmembers'],
+                ];     
+        
+        $breadCount = count($bread);
+        return view('panel.sigs.addmembers', compact('id', 'bread', 'breadCount', 'sig'));
+    }
+    
+    public function getSigMembersJson($id) {
+        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
+            $sig = Sig::findOrFail($id);
+            $sig->users;
+
+            return json_encode($sig->users, JSON_PRETTY_PRINT);
+        } else {
+            return json_encode("Error");
+        }
+    }
+    
+    public function addMember(SigsAddMemberRequest $request)
+    {
+        $sig = new Sig_users;
+            $input = $request->all();
+            $sig->fill($input);
+            $sig->save();
+        
+        //DB::table('sig_users')->insert(['sig_id' => 4, 'user_id' => 5, 'main' =>1]);
+        return json_encode("ok");
     }
 }

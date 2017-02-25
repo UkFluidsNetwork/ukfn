@@ -9,6 +9,8 @@ use App\Title;
 use App\Group;
 use App\Institution;
 use App\Tag;
+use Auth;
+use DB; 
 
 class UsersController extends Controller
 {
@@ -195,5 +197,46 @@ class UsersController extends Controller
             Session:flash('error_message', $ex);
         }
         return redirect('/panel/users');
+    }
+    
+    /**
+     * Get all users API => available to Admins and Sig Leaders
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return json
+     */
+    public function getUsersJson() 
+    {//is admin here
+        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
+            
+            $key = 0;
+        $users = User::all();
+        $ukfnUsers = [];
+        foreach ($users as $user) {
+            $ukfnUsers[$key] = $user;
+            $ukfnUsers[$key]->title = $user->title;
+            $ukfnUsers[$key]->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $key++;
+        }
+            
+            return json_encode($ukfnUsers, JSON_PRETTY_PRINT);
+        } else {
+            return json_encode("Error");
+        }
+    }
+    
+ 
+    public function getUserJson($id) 
+    {//is admin here
+        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
+            
+            $user = User::findOrFail($id);
+            $user->title;
+            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+                 
+            return json_encode($user, JSON_PRETTY_PRINT);
+        } else {
+            return json_encode("Error");
+        }
     }
 }

@@ -27,6 +27,9 @@ Route::get('api/institutions', 'InstitutionsController@getAllJson');
 Route::get('api/sigs', 'SigsController@getAllJson');
 Route::get('api/talks', 'TalksController@getAllJson');
 Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
+Route::get('api/sigs/members/{id}', 'SigsController@getSigMembersJson')->middleware('auth');
+Route::get('api/users/', 'UsersController@getUsersJson')->middleware('auth');
+Route::get('api/users/{id}', 'UsersController@getUserJson')->middleware('auth');
 Route::get('panel', 'PanelController@index')->middleware('auth');
 Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('auth');
 Route::get('panel/suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('auth');
@@ -59,6 +62,7 @@ Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('auth');
 Route::get('panel/sig', 'SigsController@view')->middleware('auth');
 Route::get('panel/sig/add', 'SigsController@add')->middleware('auth');
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('auth');
+Route::get('panel/sig/addmembers/{id}', 'SigsController@addmembers')->middleware('auth');
 Route::get('panel/talks/add', 'TalksController@add')->middleware('auth');
 Route::get('panel/talks', 'TalksController@panelviewcurrent')->middleware('auth');
 Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('auth');
@@ -95,6 +99,7 @@ Route::post('panel/talks/feeds/delete/{id}', 'AggregatorsController@delete')->mi
 Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware('auth');
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('auth');
 Route::post('panel/talks/add', 'TalksController@create')->middleware('auth');
+Route::post('/sig/addmember', 'SigsController@addmember')->middleware('auth');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');
