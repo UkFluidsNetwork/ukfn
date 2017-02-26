@@ -6,7 +6,7 @@
  * @param {$http} $http
  */
 angular.module('ukfn')
-        .controller('sigController', function ($http, $localStorage, $location, CSRF_TOKEN) {
+        .controller('sigController', function ($http, $localStorage, CSRF_TOKEN) {
             // no undeclared variables
 
             // this scope name
@@ -188,17 +188,21 @@ angular.module('ukfn')
             ]
         };
         
+        
+        // Edit Sig //-> BEGIN
         controller.ukfnUsers = [];
         controller.thisMembers = [];
-         
+        controller.addMemberSearch = '';
+        
+        // used in select
         controller.sigMemebrships = [
             {name: "Leader", id: 1},
             {name: "Co-Leader", id: 2},
-            {name: "Member", id: 3}
+            {name: "Key personel", id: 3},
+            {name: "Member", id: 0}
         ];
-         
-        controller.addMemberSearch = '';
         
+        // translate membership code to string
         controller.getMemberStatus = function(id) 
         {
             switch(id) {
@@ -209,11 +213,14 @@ angular.module('ukfn')
                     return "Co-Leader";
                     break;
                 case 3:
-                    return "Member";
+                    return "Key personel";
                     break;
+                case 0:
+                    return "Member";
             };
         };
         
+        // initialise two arays with users when page load
         controller.getUsers = function(id) {
             controller.getSigMembers(id);
             controller.getAllUsers();
@@ -238,6 +245,12 @@ angular.module('ukfn')
                 });
         };
         
+        /**
+         * Function prepare arra with all ukfn users that are not part of this sig
+         * 
+         * @author <robert@barczyk.net>
+         * @returns {void}
+         */
         controller.getAllUsers = function() {
             $http(
                     {
@@ -268,6 +281,7 @@ angular.module('ukfn')
                 });
         };
                 
+        // WIP Add user
         controller.addMember = function(userId, sigMain = 0, sigId)
         { 
             alert("user id : " + userId + " status : " + sigMain + " Sig id : " +sigId );
@@ -319,6 +333,13 @@ angular.module('ukfn')
                             controller.addMemberSearch = '';
                         }
             });
+            
+        };
+        
+        controller.deleteMember = function(userId)
+        {
+            alert("Deleting " + userId);
+            // ajax call
             
         };
     });

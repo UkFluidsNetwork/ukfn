@@ -350,38 +350,29 @@ class SigsController extends Controller
      */
     public function addMembers($id)
     {
+        $sigLeader = Auth::user()->sigLeader();
         if (Auth::user()->group_id != 1) {
-            if (Auth::user()->sigLeader()[0] != $id) {
+            if ($sigLeader[0] != $id) {
                 return redirect('/');
             } else {
+                // SIG Leader breadcrumbs
                 $bread = [
-                    ['label' => 'Panel', 'path' => '/panel'],
-                    ['label' => 'SIG', 'path' => '/panel/sig'],
-                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
-                ];        
+                    ['label' => 'Manage SIG', 'path' => '/panel/sig/edit/'.$sigLeader[0]],
+                    ['label' => 'Add Members', 'path' => '/panel/sig/addmembers/'.$sigLeader[0]],
+                ];
             }
-        } elseif (Auth::user()->group_id != 1) {
-            $bread = [
-                ['label' => 'Manage SIG', 'path' => '/panel/sig/edit/'.$sigLeader[0]],
-            ];
         } else {
+            // admin breadcrumbs
             $bread = [
                     ['label' => 'Panel', 'path' => '/panel'],
                     ['label' => 'SIG', 'path' => '/panel/sig'],
-                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+                    ['label' => 'Edit', 'path' => '/panel/sig/edit/'.$id],
+                    ['label' => 'Add Members', 'path' => '/panel/sig/addmembers/'.$id],
                 ];        
-        
         }
         
         $sig = Sig::findOrFail($id);
-        $sig->users;
-        
-//        $bread = [
-//                    ['label' => 'Panel', 'path' => '/panel'],
-//                    ['label' => 'SIG', 'path' => '/panel/sig'],
-//                    ['label' => 'Add Memebers', 'path' => '/panel/sig/addmembers'],
-//                ];     
-        
+        $sig->users;        
         $breadCount = count($bread);
         return view('panel.sigs.addmembers', compact('id', 'bread', 'breadCount', 'sig'));
     }
@@ -414,6 +405,7 @@ class SigsController extends Controller
         }
     }
     
+    // WIP
     public function addMember()
     {//SigsAddMemberRequest $request
 //        $sig = new Sig_users;

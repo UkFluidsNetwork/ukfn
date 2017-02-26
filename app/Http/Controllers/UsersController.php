@@ -200,25 +200,26 @@ class UsersController extends Controller
     }
     
     /**
-     * Get all users API => available to Admins and Sig Leaders
+     * Get all users API.<br>
+     * Available to admins or sig leaders
      * 
      * @author Robert Barczyk <robert@barczyk.net>
      * @return json
      */
     public function getUsersJson() 
-    {//is admin here
-        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
-            
+    {
+        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {       
             $key = 0;
-        $users = User::all();
-        $ukfnUsers = [];
-        foreach ($users as $user) {
-            $ukfnUsers[$key] = $user;
-            $ukfnUsers[$key]->title = $user->title;
-            $ukfnUsers[$key]->institutions = $user->institutions;
-            $ukfnUsers[$key]->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
-            $key++;
-        }
+            $users = User::all();
+            $ukfnUsers = [];
+            foreach ($users as $user) {
+                $ukfnUsers[$key] = $user;
+                $ukfnUsers[$key]->title = $user->title;
+                $ukfnUsers[$key]->institutions = $user->institutions;
+                $ukfnUsers[$key]->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+                $ukfnUsers[$key]->sigs;
+                $key++;
+            }
             
             return json_encode($ukfnUsers, JSON_PRETTY_PRINT);
         } else {
@@ -226,9 +227,16 @@ class UsersController extends Controller
         }
     }
     
- 
+    /**
+     * Get selected user API. <br>
+     * Available to admin or sig leaders
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param int $id
+     * @return json
+     */
     public function getUserJson($id) 
-    {//is admin here
+    {
         if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
             
             $user = User::findOrFail($id);

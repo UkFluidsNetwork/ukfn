@@ -26,9 +26,9 @@
                             @elseif (Auth::user()->sigLeader())
                             
                             <div class="col-lg-2 col-md-2">
-                                My Sig
-                                <br>
-                                <a href="/panel/sig/addmembers/{{ Auth::user()->sigLeader()[0] }}">Add members</a>
+                                
+                                @include('panel.menu_leader')
+
                             </div>
                             @endif
                             

@@ -27,7 +27,7 @@
                                                     </div>
                                                 </td>
                                                 <td>@{{sigCtrl.getMemberStatus(member.pivot.main)}}</td>
-                                                <td><div class="btn btn-danger">Delete</div></td>
+                                                <td><div class="btn btn-danger" ng-click="sigCtrl.deleteMember(member.id)">Delete</div></td>
                                                 </tr>
                                             </tbody>
                                         </table>

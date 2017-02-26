@@ -42,8 +42,7 @@ class SigsAddMemberRequest extends Request
     {
         return [
             
-//////////////// pu val for int??
-            
+//////////////// val for int??
             'main' => 'required',
             'user_id' => 'required',
             'sig_id' => 'required'
