@@ -189,14 +189,44 @@ angular.module('ukfn')
         };
         
         controller.ukfnUsers = [];
-         controller.thisMembers = [];
+        controller.thisMembers = [];
          
-         controller.sigMemebrships = [
-             {name: "Leader", id: 1},
-             {name: "Co-Leader", id: 2},
-             {name: "Member", id: 3}
-         ];
+        controller.sigMemebrships = [
+            {name: "Leader", id: 1},
+            {name: "Co-Leader", id: 2},
+            {name: "Member", id: 3}
+        ];
          
+        controller.addMemberSearch = '';
+        
+        controller.getMemberStatus = function(id) 
+        {
+            switch(id) {
+                case 1: 
+                    return "Leader";
+                    break;
+                case 2:
+                    return "Co-Leader";
+                    break;
+                case 3:
+                    return "Member";
+                    break;
+            };
+        };
+        
+        controller.getUsers = function(id) {
+            controller.getSigMembers(id);
+            controller.getAllUsers();
+        };
+       
+        /**
+         * Get all members of this sig
+         * Login is required to get this details for either admin or sig leader
+         * 
+         * @author <robert@barczyk.net>
+         * @param {int} id  Sig id
+         * @returns {json}
+         */
         controller.getSigMembers = function(id) {
             $http(
                     {
@@ -204,13 +234,9 @@ angular.module('ukfn')
                         url: '/api/sigs/members/' + id
                     }
                 ).then(function (response) {
-                    controller.thisMembers = response.data;
-                                        
+                    controller.thisMembers = response.data;   
                 });
         };
-        
-       
-        
         
         controller.getAllUsers = function() {
             $http(
@@ -219,31 +245,32 @@ angular.module('ukfn')
                         url: '/api/users'
                     }
                 ).then(function (response) {
-            
-                    // get all SIGs and their institutions
                     var users = response.data;
-                    for (var i = 0; i < users.length; i++) {
-                        
-                        for (var j = 0; j < controller.thisMembers.length; j++) {
-                            
-                            if (users[i].id !== controller.thisMembers[j].id) {
-                                controller.ukfnUsers.push(users[i]);
-                                break;
-                            }
-                            
-                            
-                        }
-                        
-                    }
+                    var existing = false;        
                     
+                    // for each ukfn user
+                    for (var i = 0; i < users.length; i++) {
+                        // for each this sig member
+                        for (var j = 0; j < controller.thisMembers.length; j++) {
+                            // if ukfn user is a member of this sig 
+                            if (users[i].id === controller.thisMembers[j].id) {
+                                existing = true;
+                                break;
+                            } else {
+                                existing = false;
+                            }     
+                        }
+                        // if thgis user is not not a member of this sig add him to all users list
+                        if (!existing) {
+                            controller.ukfnUsers.push(users[i]);
+                        } 
+                    }
                 });
         };
-        
-        
-        
-        controller.userSigMain;
-        controller.addMember = function(userId, sigMain, sigId)
-        {
+                
+        controller.addMember = function(userId, sigMain = 0, sigId)
+        { 
+            alert("user id : " + userId + " status : " + sigMain + " Sig id : " +sigId );
             $http({method: 'GET', url: '/api/users/' + userId})
                     .then(function (data){
 
@@ -260,27 +287,26 @@ angular.module('ukfn')
                         }
                         
                         if (!existing) {
-                            controller.thisMembers.push(data.data);
-                                                 
                             
-                            var dane = {user_id: userId,
-                              "main": sigMain,
-                              "sig_id" : sigId
-                            //"_token":   CSRF_TOKEN
-                            };
-                          
-                            $http({
-                                method : 'POST',
-                                url: '/sig/addmember',
-                                headers: { 'X-CSRF-TOKEN' : CSRF_TOKEN},
-                              data: $.param(dane)
-                              
-                            })
-                            .success(function(response){
-                                console.log(response);
-                            }).error(function(data){
-                              console.log("error");  
-                            });
+                            controller.thisMembers.push(data.data);
+                                                        
+//                            var dane = {user_id: userId,
+//                              "main": sigMain,
+//                              "sig_id" : sigId
+//                            //"_token":   CSRF_TOKEN
+//                            };
+//                          
+//                            $http({
+//                                method : 'POST',
+//                                url: '/sig/addmember',
+//                              data: $.param(dane)
+//                              
+//                            })
+//                            .success(function(response){
+//                                console.log(response);
+//                            }).error(function(data){
+//                              console.log("error");  
+//                            });
                             
                             
                             for (var i = 0; i <  controller.ukfnUsers.length; i++) {
@@ -289,15 +315,12 @@ angular.module('ukfn')
                                     break;
                                 }
                             }
+                            // reset search
+                            controller.addMemberSearch = '';
                         }
-                    
-//                        
-                   //console.log(controller.thisMembers.length);
             });
             
         };
-        
-        controller.addMemberSearch = '';
     });
 
 /**

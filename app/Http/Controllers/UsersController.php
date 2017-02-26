@@ -215,6 +215,7 @@ class UsersController extends Controller
         foreach ($users as $user) {
             $ukfnUsers[$key] = $user;
             $ukfnUsers[$key]->title = $user->title;
+            $ukfnUsers[$key]->institutions = $user->institutions;
             $ukfnUsers[$key]->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
             $key++;
         }
@@ -232,7 +233,9 @@ class UsersController extends Controller
             
             $user = User::findOrFail($id);
             $user->title;
+            $user->institutions;
             $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $user->sigs;
                  
             return json_encode($user, JSON_PRETTY_PRINT);
         } else {

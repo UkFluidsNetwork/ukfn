@@ -99,7 +99,7 @@ Route::post('panel/talks/feeds/delete/{id}', 'AggregatorsController@delete')->mi
 Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware('auth');
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('auth');
 Route::post('panel/talks/add', 'TalksController@create')->middleware('auth');
-Route::post('/sig/addmember', 'SigsController@addmember')->middleware('auth');
+Route::post('/sig/addmember', 'SigsController@addmember');
 /** PATCH requests * */
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('auth');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('auth');

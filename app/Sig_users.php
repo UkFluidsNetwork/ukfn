@@ -15,7 +15,7 @@ class Sig_users extends Model
      * @var array
      */
     protected $fillable = [
-        'main', 'sig_id', 'user_id'
+        'main', 'sig_id', 'user_id', 'deleted', 'moderated'
     ];
 
     /**
@@ -25,14 +25,14 @@ class Sig_users extends Model
      * @access protected
      * @static
      */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('deleted', function (Builder $builder) {
-            $builder->where('sig_users.deleted', '=', '0');
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//
+//        static::addGlobalScope('deleted', function (Builder $builder) {
+//            $builder->where('sig_users.deleted', '=', '0');
+//        });
+//    }
 
     
 }

@@ -7,7 +7,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-
+<meta name="csrf_token" content="{{ csrf_token() }}" />
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/main.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">

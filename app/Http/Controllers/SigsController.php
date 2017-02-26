@@ -339,47 +339,89 @@ class SigsController extends Controller
         return null;
     }
     
+    /**
+     * Add any ukfn member to selected SIG
+     * Restricted to admin and SIG leaders
+     * 
+     * @access public
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param type $id
+     * @return type
+     */
     public function addMembers($id)
     {
         if (Auth::user()->group_id != 1) {
             if (Auth::user()->sigLeader()[0] != $id) {
-                die("Javi to do :)");
+                return redirect('/');
+            } else {
+                $bread = [
+                    ['label' => 'Panel', 'path' => '/panel'],
+                    ['label' => 'SIG', 'path' => '/panel/sig'],
+                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+                ];        
             }
+        } elseif (Auth::user()->group_id != 1) {
+            $bread = [
+                ['label' => 'Manage SIG', 'path' => '/panel/sig/edit/'.$sigLeader[0]],
+            ];
+        } else {
+            $bread = [
+                    ['label' => 'Panel', 'path' => '/panel'],
+                    ['label' => 'SIG', 'path' => '/panel/sig'],
+                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
+                ];        
+        
         }
         
         $sig = Sig::findOrFail($id);
         $sig->users;
         
-        
-        $bread = [
-                    ['label' => 'Panel', 'path' => '/panel'],
-                    ['label' => 'SIG', 'path' => '/panel/sig'],
-                    ['label' => 'Add Memebers', 'path' => '/panel/sig/addmembers'],
-                ];     
+//        $bread = [
+//                    ['label' => 'Panel', 'path' => '/panel'],
+//                    ['label' => 'SIG', 'path' => '/panel/sig'],
+//                    ['label' => 'Add Memebers', 'path' => '/panel/sig/addmembers'],
+//                ];     
         
         $breadCount = count($bread);
         return view('panel.sigs.addmembers', compact('id', 'bread', 'breadCount', 'sig'));
     }
     
+    /**
+     * API: Get selected sig members
+     * Restricted to sig leaders and administrators
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param int $id Sig id
+     * @return JSON
+     */
     public function getSigMembersJson($id) {
         if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
             $sig = Sig::findOrFail($id);
             $sig->users;
-
-            return json_encode($sig->users, JSON_PRETTY_PRINT);
+            
+            $users = [];
+            foreach ($sig->users as $user) {
+                $sigUser = User::findOrFail($user->id);
+                $sigUser->title;
+                $sigUser->institutions;
+                $sigUser->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+                $sigUser->pivot = $user->pivot;
+                array_push($users, $sigUser);                
+            }
+            return json_encode($users, JSON_PRETTY_PRINT);
         } else {
             return json_encode("Error");
         }
     }
     
-    public function addMember(SigsAddMemberRequest $request)
-    {
-        $sig = new Sig_users;
-            $input = $request->all();
-            $sig->fill($input);
-            $sig->save();
+    public function addMember()
+    {//SigsAddMemberRequest $request
+//        $sig = new Sig_users;
+//            $input = $request->all();
+//            $sig->fill($input);
+//            $sig->save();
         
-        //DB::table('sig_users')->insert(['sig_id' => 4, 'user_id' => 5, 'main' =>1]);
+        DB::table('sig_users')->insert(['sig_id' => 4, 'user_id' => 5, 'main' =>1, 'moderated' => '2017-01-01 00:00:00', 'deleted'=>0]);
         return json_encode("ok");
     }
 }
