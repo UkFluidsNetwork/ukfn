@@ -18,23 +18,18 @@
 
                     <div class="container-fluid nopadding">
                         <div class="row">
-                            @if (Auth::user()->group_id === 1)
+                            @if (Auth::user()->isAdmin())
                             
                             <div class="col-lg-2 col-md-2">
                                 @include('panel.menu')
                             </div>
-                            @elseif (Auth::user()->sigLeader())
-                            
+                            @elseif (Auth::user()->isSigLeader())
                             <div class="col-lg-2 col-md-2">
-                                
                                 @include('panel.menu_leader')
-
                             </div>
                             @endif
-                            
                             <div class="col-lg-10 col-md-10">
                                 @yield('admincontent')
-                            
                             </div>
                         </div>
                     </div>

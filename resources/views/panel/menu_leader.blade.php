@@ -5,11 +5,16 @@
         </button>
     </div>
     <ul id="adminnav" class="nav nav-stacked fixed collapse navbar-collapse"> 
-        <li class="{{ Request::is('panel/tags*') ? 'active' : '' }}">
-            <a href="{{URL::to('/panel/sig/edit/' . Auth::user()->sigLeader()[0])}}" class="{{ Request::is('panel/tags*') ? 'active' : '' }}">Manage SIG</a>
+        <li class="{{ Request::is('panel/sig*') ? 'active' : '' }}">
+            @foreach (Auth::user()->sigLeaderships() as $sig)
+            <a href="{{URL::to('/panel/sig/edit/' . $sig->id)}}" class="{{ Request::is('panel/sig/edit/' . $sig->id) ? 'active' : '' }}">Edit {{$sig->shortname}}</a>
+            
             <ul id="admin-subnav-tags" class="nav nav-stacked">
-                <li><a href="/panel/sig/addmembers/{{ Auth::user()->sigLeader()[0] }}" class="{{ Request::is('panel/tags/disciplines') ? 'active' : '' }}">Add Members</a></li>
+                <li>
+                    <a href="{{URL::to('/panel/sig/members/' . $sig->id)}}" class="{{ Request::is('panel/sig/members/' . $sig->id) ? 'active' : '' }}">Administer members of {{$sig->shortname}}</a>
+                </li>
             </ul>
+            @endforeach
         </li>
     </ul>
 </nav>

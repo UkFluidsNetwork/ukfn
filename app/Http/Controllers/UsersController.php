@@ -9,8 +9,6 @@ use App\Title;
 use App\Group;
 use App\Institution;
 use App\Tag;
-use Auth;
-use DB; 
 
 class UsersController extends Controller
 {
@@ -23,10 +21,6 @@ class UsersController extends Controller
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users']
@@ -51,11 +45,6 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users'],
@@ -131,11 +120,6 @@ class UsersController extends Controller
      */
     public function add()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users'],
@@ -208,23 +192,18 @@ class UsersController extends Controller
      */
     public function getUsersJson() 
     {
-        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {       
-            $key = 0;
-            $users = User::all();
-            $ukfnUsers = [];
-            foreach ($users as $user) {
-                $ukfnUsers[$key] = $user;
-                $ukfnUsers[$key]->title = $user->title;
-                $ukfnUsers[$key]->institutions = $user->institutions;
-                $ukfnUsers[$key]->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
-                $ukfnUsers[$key]->sigs;
-                $key++;
-            }
-            
-            return json_encode($ukfnUsers, JSON_PRETTY_PRINT);
-        } else {
-            return json_encode("Error");
+        $users = [];
+        $allUsers = User::all();
+
+        foreach ($allUsers as $user) {
+            $user->title;
+            $user->institutions;
+            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $user->sigs;
+            $users[] = $user;
         }
+        
+        return response()->json($users);
     }
     
     /**
@@ -237,17 +216,12 @@ class UsersController extends Controller
      */
     public function getUserJson($id) 
     {
-        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
-            
-            $user = User::findOrFail($id);
-            $user->title;
-            $user->institutions;
-            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
-            $user->sigs;
-                 
-            return json_encode($user, JSON_PRETTY_PRINT);
-        } else {
-            return json_encode("Error");
-        }
+        $user = User::findOrFail($id);
+        $user->title;
+        $user->institutions;
+        $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+        $user->sigs;
+
+        return response()->json($user);
     }
 }

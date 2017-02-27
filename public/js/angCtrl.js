@@ -238,7 +238,7 @@ angular.module('ukfn')
             $http(
                     {
                         method: 'GET',
-                        url: '/api/sigs/members/' + id
+                        url: '/api/sig/members/' + id
                     }
                 ).then(function (response) {
                     controller.thisMembers = response.data;   
@@ -301,26 +301,18 @@ angular.module('ukfn')
                         }
                         
                         if (!existing) {
-                            
-                            controller.thisMembers.push(data.data);
-                                                        
-//                            var dane = {user_id: userId,
-//                              "main": sigMain,
-//                              "sig_id" : sigId
-//                            //"_token":   CSRF_TOKEN
-//                            };
-//                          
-//                            $http({
-//                                method : 'POST',
-//                                url: '/sig/addmember',
-//                              data: $.param(dane)
-//                              
-//                            })
-//                            .success(function(response){
-//                                console.log(response);
-//                            }).error(function(data){
-//                              console.log("error");  
-//                            });
+                            $http({
+                                method : 'POST',
+                                url: '/sig/members/add/' + sigId,
+                                data: {
+                                    user_id: userId,
+                                    main: sigMain,
+                                    sig_id : sigId
+                                }                              
+                            })
+                            .success(function(response){
+                                controller.thisMembers.push(data.data);
+                            });
                             
                             
                             for (var i = 0; i <  controller.ukfnUsers.length; i++) {

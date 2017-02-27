@@ -43,10 +43,6 @@ class SigsController extends Controller
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'SIG', 'path' => '/panel/sig']
@@ -72,33 +68,23 @@ class SigsController extends Controller
      */
     public function edit($id)
     {
-        $sigLeader = Auth::user()->sigLeader();
-                        
-        // if requested SIG is not associated with this user
-        if (!in_array((int)$id, $sigLeader)) {
-            if (!PanelController::checkIsAdmin()) {
-                return redirect('/');
-            } else {
-                $bread = [
-                    ['label' => 'Panel', 'path' => '/panel'],
-                    ['label' => 'SIG', 'path' => '/panel/sig'],
-                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
-                ];        
-            }
-        } elseif (Auth::user()->group_id != 1) {
+        $sig = Sig::findOrFail($id);
+        
+        if (Auth::user()->isSigLeader()) {
             $bread = [
-                ['label' => 'Manage SIG', 'path' => '/panel/sig/edit/'.$sigLeader[0]],
+                ['label' => $sig->shortname, 'path' => "/panel/sig/${id}"],
             ];
-        } else {
+        }
+        
+        if (Auth::user()->isAdmin()) {
             $bread = [
                     ['label' => 'Panel', 'path' => '/panel'],
                     ['label' => 'SIG', 'path' => '/panel/sig'],
-                    ['label' => 'Edit', 'path' => '/panel/sig/edit'],
-                ];        
+                    ['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"],
+            ];
         }
 
         $breadCount = count($bread);
-        $sig = Sig::findOrFail($id);
         $sigTags = $sig->getTagIds();
         $sigInstitutions = $sig->getInstitutionIds();
         $institutions = Institution::all();
@@ -123,11 +109,11 @@ class SigsController extends Controller
      */
     public function update($id, SigsFormRequest $request)
     {
-        try {
-            $sig = Sig::findOrFail($id);
-            
+        $sig = Sig::findOrFail($id);
+        
+        try {    
             // prevent sig leader to change sig name
-            if (!empty(Auth::user()->sigLeader()) && Auth::user()->group_id !== 1) {
+            if (Auth::user()->isLeaderOfSig($id)) {
                 $request['name'] = $sig->name;
             }
 
@@ -135,18 +121,12 @@ class SigsController extends Controller
             $sig->fill($input);
             $bigImage = $request->file('bigimage');
             $smallImage = $request->file('smallimage');
-            $finalDestination = Storage::disk('sig-pictures')->getDriver()->getAdapter()->getPathPrefix();
-                        
+            
             if ($bigImage) {
-                $newFilenameB = strtolower($request->shortname) . "_big_" . time() . "." . $bigImage->getClientOriginalExtension();
-                $bigImage->move($finalDestination, $newFilenameB);
-                $sig->bigimage = $newFilenameB;
+                $sig->bigimage = PagesController::uploadFile($bigImage, 'sig-pictures', strtolower($request->shortname) . "_large_");
             }
-
             if ($smallImage) {
-                $newFilenameS = strtolower($request->shortname) . "_small_" . time() . "." . $smallImage->getClientOriginalExtension();
-                $smallImage->move($finalDestination, $newFilenameS);
-                $sig->smallimage = $newFilenameS;
+                $sig->smallimage = PagesController::uploadFile($bigImage, 'sig-pictures', strtolower($request->shortname) . "_small_");
             }
             
             $sig->save();
@@ -158,12 +138,12 @@ class SigsController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-
-        if (!empty(Auth::user()->sigLeader())) {
-            return redirect('/panel/sig/edit/'.$id);
-        } else {
-            return redirect('/panel/sig');    
+        
+        if (Auth::user()->isLeaderOfSig($id)) {
+            return redirect('/panel/sig/edit/' . $id);
         }
+        
+        return redirect('/panel/sig');        
     }
 
     /**
@@ -175,10 +155,6 @@ class SigsController extends Controller
      */
     public function add()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'SIG', 'path' => '/panel/sig'],
@@ -348,33 +324,27 @@ class SigsController extends Controller
      * @param type $id
      * @return type
      */
-    public function addMembers($id)
+    public function members($id)
     {
-        $sigLeader = Auth::user()->sigLeader();
-        if (Auth::user()->group_id != 1) {
-            if ($sigLeader[0] != $id) {
-                return redirect('/');
-            } else {
-                // SIG Leader breadcrumbs
-                $bread = [
-                    ['label' => 'Manage SIG', 'path' => '/panel/sig/edit/'.$sigLeader[0]],
-                    ['label' => 'Add Members', 'path' => '/panel/sig/addmembers/'.$sigLeader[0]],
-                ];
-            }
-        } else {
-            // admin breadcrumbs
+        if (Auth::user()->isSigLeader()) {
+            $bread = [
+                ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
+                ['label' => 'Add Members', 'path' => "/panel/sig/addmembers/${id}"],
+            ];
+        }
+        
+        if (Auth::user()->isAdmin()) {
             $bread = [
                     ['label' => 'Panel', 'path' => '/panel'],
                     ['label' => 'SIG', 'path' => '/panel/sig'],
-                    ['label' => 'Edit', 'path' => '/panel/sig/edit/'.$id],
-                    ['label' => 'Add Members', 'path' => '/panel/sig/addmembers/'.$id],
-                ];        
+                    ['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"],
+                    ['label' => 'Add Members', 'path' => "/panel/sig/addmembers/${id}"],
+            ];
         }
         
         $sig = Sig::findOrFail($id);
-        $sig->users;        
         $breadCount = count($bread);
-        return view('panel.sigs.addmembers', compact('id', 'bread', 'breadCount', 'sig'));
+        return view('panel.sigs.members', compact('id', 'bread', 'breadCount', 'sig'));
     }
     
     /**
@@ -385,35 +355,39 @@ class SigsController extends Controller
      * @param int $id Sig id
      * @return JSON
      */
-    public function getSigMembersJson($id) {
-        if (Auth::user()->group_id === 1 || Auth::user()->sigLeader()) {
-            $sig = Sig::findOrFail($id);
-            $sig->users;
-            
-            $users = [];
-            foreach ($sig->users as $user) {
-                $sigUser = User::findOrFail($user->id);
-                $sigUser->title;
-                $sigUser->institutions;
-                $sigUser->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
-                $sigUser->pivot = $user->pivot;
-                array_push($users, $sigUser);                
-            }
-            return json_encode($users, JSON_PRETTY_PRINT);
-        } else {
-            return json_encode("Error");
+    public function getSigMembersJson($id) 
+    {
+        $users = [];
+        $sig = Sig::findOrFail($id);
+        $sig->users;
+
+        foreach ($sig->users as $user) {
+            $user->title;
+            $user->institutions;
+            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $user->pivot;
+            $users[] = $user;
         }
+        
+        return response()->json($users);
     }
     
-    // WIP
-    public function addMember()
-    {//SigsAddMemberRequest $request
-//        $sig = new Sig_users;
-//            $input = $request->all();
-//            $sig->fill($input);
-//            $sig->save();
+    public function addMember($id, \Illuminate\Http\Request $request)
+    {   
+        $parameters = $request->all();
         
-        DB::table('sig_users')->insert(['sig_id' => 4, 'user_id' => 5, 'main' =>1, 'moderated' => '2017-01-01 00:00:00', 'deleted'=>0]);
-        return json_encode("ok");
+        if (empty($parameters)) {
+            return response()->json('Invalid data');
+        }
+        
+        if (!in_array($parameters['main'], [0, 1, 2, 3])) {
+            return response()->json('Invalid status');            
+        }
+        
+        $sig = Sig::findOrFail($id);
+        $user = User::findOrFail($parameters['user_id']);
+        $added = $sig->users()->attach($user->id, ['main' => $parameters['main']]);
+        
+        return response()->json($added);
     }
 }

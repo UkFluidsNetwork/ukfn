@@ -29,9 +29,6 @@ Route::get('api/sigs', 'SigsController@getAllJson');
 Route::get('api/talks', 'TalksController@getAllJson');
 Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 // require login
-Route::get('api/sigs/members/{id}', 'SigsController@getSigMembersJson')->middleware('auth');
-Route::get('api/users/', 'UsersController@getUsersJson')->middleware('auth');
-Route::get('api/users/{id}', 'UsersController@getUserJson')->middleware('auth');
 Route::get('myaccount', 'PagesController@myaccount')->middleware('auth');
 Route::get('myaccount/personal', 'PagesController@personalDetails')->middleware('auth');
 Route::get('myaccount/academic', 'PagesController@academicDetails')->middleware('auth');
@@ -40,6 +37,10 @@ Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('
 // require canEditSig
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('sig');
 Route::get('panel/sig/members/{id}', 'SigsController@members')->middleware('sig');
+Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
+// require canViewUsers
+Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-leader');
+Route::get('api/users/{id}', 'UsersController@getUserJson')->middleware('admin-leader');
 // require admin
 Route::get('panel', 'PanelController@index')->middleware('admin');
 Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('admin');
@@ -86,7 +87,7 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 // require canEditSig
-Route::get('panel/sig/members/{id}', 'SigsController@addmember')->middleware('sig');
+Route::post('sig/members/add/{id}', 'SigsController@addmember')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');
 Route::post('news/delete/{id}', 'NewsController@delete')->middleware('admin');

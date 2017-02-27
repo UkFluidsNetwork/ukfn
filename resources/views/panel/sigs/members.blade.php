@@ -39,7 +39,7 @@
                                     
                                     <div class="line-break-dbl-top alert alert-block alert-info" ng-show="usersFiltered.length < 1">
                                         <i class="glyphicon glyphicon-info-sign margin-right"></i>
-                                        Could not find talks matching your criteria.
+                                        Could not find users matching your criteria.
                                     </div>
                                     <div class="table-responsive line-break-dbl-top">
                                         <table class="table" ng-show="sigCtrl.addMemberSearch.fullname!== '' && sigCtrl.addMemberSearch !== ''">

@@ -90,20 +90,22 @@
                                    aria-expanded="false">{{ Auth::user()->name }} {{ Auth::user()->surname }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    @if(Auth::user()->group_id == 1)
+                                    @if(Auth::user()->isAdmin())
                                     <li>
                                         <a href='{{ URL::to('/panel') }}'>
                                             <span class="glyphicon glyphicon-wrench margin-right"></span>
                                             Admin Panel
                                         </a>
                                     </li>
-                                    @elseif(Auth::user()->sigLeader())
-                                    <li>
-                                        <a href='{{ URL::to('/panel/sig/edit/'.Auth::user()->sigLeader()[0]) }}'>
-                                            <span class="glyphicon glyphicon-wrench margin-right"></span>
-                                            Manage SIG
-                                        </a>
-                                    </li>
+                                    @elseif(Auth::user()->isSigLeader())
+                                        @foreach (Auth::user()->sigLeaderships() as $sig)
+                                        <li>
+                                            <a href='{{ URL::to('/panel/sig/edit/'.$sig->id) }}'>
+                                                <span class="glyphicon glyphicon-wrench margin-right"></span>
+                                                Administer {{$sig->shortname}}
+                                            </a>
+                                        </li>
+                                        @endforeach
                                     @endif
                                     <li>
                                         <a href='{{ URL::to('/myaccount') }}'>

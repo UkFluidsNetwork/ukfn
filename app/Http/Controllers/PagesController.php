@@ -395,4 +395,31 @@ class PagesController extends Controller
                 $textToFormat
             );
     }
+    
+    /**
+     * 
+     * @param \Illuminate\Http\UploadedFile $file
+     * @param string $disk name of the storage::disk()
+     * @param string|null $name the final name of the file
+     * @return string|boolean the name of the file if succeeded or false if not
+     */
+    public static function uploadFile($file, $disk, $name = null)
+    {
+        try {
+            $location = Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix();
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        
+        $fileName = $name !== null ? $name . time() : time();
+        $fileName.= $file->getClientOriginalExtension();
+        
+        $fileMoved = $file->move($location, $fileName);
+        
+        if ($fileMoved) {
+            return $fileName;
+        }
+        
+        return false;
+    }
 }

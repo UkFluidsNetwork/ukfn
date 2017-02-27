@@ -202,8 +202,71 @@ class User extends Authenticatable
     {
         return $this->institutions->lists('id')->toArray();
     }
+    
+    public function canEditSig($sigId)
+    {
+        return $this->isAdmin() || $this->isLeaderOfSig($sigId);
+    }
+    
+    public function isLeaderOfSig($sigId)
+    {
+        return $this->sigs()->where('sigs.id', $sigId)->where('main', 1)->count() > 0;
+    }
+    
+    public function belongsToSig($sigId)
+    {
+        return $this->sigs()->where('sigs.id', $sigId)->count() > 0;
+    }
+    
+    public function isAdmin()
+    {
+        return $this->group_id === 1;
+    }
+    
+    public function isSigLeader()
+    {
+        return $this->sigs()->where('main', 1)->count() > 0;
+    }
+    
+    public function isSigCoLeader()
+    {
+        return $this->sigs()->where('main', 2)->count() > 0;
+    }
+    
+    public function isSigKeyPersonnel()
+    {
+        return $this->sigs()->where('main', 3)->count() > 0;
+    }
+    
+    public function isSigMember()
+    {
+        return $this->sigs()->where('main', 0)->count() > 0;
+    }
+    
+    public function sigLeaderships()
+    {
+        return $this->sigs()->where('main', 1)->get();
+    }
+    
+    public function sigLeadershipsIds()
+    {
+        return $this->sigs()->where('main', 1)->lists('id')->toArray();
+    }
+    
+    public function sigStatus($id)
+    {
+        if (!$this->belongsToSig($id)) {
+            return null;
+        }
+        switch ($this->sigs()-where('sigs.id', $id)->first->main) {
+            case 0: return "Member";
+            case 1: return "Leader";
+            case 2: return "Co-leader";
+            case 3: return "Key personnel";
+        }
+    }
 
-    public function sigLeader()
+   public function sigLeader()
     {
         $userSigLeader = [];
         $userSigs = $this->sigs; 
@@ -226,7 +289,6 @@ class User extends Authenticatable
             }
         }
     
-        return $userSigLeader;    
-        
+        return $userSigLeader;
     }
 }
