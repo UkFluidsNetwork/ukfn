@@ -253,17 +253,23 @@ class User extends Authenticatable
         return $this->sigs()->where('main', 1)->lists('id')->toArray();
     }
     
-    public function sigStatus($id)
-    {
+    public function sigStatusId($id)
+    {  
         if (!$this->belongsToSig($id)) {
             return null;
         }
-        switch ($this->sigs()-where('sigs.id', $id)->first->main) {
+        return $this->sigs()-where('sigs.id', $id)->first->main;
+    }
+    
+    public function sigStatus($id)
+    {
+        switch ($this->sigStatusId($id)) {
             case 0: return "Member";
             case 1: return "Leader";
             case 2: return "Co-leader";
             case 3: return "Key personnel";
         }
+        return null;
     }
 
    public function sigLeader()

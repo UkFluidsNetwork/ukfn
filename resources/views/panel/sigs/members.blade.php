@@ -3,7 +3,7 @@
 
                                 <h2 class='line-break'>Add members to: {{$sig->name}}</h2>
 
-                                <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.getUsers({{$id}})">                                    
+                                <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$id}} ;sigCtrl.loadUsers();">                                    
                                     <div class="table-responsive line-break-dbl">
                                         <table class="table" ng-show="sigCtrl.thisMembers.length > 0">
                                             <thead>
@@ -70,7 +70,7 @@
                                                         </select> 
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-primary" ng-click="sigCtrl.addMember(user.id, user.userSigMain, {{$id}})">Add</button>
+                                                        <button class="btn btn-primary" ng-click="sigCtrl.addMember(user.id, user.userSigMain);">Add</button>
                                                     </td>
                                                 </tr>
                                             </tbody>

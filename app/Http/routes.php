@@ -87,7 +87,7 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 // require canEditSig
-Route::post('sig/members/add/{id}', 'SigsController@addmember')->middleware('sig');
+Route::post('sig/members/{action}/{id}', 'SigsController@administerMember')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');
 Route::post('news/delete/{id}', 'NewsController@delete')->middleware('admin');
