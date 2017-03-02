@@ -165,7 +165,7 @@ class TalksController extends Controller
             // we instantiate a talk object in case $talk is a std object rather than actual intance of Talk, otherwise we cannnot use functions in the Talk class
             $talk = Talk::findOrFail($talk->id);
             $formattedTalks[$index] = $talk;
-            $formattedTalks[$index]->aggregator = Aggregator::findOrFail($talk->aggregator_id);
+            $formattedTalks[$index]->aggregator = $talk->aggregator_id ? Aggregator::findOrFail($talk->aggregator_id) : null;
             $formattedTalks[$index]->isRecorded = $talk->isRecorded();
             $formattedTalks[$index]->isStreamed = $talk->isStreamed();
             $formattedTalks[$index]->displayStream = $talk->displayStream();
@@ -203,14 +203,26 @@ class TalksController extends Controller
     }
     
     /**
-     * Get all talks from today 
+     * Get all current, past, or recorded talks in JSON
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
      * @author Robert Barczyk <robert@barczyk.net>
-     * @return Json
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAllJson()
+    public function getAllJson($query = "current")
     {
-        $allTalks = Talk::getAllCurrentTalks();
-        $talks = self::formatTalks($allTalks);
+        switch ($query) {
+            case "current":
+                $bareTalks = Talk::getAllCurrentTalks();
+                break;
+            case "past":
+                $bareTalks = Talk::getPastTalks();
+                break;
+            case "recorded":
+                $bareTalks = Talk::getRecordedTalks();
+                break;
+        }
+        $talks = self::formatTalks($bareTalks);
         return response()->json($talks);
     }
     

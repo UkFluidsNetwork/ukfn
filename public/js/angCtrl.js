@@ -218,6 +218,8 @@ angular.module('ukfn')
         
         // aggregators for this talks set
         controller.thisAggregators = [];
+        
+        controller.loading = true;
 
         /**
          * Get all future talks
@@ -229,7 +231,7 @@ angular.module('ukfn')
             $http(
                 {
                     method: 'GET',
-                    url: '/api/talks'
+                    url: '/api/talks/current'
                 }
             ).then(function (response) {
                 controller.talks = response.data;
@@ -254,8 +256,45 @@ angular.module('ukfn')
                 }
             });
         })();
-       
-        controller.selectizeConfig = {
+        
+        controller.loadTalks = function(query) {
+            var feeds = {};
+            var url = '/api/talks/' + query;
+            controller.loading = true;
+            controller.talks = {};
+            
+            $http(
+                {
+                    method: 'GET',
+                    url: url,
+                    data: {feeds: feeds}
+                }
+            ).then(function (response) {
+                controller.loading = false;
+                controller.talks = response.data;
+
+                var lookup = {};
+
+                // get uniqe aggregators for this set of talks
+                for (var i = 0; i < controller.talks.length; i++)  {
+                    var aggregator = controller.talks[i].name;
+                    var aggregatorId = controller.talks[i].aggregator_id;
+                    if (!(aggregator in lookup)) {
+                        lookup[aggregator] = true;
+                        controller.thisAggregators.push({id: aggregatorId, label: aggregator});
+                    }
+                    
+                    if (controller.talks[i].recordingurl) {
+                        controller.talks[i].recordingurl = $sce.trustAsResourceUrl(controller.talks[i].recordingurl);
+                    }
+                    if (controller.talks[i].streamingurl) {
+                        controller.talks[i].streamingurl = $sce.trustAsResourceUrl(controller.talks[i].streamingurl);
+                    }
+                }
+            });            
+        };
+        
+        controller.selectizeSeriesConfig = {
             create: false,
             plugins: ['remove_button'],
             delimiter: ',',
@@ -263,7 +302,18 @@ angular.module('ukfn')
             framework: 'bootstrap',
             valueField: 'id',
             labelField: 'label',
-            placeholder: 'Select feed'
+            placeholder: 'Select series'
+          };
+          
+        controller.selectizeSearchConfig = {
+            create: false,
+            plugins: ['remove_button'],
+            delimiter: ',',
+            searchField: 'label',
+            framework: 'bootstrap',
+            valueField: 'id',
+            labelField: 'label',
+            placeholder: 'Enter search term(s)'
           };
     });
 

@@ -167,6 +167,40 @@ class Talk extends Model
             ->where('talks.deleted', '=', 0)
             ->get();
     }
+
+    /**
+     * Get current talks only
+     * 
+     * @return array
+     */
+    public static function getCurrentTalks()
+    {
+        return DB::table('talks')->where('end', '>', Carbon::now())->orderBy('start', 'ASC')->get();
+    }
+
+    /**
+     * Get current talks only
+     * 
+     * @return array
+     */
+    public static function getPastTalks()
+    {
+        return DB::table('talks')->where('end', '<', Carbon::now())->orderBy('start', 'ASC')->get();
+    }
+
+    /**
+     * Get current talks only
+     * 
+     * @return array
+     */
+    public static function getRecordedTalks()
+    {
+        return DB::table('talks')
+            ->whereNotNull('recordingurl')
+            ->where('recordingurl', '<>', '')
+            ->orderBy('start', 'ASC')
+            ->get();
+    }
     
     /**
      * Determine whether this talk is to be streamed
