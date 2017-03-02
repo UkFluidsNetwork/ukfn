@@ -175,7 +175,7 @@ class Talk extends Model
      */
     public function isStreamed()
     {
-        return ($this->streamingurl !== null && $this->streamingurl !== "") || $this->teradekip !== null;
+        return $this->streamingurl !== null && $this->streamingurl !== "";
     }
     
     /**
@@ -195,6 +195,6 @@ class Talk extends Model
      */
     public function displayStream()
     {
-        return $this->recordingurl !== null && (Carbon::now() >= Carbon::parse($this->start)->addMinutes(-15) && Carbon::now() <= Carbon::parse($this->end)->addMinutes(15));
+        return $this->recordingurl !== null && $this->recordingurl !== "" && (Carbon::now() >= Carbon::parse($this->start)->addMinutes(-15) && Carbon::now() <= Carbon::parse($this->end)->addMinutes(15));
     }
 }
