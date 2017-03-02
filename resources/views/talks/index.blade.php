@@ -92,6 +92,9 @@
                         <div class="line-break">
                             @{{ talk.abstract }}
                         </div>
+                        <p ng-if="talk.isStreamed && !talk.displayStream">
+                            <i class="glyphicon glyphicon-warning-sign"></i> Streaming will be made available 15 minutes before the start of the talk. 
+                        </p>
                         <div class="pull-right" style="margin-top:-10px;">
                             <a ng-href="/talks/@{{talk.id}}" target="_blank" title="Open in a new tab">
                                 <span class="glyphicon glyphicon-new-window"></span> Open in a new tab
@@ -100,6 +103,11 @@
                         <div ng-if="talk.recordingurl" class="line-break-dbl-top">
                             <div class="embed-responsive embed-responsive-16by9">
                                 <iframe class="embed-responsive-item" ng-src="@{{talk.recordingurl}}" scrolling="no" frameborder="0" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                        <div ng-if="talk.displayStream" class="line-break-dbl-top">
+                            <div class="embed-responsive embed-responsive-16by9">
+                                <iframe class="embed-responsive-item" ng-src="@{{talk.streamingurl}}" scrolling="no" frameborder="0" allowfullscreen></iframe>
                             </div>
                         </div>
                     </div>

@@ -167,4 +167,34 @@ class Talk extends Model
             ->where('talks.deleted', '=', 0)
             ->get();
     }
+    
+    /**
+     * Determine whether this talk is to be streamed
+     * 
+     * @return boolean
+     */
+    public function isStreamed()
+    {
+        return ($this->streamingurl !== null && $this->streamingurl !== "") || $this->teradekip !== null;
+    }
+    
+    /**
+     * Determine whether this talk has been recorded and we are allowed to display the recording
+     * 
+     * @return boolean
+     */
+    public function isRecorded()
+    {
+        return $this->recordingurl !== null && $this->recordingurl !== "" && ($this->recordinguntil === null || Carbon::parse($this->recordinguntil) > Carbon::now());
+    }
+    
+    /**
+     * Determine whether the stream for this talk can be displayed. It defaults to the duration of the talk plus 15 minutes before and after.
+     * 
+     * @return boolean
+     */
+    public function displayStream()
+    {
+        return $this->recordingurl !== null && (Carbon::now() >= Carbon::parse($this->start)->addMinutes(-15) && Carbon::now() <= Carbon::parse($this->end)->addMinutes(15));
+    }
 }

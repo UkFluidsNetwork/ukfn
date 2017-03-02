@@ -248,6 +248,9 @@ angular.module('ukfn')
                     if (controller.talks[i].recordingurl) {
                         controller.talks[i].recordingurl = $sce.trustAsResourceUrl(controller.talks[i].recordingurl);
                     }
+                    if (controller.talks[i].streamingurl) {
+                        controller.talks[i].streamingurl = $sce.trustAsResourceUrl(controller.talks[i].streamingurl);
+                    }
                 }
             });
         })();
@@ -293,33 +296,33 @@ angular.module('ukfn').filter('allTalksFilter', function() {
             }
             
             // recording only ticked
-            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.length === 0) {
+            if (types['Recording'] && item.isStreamed && !types['Streaming'] && filterAggregators.length === 0) {
                 filtered.push(item);
             } 
             
             // streaming only ticked
-            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.length === 0) {
+            if (types['Streaming'] && item.isStreamed && !types['Recording'] && filterAggregators.length === 0) {
                 filtered.push(item);
             }
             
             // if streaming and recording is ticked
-            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.length === 0) {
+            if (types['Streaming'] && types['Recording'] && (item.isStreamed || item.isRecorded) && filterAggregators.length === 0) {
                 filtered.push(item);
                 
             }
 
             // if streaming and recording is ticked and at least one of the aggreagators
-            if (types['Streaming'] && types['Recording'] && (item.displayStreaming || item.displayRecording) && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+            if (types['Streaming'] && types['Recording'] && (item.isStreamed || item.isRecorded) && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);   
             }
             
             // if streaming is ticked and one of the aggregators 
-            if (types['Streaming'] && item.displayStreaming && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+            if (types['Streaming'] && item.isStreamed && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);
             }
             
             // if recording is ticked and one of the aggregators 
-            if (types['Recording'] && item.displayRecording && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
+            if (types['Recording'] && item.isRecorded && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
                 filtered.push(item);
             }
         });

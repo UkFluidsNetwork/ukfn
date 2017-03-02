@@ -1,9 +1,5 @@
-@extends('layouts.master')
-@section('content')
-
-
-  <script type="text/javascript" src="//sms.cam.ac.uk/mediaplayer/jwplayer.js"></script>
-  <script type="text/javascript">jwplayer.key="NNXEsEAdRYJ6hNlTY5m43FsKNDixOpQA881GiROWssE=";</script> 
+<script type="text/javascript" src="//sms.cam.ac.uk/mediaplayer/jwplayer.js"></script>
+<script type="text/javascript">jwplayer.key = "NNXEsEAdRYJ6hNlTY5m43FsKNDixOpQA881GiROWssE=";</script> 
 
 <div id="streamer">Loading the player ...</div>
 
@@ -15,5 +11,3 @@
         "width": "100%",
     });
 </script> 
-            
-@endsection

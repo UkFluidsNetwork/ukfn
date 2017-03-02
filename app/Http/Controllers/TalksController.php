@@ -44,15 +44,10 @@ class TalksController extends Controller
      */
     public function view($id)
     {
-        $talk = Talk::findOrFail($id);
-        $talk->when = date("l jS F", strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
+        $nonFormatedtalk = Talk::findOrFail($id);
+        $talk = self::formatTalks([$nonFormatedtalk])[0];
         
-        $aggregator = Aggregator::findOrFail($talk->aggregator_id);
-        
-        $displayRecording = self::displayRecording($talk->recordinguntil);
-        $displayStreaming = self::displayRecording($talk->start, $talk->end, true);
-        
-        return view('talks.view', compact('talk', 'displayRecording', 'displayStreaming', 'aggregator'));
+        return view('talks.view', compact('talk'));
     }
 
     /**
@@ -167,11 +162,15 @@ class TalksController extends Controller
                 continue;
             }
             
+            // we instantiate a talk object in case $talk is a std object rather than actual intance of Talk, otherwise we cannnot use functions in the Talk class
+            $talk = Talk::findOrFail($talk->id);
             $formattedTalks[$index] = $talk;
             $formattedTalks[$index]->aggregator = Aggregator::findOrFail($talk->aggregator_id);
-            $formattedTalks[$index]->displayRecording = self::displayRecording($talk->recordinguntil);     
-            $formattedTalks[$index]->displayStreaming = self::displayRecording($talk->start, $talk->end, true);
-            $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
+            $formattedTalks[$index]->isRecorded = $talk->isRecorded();
+            $formattedTalks[$index]->isStreamed = $talk->isStreamed();
+            $formattedTalks[$index]->displayStream = $talk->displayStream();
+            $formattedTalks[$index]->when = PagesController::formatDate($talk->start);
+           // $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
             $index++;
         }
 
@@ -201,47 +200,6 @@ class TalksController extends Controller
         }
         $description.= ' RSS Feeds';
         return $description;
-    }
-    
-    /**
-     * Pass first param only as date to get bool value of until what time recording / streaming icon and embeded video should appear
-     * 2nd and 3rd parameter are for streaming only. Stream video will appear 15 minutes before and after scheduled time start/end  
-     * @param string $dateStart
-     * @param string $dateEnd
-     * @param bool $stream
-     * @return boolean
-     * @author Robert Barczyk <rb783@cam.ac.uk>
-     * @access public
-     * @static
-     */
-    public static function displayRecording($dateStart, $dateEnd = false, $stream = false)
-    {
-        if ($dateStart !== null) {
-            $recordinguntil = Carbon::parse($dateStart);
-        } else {
-            return false;
-        }
-        
-        if ($stream) { 
-            $streamingStart = Carbon::parse($dateStart);
-            $streamingEnd = Carbon::parse($dateEnd);
-                            
-            if(Carbon::now() >= $streamingStart->addMinutes(-15) && Carbon::now() <= $streamingEnd->addMinutes(15)) {            
-                return true;
-            } else {
-                return false;
-            }
-        } else {
-            $today = Carbon::today();
-
-            $dateDiff = $today->diff($recordinguntil);
-            
-            if ($dateDiff->invert === 0) {
-                return true;
-            } else {
-                return false;
-            }
-        }        
     }
     
     /**
@@ -287,8 +245,7 @@ class TalksController extends Controller
         $breadCount = count($bread);
         
         return view('panel.talks.viewcurrent', compact('talks', 'bread', 'breadCount'));
-    } 
-    
+    }
     
     /**
      * Add new talk
@@ -298,10 +255,6 @@ class TalksController extends Controller
      */
     public function add()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
                 ['label' => 'Panel', 'path' => '/panel'],
                 ['label' => 'Talks', 'path' => '/panel/talks'],
@@ -380,11 +333,6 @@ class TalksController extends Controller
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Talks', 'path' => '/panel/talks'],
