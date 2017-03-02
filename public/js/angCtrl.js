@@ -296,7 +296,7 @@ angular.module('ukfn').filter('allTalksFilter', function() {
             }
             
             // recording only ticked
-            if (types['Recording'] && item.isStreamed && !types['Streaming'] && filterAggregators.length === 0) {
+            if (types['Recording'] && item.isRecorded && !types['Streaming'] && filterAggregators.length === 0) {
                 filtered.push(item);
             } 
             
