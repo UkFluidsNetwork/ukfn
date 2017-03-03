@@ -49,15 +49,15 @@ a.list-group-item.talk:focus {
 }
 
 #talks-filters ul li input[type=radio]:checked ~ .check {
-    border: 4px solid #1B75BB;
+    border: 4px solid $ukfn-darkblue;
 }
 
 #talks-filters ul li input[type=radio]:checked ~ .check::before{
-    background: #1B75BB;
+    background: $ukfn-darkblue;
 }
 
 #talks-filters ul li input[type=radio]:checked ~ label{
-    color: #1B75BB;
+    color: $ukfn-darkblue;
 }
 
 #talks-filters ul li label {
@@ -74,14 +74,14 @@ a.list-group-item.talk:focus {
 }
 
 #talks-filters ul li:hover label {
-    color: #2DA9E0;
+    color: $ukfn-lightblue;
 }
 
 #talks-filters ul li .check {
     box-sizing: initial;
     display: block;
     position: absolute;
-    border: 4px solid #1B75BB;
+    border: 4px solid $ukfn-darkblue;
     border-radius: 100%;
     height: 16px;
     width: 16px;
@@ -93,7 +93,7 @@ a.list-group-item.talk:focus {
 }
 
 #talks-filters ul li:hover .check {
-    border: 4px solid #2DA9E0;
+    border: 4px solid $ukfn-lightblue;
 }
 
 #talks-filters ul li .check::before {
