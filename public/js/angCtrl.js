@@ -204,84 +204,52 @@ angular.module('ukfn')
         // this scope name
         var controller = this;
         controller.$storage = $localStorage;
-
-        // filter types
-        controller.filterAggregators = [];
-        controller.types = 
-                {
-                    'Recording': false, 
-                    'Streaming': false
-                };
-
-        // aggregator objects are added here from multiselect
-        controller.filterAggregatorsLookup = [];
+        controller.searchTerms = []; // terms entered in recorded search box
+        controller.selectedAggregators = []; // aggregators selected in past filter
+        controller.aggregators = []; // aggregators given as options
+        controller.loading = true; // flag to display loading message
+        controller.query = ""; // future/recorded/past
+        controller.currentQuery = ""; // current selected query
         
-        // aggregators for this talks set
-        controller.thisAggregators = [];
-        
-        controller.loading = true;
+        controller.updateQuery = function(query) {
+            controller.query = query;
+            if (controller.currentQuery !== controller.query) {
+                controller.aggregators = [];
+                controller.searchTerms = [];
+                controller.selectedAggregators = [];
+                controller.currentQuery = controller.query;
+            }
+            controller.loadTalks();
+        };
 
-        /**
-         * Get all future talks
-         * 
-         * @author Robert Barczyk <robert@barczyk.net>  
-         * @returns {json}
-         */
-        (function () {
-            $http(
-                {
-                    method: 'GET',
-                    url: '/api/talks/current'
-                }
-            ).then(function (response) {
-                controller.talks = response.data;
-
-                var lookup = {};
-
-                // get uniqe aggregators for this set of talks
-                for (var i = 0; i < controller.talks.length; i++)  {
-                    var aggregator = controller.talks[i].name;
-                    var aggregatorId = controller.talks[i].aggregator_id;
-                    if (!(aggregator in lookup)) {
-                        lookup[aggregator] = true;
-                        controller.thisAggregators.push({id: aggregatorId, label: aggregator});
-                    }
-                    
-                    if (controller.talks[i].recordingurl) {
-                        controller.talks[i].recordingurl = $sce.trustAsResourceUrl(controller.talks[i].recordingurl);
-                    }
-                    if (controller.talks[i].streamingurl) {
-                        controller.talks[i].streamingurl = $sce.trustAsResourceUrl(controller.talks[i].streamingurl);
-                    }
-                }
-            });
-        })();
-        
-        controller.loadTalks = function(query) {
-            var feeds = {};
-            var url = '/api/talks/' + query;
+        controller.loadTalks = function() {
+            var lookup = [];
+            var url = '/api/talks/' + controller.query;
             controller.loading = true;
-            controller.talks = {};
+            // clear array of available talks before making the request.
+            controller.talks = [];
             
             $http(
                 {
                     method: 'GET',
                     url: url,
-                    data: {feeds: feeds}
+                    params: {
+                        feeds: JSON.stringify(controller.selectedAggregators),
+                        search: JSON.stringify(controller.searchTerms)
+                    }
                 }
             ).then(function (response) {
                 controller.loading = false;
                 controller.talks = response.data;
-
-                var lookup = {};
-
                 // get uniqe aggregators for this set of talks
                 for (var i = 0; i < controller.talks.length; i++)  {
-                    var aggregator = controller.talks[i].name;
-                    var aggregatorId = controller.talks[i].aggregator_id;
-                    if (!(aggregator in lookup)) {
-                        lookup[aggregator] = true;
-                        controller.thisAggregators.push({id: aggregatorId, label: aggregator});
+                    if (controller.talks[i].aggregator !== null) {
+                        var aggregator = controller.talks[i].aggregator.name;
+                        var aggregatorId = controller.talks[i].aggregator.id;
+                        if (!(aggregator in lookup)) {
+                            lookup[aggregator] = true;
+                            controller.aggregators.push({id: aggregatorId, label: aggregator});
+                        }
                     }
                     
                     if (controller.talks[i].recordingurl) {
@@ -306,7 +274,7 @@ angular.module('ukfn')
           };
           
         controller.selectizeSearchConfig = {
-            create: false,
+            create: true,
             plugins: ['remove_button'],
             delimiter: ',',
             searchField: 'label',
@@ -316,66 +284,3 @@ angular.module('ukfn')
             placeholder: 'Enter search term(s)'
           };
     });
-
-/**
- * Talks filter
- * @author Robert Barczyk <robert@barczyk.net>
- */
-angular.module('ukfn').filter('allTalksFilter', function() {
-    /**
-     * Filter all talks
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @param {array} items
-     * @param {object} types
-     * @param {array} filterAggregators
-     * @returns {array}
-     */
-    return function( items, types, filterAggregators) {
-        var filtered = [];
-    
-        angular.forEach(items, function(item) {
-            // if everything is unticked
-            if (!types['Streaming'] && !types['Recording'] && filterAggregators.length === 0) {
-                filtered.push(item);
-            }
-            
-            // if recording and streaming is unticked but one of the aggregators is selected
-            if (!types['Streaming'] && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
-                filtered.push(item);
-            }
-            
-            // recording only ticked
-            if (types['Recording'] && item.isRecorded && !types['Streaming'] && filterAggregators.length === 0) {
-                filtered.push(item);
-            } 
-            
-            // streaming only ticked
-            if (types['Streaming'] && item.isStreamed && !types['Recording'] && filterAggregators.length === 0) {
-                filtered.push(item);
-            }
-            
-            // if streaming and recording is ticked
-            if (types['Streaming'] && types['Recording'] && (item.isStreamed || item.isRecorded) && filterAggregators.length === 0) {
-                filtered.push(item);
-                
-            }
-
-            // if streaming and recording is ticked and at least one of the aggreagators
-            if (types['Streaming'] && types['Recording'] && (item.isStreamed || item.isRecorded) && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
-                filtered.push(item);   
-            }
-            
-            // if streaming is ticked and one of the aggregators 
-            if (types['Streaming'] && item.isStreamed && !types['Recording'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
-                filtered.push(item);
-            }
-            
-            // if recording is ticked and one of the aggregators 
-            if (types['Recording'] && item.isRecorded && !types['Streaming'] && filterAggregators.indexOf(item.aggregator_id.toString()) !== -1) {
-                filtered.push(item);
-            }
-        });
-        return filtered;
-    };
-});

@@ -1,6 +1,6 @@
 @extends('layouts.admin')
 @section('admincontent')
-<h2 class='line-break'>All Current Talks</h2>
+<h2 class='line-break'>Talks</h2>
     
 <section class="page-header">    
     <table class="table">

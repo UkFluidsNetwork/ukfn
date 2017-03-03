@@ -8,6 +8,9 @@ use App\Aggregator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\TalksFormRequest;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Log;
 
 class TalksController extends Controller
 {
@@ -207,19 +210,30 @@ class TalksController extends Controller
      * 
      * @author Javier Arias <ja573@cam.ac.uk>
      * @author Robert Barczyk <robert@barczyk.net>
+     * @param string $query
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAllJson($query = "current")
+    public function getAllJson($query, Request $request)
     {
+        $queriesAllowed = ["future", "past", "recorded"];
+        $parameters = $request->all();
+        $feeds = isset($parameters['feeds']) && $parameters['feeds'] !== "[]" ? json_decode($parameters['feeds']) : null;
+        $terms = isset($parameters['search'])&& $parameters['search'] !== "[]" ? json_decode($parameters['search']) : null;
+        
+        if (!in_array($query, $queriesAllowed)) {
+            return response()->json('Invalid query', 500);
+        }
+        
         switch ($query) {
-            case "current":
-                $bareTalks = Talk::getAllCurrentTalks();
+            case "future":
+                $bareTalks = Talk::getFutureTalks($feeds);
                 break;
             case "past":
-                $bareTalks = Talk::getPastTalks();
+                $bareTalks = Talk::getPastTalks($feeds);
                 break;
             case "recorded":
-                $bareTalks = Talk::getRecordedTalks();
+                $bareTalks = Talk::getRecordedTalks($terms);
                 break;
         }
         $talks = self::formatTalks($bareTalks);
@@ -244,9 +258,9 @@ class TalksController extends Controller
      * @access public
      * @return void
      */
-    public function panelViewCurrent()
+    public function talksList()
     {
-        $allTalks = Talk::getAllCurrentTalks(true);   
+        $allTalks = Talk::all();   
         $talks = self::formatTalks($allTalks);
                         
         $bread = [
@@ -256,7 +270,7 @@ class TalksController extends Controller
         
         $breadCount = count($bread);
         
-        return view('panel.talks.viewcurrent', compact('talks', 'bread', 'breadCount'));
+        return view('panel.talks.list', compact('talks', 'bread', 'breadCount'));
     }
     
     /**

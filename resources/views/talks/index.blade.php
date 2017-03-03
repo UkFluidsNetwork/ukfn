@@ -2,61 +2,54 @@
 @section('content')
 
     <h2 class='line-break'>Talks</h2>
-    <div class="container-fluid nopadding" ng-controller="talksController as talkCtrl">
+    <div class="container-fluid nopadding" ng-controller="talksController as talkCtrl" ng-init="talkCtrl.updateQuery('future')">
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-md-push-7">
                 <!-- Filters - start -->
                 <div id="talks-filters" class="bs-callout bs-callout-info container-fluid">
                     <h4>Filters</h4>
-
                     <ul>
                         <li>
-                            <input checked="checked" type="radio" id="current-option" name="selector">
-                            <label for="current-option" ng-click="talkCtrl.loadTalks('current')">Current talks</label>
+                            <input ng-checked="talkCtrl.query === 'future'" type="radio" id="current-option" name="selector">
+                            <label for="current-option" ng-click="talkCtrl.updateQuery('future')">Future talks</label>
 
                             <div class="check"></div>
 
-                            <div class='talk-series-filter nopadding'>
-                                <selectize id="aggr_multiselect_current" options='talkCtrl.thisAggregators'
-                                    config='talkCtrl.selectizeSeriesConfig' ng-model="talkCtrl.filterAggregators">
-                                </selectize>
-                            </div>
-                            <!--div class='form-inline col-lg-6 col-md-6 col-sm-6 nopadding-left'>
-                                <div class="checkbox margin-right" ng-repeat="(key,value) in talkCtrl.types">
-                                    <label>
-                                        <input type="checkbox" data-ng-model='talkCtrl.types[key]'> @{{ key }}
-                                    </label>
-                                </div>
-                            </div-->
-                        </li>
-                        <li>
-                            <input type="radio" id="recorded-option" name="selector">
-                            <label for="recorded-option" ng-click="talkCtrl.loadTalks('recorded')">Recorded talks</label>
-
-                            <div class="check"></div>
-                            <div class='talk-series-filter nopadding'>
-                                <selectize id="past_search" options='talkCtrl.thisAggregators'
-                                    config='talkCtrl.selectizeSearchConfig' ng-model="talkCtrl.filterAggregators">
+                            <div ng-show="talkCtrl.query === 'future'" class='talk-series-filter nopadding'>
+                                <selectize id="aggr_multiselect_current" options='talkCtrl.aggregators'
+                                    config='talkCtrl.selectizeSeriesConfig'
+                                    ng-change="talkCtrl.updateQuery('future')"
+                                    ng-model="talkCtrl.selectedAggregators">
                                 </selectize>
                             </div>
                         </li>
                         <li>
-                            <input type="radio" id="past-option" name="selector">
-                            <label for="past-option" ng-click="talkCtrl.loadTalks('past')">Past talks</label>
+                            <input ng-checked="talkCtrl.query === 'recorded'" type="radio" id="recorded-option" name="selector">
+                            <label for="recorded-option" ng-click="talkCtrl.updateQuery('recorded')">Recorded talks</label>
 
                             <div class="check"></div>
-                            <div class='talk-series-filter nopadding'>
-                                <selectize id="aggr_multiselect_past" options='talkCtrl.thisAggregators'
-                                    config='talkCtrl.selectizeSeriesConfig' ng-model="talkCtrl.filterAggregators">
+                            <div ng-show="talkCtrl.query === 'recorded'" class='talk-series-filter nopadding'>
+                                <selectize id="past_search"config='talkCtrl.selectizeSearchConfig'
+                                    ng-change="talkCtrl.updateQuery('recorded')"
+                                    ng-model="talkCtrl.searchTerms">
+                                </selectize>
+                            </div>
+                        </li>
+                        <li>
+                            <input ng-checked="talkCtrl.query === 'past'" type="radio" id="past-option" name="selector">
+                            <label for="past-option" ng-click="talkCtrl.updateQuery('past')">Past talks</label>
+
+                            <div class="check"></div>
+                            <div ng-show="talkCtrl.query === 'past'" class='talk-series-filter nopadding'>
+                                <selectize id="aggr_multiselect_past" options='talkCtrl.aggregators'
+                                    config='talkCtrl.selectizeSeriesConfig'
+                                    ng-change="talkCtrl.updateQuery('past')"
+                                    ng-model="talkCtrl.selectedAggregators">
                                 </selectize>
                             </div>
                         </li>
                     </ul>
-
-
-
                 </div>
-
                 <!-- Filters - end -->
             </div>
             <div id="talks-col" class="col-lg-7 col-md-7 col-md-pull-5 axis-y">

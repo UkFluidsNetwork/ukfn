@@ -63,7 +63,7 @@ Route::get('panel/sig', 'SigsController@view')->middleware('auth');
 Route::get('panel/sig/add', 'SigsController@add')->middleware('auth');
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('auth');
 Route::get('panel/talks/add', 'TalksController@add')->middleware('auth');
-Route::get('panel/talks', 'TalksController@panelviewcurrent')->middleware('auth');
+Route::get('panel/talks', 'TalksController@talksList')->middleware('auth');
 Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('auth');
 Route::get('panel/talks/feeds/', 'AggregatorsController@view')->middleware('auth');
 Route::get('panel/talks/feeds/add', 'AggregatorsController@add')->middleware('auth');
