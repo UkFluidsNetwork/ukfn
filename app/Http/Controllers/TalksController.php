@@ -8,6 +8,9 @@ use App\Aggregator;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\TalksFormRequest;
+use Illuminate\Http\Request;
+
+use Illuminate\Support\Facades\Log;
 
 class TalksController extends Controller
 {
@@ -165,7 +168,7 @@ class TalksController extends Controller
             // we instantiate a talk object in case $talk is a std object rather than actual intance of Talk, otherwise we cannnot use functions in the Talk class
             $talk = Talk::findOrFail($talk->id);
             $formattedTalks[$index] = $talk;
-            $formattedTalks[$index]->aggregator = Aggregator::findOrFail($talk->aggregator_id);
+            $formattedTalks[$index]->aggregator = $talk->aggregator_id ? Aggregator::findOrFail($talk->aggregator_id) : null;
             $formattedTalks[$index]->isRecorded = $talk->isRecorded();
             $formattedTalks[$index]->isStreamed = $talk->isStreamed();
             $formattedTalks[$index]->displayStream = $talk->displayStream();
@@ -203,14 +206,37 @@ class TalksController extends Controller
     }
     
     /**
-     * Get all talks from today 
+     * Get all current, past, or recorded talks in JSON
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
      * @author Robert Barczyk <robert@barczyk.net>
-     * @return Json
+     * @param string $query
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getAllJson()
+    public function getAllJson($query, Request $request)
     {
-        $allTalks = Talk::getAllCurrentTalks();
-        $talks = self::formatTalks($allTalks);
+        $queriesAllowed = ["future", "past", "recorded"];
+        $parameters = $request->all();
+        $feeds = isset($parameters['feeds']) && $parameters['feeds'] !== "[]" ? json_decode($parameters['feeds']) : null;
+        $terms = isset($parameters['search'])&& $parameters['search'] !== "[]" ? json_decode($parameters['search']) : null;
+        
+        if (!in_array($query, $queriesAllowed)) {
+            return response()->json('Invalid query', 500);
+        }
+        
+        switch ($query) {
+            case "future":
+                $bareTalks = Talk::getFutureTalks($feeds);
+                break;
+            case "past":
+                $bareTalks = Talk::getPastTalks($feeds);
+                break;
+            case "recorded":
+                $bareTalks = Talk::getRecordedTalks($terms);
+                break;
+        }
+        $talks = self::formatTalks($bareTalks);
         return response()->json($talks);
     }
     
@@ -232,9 +258,9 @@ class TalksController extends Controller
      * @access public
      * @return void
      */
-    public function panelViewCurrent()
+    public function talksList()
     {
-        $allTalks = Talk::getAllCurrentTalks(true);   
+        $allTalks = Talk::all();   
         $talks = self::formatTalks($allTalks);
                         
         $bread = [
@@ -244,7 +270,7 @@ class TalksController extends Controller
         
         $breadCount = count($bread);
         
-        return view('panel.talks.viewcurrent', compact('talks', 'bread', 'breadCount'));
+        return view('panel.talks.list', compact('talks', 'bread', 'breadCount'));
     }
     
     /**
