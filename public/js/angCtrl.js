@@ -202,6 +202,8 @@ angular.module('ukfn')
             {name: "Key personel", id: 3}
         ];
         
+        controller.sigMemebrshipsSelected = controller.sigMemebrships[0];
+        
         // translate membership code to string
         controller.getMemberStatus = function(id) 
         {

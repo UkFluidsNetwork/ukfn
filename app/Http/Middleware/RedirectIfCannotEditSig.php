@@ -18,8 +18,8 @@ final class RedirectIfCannotEditSig
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $sigId = isset($request->route()->parameters()['id']) ? $request->route()->parameters()['id'] : null;
-        
+        //$sigId = isset($request->route()->parameters()['id']) ? $request->route()->parameters()['id'] : null;
+        $sigId = 1;
         $isAdmin = (Auth::guest() || $sigId === null) ? false : (Auth::user()->canEditSig($sigId));
         if (!$isAdmin) {
             if ($request->ajax() || $request->wantsJson()) {

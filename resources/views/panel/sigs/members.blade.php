@@ -64,13 +64,14 @@
                                                         </div>                                                    
                                                     </td>
                                                     <td>
-                                                        <select ng-model="user.userSigMain" class="form-control" style="width:120px">
-                                                            <option ng-repeat="membership in sigCtrl.sigMemebrships" 
-                                                                    value="@{{membership.id}}">@{{ membership.name }}</option>
+                                                        <select ng-model="user.selected" class="form-control" style="width:120px"
+                                                                 ng-options="m.id as m.name for m in sigCtrl.sigMemebrships"
+                                                                >
+                                                           <option value="" ng-if="false"></option>
                                                         </select> 
                                                     </td>
                                                     <td>
-                                                        <button class="btn btn-primary" ng-click="sigCtrl.addMember(user.id, user.userSigMain);">Add</button>
+                                                        <button class="btn btn-primary" ng-click="sigCtrl.addMember(user.id, user.selected);">Add</button>
                                                     </td>
                                                 </tr>
                                             </tbody>
