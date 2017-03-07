@@ -448,8 +448,7 @@ class PagesController extends Controller
         
         $fileName = $name !== null ? $name . time() : time();
         $fileName.= "." . $file->getClientOriginalExtension();
-        Log::debug($location);
-        Log::debug($fileName);
+
         $fileMoved = $file->move($location, $fileName);
         
         if ($fileMoved) {
