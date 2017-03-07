@@ -24,7 +24,7 @@ use Illuminate\Support\Facades\Redirect;
 use DateTime;
 use stdClass;
 use Storage;
-
+use Illuminate\Support\Facades\Log;
 class PagesController extends Controller
 {
     
@@ -394,7 +394,6 @@ class PagesController extends Controller
     }
     
     /**
-<<<<<<< HEAD
      * Format a date or date range
      * 
      * @author Javier Arias <ja573@cam.ac.uk>
@@ -448,8 +447,9 @@ class PagesController extends Controller
         }
         
         $fileName = $name !== null ? $name . time() : time();
-        $fileName.= $file->getClientOriginalExtension();
-        
+        $fileName.= "." . $file->getClientOriginalExtension();
+        Log::debug($location);
+        Log::debug($fileName);
         $fileMoved = $file->move($location, $fileName);
         
         if ($fileMoved) {
