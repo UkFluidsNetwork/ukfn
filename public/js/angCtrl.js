@@ -196,14 +196,12 @@ angular.module('ukfn')
         
         // used in select
         controller.sigMemebrships = [
-            {name: "Member", id: 0},
+            {name: "Member", id: 0, seleted: true},
             {name: "Leader", id: 1},
             {name: "Co-Leader", id: 2},
             {name: "Key personel", id: 3}
         ];
-        
-        controller.sigMemebrshipsSelected = controller.sigMemebrships[0];
-        
+       
         // translate membership code to string
         controller.getMemberStatus = function(id) 
         {
@@ -228,6 +226,11 @@ angular.module('ukfn')
             controller.loadAllUsers();
         };
         
+        /**
+         * Load this sig members
+         * 
+         * @returns {void}  Sets array thisMembers
+         */
         controller.loadSigMembers = function() {
             $http(
                     {
@@ -239,8 +242,11 @@ angular.module('ukfn')
                 });
         };
         
-        
-        
+        /**
+         * Load all UKFN users, unset the ones that are already a member of this sig
+         * 
+         * @returns {void}
+         */
         controller.loadAllUsers = function() {
             controller.ukfnUsers = [];
             $http(
@@ -255,6 +261,8 @@ angular.module('ukfn')
                         var existing = controller.belongsToSig(users[i].id);
                         // if thgis user is not not a member of this sig add him to all users list
                         if (!existing) {
+                            // at his default property for not associated memebrs
+                            users[i].selected = 0;
                             controller.ukfnUsers.push(users[i]);
                         } 
                     }
@@ -276,8 +284,18 @@ angular.module('ukfn')
             return existing;
         };
         
-        controller.addMember = function(userId, sigMain = 0)
-        { 
+        /**
+         * Add selected user to this sig + set membership
+         * 
+         * @param {int} userId
+         * @param {int} sigMain
+         * @returns {void}
+         */
+        controller.addMember = function(userId, sigMain = -1)
+        {   
+            // if not membership is selected terminate
+            if (sigMain === -1) {return;}
+            
             var existing = controller.belongsToSig(userId);
                         
             if (!existing) {
@@ -313,6 +331,12 @@ angular.module('ukfn')
             });            
         };
         
+        /**
+         * Delete this user from this sig
+         * 
+         * @param {int} userId
+         * @returns {void}
+         */
         controller.deleteMember = function(userId)
         {
             $http({

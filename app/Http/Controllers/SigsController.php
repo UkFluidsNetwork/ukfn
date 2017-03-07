@@ -86,7 +86,7 @@ class SigsController extends Controller
         $facilities = Tag::getAllFacilities();
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
-
+        
         return view('panel.sigs.edit', compact('sig', 'sigTags', 'sigInstitutions', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
     }
 
@@ -331,7 +331,7 @@ class SigsController extends Controller
                 ]
             );
         }
-
+     
         $sig = Sig::findOrFail($id);
         $breadCount = count($bread);
         return view('panel.sigs.members', compact('id', 'bread', 'breadCount', 'sig'));

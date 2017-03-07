@@ -26,7 +26,12 @@
                                                         </span>    
                                                     </div>
                                                 </td>
-                                                <td>@{{sigCtrl.getMemberStatus(member.pivot.main)}}</td>
+                                                <td>
+                                                    <select class="form-control" ng-model="member.pivot.main" style="width: 140px"
+                                                            ng-options="m.id as m.name for m in sigCtrl.sigMemebrships" 
+                                                            ng-click="sigCtrl.updateMember(member.id, member.pivot.main)">
+                                                    </select>                                                                                                    
+                                                </td>
                                                 <td><div class="btn btn-danger" ng-click="sigCtrl.deleteMember(member.id)">Delete</div></td>
                                                 </tr>
                                             </tbody>
@@ -63,12 +68,10 @@
                                                             </span>    
                                                         </div>                                                    
                                                     </td>
-                                                    <td>
-                                                        <select ng-model="user.selected" class="form-control" style="width:120px"
-                                                                 ng-options="m.id as m.name for m in sigCtrl.sigMemebrships"
-                                                                >
-                                                           <option value="" ng-if="false"></option>
-                                                        </select> 
+                                                    <td> 
+                                                        <select class="form-control" ng-model="user.selected" style="width: 140px"
+                                                            ng-options="m.id as m.name for m in sigCtrl.sigMemebrships">
+                                                        </select>
                                                     </td>
                                                     <td>
                                                         <button class="btn btn-primary" ng-click="sigCtrl.addMember(user.id, user.selected);">Add</button>
