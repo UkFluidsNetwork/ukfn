@@ -29,7 +29,7 @@
                                                 <td>
                                                     <select class="form-control" ng-model="member.pivot.main" style="width: 140px"
                                                             ng-options="m.id as m.name for m in sigCtrl.sigMemebrships" 
-                                                            ng-click="sigCtrl.updateMember(member.id, member.pivot.main)">
+                                                            ng-change="sigCtrl.updateMember(member.id, member.pivot.main)">
                                                     </select>                                                                                                    
                                                 </td>
                                                 <td><div class="btn btn-danger" ng-click="sigCtrl.deleteMember(member.id)">Delete</div></td>

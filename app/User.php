@@ -108,7 +108,7 @@ class User extends Authenticatable
      */
     public function sigs()
     {
-        return $this->belongsToMany('App\Sig', 'sig_users')->withTimestamps();
+        return $this->belongsToMany('App\Sig', 'sig_users')->withPivot('main')->withTimestamps();
     }
     
     /**
@@ -254,11 +254,11 @@ class User extends Authenticatable
     }
     
     public function sigStatusId($id)
-    {  
+    {
         if (!$this->belongsToSig($id)) {
             return null;
         }
-        return $this->sigs()-where('sigs.id', $id)->first->main;
+        return $this->sigs()->where('sigs.id', $id)->first()->pivot->main;
     }
     
     public function sigStatus($id)
@@ -270,31 +270,5 @@ class User extends Authenticatable
             case 3: return "Key personnel";
         }
         return null;
-    }
-
-   public function sigLeader()
-    {
-        $userSigLeader = [];
-        $userSigs = $this->sigs; 
-        // get SIGs that user is associated with
-        if (!empty($userSigs)) {
-
-            foreach ($userSigs as $sig) {
-            
-                $thisSig = Sig::findOrFail($sig->id);
-                $thisSig->getLeaderId();
-
-                if (!empty($thisSig->leader[0])) {
-                    $thisSigLeader = $thisSig->leader[0]->id;
-
-                    if ($this->id === $thisSigLeader) {
-                        $userSigLeader[] = $thisSig->id;
-                    }
-                }
-            
-            }
-        }
-    
-        return $userSigLeader;
     }
 }

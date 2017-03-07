@@ -1,12 +1,9 @@
-<!-- Sig input - start -->
-<div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }} {{ Auth::user()->group_id !== 1 ? ' hidden' : ''}}'>
-	@if (Request::is('panel/sig/edit*'))
+@if (Auth::user()->isAdmin())
+<div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
+
 	{!! Form::label('name', 'SIG:', ['class' => 'control-label col-lg-2 text-left']) !!}
-	@else
-	{!! Form::label('name', 'Title:', ['class' => 'control-label col-lg-2 text-left']) !!}
-	@endif
-    <div class=' col-lg-8'>
-        @if (Auth::user()->group_id !== 1)
+    <div class='col-lg-8'>
+        @if (!Auth::user()->isAdmin())
         {!! Form::hidden('name', $sig->name) !!}
         @else
         {!! Form::text('name', $sig->name, ['class' => 'form-control','placeholder' => 'The name of the sig']) !!}
@@ -18,11 +15,11 @@
         @endif
     </div>
 </div>
-<!-- Sig input - end -->
-<!-- institutions input - start -->
+@endif
+
 <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
     <label for="institutions" class="control-label col-lg-2  text-left">Institutions</label>
-    <div class=' col-lg-8'>
+    <div class='col-lg-8'>
         <select id="institutions" type="text" class="form-control multi" name="institutions[]"
                 placeholder="Institution" multiple>
             @foreach($institutions as $institution)
@@ -31,10 +28,12 @@
         </select>
     </div>
 </div>
+
+@if (Auth::user()->isAdmin())
 <div class='form-group {{ $errors->has('shortname') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('shortname', 'Short name:', ['class' => 'control-label col-lg-2 text-left']) !!}
-  <div class=' col-lg-8'>
-    {!! Form::text('shortname', $sig->shortname, ['class' => 'form-control','placeholder' => 'The short name of the sig']) !!}
+  <div class='col-lg-8'>
+      {!! Form::text('shortname', $sig->shortname, ['class' => 'form-control','placeholder' => 'The short name of the sig']) !!}
     @if ($errors->has('shortname'))
     <span class="text-danger">
       <span>{{ $errors->first('shortname') }}</span>
@@ -42,8 +41,8 @@
     @endif
   </div>
 </div>
-<!-- institutions input - end -->
-<!-- sub-disciplines input - start -->
+@endif
+
 <div class="form-group {{ $errors->has('disciplines') ? ' has-error' : ''}}">
     <label for="disciplines" class="control-label col-lg-2 text-left">Fluids sub-disciplines</label>
     <div class=' col-lg-8'>
@@ -61,8 +60,7 @@
         </select>
     </div>
 </div>
-<!-- sub-disciplines input - end -->
-<!-- applications input - start -->
+
 <div class="form-group {{ $errors->has('applications') ? ' has-error' : ''}}">
     <label for="applications" class="control-label col-lg-2 text-left">Application areas</label>
     <div class=' col-lg-8'>
@@ -80,8 +78,7 @@
         </select>
     </div>
 </div>
-<!-- applications input - end -->
-<!-- techniques input - start -->
+
 <div class="form-group {{ $errors->has('techniques') ? ' has-error' : ''}}">
     <label for="techniques" class="control-label col-lg-2 text-left">Techniques</label>
     <div class=' col-lg-8'>
@@ -93,8 +90,7 @@
         </select>
     </div>
 </div>
-<!-- applications input - end -->
-<!-- facilities input - start -->
+
 <div class="form-group {{ $errors->has('facilities') ? ' has-error' : ''}}">
     <label for='facilities' class="control-label col-lg-2 text-left">Facilities</label>
     <div class=' col-lg-8'>
@@ -111,8 +107,7 @@
         @endif
     </div>
 </div>
-<!-- facilities input - end -->
-<!-- big image input - start -->
+
 <div class="form-group {{ $errors->has('bigiamge') ? ' has-error' : ''}}">
     <label for='bigimage' class="control-label col-lg-2 text-left">Big image</label>
     <div class=' col-lg-8'>
@@ -123,7 +118,11 @@
             </label>
         </div>
         <div id="sigbigimage_details" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            @if ($sig->bigimage)
+            {{$sig->bigimage}}
+            @else
             No file selected
+            @endif
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-muted">
             Large background image displayed on SIG individual page
@@ -135,9 +134,7 @@
         @endif
     </div>
 </div>
-<!-- big image input - end -->
 
-<!-- small image input - start -->
 <div class="form-group {{ $errors->has('smallimage') ? ' has-error' : ''}}">
     <label for='smallimage' class="control-label col-lg-2 text-left">Small image</label>
     <div class=' col-lg-8'>
@@ -148,7 +145,11 @@
             </label>
         </div>
         <div id="sigsmallimage_details" class="col-lg-8 col-md-8 col-sm-8 col-xs-8">
+            @if ($sig->smallimage)
+            {{$sig->smallimage}}
+            @else
             No file selected
+            @endif
         </div>
         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 line-break-top nosidepadding text-muted">
             Small thumbnail displayed on SIG list
@@ -160,8 +161,7 @@
         @endif
     </div>
 </div>
-<!-- small image input - end -->
-<!-- twitterurl input - start -->
+
 <div class='form-group {{ $errors->has('twitterurl') ? ' has-error line-break-dbl' : '' }}'>
     {!! Form::label('twitterurl', 'Twitter URL:', ['class' => 'control-label col-lg-2 text-left']) !!}
     <div class=' col-lg-8'>
@@ -173,8 +173,7 @@
         @endif
     </div>
 </div>
-<!-- twitterurl input - end -->
-<!-- Description - start -->
+
 <div class='form-group {{ $errors->has('description') ? ' has-error line-break-dbl' : '' }}'>
   	{!! Form::label('description', 'Description:', ['class' => 'control-label col-lg-2 text-left']) !!}
   	<div class='col-lg-8'>
@@ -191,7 +190,7 @@
     	{!! Form::submit('Save', ['class' => 'btn btn-success btn-lg2']) !!}
   	</div>    
 </div>
-<!-- Description - end -->
+
 <script>
     $('#institutions').selectize({
         plugins: ['remove_button' ],
@@ -223,7 +222,6 @@
         max-height: 666px !important;
     }
 
-    /*WHOLO GROUP BOX*/
     .optgroup {
         width : 300px !important;
         height : auto !important;
@@ -231,9 +229,7 @@
         float: left !important;
         border: none !important;
     }
-    .option {
-        /*height: 40px !important;*/
-    }
+    
     .optgroup-header {
         font-size:1.5em !important;
     }
