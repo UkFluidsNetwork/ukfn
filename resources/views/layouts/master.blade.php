@@ -7,7 +7,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-
         <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/main.css') }}?v=4" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
@@ -29,7 +28,7 @@
        
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <script src="{{ asset('/js/vendor/angular-selectize2/dist/selectize.js')}}"></script>
-        <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>               
+        <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>
         <script src="{{ asset('js/vendor/moment/moment.js')}}"></script>
         <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
                 
@@ -53,8 +52,7 @@
         <link rel="manifest" href="{{ asset('/manifest.json') }}">
         <!-- end of favicon -->
     </head>
-    <body ng-app="ukfn">
-       
+    <body ng-app="ukfn"> 
         <!-- TOP NAV - START -->
         <div id="menu-bar" data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
@@ -94,16 +92,22 @@
                                    aria-expanded="false">{{ Auth::user()->name }} {{ Auth::user()->surname }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <!--li>
-                                        <a href="#">My account</a>
-                                    </li-->
-                                    @if(Auth::user()->group_id == 1)
+                                    @if(Auth::user()->isAdmin())
                                     <li>
                                         <a href='{{ URL::to('/panel') }}'>
                                             <span class="glyphicon glyphicon-wrench margin-right"></span>
                                             Admin Panel
                                         </a>
                                     </li>
+                                    @elseif(Auth::user()->isSigLeader())
+                                        @foreach (Auth::user()->sigLeaderships() as $sig)
+                                        <li>
+                                            <a href='{{ URL::to('/panel/sig/edit/'.$sig->id) }}'>
+                                                <span class="glyphicon glyphicon-wrench margin-right"></span>
+                                                Administer {{$sig->shortname}}
+                                            </a>
+                                        </li>
+                                        @endforeach
                                     @endif
                                     <li>
                                         <a href='{{ URL::to('/myaccount') }}'>
@@ -111,7 +115,6 @@
                                             My Account
                                         </a>
                                     </li>
-<!--                                    <li role="separator" class="divider"></li>-->
                                     <li>
                                         <a href="{{ URL::to('/logout') }}">
                                             <span class="glyphicon glyphicon-log-out margin-right"></span>

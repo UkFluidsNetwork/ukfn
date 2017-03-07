@@ -11,7 +11,6 @@ angular.module('ukfn')
 
             // this scope name
             var controller = this;
-            controller.test = "HELLO";
             controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
             controller.$storage = $localStorage;
             controller.selectedSigId = null; // initially selected SIG
@@ -79,9 +78,7 @@ angular.module('ukfn')
                 });
             };
            
-            controller.setActive = function(id) {
-                controller.sigActive = id;
-            };
+
         /**
          * Set active sig on sig map
          * 
@@ -189,6 +186,169 @@ angular.module('ukfn')
                     ]
                 }
             ]
+        };
+        
+        
+        // Edit Sig //-> BEGIN
+        controller.ukfnUsers = [];
+        controller.thisMembers = [];
+        controller.addMemberSearch = '';
+        
+        // used in select
+        controller.sigMemebrships = [
+            {name: "Member", id: 0, seleted: true},
+            {name: "Leader", id: 1},
+            {name: "Co-Leader", id: 2},
+            {name: "Key personel", id: 3}
+        ];
+       
+        // translate membership code to string
+        controller.getMemberStatus = function(id) 
+        {
+            switch(id) {
+                case 1: 
+                    return "Leader";
+                    break;
+                case 2:
+                    return "Co-Leader";
+                    break;
+                case 3:
+                    return "Key personel";
+                    break;
+                case 0:
+                    return "Member";
+            };
+        };
+        
+        // initialise two arays with users when page load
+        controller.loadUsers = function() {
+            controller.loadSigMembers();
+            controller.loadAllUsers();
+        };
+        
+        /**
+         * Load this sig members
+         * 
+         * @returns {void}  Sets array thisMembers
+         */
+        controller.loadSigMembers = function() {
+            $http(
+                    {
+                        method: 'GET',
+                        url: '/api/sig/members/' + controller.selectedSigId
+                    }
+                ).then(function (response) {
+                    controller.thisMembers = response.data;
+                });
+        };
+        
+        /**
+         * Load all UKFN users, unset the ones that are already a member of this sig
+         * 
+         * @returns {void}
+         */
+        controller.loadAllUsers = function() {
+            controller.ukfnUsers = [];
+            $http(
+                    {
+                        method: 'GET',
+                        url: '/api/users'
+                    }
+                ).then(function (response) {
+                    var users = response.data;
+                    // for each ukfn user
+                    for (var i = 0; i < users.length; i++) {
+                        var existing = controller.belongsToSig(users[i].id);
+                        // if thgis user is not not a member of this sig add him to all users list
+                        if (!existing) {
+                            // at his default property for not associated memebrs
+                            users[i].selected = 0;
+                            controller.ukfnUsers.push(users[i]);
+                        } 
+                    }
+                });
+        };
+        
+        controller.belongsToSig = function(userId)
+        {
+            var existing = false;
+            if (controller.thisMembers.length !== 0) {
+                for (var i =0; i< controller.thisMembers.length; i++) {
+                    if(userId === controller.thisMembers[i].id) {
+                        existing = true;
+                        break;
+                    }
+                }
+            }
+            
+            return existing;
+        };
+        
+        /**
+         * Add selected user to this sig + set membership
+         * 
+         * @param {int} userId
+         * @param {int} sigMain
+         * @returns {void}
+         */
+        controller.addMember = function(userId, sigMain = -1)
+        {   
+            // if not membership is selected terminate
+            if (sigMain === -1) {return;}
+            
+            var existing = controller.belongsToSig(userId);
+                        
+            if (!existing) {
+                $http({
+                    method : 'POST',
+                    url: '/sig/members/add/' + controller.selectedSigId,
+                    data: {
+                        user_id: userId,
+                        main: sigMain
+                    }                              
+                })
+                .success(function(){
+                    controller.loadUsers();
+                });
+
+                // reset search
+                controller.addMemberSearch = '';
+            }
+        };
+        
+        controller.updateMember = function(userId, sigMain)
+        {
+            $http({
+                method : 'POST',
+                url: '/sig/members/update/' + controller.selectedSigId,
+                data: {
+                    user_id: userId,
+                    main: sigMain
+                }                              
+            })
+            .success(function(){
+                controller.loadUsers();
+            });            
+        };
+        
+        /**
+         * Delete this user from this sig
+         * 
+         * @param {int} userId
+         * @returns {void}
+         */
+        controller.deleteMember = function(userId)
+        {
+            $http({
+                method : 'POST',
+                url: '/sig/members/delete/' + controller.selectedSigId,
+                data: {
+                    user_id: userId
+                }                              
+            })
+            .success(function(){
+                controller.loadUsers();
+            });            
         };
     });
 

@@ -15,8 +15,15 @@ class Sig extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'shortname', 'description'
+        'name', 'shortname', 'description', 'bigimage', 'smallimage', 'twitterurl'
     ];
+    
+    /**
+     * List of valid statuses for a member (member, leader, co-leader, key personnel).
+     * 
+     * @var array
+     */
+    private static $validMembershipStatus = [0, 1, 2, 3];
 
     /**
      * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
@@ -247,5 +254,16 @@ class Sig extends Model
     public function getColeaderIds()
     {
         return $this->coleaders->lists('id')->toArray();
+    }
+    
+    /**
+     * Find whether a given status is allowed as a type of member
+     * 
+     * @param int $status
+     * @return boolean
+     */
+    public static function isStatusValid($status)
+    {
+        return in_array($status, static::$validMembershipStatus);
     }
 }

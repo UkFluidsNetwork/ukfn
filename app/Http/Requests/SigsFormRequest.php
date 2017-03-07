@@ -2,26 +2,20 @@
 
 namespace App\Http\Requests;
 
+use Auth;
 use App\Http\Requests\Request;
-use App\Http\Controllers\PanelController;
 
 class SigsFormRequest extends Request
 {
 
     /**
-     * Determine if the user is authorized to make this request.
+     * Determine if the user is authorized to make this request. We allow all requests as middleware is taking care of it.
      *
      * @return bool
-     * @author Javier Arias <ja573@cam.ac.uk>
      */
     public function authorize()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return false;
-        } else {
-            return true;
-        }
+        return true;
     }
 
     /**
@@ -33,7 +27,9 @@ class SigsFormRequest extends Request
     public function rules()
     {
         return [
-            'name' => 'required|max:255'
+            'name' => 'required|max:255',
+            'smallimage' => '|image',
+            'bigimage' => '|image',
         ];
     }
 }

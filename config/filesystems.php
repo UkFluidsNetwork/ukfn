@@ -58,6 +58,12 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/files/attachments'),
             'visibility' => 'public',
+        ],
+
+        'sig-pictures' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/pictures/sig'),
+            'visibility' => 'public',
         ]
     ],
 

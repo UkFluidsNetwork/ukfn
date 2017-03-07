@@ -8,6 +8,7 @@ use App\User;
 use App\Title;
 use App\Tag;
 use App\Institution;
+use App\Sig;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\PreferencesRequest;
 use App\Http\Requests\PersonalDetailsRequest;
@@ -22,9 +23,19 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use DateTime;
 use stdClass;
+use Storage;
 
 class PagesController extends Controller
 {
+    
+    /**
+     * Default breadcrumbs for /myaccount
+     * 
+     * @var array
+     */
+    private static $myAccountCrumbs = [
+        ['label' => 'My Account', 'path' => '/myaccount']        
+    ];
 
     /**
      * Home Page
@@ -43,7 +54,6 @@ class PagesController extends Controller
         // get tweets to display
         $tweets = self::getTweets('UKFluidsNetwork');
         $totalTweets = count($tweets);
-
         return view('pages.index', compact('news', 'events', 'tweets', 'totalTweets'));
     }
 
@@ -171,9 +181,7 @@ class PagesController extends Controller
     {
         SEO::setTitle('My Account');
 
-        $bread = [
-            ['label' => 'My Account', 'path' => '/myaccount']
-        ];
+        $bread = static::$myAccountCrumbs;
         $breadCount = count($bread);
 
         return view('pages.myaccount', compact('bread', 'breadCount'));
@@ -192,10 +200,7 @@ class PagesController extends Controller
         $user = Auth::user();
         $titles = Title::all();
 
-        $bread = [
-            ['label' => 'My Account', 'path' => '/myaccount'],
-            ['label' => 'Personal Details', 'path' => '/myaccount/personal']
-        ];
+        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Personal Details', 'path' => '/myaccount/personal']]);
         $breadCount = count($bread);
 
         return view('pages.personaldetails', compact('titles', 'bread', 'breadCount', 'user'));
@@ -222,10 +227,7 @@ class PagesController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        $bread = [
-            ['label' => 'My Account', 'path' => '/myaccount'],
-            ['label' => 'Academic Details', 'path' => '/myaccount/academic']
-        ];
+        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Academic Details', 'path' => '/myaccount/academic']]);
         $breadCount = count($bread);
 
         $vars = [
@@ -256,12 +258,9 @@ class PagesController extends Controller
     {
         SEO::setTitle('Change Password');
 
-        $bread = [
-            ['label' => 'My Account', 'path' => '/myaccount'],
-            ['label' => 'Change Password', 'path' => '/myaccount/password']
-        ];
-
+        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Change Password', 'path' => '/myaccount/password']]);
         $breadCount = count($bread);
+        
         return view('pages.password', compact('bread', 'breadCount'));
     }
 
@@ -279,12 +278,9 @@ class PagesController extends Controller
         $user = User::findOrFail(Auth::user()->id);
         $subscription = !is_null($user->subscription['id']) && $user->subscription['deleted'] == 0;
 
-        $bread = [
-            ['label' => 'My Account', 'path' => '/myaccount'],
-            ['label' => 'Preferences', 'path' => '/myaccount/preferences']
-        ];
-
+        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Preferences', 'path' => '/myaccount/preferences']]);
         $breadCount = count($bread);
+        
         return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
     }
 
@@ -398,6 +394,7 @@ class PagesController extends Controller
     }
     
     /**
+<<<<<<< HEAD
      * Format a date or date range
      * 
      * @author Javier Arias <ja573@cam.ac.uk>
@@ -432,5 +429,33 @@ class PagesController extends Controller
         }
 
         return $date;
+    }
+    
+    /*
+     * Move a temporary file from form into its final location and get its path
+     * 
+     * @param \Illuminate\Http\UploadedFile $file
+     * @param string $disk name of the storage::disk()
+     * @param string|null $name the final name of the file
+     * @return string|boolean the name of the file if succeeded or false if not
+     */
+    public static function uploadFile($file, $disk, $name = null)
+    {
+        try {
+            $location = Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix();
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        
+        $fileName = $name !== null ? $name . time() : time();
+        $fileName.= $file->getClientOriginalExtension();
+        
+        $fileMoved = $file->move($location, $fileName);
+        
+        if ($fileMoved) {
+            return $fileName;
+        }
+        
+        return false;
     }
 }

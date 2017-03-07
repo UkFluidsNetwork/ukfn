@@ -21,10 +21,6 @@ class UsersController extends Controller
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users']
@@ -49,11 +45,6 @@ class UsersController extends Controller
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users'],
@@ -129,11 +120,6 @@ class UsersController extends Controller
      */
     public function add()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users'],
@@ -198,6 +184,7 @@ class UsersController extends Controller
     }
     
     /**
+<<<<<<< HEAD
      * Full list of users to export to CSV
      * 
      * @return void
@@ -219,5 +206,47 @@ class UsersController extends Controller
         $users = User::all();
 
         return view('panel.users.export', compact('users', 'bread', 'breadCount'));
+    }
+    
+    /*
+     * Get all users API.<br>
+     * Available to admins or sig leaders
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return json
+     */
+    public function getUsersJson() 
+    {
+        $users = [];
+        $allUsers = User::all();
+
+        foreach ($allUsers as $user) {
+            $user->title;
+            $user->institutions;
+            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $user->sigs;
+            $users[] = $user;
+        }
+        
+        return response()->json($users);
+    }
+    
+    /**
+     * Get selected user API. <br>
+     * Available to admin or sig leaders
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @param int $id
+     * @return json
+     */
+    public function getUserJson($id) 
+    {
+        $user = User::findOrFail($id);
+        $user->title;
+        $user->institutions;
+        $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+        $user->sigs;
+
+        return response()->json($user);
     }
 }

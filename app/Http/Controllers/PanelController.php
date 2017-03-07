@@ -17,10 +17,6 @@ class PanelController extends Controller
     public function index()
     {
         SEO::setTitle('Panel');
-        
-        if (!$this->checkIsAdmin()) {
-            return redirect('/');
-        }
 
         $bread = [
             ['label' => 'Panel','path' => '/panel']
@@ -37,7 +33,7 @@ class PanelController extends Controller
      */
     public static function checkIsAdmin()
     {
-        if (Auth::user()->group_id != 1) {
+        if (!Auth::user()->isAdmin()) {
             Auth::logout();
             Session::flash('message', 'You must be an administrator to see this page.');
             Session::flash('alert-class', 'alert-danger');
