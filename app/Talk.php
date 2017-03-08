@@ -134,12 +134,12 @@ class Talk extends Model
     }
     
     /**
-     * Determine whether the stream for this talk can be displayed. It defaults to the duration of the talk plus 15 minutes before and after.
+     * Determine whether the stream for this talk can be displayed. It defaults to the duration of the talk plus 15m before and 1h after.
      * 
      * @return boolean
      */
     public function displayStream()
     {
-        return $this->recordingurl !== null && $this->recordingurl !== "" && (Carbon::now() >= Carbon::parse($this->start)->addMinutes(-15) && Carbon::now() <= Carbon::parse($this->end)->addMinutes(15));
+        return $this->recordingurl !== null && $this->recordingurl !== "" && (Carbon::now() >= Carbon::parse($this->start)->addMinutes(-15) && Carbon::now() <= Carbon::parse($this->end)->addMinutes(60));
     }
 }
