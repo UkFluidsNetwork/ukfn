@@ -71,7 +71,7 @@ Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('admin')
 Route::get('panel/sig', 'SigsController@view')->middleware('admin');
 Route::get('panel/sig/add', 'SigsController@add')->middleware('admin');
 Route::get('panel/talks/add', 'TalksController@add')->middleware('admin');
-Route::get('panel/talks', 'TalksController@panelviewcurrent')->middleware('admin');
+Route::get('panel/talks', 'TalksController@talksList')->middleware('admin');
 Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('admin');
 Route::get('panel/talks/feeds/', 'AggregatorsController@view')->middleware('admin');
 Route::get('panel/talks/feeds/add', 'AggregatorsController@add')->middleware('admin');
