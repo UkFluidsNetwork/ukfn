@@ -8,7 +8,6 @@ use App\User;
 use App\Title;
 use App\Tag;
 use App\Institution;
-use App\Sig;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\PreferencesRequest;
 use App\Http\Requests\PersonalDetailsRequest;
@@ -24,7 +23,6 @@ use Illuminate\Support\Facades\Redirect;
 use DateTime;
 use stdClass;
 use Storage;
-use Illuminate\Support\Facades\Log;
 
 class PagesController extends Controller
 {
