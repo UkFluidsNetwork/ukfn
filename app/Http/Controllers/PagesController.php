@@ -25,6 +25,7 @@ use DateTime;
 use stdClass;
 use Storage;
 use Illuminate\Support\Facades\Log;
+
 class PagesController extends Controller
 {
     
@@ -430,16 +431,20 @@ class PagesController extends Controller
         return $date;
     }
     
-    /*
+    /**
      * Move a temporary file from form into its final location and get its path
      * 
      * @param \Illuminate\Http\UploadedFile $file
      * @param string $disk name of the storage::disk()
      * @param string|null $name the final name of the file
-     * @return string|boolean the name of the file if succeeded or false if not
+     * @return string|null the name of the file if upload succeeded or null if not
      */
     public static function uploadFile($file, $disk, $name = null)
     {
+        if ($file === null) {
+            return null;
+        }
+        
         try {
             $location = Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix();
         } catch (Exception $ex) {
@@ -450,11 +455,10 @@ class PagesController extends Controller
         $fileName.= "." . $file->getClientOriginalExtension();
 
         $fileMoved = $file->move($location, $fileName);
-        
         if ($fileMoved) {
             return $fileName;
         }
         
-        return false;
+        return null;
     }
 }
