@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use Auth;
 use App\Http\Requests\Request;
 
 class SigsFormRequest extends Request
@@ -28,8 +27,8 @@ class SigsFormRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            'smallimage' => '|image',
-            'bigimage' => '|image',
+            'smallimage' => 'image',
+            'bigimage' => 'image',
         ];
     }
 }
