@@ -3,7 +3,7 @@
 
 <div id='sig-navigation'>
     @foreach ($navigation as $element)
-    <nav aria-label="Page navigation" style="width:auto;" class="pull-{{ $element['position'] }}">
+    <nav aria-label="Page navigation" style="height: 30px; width:auto;" class="pull-{{ $element['position'] }}">
         <ul class="pagination">
             <li>
                 <a href="{{ $element['path'] }}" aria-label="Previous">
@@ -15,7 +15,11 @@
     @endforeach
 </div>
 
+@if ($sig->url)
+<h2 class="text-danger line-break">{{ $sig->name }} {{ Html::link($sig->url, 'External page', ['class' => 'btn btn-default pull-right', 'target' => '_blank']) }}</h2>
+@else
 <h2 class="text-danger line-break">{{ $sig->name }}</h2>
+@endif
 
 <div class="container-fluid nopadding-left">
     <div class="row">
