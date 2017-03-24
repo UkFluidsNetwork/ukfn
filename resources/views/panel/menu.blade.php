@@ -9,6 +9,10 @@
             <a class="{{ Request::is('panel') ? 'active' : '' }}" href="{{URL::to('/panel')}}">Panel</a>
         </li>
 
+        <li class="{{ Request::is('panel/calendar') ? 'active' : '' }}">
+            <a class="{{ Request::is('panel/calendar') ? 'active' : '' }}" href="{{URL::to('/panel/calendar')}}">Calendar</a>
+        </li>
+
         <li class="{{ Request::is('panel/tags*') ? 'active' : '' }}">
             <a href="{{ URL::to('panel/tags') }}" class="{{ Request::is('panel/tags*') ? 'active' : '' }}">Tags</a>
             <ul id="admin-subnav-tags" class="nav nav-stacked">

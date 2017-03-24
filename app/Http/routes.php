@@ -76,6 +76,7 @@ Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('admin')
 Route::get('panel/talks/feeds/', 'AggregatorsController@view')->middleware('admin');
 Route::get('panel/talks/feeds/add', 'AggregatorsController@add')->middleware('admin');
 Route::get('panel/talks/feeds/edit/{id}', 'AggregatorsController@edit')->middleware('admin');
+Route::get('panel/calendar', 'PanelController@calendar')->middleware('admin');
 /** POST requests * */
 // public 
 Route::post('contact', 'PagesController@sendMessage');

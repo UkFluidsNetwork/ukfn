@@ -42,4 +42,17 @@ class PanelController extends Controller
             return true;
         }
     }
+
+    public static function calendar()
+    {
+        SEO::setTitle('Calendar');
+
+        $bread = [
+            ['label' => 'Panel','path' => '/panel'],
+            ['label' => 'Calendar','path' => '/panel/calendar']
+        ];
+        $breadCount  = count($bread);
+
+        return view('panel.calendar', compact('bread', 'breadCount'));
+    }
 }
