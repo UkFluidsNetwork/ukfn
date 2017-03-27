@@ -1,11 +1,21 @@
 @extends('layouts.master')
 @section('content')
 @include('flash.success')
-<h2 class='line-break'><a href="/sig/calendar/"><i class="glyphicon glyphicon-calendar"></i></a>Special Interest Groups</h2>
+<div class="line-break display-block" style="overflow: auto">
+    <h2 class="pull-left">Special Interest Groups</h2>
+
+    <h2 class="pull-right">
+        <a href="/sig/calendar/" class="url-no-color">
+        SIG meetings
+        </a>
+    </h2>
+</div>
+
+
 
 <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
-            <div style="float:right; margin-top:-50px;margin-right:10px;font-size:larger;"><b>New:</b> {{Html::link('/sig/second-call', 'second round of SIGs')}}</div>
+<!--            <div style="float:right; margin-top:-50px;margin-right:10px;font-size:larger;"><b>New:</b> {{Html::link('/sig/second-call', 'second round of SIGs')}}</div>-->
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
             <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >

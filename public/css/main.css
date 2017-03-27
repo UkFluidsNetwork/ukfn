@@ -562,4 +562,8 @@ footer {
   width: 100%;
   margin-top: 20px; }
 
+.url-no-color {
+  color: #333333 !important;
+  text-decoration: none !important; }
+
 /*# sourceMappingURL=main.css.map */

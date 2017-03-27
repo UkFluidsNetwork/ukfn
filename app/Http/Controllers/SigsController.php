@@ -413,16 +413,15 @@ class SigsController extends Controller
         return $actionPerformed ? response()->json("performed: ${action}") : response()->json("could not ${action}", 500);
     }
 
+    /**
+     * Google Calendar of SIG meetings
+     *
+     * @author Robert Barczyk <rb783@cam.ac.uk>
+     * @return void
+     */
     public static function calendar()
     {
-        SEO::setTitle('Calendar');
-
-        $bread = [
-            ['label' => 'Sig','path' => '/sig'],
-            ['label' => 'Calendar','path' => '/sig/calendar']
-        ];
-        $breadCount  = count($bread);
-
-        return view('pages.calendar', compact('bread', 'breadCount'));
+        SEO::setTitle('Calendar of SIG meetings');
+        return view('sig.calendar', compact('bread'));
     }
 }
