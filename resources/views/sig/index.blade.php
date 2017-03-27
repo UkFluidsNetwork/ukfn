@@ -1,7 +1,7 @@
 @extends('layouts.master')
 @section('content')
 @include('flash.success')
-<h2 class='line-break'>Special Interest Groups</h2>
+<h2 class='line-break'><a href="/sig/calendar/"><i class="glyphicon glyphicon-calendar"></i></a>Special Interest Groups</h2>
 
 <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
@@ -22,7 +22,7 @@
             </div>
         </div>
         <!-- Sig institutions -->
-        <div class="col-md-3 col-md-pull-6 col-sm-5 mapHeight axis-y">
+        <div class="col-md-3 col-md-pull-6 col-sm-5 mapHeight axis-y nopadding-left">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <div ng-if="sigCtrl.displayAll">
                 <div class="page-header nomargin-top">

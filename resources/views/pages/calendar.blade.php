@@ -1,5 +1,6 @@
-@extends('layouts.admin')
-@section('admincontent')
+@extends('layouts.master')
+@section('content')
+@include ('flash.success')
 
 <h2 class='line-break'>Calendar</h2>
 

@@ -8,7 +8,6 @@
 @import "forms";
 @import "sig";
 @import "admin_nav";
-@import "panel";
 
 
 /* Google font */
@@ -131,6 +130,11 @@ input[type="text"], textarea, button {
 
 .nomargin-right {
     margin-right: 0 !important;
+}
+
+#google_calendar > iframe {
+    width: 100% !important;
+    max-height: 100% !important;
 }
 
 /********************************************************************

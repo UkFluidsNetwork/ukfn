@@ -15,6 +15,7 @@
 Route::get('/', 'PagesController@index');
 Route::get('sig', 'SigsController@map');
 Route::get('sig/second-call', 'SigsController@results');
+Route::get('sig/calendar', 'SigsController@calendar');
 Route::get('sig/{slug}', 'SigsController@sigPage');
 Route::get('sig/{slug}/{page}', 'SigsController@sigPage');
 Route::get('srv', 'SrvsController@index');
@@ -76,7 +77,6 @@ Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('admin')
 Route::get('panel/talks/feeds/', 'AggregatorsController@view')->middleware('admin');
 Route::get('panel/talks/feeds/add', 'AggregatorsController@add')->middleware('admin');
 Route::get('panel/talks/feeds/edit/{id}', 'AggregatorsController@edit')->middleware('admin');
-Route::get('panel/calendar', 'PanelController@calendar')->middleware('admin');
 /** POST requests * */
 // public 
 Route::post('contact', 'PagesController@sendMessage');

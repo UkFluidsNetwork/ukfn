@@ -412,4 +412,17 @@ class SigsController extends Controller
         
         return $actionPerformed ? response()->json("performed: ${action}") : response()->json("could not ${action}", 500);
     }
+
+    public static function calendar()
+    {
+        SEO::setTitle('Calendar');
+
+        $bread = [
+            ['label' => 'Sig','path' => '/sig'],
+            ['label' => 'Calendar','path' => '/sig/calendar']
+        ];
+        $breadCount  = count($bread);
+
+        return view('pages.calendar', compact('bread', 'breadCount'));
+    }
 }
