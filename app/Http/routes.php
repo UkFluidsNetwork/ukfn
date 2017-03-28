@@ -66,6 +66,7 @@ Route::get('panel/titles', 'TitlesController@view')->middleware('admin');
 Route::get('panel/titles/add', 'TitlesController@add')->middleware('admin');
 Route::get('panel/titles/edit/{id}', 'TitlesController@edit')->middleware('admin');
 Route::get('panel/users', 'UsersController@view')->middleware('admin');
+Route::get('panel/users/export', 'UsersController@export')->middleware('admin');
 Route::get('panel/users/add', 'UsersController@add')->middleware('admin');
 Route::get('panel/users/edit/{id}', 'UsersController@edit')->middleware('admin');
 Route::get('panel/sig', 'SigsController@view')->middleware('admin');

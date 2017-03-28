@@ -184,7 +184,6 @@ class UsersController extends Controller
     }
     
     /**
-<<<<<<< HEAD
      * Full list of users to export to CSV
      * 
      * @return void
