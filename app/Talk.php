@@ -120,7 +120,8 @@ class Talk extends Model
      */
     public function isStreamed()
     {
-        return $this->streamingurl !== null && $this->streamingurl !== "";
+        return ($this->streamingurl !== null && $this->streamingurl !== "")
+            ||($this->teradekip !== null && $this->teradekip !== "");
     }
     
     /**
@@ -130,16 +131,48 @@ class Talk extends Model
      */
     public function isRecorded()
     {
-        return $this->recordingurl !== null && $this->recordingurl !== "" && ($this->recordinguntil === null || Carbon::parse($this->recordinguntil) > Carbon::now());
+        return $this->recordingurl !== null && $this->recordingurl !== "";
     }
     
     /**
-     * Determine whether the stream for this talk can be displayed. It defaults to the duration of the talk plus 15m before and 1h after.
+     * Determine whether the stream for this talk can be displayed. 
+     * It defaults to the duration of the talk plus 15m before and 1h after.
      * 
      * @return boolean
      */
     public function displayStream()
     {
-        return $this->recordingurl !== null && $this->recordingurl !== "" && (Carbon::now() >= Carbon::parse($this->start)->addMinutes(-15) && Carbon::now() <= Carbon::parse($this->end)->addMinutes(60));
+        return $this->isStreamed() && !$this->isFuture() && !$this->isPast();
+    }
+    
+    /**
+     * Determine whether the recording for this talk can be displayed.
+     * 
+     * @return boolean
+     */
+    public function displayRecording()
+    {
+        return $this->isRecorded() && ($this->recordinguntil === null 
+            || Carbon::parse($this->recordinguntil) > Carbon::now());
+    }
+    
+    /**
+     * Determine whether a talk is in the future
+     * 
+     * @return boolean
+     */
+    public function isFuture()
+    {
+        return Carbon::now() < Carbon::parse($this->start)->addMinutes(-15);
+    }
+    
+    /**
+     * Determine whether a talk is in the past
+     * 
+     * @return boolean
+     */
+    public function isPast()
+    {
+        return Carbon::now() > Carbon::parse($this->end)->addMinutes(60);
     }
 }

@@ -114,11 +114,11 @@
                                @{{ talk.venue }}
                             </span>
                         </span>                    
-                        <span ng-if="talk.recordingurl" class="display-block text-muted">
+                        <span ng-if="talk.displayRecording" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-facetime-video icon-item-padding display-table-cell"></icon>
                             <span class="display-table-cell"> Recording available</span>
                         </span>
-                        <span ng-if="talk.streamingurl || talk.teradekip" class="display-block text-muted">
+                        <span ng-if="talk.isStreamed" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-play icon-item-padding display-table-cell"></icon>
                             <span class="display-table-cell">Live Streaming</span>
                         </span>
@@ -127,7 +127,7 @@
                         <div class="line-break">
                             @{{ talk.abstract }}
                         </div>
-                        <p ng-if="talk.isStreamed && !talk.displayStream">
+                        <p ng-if="talk.isStreamed && talk.isFuture">
                             <i class="glyphicon glyphicon-warning-sign"></i> Streaming will be made available 15 minutes before the start of the talk. 
                         </p>
                         <div class="pull-right" style="margin-top:-10px;">
@@ -135,7 +135,7 @@
                                 <span class="glyphicon glyphicon-new-window"></span> Open in a new tab
                             </a>
                         </div>
-                        <div ng-if="talk.recordingurl" class="line-break-dbl-top">
+                        <div ng-if="talk.displayRecording" class="line-break-dbl-top">
                             <div class="embed-responsive embed-responsive-16by9">
                                 <iframe class="embed-responsive-item" ng-src="@{{talk.recordingurl}}" scrolling="no" frameborder="0" allowfullscreen></iframe>
                             </div>

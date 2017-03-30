@@ -165,15 +165,17 @@ class TalksController extends Controller
                 continue;
             }
             
-            // we instantiate a talk object in case $talk is a std object rather than actual intance of Talk, otherwise we cannnot use functions in the Talk class
+            // we instantiate a talk object in case $talk is a std object rather than actual intance of Talk, 
+            // otherwise we cannnot use functions in the Talk class
             $talk = Talk::findOrFail($talk->id);
             $formattedTalks[$index] = $talk;
             $formattedTalks[$index]->aggregator = $talk->aggregator_id ? Aggregator::findOrFail($talk->aggregator_id) : null;
             $formattedTalks[$index]->isRecorded = $talk->isRecorded();
             $formattedTalks[$index]->isStreamed = $talk->isStreamed();
             $formattedTalks[$index]->displayStream = $talk->displayStream();
+            $formattedTalks[$index]->displayRecording = $talk->displayRecording();
+            $formattedTalks[$index]->isFuture = $talk->isFuture();
             $formattedTalks[$index]->when = PagesController::formatDate($talk->start);
-           // $formattedTalks[$index]->when = date($dateFormat, strtotime($talk->start)) . " at " . date("H:i", strtotime($talk->start));
             $index++;
         }
 
