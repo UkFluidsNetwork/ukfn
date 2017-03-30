@@ -558,4 +558,12 @@ footer {
   width: 100%;
   margin-top: 20px; }
 
+.label-new {
+  vertical-align: text-top !important; }
+
+.label-ukfn-blue {
+  background-color: white !important;
+  border: 1.5px #1B75BB solid !important;
+  color: #1B75BB !important; }
+
 /*# sourceMappingURL=main.css.map */
