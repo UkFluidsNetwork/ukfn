@@ -2,7 +2,7 @@
 @section('content')
 @include('flash.success')
 <div class="line-break display-block" style="overflow: auto">
-    <h2 class="pull-left full-width">
+    <h2 class="full-width">
        Special Interest Groups
        <a href="/sig/calendar/" class="pull-right btn btn-ukfn">
            SIG meetings
