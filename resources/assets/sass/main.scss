@@ -443,7 +443,13 @@ footer {
     margin-top: 20px;
 }
 
-.url-no-color {
-    color: $text-main !important;
-    text-decoration: none !important;
+.btn-ukfn {
+    color: $ukfn-darkblue !important;
+    border-color: $ukfn-darkblue !important;
+    background-color: white !important;
+}
+
+.btn-ukfn:hover {
+    background-color: $ukfn-darkblue !important;
+    color: white !important;
 }

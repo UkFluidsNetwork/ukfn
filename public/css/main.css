@@ -562,8 +562,13 @@ footer {
   width: 100%;
   margin-top: 20px; }
 
-.url-no-color {
-  color: #333333 !important;
-  text-decoration: none !important; }
+.btn-ukfn {
+  color: #1B75BB !important;
+  border-color: #1B75BB !important;
+  background-color: white !important; }
+
+.btn-ukfn:hover {
+  background-color: #1B75BB !important;
+  color: white !important; }
 
 /*# sourceMappingURL=main.css.map */

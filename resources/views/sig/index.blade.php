@@ -2,16 +2,13 @@
 @section('content')
 @include('flash.success')
 <div class="line-break display-block" style="overflow: auto">
-    <h2 class="pull-left">Special Interest Groups</h2>
-
-    <h2 class="pull-right">
-        <a href="/sig/calendar/" class="url-no-color">
-        SIG meetings
-        </a>
+    <h2 class="pull-left full-width">
+       Special Interest Groups
+       <a href="/sig/calendar/" class="pull-right btn btn-ukfn">
+           SIG meetings
+       </a>
     </h2>
 </div>
-
-
 
 <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
