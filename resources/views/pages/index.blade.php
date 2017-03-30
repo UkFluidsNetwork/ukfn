@@ -44,6 +44,9 @@
       <section class="page-header">
         <div class="line-break">
           <div class="text-danger">
+              @if ($event->new)
+              <span class="label label-new label-ukfn-blue">New</span>
+              @endif
             <strong class="panel-title">{{ $event->title }}</strong>
           </div>
           <div class="text-muted">{{ $event->date }}{{ $event->subtitle }}</div>

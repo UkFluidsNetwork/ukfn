@@ -437,3 +437,13 @@ footer {
     width: 100%;
     margin-top: 20px;
 }
+
+.label-new {
+    vertical-align: text-top !important;
+}
+
+.label-ukfn-blue {
+    background-color: white !important;
+    border: 1.5px $ukfn-darkblue solid !important;
+    color: $ukfn-darkblue !important;
+}

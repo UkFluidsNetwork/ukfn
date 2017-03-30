@@ -24,9 +24,10 @@ class Event extends Model
      * @access public
      * @author Javier Arias <javier@arias.re>
      */
-    public static function getEvents($orderBy = "start", $direction = "desc", $limit = null)
+    public static function getEvents($orderBy = "start", $direction = "desc", $where = [], $limit = null)
     {
         return DB::table('events')
+                ->where($where)
                 ->orderBy($orderBy, $direction)
                 ->take($limit)
                 ->get();
