@@ -77,6 +77,8 @@ Route::get('panel/talks/edit/{id}', 'TalksController@edit')->middleware('admin')
 Route::get('panel/talks/feeds/', 'AggregatorsController@view')->middleware('admin');
 Route::get('panel/talks/feeds/add', 'AggregatorsController@add')->middleware('admin');
 Route::get('panel/talks/feeds/edit/{id}', 'AggregatorsController@edit')->middleware('admin');
+Route::get('panel/files/add', 'FilesController@add')->middleware('admin');
+Route::get('panel/files', 'FilesController@index')->middleware('admin');
 /** POST requests * */
 // public 
 Route::post('contact', 'PagesController@sendMessage');
@@ -112,6 +114,8 @@ Route::post('panel/talks/feeds/delete/{id}', 'AggregatorsController@delete')->mi
 Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware('admin');
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('admin');
 Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
+Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
+Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('admin');
 /** PATCH requests * */
 // require canEditSig
 Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('sig');

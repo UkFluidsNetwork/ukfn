@@ -80,5 +80,12 @@
                 <li><a href="{{ URL::to('panel/subscriptions') }}" class="{{ Request::is('panel/subscriptions') ? 'active' : '' }}">Subscriptions</a></li>
             </ul>
         </li>
+        
+        <li class="{{ Request::is('panel/files*') ? 'active' : '' }}">
+            <a href="{{ URL::to('panel/files') }}" class="{{ Request::is('panel/files*') ? 'active' : '' }}">Files</a>
+            <ul id='admin-subnav-talks' class='nav nav-stacked' >
+                <li><a href="{{ URL::to('/panel/files/add') }}" class="{{ Request::is('panel/files/add') ? 'active' : '' }}">Upload new</a></li>
+            </ul>
+        </li>
     </ul> 
 </nav>
