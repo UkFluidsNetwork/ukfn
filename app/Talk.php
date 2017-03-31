@@ -153,6 +153,7 @@ class Talk extends Model
     public function displayRecording()
     {
         return $this->isRecorded() && ($this->recordinguntil === null 
+            || $this->recordinguntil === "0000-00-00" 
             || Carbon::parse($this->recordinguntil) > Carbon::now());
     }
     
