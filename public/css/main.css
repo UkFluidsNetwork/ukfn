@@ -315,6 +315,10 @@ input[type="text"], textarea, button {
 .nomargin-right {
   margin-right: 0 !important; }
 
+#google_calendar > iframe {
+  width: 100% !important;
+  max-height: 100% !important; }
+
 /********************************************************************
   NAVIGATION
 ********************************************************************/
@@ -565,5 +569,14 @@ footer {
   background-color: white !important;
   border: 1.5px #1B75BB solid !important;
   color: #1B75BB !important; }
+
+.btn-ukfn {
+  color: #1B75BB !important;
+  border-color: #1B75BB !important;
+  background-color: white !important; }
+
+.btn-ukfn:hover {
+  background-color: #1B75BB !important;
+  color: white !important; }
 
 /*# sourceMappingURL=main.css.map */

@@ -207,7 +207,7 @@
             <div class="row">
                 <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12 text-center">
                     <p class="footer-credits">
-                        &copy; 2016 ukfluids.net
+                        &copy; 2017 ukfluids.net
                     </p>
                     <p class="footer-credits">
                         Designed by

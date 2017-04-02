@@ -16,7 +16,7 @@
 body {
   font-family                         : 'Lato', sans-serif;
   font-weight                         : 400;
-  color                               : #333333;
+  color                               : $text-main;
 }
 /* View Helpers */
 .line-break {
@@ -130,6 +130,11 @@ input[type="text"], textarea, button {
 
 .nomargin-right {
     margin-right: 0 !important;
+}
+
+#google_calendar > iframe {
+    width: 100% !important;
+    max-height: 100% !important;
 }
 
 /********************************************************************
@@ -446,4 +451,15 @@ footer {
     background-color: white !important;
     border: 1.5px $ukfn-darkblue solid !important;
     color: $ukfn-darkblue !important;
+}
+
+.btn-ukfn {
+    color: $ukfn-darkblue !important;
+    border-color: $ukfn-darkblue !important;
+    background-color: white !important;
+}
+
+.btn-ukfn:hover {
+    background-color: $ukfn-darkblue !important;
+    color: white !important;
 }

@@ -412,4 +412,18 @@ class SigsController extends Controller
         
         return $actionPerformed ? response()->json("performed: ${action}") : response()->json("could not ${action}", 500);
     }
+
+    /**
+     * Google Calendar of SIG meetings
+     *
+     * @author Robert Barczyk <rb783@cam.ac.uk>
+     * @return void
+     */
+    public static function calendar()
+    {
+        SEO::setTitle('Calendar of SIG meetings');
+        SEO::setDescription('Calendar of all the meetings organised by the Special Interest Groups (SIG) that participate in the UK FLuids Network.');
+
+        return view('sig.calendar', compact('bread'));
+    }
 }
