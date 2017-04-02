@@ -4,7 +4,7 @@
 
 <h2 class='line-break full-width'>
     Calendar of SIG meetings
-    <a href="/sig/" class="pull-right btn btn-ukfn">
+    <a href="/sig/" class="pull-right btn btn-default">
         SIG Map
     </a>
 </h2>
