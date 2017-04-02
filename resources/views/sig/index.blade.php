@@ -4,7 +4,7 @@
 <div class="line-break display-block" style="overflow: auto">
     <h2 class="full-width">
        Special Interest Groups
-       <a href="/sig/calendar/" class="pull-right btn btn-ukfn">
+       <a href="/sig/calendar/" class="pull-right btn btn-default">
            SIG meetings
        </a>
     </h2>
