@@ -32,9 +32,6 @@
   </div>
 </section>
 <section class="page-header">
-
-Executive Committee meeting, Thursday 23 March 2017: [Agenda_230317_EC_meeting.pdf][Minutes_230317_EC_meeting.pdf]
-Advisory Board meeting, Wednesday 29 March 2017: [Agenda_290317_AB_meeting.pdf][Minutes_290317_AB_meeting.pdf] 
   <div>
     <p class="h4 text-danger">Minutes of meetings</p>
     <p class="line-break-dbl-top">
