@@ -37,8 +37,14 @@
     <p class="line-break-dbl-top">
     <ul>
       <li>
-        DRAFT FOR COMMENT: Agenda for EC meeting, Thursday 23rd March 2017:
-        [<a href="{{ asset('files/meetings/Agenda_EC_230317_DRAFT_170227.pdf') }}">Agenda_EC_230317_DRAFT_170227.pdf</a>]
+        Advisory Board meeting, Wednesday 29 March 2017: 
+        [<a href="{{ asset('files/meetings/Agenda_290317_AB_meeting.pdf') }}">Agenda_290317_AB_meeting.pdf</a>],
+        [<a href="{{ asset('files/meetings/Minutes_290317_AB_meeting.pdf') }}">Minutes_290317_AB_meeting.pdf</a>]
+      </li>
+      <li>
+        Executive Committee meeting, Thursday 23 March 2017:
+        [<a href="{{ asset('files/meetings/Agenda_230317_EC_meeting.pdf') }}">Agenda_230317_EC_meeting.pdf</a>],
+        [<a href="{{ asset('files/meetings/Minutes_230317_EC_meeting.pdf') }}">Minutes_230317_EC_meeting.pdf</a>]
       </li>
       <li>
         Executive Committee meeting, Friday 11th November 2016:
