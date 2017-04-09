@@ -17,11 +17,7 @@ class FilesController extends Controller
      * @return void
      */
     public function index()
-    { 
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
+    {
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Files', 'path' => '/panel/files']
@@ -49,10 +45,6 @@ class FilesController extends Controller
      */    
     public function add()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Files', 'path' => '/panel/files'],
