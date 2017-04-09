@@ -18,6 +18,7 @@ Route::get('sig/second-call', 'SigsController@results');
 Route::get('sig/{slug}', 'SigsController@sigPage');
 Route::get('sig/{slug}/{page}', 'SigsController@sigPage');
 Route::get('srv', 'SrvsController@index');
+Route::get('resources', 'ResourcesController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('talks/stream', 'TalksController@stream');
 Route::get('contact', 'PagesController@contact');
@@ -29,6 +30,7 @@ Route::get('register', 'Auth\AuthController@registration');
 Route::get('api/institutions', 'InstitutionsController@getAllJson');
 Route::get('api/sigs', 'SigsController@getAllJson');
 Route::get('api/talks/{query}', 'TalksController@getAllJson');
+Route::get('api/resources/{query}', 'ResourcesController@getAllJson');
 Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 // require login
 Route::get('myaccount', 'PagesController@myaccount')->middleware('auth');

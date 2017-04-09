@@ -444,3 +444,67 @@ angular.module('ukfn')
             placeholder: 'Enter search term(s)'
           };
     });
+
+/**
+ * Talks Controler
+ * 
+ * @author Javier Arias <javier@arias.re>
+ * @param {storage} $localStorage 
+ * @param {$http} $http
+ */
+angular.module('ukfn')
+    .controller('resourcesController', function ($http, $localStorage, $sce) {
+        // this scope name
+        var controller = this;
+        controller.$storage = $localStorage;
+        controller.searchTerms = []; // terms entered in recorded search box
+        controller.selectedAggregators = []; // aggregators selected in past filter
+        controller.aggregators = []; // aggregators given as options
+        controller.loading = true; // flag to display loading message
+        controller.query = ""; // future/recorded/past
+        controller.currentQuery = ""; // current selected query
+        
+        controller.updateQuery = function(query) {
+            controller.query = query;
+            if (controller.currentQuery !== controller.query) {
+                controller.aggregators = [];
+                controller.searchTerms = [];
+                controller.selectedAggregators = [];
+                controller.currentQuery = controller.query;
+            }
+            controller.loadTalks();
+        };
+
+        controller.loadTalks = function() {
+            var lookup = [];
+            var url = '/api/talks/' + controller.query;
+            controller.loading = true;
+            // clear array of available talks before making the request.
+            controller.resources = [];
+            
+            $http(
+                {
+                    method: 'GET',
+                    url: url,
+                    params: {
+                        feeds: JSON.stringify(controller.selectedAggregators),
+                        search: JSON.stringify(controller.searchTerms)
+                    }
+                }
+            ).then(function (response) {
+                controller.loading = false;
+                controller.resources = response.data;
+            });            
+        };
+
+        controller.selectizeSearchConfig = {
+            create: true,
+            plugins: ['remove_button'],
+            delimiter: ',',
+            searchField: 'label',
+            framework: 'bootstrap',
+            valueField: 'id',
+            labelField: 'label',
+            placeholder: 'Enter subject area(s)'
+          };
+    });

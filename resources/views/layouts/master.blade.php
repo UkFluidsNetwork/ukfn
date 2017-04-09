@@ -7,7 +7,6 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
-        <link href="{{ asset('css/bootstrap.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/main.css') }}?v=4" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
@@ -77,6 +76,9 @@
                             </li>
                             <li class="{{ Request::is('talks*') ? 'active' : '' }}">
                                 {{ Html::link('/talks', 'Talks') }}
+                            </li>
+                            <li class="{{ Request::is('resources*') ? 'active' : '' }}">
+                                {{ Html::link('/resources', 'Resources') }}
                             </li>
                             <li class="{{ Request::is('admin*') ? 'active' : '' }}">
                                 {{ Html::link('/admin', 'Admin') }}

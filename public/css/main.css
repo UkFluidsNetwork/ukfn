@@ -157,8 +157,8 @@ a.list-group-item.talk:focus {
   display: block;
   position: relative;
   font-weight: 500;
-  font-size: 1.2em;
-  padding: 25px 25px 25px 80px;
+  font-size: 1.1em;
+  padding: 25px 25px 25px 75px;
   margin: 5px -15px;
   height: 30px;
   z-index: 9;
