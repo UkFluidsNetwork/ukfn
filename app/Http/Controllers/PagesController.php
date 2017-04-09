@@ -428,6 +428,19 @@ class PagesController extends Controller
 
         return $date;
     }
+
+    /**
+     * When a $name is provided add a timestamp and replace whitespace with
+     * underscores. When no $name is given a timestamp is returned.
+     * 
+     * @param string $name an optional file name to include in the result
+     * @return string
+     */
+    public static function sanitizeFilename($name = "")
+    {
+        $fileName = $name ? $name . "." . time() : time();
+        return str_replace(' ', '_', $fileName);
+    }
     
     /**
      * Move a temporary file from form into its final location and get its path
@@ -449,8 +462,8 @@ class PagesController extends Controller
             Session:flash('error_message', $ex);
         }
         
-        $fileName = $name !== null ? $name . time() : time();
-        $fileName.= "." . $file->getClientOriginalExtension();
+        $fileName = self::sanitizeFilename($name);
+        $fileName .= "." . $file->getClientOriginalExtension();
 
         $fileMoved = $file->move($location, $fileName);
         if ($fileMoved) {
