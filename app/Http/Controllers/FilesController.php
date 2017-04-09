@@ -9,30 +9,7 @@ use App\Http\Requests\FileUploadRequest;
 
 class FilesController extends Controller
 {
-    /**
-     * Add new file view
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @return void
-     */    
-    public function add()
-    {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
 
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Files', 'path' => '/panel/files'],
-            ['label' => 'Add', 'path' => '/panel/files/add'],
-        ];
-        
-        $file = new File();
-        $breadCount = count($bread);
-        
-        return view('panel.files.add', compact('bread', 'breadCount', 'file'));
-    }
-    
     /**
      * List of all files in admin panel
      * 
@@ -63,7 +40,31 @@ class FilesController extends Controller
                               
         return view('panel.files.index', compact('bread', 'breadCount', 'files'));
     }
-    
+
+    /**
+     * Add new file view
+     * 
+     * @author Robert Barczyk <robert@barczyk.net>
+     * @return void
+     */    
+    public function add()
+    {
+        if (!PanelController::checkIsAdmin()) {
+            return redirect('/');
+        }
+
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Files', 'path' => '/panel/files'],
+            ['label' => 'Add', 'path' => '/panel/files/add'],
+        ];
+        
+        $file = new File();
+        $breadCount = count($bread);
+        
+        return view('panel.files.add', compact('bread', 'breadCount', 'file'));
+    }
+
     /**
      * Upload new file and save details in database
      * 
@@ -95,7 +96,7 @@ class FilesController extends Controller
         }
         return redirect('/panel/files');
     }
-    
+
     /**
      * Delete file
      * 
