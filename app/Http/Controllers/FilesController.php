@@ -56,9 +56,9 @@ class FilesController extends Controller
         
         $files = File::all();
         foreach ($files as $file) {
-            $file->created = date("d M H:i", strtotime($file->created_at));
-            $file->updated = date("d M H:i", strtotime($file->updated_at));
-            $file->full_path = 'https://' . $thisServer . $file->path;
+            $file->created = PagesController::formatDate($file->created_at); 
+            $file->updated = PagesController::formatDate($file->updated_at); 
+            $file->full_path = url($file->path . "/" . $file->name);
         }
                               
         return view('panel.files.index', compact('bread', 'breadCount', 'files'));
@@ -76,8 +76,14 @@ class FilesController extends Controller
         try {
             $file = new File();
             $uploadedFile = $request->file('file');
-            $prefix = $request->input('filename');
-            $file->name = PagesController::uploadFile($uploadedFile, 'public-files', 'UKFN_' . $prefix . '_');
+            $fileName = pathinfo(
+                $uploadedFile->getClientOriginalName(), 
+                PATHINFO_FILENAME); 
+            $name = $request->input('filename') ? : $fileName;
+            $file->name = PagesController::uploadFile(
+                $uploadedFile, 
+                'public-files', 
+                $name);
             $file->path = "/files";
             $file->type = $uploadedFile->getClientMimeType();
             $file->user_id = Auth::user()->id;

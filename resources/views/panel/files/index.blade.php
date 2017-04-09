@@ -7,7 +7,8 @@
       <thead>
         <tr>
           <th>ID</th>
-          <th>Path</th>
+          <th>Name</th>
+          <th>URL</th>
           <th>Uploaded</th>
           <th>Action</th>
         </tr>
@@ -16,7 +17,13 @@
       @foreach ($files as $file)
       <tr>
         <td>{{ $file->id }}</td>
-        <td>{{ $file->full_path }}/{{ $file->name }}</td>
+        <td>{{ $file->name }}</td>
+        <td>
+             {{ Html::link(
+                  $file->full_path, 
+                  $file->full_path, 
+                  ['target' => '_blank']) }}
+        </td>
         <td>{{ $file->created }}</td>
         <td>
              {{ Form::open(['action' => ['FilesController@delete', $file->id]]) }}
