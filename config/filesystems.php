@@ -53,13 +53,13 @@ return [
             'root' => storage_path('app/public'),
             'visibility' => 'public',
         ],
-        
+
         'public-files' => [
             'driver' => 'local',
             'root' => storage_path('app/public/files'),
             'visibility' => 'public',
         ],
-        
+
         'attachments' => [
             'driver' => 'local',
             'root' => storage_path('app/public/files/attachments'),
