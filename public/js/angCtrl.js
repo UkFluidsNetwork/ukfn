@@ -450,34 +450,64 @@ angular.module('ukfn')
  * @param {storage} $localStorage
  * @param {$http} $http
  */
+angular.module('ukfn').config(function($sceDelegateProvider) {
+ $sceDelegateProvider.resourceUrlWhitelist([
+   // Allow same origin resource loads.
+   'self',
+   // Allow loading from our assets domain.  Notice the difference between * and **.
+   'http://sms.cam.ac.uk/**']);
+ });
+ 
 angular.module('ukfn')
     .controller('resourcesController', function ($http, $localStorage, $sce) {
         // this scope name
         var controller = this;
         controller.$storage = $localStorage;
+        controller.disciplines = []; // disciplines for selectize
+        controller.categories = []; // discipline categories for selectize optgroup
         controller.searchTerms = []; // terms entered in recorded search box
-        controller.selectedAggregators = []; // aggregators selected in past filter
-        controller.aggregators = []; // aggregators given as options
-        controller.loading = true; // flag to display loading message
-        controller.query = ""; // future/recorded/past
-        controller.currentQuery = ""; // current selected query
-
-        controller.updateQuery = function(query) {
-            controller.query = query;
-            if (controller.currentQuery !== controller.query) {
-                controller.aggregators = [];
-                controller.searchTerms = [];
-                controller.selectedAggregators = [];
-                controller.currentQuery = controller.query;
-            }
-            controller.loadTalks();
+        controller.types = {
+            Notes: true,
+            Code: true,
+            Slides: true,
+            Audio: true,
+            Video: true
+        };
+        controller.icons = {
+            Notes: "glyphicon-file",
+            Code: "glyphicon-console",
+            Slides: "glyphicon-blackboard",
+            Audio: "glyphicon-headphones",
+            Video: "glyphicon-film"
         };
 
-        controller.loadTalks = function() {
-            var lookup = [];
-            var url = '/api/talks/' + controller.query;
+        controller.loading = true; // flag to display loading message
+
+        controller.updateQuery = function(query) {
+            controller.loadResources();
+        };
+
+        controller.loadDisciplines = function() {
+            var url = '/api/tags/disciplines';
+            controller.disciplines = [];
+
+            $http({method: 'GET', url: url}).then(function (response) {
+                var curCategory = ""
+                for (var i = 0; i < response.data.length; i++)  {
+                    var category = response.data[i].category;
+                    if (category !== curCategory) {
+                        controller.categories.push({'category': category});
+                        curCategory = category;
+                    }
+                }
+                controller.disciplines = response.data;
+            });
+        };
+
+        controller.loadResources = function() {
+            var url = '/api/resources/';
             controller.loading = true;
-            // clear array of available talks before making the request.
+            // clear array of available resources before making the request.
             controller.resources = [];
 
             $http(
@@ -485,7 +515,7 @@ angular.module('ukfn')
                     method: 'GET',
                     url: url,
                     params: {
-                        feeds: JSON.stringify(controller.selectedAggregators),
+                        types: JSON.stringify(controller.types),
                         search: JSON.stringify(controller.searchTerms)
                     }
                 }
@@ -494,15 +524,24 @@ angular.module('ukfn')
                 controller.resources = response.data;
             });
         };
+        
+        controller.isUrl = function(s) {
+            var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+            return regexp.test(s);
+        };
 
-        controller.selectizeSearchConfig = {
-            create: true,
-            plugins: ['remove_button'],
+        controller.selectizeDisciplinesConfig = {
+            create: false,
+            plugins: ['remove_button', 'optgroup_columns'],
             delimiter: ',',
-            searchField: 'label',
+            searchField: 'name',
             framework: 'bootstrap',
             valueField: 'id',
-            labelField: 'label',
+            labelField: 'name',
+            optgroupField: 'category',
+            optgroupLabelField: 'category',
+            optgroupValueField: 'category',
+            optgroups: controller.categories,
             placeholder: 'Enter subject area(s)'
           };
     });
