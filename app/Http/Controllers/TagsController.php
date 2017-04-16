@@ -188,4 +188,51 @@ class TagsController extends Controller
         }
         return redirect('/panel/tags');
     }
+
+    /**
+     * Get all resources tags given a type.
+     *
+     * @param string $tagtype
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public static function getAllJson($tagtype)
+    {
+        $tags = [];
+        switch ($tagtype) {
+            case "all": 
+                $tags = Tag::all();
+                break;
+            case "disciplines":
+                $tags = Tag::getAllDisciplines();
+                break;
+            case "applications":
+                $tags = Tag::getAllApplicationAreas();
+                break;
+            case "techniques":
+                $tags = Tag::getAllTechniques();
+                break;
+            case "facilities":
+                $tags = Tag::getAllFacilities();
+                break;
+        }
+        return response()->json($tags);
+    }
+    
+    /**
+     * Get all categories of tags belonging to a given tagtype
+     *
+     * @todo Implement the rest cases: applications, techniques, facilities, and all
+     * @param string $tagtype
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public static function getAllCategoriesJson($tagtype)
+    {
+        $categories = [];
+        switch ($tagtype) {
+            case "disciplines":
+                $categories = Tag::getAllDisciplinesCategories();
+                break;
+        }
+        return response()->json($categories);        
+    }
 }
