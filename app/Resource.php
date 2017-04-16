@@ -9,7 +9,7 @@ class Resource extends Model
 {
 
     use SoftDeletes;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,20 +17,20 @@ class Resource extends Model
      */
     protected $fillable = [
     ];
-    
+
     /**
      * Get the tutorials associated with this resource
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function tutorials()
     {
         return $this->hasMany('App\Tutorial');
     }
-    
+
     /**
      * Get the user who added the resource
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
@@ -40,7 +40,7 @@ class Resource extends Model
 
     /**
      * Get the tags associated with this resource
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
@@ -50,7 +50,7 @@ class Resource extends Model
 
     /**
      * Get the tags associated with this resource
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function disciplines()

@@ -28,35 +28,67 @@ class ResourcesController extends Controller
     /**
      * Get all resources, its tutorials, and its files, in JSON format.
      * Only those resources that have tutorials with files are included.
-     * 
+     *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getAllJson(Request $request)
     {
         $parameters = $request->all();
-        $types = isset($parameters['types']) && $parameters['types'] !== "[]" 
-            ? json_decode($parameters['types']) 
+        $types = isset($parameters['types']) && $parameters['types'] !== "[]"
+            ? (array) json_decode($parameters['types'])
             : null;
-        $disciplines = isset($parameters['search'])&& $parameters['search'] !== "[]" 
-            ? json_decode($parameters['search']) 
+        $disciplines = isset($parameters['search'])&& $parameters['search'] !== "[]"
+            ? (array) json_decode($parameters['search'])
             : null;
-        
+
         $resources = [];
-        $allResources = Resource::getByTypeAndDiscipline($types, $disciplines);
+        $count = 0;
+        $allResources = Resource::all();
         foreach ($allResources as $resource) {
-            $resource->tutorials();
+            $toAdd = false;
+            $resource->tutorials;
+            $fileTypes = [];
             foreach ($resource->tutorials as $key => $tutorial) {
-                $resource->tutorials[$key]->files = $tutorial->files();
+                $resource->tutorials[$key]->files = $tutorial->files;
                 foreach ($resource->tutorials[$key]->files as $index => $file) {
-                    $resource->tutorials[$key]->files[$index] = $file->filetype();
+                    $file->filetype;
+                    if (!in_array($file->filetype->name, $fileTypes)) {
+                        $fileTypes[] = $file->filetype->shortname; 
+                    }
+                    $resource->tutorials[$key]->files[$index] = $file;
                 }
-                if (!empty($resource->tutorials[$key]->files)) {
-                    $resources[] = $resource;
+                // only add resources that have at least one file
+                if ($resource->tutorials[$key]->files->count() > 0 && !$toAdd) {
+                    $toAdd = true;
                 }
             }
+            // determine if types in filter match those in the resource
+            foreach ($fileTypes as $type) {
+                if ($types[$type] === true) {
+                    $toAdd = true;
+                    break;
+                } else {
+                    $toAdd = false;
+                }
+            }
+            
+            $tagFound = true;
+            if (!empty($disciplines)) {
+                $tagFound = false;
+                foreach ($resource->tags as $tag) {
+                    if (in_array($tag->id, $disciplines)) {
+                        $tagFound = true;
+                        break;
+                    }
+                }
+            }
+            if ($toAdd && $tagFound) {
+                $resources[$count] = $resource;
+                $resources[$count]['types'] = $fileTypes;
+                $count++;
+            }
         }
-
         return response()->json($resources);
     }
 }
