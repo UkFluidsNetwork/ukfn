@@ -1,8 +1,8 @@
 /**
  * SIG Controler
- * 
+ *
  * @author Robert Barczyk <robert@barczyk.net>
- * @param {storage} $localStorage 
+ * @param {storage} $localStorage
  * @param {$http} $http
  */
 angular.module('ukfn')
@@ -14,7 +14,7 @@ angular.module('ukfn')
             controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
             controller.$storage = $localStorage;
             controller.selectedSigId = null; // initially selected SIG
-            
+
             (function() {
                 $http(
                     {
@@ -22,13 +22,13 @@ angular.module('ukfn')
                         url: '/api/sigs'
                     }
                 ).then(function (response) {
-            
+
                     // get all SIGs and their institutions
                     controller.allSigs = response;
-                    
+
                     // prepare array with institutions only
                     var sigInstitutions = [];
-                    
+
                     for(i=0; i<response.data.length; i++) {
                         if (typeof response.data[i].institutions !== 'undefined') {
                             for (z=0; z <response.data[i].institutions.length; z++) {
@@ -36,7 +36,7 @@ angular.module('ukfn')
                             }
                         }
                     }
-                    
+
                     // get unique institutions
                     var all = [];
                     var output = [];
@@ -49,7 +49,7 @@ angular.module('ukfn')
                     controller.displayAll = true;
                     // return unique institutions
                     controller.distinctInstitutions = output;
-                    
+
                     // check if we want to display a specific sig
                     if (controller.selectedSigId) {
                         controller.setActive(controller.selectedSigId);
@@ -57,11 +57,10 @@ angular.module('ukfn')
                     }
                 });
             })();
-            
-            
+
             /**
              * Get selected sig and its institutions
-             * 
+             *
              * @author Robert Barczyk <robert@barczyk.net>
              * @param {intiger} id
              * @returns {json}
@@ -77,11 +76,11 @@ angular.module('ukfn')
                     controller.thisSig = response;
                 });
             };
-           
+
 
         /**
          * Set active sig on sig map
-         * 
+         *
          * @author Robert Barczyk <robert@barczyk.net>
          * @param {type} id
          * @returns {undefined}
@@ -92,7 +91,7 @@ angular.module('ukfn')
 
         /**
          * Display all sigs on sig map
-         * 
+         *
          * @author Robert Barczyk <robert@barczyk.net>
          * @returns {undefined}
          */
@@ -106,7 +105,7 @@ angular.module('ukfn')
                     'latitude'  : '54.8',
                     'longtitude': '-4.40'
                 };
-                
+
         // map options
         controller.options = {
             styles: [
@@ -116,7 +115,7 @@ angular.module('ukfn')
                     "stylers":[
                         {"saturation":"-100"}
                     ]
-                }, 
+                },
                 {
                     "featureType":"administrative.province",
                     "elementType":"all",
@@ -187,13 +186,12 @@ angular.module('ukfn')
                 }
             ]
         };
-        
-        
+
         // Edit Sig //-> BEGIN
         controller.ukfnUsers = [];
         controller.thisMembers = [];
         controller.addMemberSearch = '';
-        
+
         // used in select
         controller.sigMemebrships = [
             {name: "Member", id: 0, seleted: true},
@@ -201,12 +199,12 @@ angular.module('ukfn')
             {name: "Co-Leader", id: 2},
             {name: "Key personel", id: 3}
         ];
-       
+
         // translate membership code to string
-        controller.getMemberStatus = function(id) 
+        controller.getMemberStatus = function(id)
         {
             switch(id) {
-                case 1: 
+                case 1:
                     return "Leader";
                     break;
                 case 2:
@@ -219,16 +217,16 @@ angular.module('ukfn')
                     return "Member";
             };
         };
-        
+
         // initialise two arays with users when page load
         controller.loadUsers = function() {
             controller.loadSigMembers();
             controller.loadAllUsers();
         };
-        
+
         /**
          * Load this sig members
-         * 
+         *
          * @returns {void}  Sets array thisMembers
          */
         controller.loadSigMembers = function() {
@@ -241,10 +239,10 @@ angular.module('ukfn')
                     controller.thisMembers = response.data;
                 });
         };
-        
+
         /**
          * Load all UKFN users, unset the ones that are already a member of this sig
-         * 
+         *
          * @returns {void}
          */
         controller.loadAllUsers = function() {
@@ -264,11 +262,11 @@ angular.module('ukfn')
                             // at his default property for not associated memebrs
                             users[i].selected = 0;
                             controller.ukfnUsers.push(users[i]);
-                        } 
+                        }
                     }
                 });
         };
-        
+
         controller.belongsToSig = function(userId)
         {
             var existing = false;
@@ -280,24 +278,24 @@ angular.module('ukfn')
                     }
                 }
             }
-            
+
             return existing;
         };
-        
+
         /**
          * Add selected user to this sig + set membership
-         * 
+         *
          * @param {int} userId
          * @param {int} sigMain
          * @returns {void}
          */
         controller.addMember = function(userId, sigMain = -1)
-        {   
+        {
             // if not membership is selected terminate
             if (sigMain === -1) {return;}
-            
+
             var existing = controller.belongsToSig(userId);
-                        
+
             if (!existing) {
                 $http({
                     method : 'POST',
@@ -305,7 +303,7 @@ angular.module('ukfn')
                     data: {
                         user_id: userId,
                         main: sigMain
-                    }                              
+                    }
                 })
                 .success(function(){
                     controller.loadUsers();
@@ -315,7 +313,7 @@ angular.module('ukfn')
                 controller.addMemberSearch = '';
             }
         };
-        
+
         controller.updateMember = function(userId, sigMain)
         {
             $http({
@@ -324,16 +322,16 @@ angular.module('ukfn')
                 data: {
                     user_id: userId,
                     main: sigMain
-                }                              
+                }
             })
             .success(function(){
                 controller.loadUsers();
-            });            
+            });
         };
-        
+
         /**
          * Delete this user from this sig
-         * 
+         *
          * @param {int} userId
          * @returns {void}
          */
@@ -344,19 +342,19 @@ angular.module('ukfn')
                 url: '/sig/members/delete/' + controller.selectedSigId,
                 data: {
                     user_id: userId
-                }                              
+                }
             })
             .success(function(){
                 controller.loadUsers();
-            });            
+            });
         };
     });
 
 /**
  * Talks Controler
- * 
+ *
  * @author Robert Barczyk <robert@barczyk.net>
- * @param {storage} $localStorage 
+ * @param {storage} $localStorage
  * @param {$http} $http
  */
 angular.module('ukfn')
@@ -370,7 +368,7 @@ angular.module('ukfn')
         controller.loading = true; // flag to display loading message
         controller.query = ""; // future/recorded/past
         controller.currentQuery = ""; // current selected query
-        
+
         controller.updateQuery = function(query) {
             controller.query = query;
             if (controller.currentQuery !== controller.query) {
@@ -388,7 +386,7 @@ angular.module('ukfn')
             controller.loading = true;
             // clear array of available talks before making the request.
             controller.talks = [];
-            
+
             $http(
                 {
                     method: 'GET',
@@ -411,7 +409,7 @@ angular.module('ukfn')
                             controller.aggregators.push({id: aggregatorId, label: aggregator});
                         }
                     }
-                    
+
                     if (controller.talks[i].recordingurl) {
                         controller.talks[i].recordingurl = $sce.trustAsResourceUrl(controller.talks[i].recordingurl);
                     }
@@ -419,9 +417,9 @@ angular.module('ukfn')
                         controller.talks[i].streamingurl = $sce.trustAsResourceUrl(controller.talks[i].streamingurl);
                     }
                 }
-            });            
+            });
         };
-        
+
         controller.selectizeSeriesConfig = {
             create: false,
             plugins: ['remove_button'],
@@ -432,7 +430,7 @@ angular.module('ukfn')
             labelField: 'label',
             placeholder: 'Select series'
           };
-          
+
         controller.selectizeSearchConfig = {
             create: true,
             plugins: ['remove_button'],
@@ -447,9 +445,9 @@ angular.module('ukfn')
 
 /**
  * Talks Controler
- * 
+ *
  * @author Javier Arias <javier@arias.re>
- * @param {storage} $localStorage 
+ * @param {storage} $localStorage
  * @param {$http} $http
  */
 angular.module('ukfn')
@@ -463,7 +461,7 @@ angular.module('ukfn')
         controller.loading = true; // flag to display loading message
         controller.query = ""; // future/recorded/past
         controller.currentQuery = ""; // current selected query
-        
+
         controller.updateQuery = function(query) {
             controller.query = query;
             if (controller.currentQuery !== controller.query) {
@@ -481,7 +479,7 @@ angular.module('ukfn')
             controller.loading = true;
             // clear array of available talks before making the request.
             controller.resources = [];
-            
+
             $http(
                 {
                     method: 'GET',
@@ -494,7 +492,7 @@ angular.module('ukfn')
             ).then(function (response) {
                 controller.loading = false;
                 controller.resources = response.data;
-            });            
+            });
         };
 
         controller.selectizeSearchConfig = {
