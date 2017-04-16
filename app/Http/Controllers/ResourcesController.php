@@ -53,7 +53,7 @@ class ResourcesController extends Controller
                 $resource->tutorials[$key]->files = $tutorial->files;
                 foreach ($resource->tutorials[$key]->files as $index => $file) {
                     $file->filetype;
-                    if (!in_array($file->filetype->name, $fileTypes)) {
+                    if (!in_array($file->filetype->shortname, $fileTypes)) {
                         $fileTypes[] = $file->filetype->shortname; 
                     }
                     $resource->tutorials[$key]->files[$index] = $file;
