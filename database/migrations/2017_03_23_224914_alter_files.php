@@ -14,6 +14,7 @@ class AlterFiles extends Migration
         Schema::table('files', function ($table) {
             $table->integer('tutorial_id')->unsigned()->nullable()->after('user_id');
             $table->integer('filetype_id')->unsigned()->nullable()->after('tutorial_id');
+            $table->string('type', 255)->nullable()->change();
             $table->softDeletes();
 
             $table->foreign('tutorial_id')->references('id')->on('tutorials');
@@ -32,6 +33,7 @@ class AlterFiles extends Migration
             $table->dropColumn('tutorial_id');
             $table->dropColumn('filetype_id');
             $table->dropColumn('created_at');
+            $table->string('type', 255)->change();
         });
     }
 }
