@@ -181,14 +181,5 @@
             </div>
         </div>
     </div>
-    <script>
-        function remove(event) {
-            id = $(event.target).attr('id').replace('close-', '');
-            wrapper = 'body-'+id;
-            alert(wrapper);
-            $('<iframe src="http://google.com" frameborder="0" scrolling="no" id="myFrame"></iframe>')
-            .appendTo(wrapper);
-        }
-    </script>
 
 @endsection
