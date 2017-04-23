@@ -6174,7 +6174,7 @@ ADMIN
   top: 0;
   width: 100%;
   position: fixed;
-  z-index: 99999; }
+  z-index: 10; }
 
 #menu-bar.affix + .container-fluid {
   padding-top: 50px; }
