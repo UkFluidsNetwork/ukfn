@@ -368,7 +368,7 @@ angular.module('ukfn')
         controller.loading = true; // flag to display loading message
         controller.query = ""; // future/recorded/past
         controller.currentQuery = ""; // current selected query
-        controller.showframe = true;
+        controller.showframe = [];
 
         controller.updateQuery = function(query) {
             controller.query = query;
@@ -529,6 +529,10 @@ angular.module('ukfn')
         controller.isUrl = function(s) {
             var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
             return regexp.test(s);
+        };
+        
+        controller.isPdf = function(s) {
+            return s.includes(".pdf");
         };
 
         controller.selectizeDisciplinesConfig = {

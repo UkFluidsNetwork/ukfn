@@ -114,7 +114,7 @@
                                 <div>
                                     <!-- Button trigger modal -->
                                     <button ng-repeat="file in tutorial.files"
-                                            ng-click="resourcesCtrl.showframe = true"
+                                            ng-click="resourcesCtrl.showframe['modal-'+file.id] = true"
                                             type="button" class="btn btn-default"
                                             style="margin-right:10px;" 
                                             data-toggle="modal"
@@ -132,7 +132,7 @@
                                         <div class="modal-content">
                                           <div class="modal-header">
                                             <button type="button" class="close"
-                                                    ng-click="resourcesCtrl.showframe = false"
+                                                    ng-click="resourcesCtrl.showframe['modal-'+file.id] = false"
                                                     data-dismiss="modal" 
                                                     aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -143,13 +143,22 @@
                                             </h4>
                                           </div>
                                           <div ng-attr-id="body-@{{file.id}}" class="modal-body">
-                                                <a ng-if="!resourcesCtrl.isUrl(file.name)"
-                                                 href="@{{file.path}}/@{{file.name}}">@{{file.name}}</a>
+                                                <div ng-if="!resourcesCtrl.isUrl(file.name) && resourcesCtrl.isPdf(file.name)"
+                                                    class="embed-responsive embed-responsive-4by3">
+                                                    <object ng-if="resourcesCtrl.showframe['modal-'+file.id]"
+                                                        class="embed-responsive-item"
+                                                        data="@{{file.path}}/@{{file.name}}"></object>
+                                                </div>
+                                                <a ng-if="!resourcesCtrl.isUrl(file.name) && !resourcesCtrl.isPdf(file.name)"
+                                                    href="@{{file.path}}/@{{file.name}}"
+                                                    target="_blank">@{{file.name}}
+                                                    <small class="glyphicon glyphicon-new-window"></small>
+                                                </a>
                                                 <div ng-if="resourcesCtrl.isUrl(file.name)"
                                                      ng-attr-id="wrapper-@{{file.id}}"
                                                      class="embed-responsive embed-responsive-4by3">
                                                     <center>Loading video...</center>
-                                                    <iframe ng-if="resourcesCtrl.showframe"
+                                                    <iframe ng-if="resourcesCtrl.showframe['modal-'+file.id]"
                                                         ng-attr-id="iframe-@{{file.id}}"
                                                         class="embed-responsive-item" 
                                                         ng-src="@{{file.name}}" 
@@ -160,8 +169,13 @@
                                                 </div>
                                           </div>
                                           <div class="modal-footer">
+                                            <a ng-attr-id="open-@{{file.id}}"
+                                                ng-if="!resourcesCtrl.isUrl(file.name)"
+                                                href="@{{file.path}}/@{{file.name}}"
+                                                target="_blank">
+                                                Open in new tab <small class="glyphicon glyphicon-new-window"></small></a>
                                             <button ng-attr-id="close-@{{file.id}}" 
-                                                ng-click="resourcesCtrl.showframe = false"
+                                                ng-click="resourcesCtrl.showframe['modal-'+file.id] = false"
                                                 type="button"
                                                 class="btn btn-default"
                                                 data-dismiss="modal">Close</button>
