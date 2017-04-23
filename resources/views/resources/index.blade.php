@@ -50,16 +50,6 @@
                             <div class="check"></div>
                         </li>
                         <li>
-                            <input ng-checked="resourcesCtrl.types.Audio"
-                                   type="checkbox" id="type-audio" name="type-audio">
-                            <label for="past-option"
-                                ng-click="resourcesCtrl.types.Audio = !resourcesCtrl.types.Audio; resourcesCtrl.updateQuery()">
-                                Audio clip<icon class="media-icon glyphicon glyphicon-headphones"></icon>
-                            </label>
-
-                            <div class="check"></div>
-                        </li>
-                        <li>
                             <input ng-checked="resourcesCtrl.types.Video"
                                    type="checkbox" id="type-video" name="type-video">
                             <label for="past-option"
@@ -82,7 +72,7 @@
                         To add to these courses, please {{ Html::link('/contact', 'contact us') }}.
                     </p>
                 </div>
-                <!-- all resources list - start -->
+                <!-- resources - start -->
                 <div class='panel panel-default' ng-repeat="resource in resourcesCtrl.resources">
                     <a  ng-href="#collapse" ng-click="isCollapsed = !isCollapsed"
                         data-toggle='collapse' 
@@ -104,6 +94,7 @@
                             </span>
                         </span>
                     </a>
+                    <!-- inner resource - tutorials - start !-->
                     <div ng-attr-id="@{{ 'collapse' }}" 
                          class='accordion-body collapse padding' 
                          style='padding-top:0;'>
@@ -124,7 +115,8 @@
                                             data-backdrop="static"
                                             data-keyboard="false"
                                             data-target="#@{{file.id}}">
-                                      @{{file.filetype.shortname}}
+                                        <i class="glyphicon @{{resourcesCtrl.icons[file.filetype.shortname]}}"></i>
+                                        @{{file.filetype.shortname}}
                                     </button>
                                     <div ng-repeat="file in tutorial.files"
                                          class="modal fade" style="margin-top:10%;"
@@ -176,8 +168,9 @@
                             </div>
                         </div>
                     </div>
+                    <!-- inner resource - tutorials -end !-->
                 </div>
-                <!-- all resources list - end -->
+                <!-- resources - end -->
             </div>
         </div>
     </div>
