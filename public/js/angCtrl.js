@@ -368,6 +368,7 @@ angular.module('ukfn')
         controller.loading = true; // flag to display loading message
         controller.query = ""; // future/recorded/past
         controller.currentQuery = ""; // current selected query
+        controller.showframe = true;
 
         controller.updateQuery = function(query) {
             controller.query = query;
@@ -419,7 +420,7 @@ angular.module('ukfn')
                 }
             });
         };
-
+        
         controller.selectizeSeriesConfig = {
             create: false,
             plugins: ['remove_button'],

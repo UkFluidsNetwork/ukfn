@@ -9,7 +9,7 @@
                 <!-- Filters - start -->
                 <div id="resources-filters" class="bs-callout bs-callout-info container-fluid">
                     <h4>Search by subject</h4>
-                    <br>
+                    <br>@{{resourcesCtrl.showframe}}
                     <selectize id="disciplines_search" 
                         options='resourcesCtrl.disciplines'
                         config='resourcesCtrl.selectizeDisciplinesConfig'
@@ -116,22 +116,44 @@
                             <div class="line-break-top">
                                 <div>
                                     <!-- Button trigger modal -->
-                                    <button ng-repeat="file in tutorial.files" type="button" class="btn btn-default" style="margin-right:10px;" data-toggle="modal" data-target="#@{{file.id}}">
+                                    <button ng-repeat="file in tutorial.files"
+                                            ng-click="resourcesCtrl.showframe = true"
+                                            type="button" class="btn btn-default"
+                                            style="margin-right:10px;" 
+                                            data-toggle="modal"
+                                            data-backdrop="static"
+                                            data-keyboard="false"
+                                            data-target="#@{{file.id}}">
                                       @{{file.filetype.shortname}}
                                     </button>
-                                    <div ng-repeat="file in tutorial.files" class="modal fade" style="margin-top:10%;" id="@{{file.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                                    <div ng-repeat="file in tutorial.files"
+                                         class="modal fade" style="margin-top:10%;"
+                                         id="@{{file.id}}" tabindex="-1"
+                                         role="dialog" aria-labelledby="label-@{{file.id}}">
                                       <div class="modal-dialog" role="document" style="min-width:60%;">
                                         <div class="modal-content">
                                           <div class="modal-header">
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                                            <h4 class="modal-title" id="myModalLabel">@{{tutorial.name}} - @{{file.filetype.shortname}}</h4>
+                                            <button type="button" class="close"
+                                                    ng-click="resourcesCtrl.showframe = false"
+                                                    data-dismiss="modal" 
+                                                    aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                            <h4 class="modal-title"
+                                                ng-attr-id="label-@{{file.id}}">
+                                                    @{{tutorial.name}} - @{{file.filetype.shortname}}
+                                            </h4>
                                           </div>
-                                          <div class="modal-body">
+                                          <div ng-attr-id="body-@{{file.id}}" class="modal-body">
                                                 <a ng-if="!resourcesCtrl.isUrl(file.name)"
                                                  href="@{{file.path}}/@{{file.name}}">@{{file.name}}</a>
-                                                <div ng-if="resourcesCtrl.isUrl(file.name)" 
-                                                     class="embed-responsive embed-responsive-16by9">
-                                                    <iframe class="embed-responsive-item" 
+                                                <div ng-if="resourcesCtrl.isUrl(file.name)"
+                                                     ng-attr-id="wrapper-@{{file.id}}"
+                                                     class="embed-responsive embed-responsive-4by3">
+                                                    <center>Loading video...</center>
+                                                    <iframe ng-if="resourcesCtrl.showframe"
+                                                        ng-attr-id="iframe-@{{file.id}}"
+                                                        class="embed-responsive-item" 
                                                         ng-src="@{{file.name}}" 
                                                         scrolling="no" 
                                                         frameborder="0" 
@@ -140,7 +162,11 @@
                                                 </div>
                                           </div>
                                           <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                            <button ng-attr-id="close-@{{file.id}}" 
+                                                ng-click="resourcesCtrl.showframe = false"
+                                                type="button"
+                                                class="btn btn-default"
+                                                data-dismiss="modal">Close</button>
                                           </div>
                                         </div>
                                       </div>
@@ -155,5 +181,14 @@
             </div>
         </div>
     </div>
+    <script>
+        function remove(event) {
+            id = $(event.target).attr('id').replace('close-', '');
+            wrapper = 'body-'+id;
+            alert(wrapper);
+            $('<iframe src="http://google.com" frameborder="0" scrolling="no" id="myFrame"></iframe>')
+            .appendTo(wrapper);
+        }
+    </script>
 
 @endsection
