@@ -101,8 +101,14 @@
                         <div ng-repeat="tutorial in resource.tutorials">
                             <hr>
                             <div class="">
-                                <b>@{{tutorial.name}}</b><br>@{{tutorial.author}}, 
-                                @{{tutorial.date | date: "yyyy"}}
+                                <span><b>@{{tutorial.name}}</b></span><br>
+                                <span class="display-block text-muted">
+                                    @{{tutorial.author}}, 
+                                    @{{tutorial.date | date: "yyyy"}}
+                                </span>
+                                <p>
+                                    @{{tutorial.description}}
+                                </p>
                             </div>
                             <div class="line-break-top">
                                 <div>

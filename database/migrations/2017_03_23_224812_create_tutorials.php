@@ -16,6 +16,7 @@ class CreateTutorials extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('author');
+            $table->text('description')->nullable();
             $table->date('date')->nullable();
             $table->integer('resource_id')->unsigned();
             $table->nullableTimestamps();
