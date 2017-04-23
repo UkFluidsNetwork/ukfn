@@ -106,7 +106,7 @@
                                     @{{tutorial.author}}, 
                                     @{{tutorial.date | date: "yyyy"}}
                                 </span>
-                                <p>
+                                <p class="line-break-top">
                                     @{{tutorial.description}}
                                 </p>
                             </div>
