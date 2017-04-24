@@ -9,7 +9,7 @@
                 <!-- Filters - start -->
                 <div id="resources-filters" class="bs-callout bs-callout-info container-fluid">
                     <h4>Search by subject</h4>
-                    <br>@{{resourcesCtrl.showframe}}
+                    <br>
                     <selectize id="disciplines_search" 
                         options='resourcesCtrl.disciplines'
                         config='resourcesCtrl.selectizeDisciplinesConfig'
