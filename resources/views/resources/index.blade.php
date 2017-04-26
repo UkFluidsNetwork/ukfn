@@ -63,7 +63,7 @@
                 </div>
                 <!-- Filters - end -->
             </div>
-            <div id="talks-col" class="col-lg-7 col-md-7 col-md-pull-5 axis-y">
+            <div id="resources-col" class="col-lg-7 col-md-7 col-md-pull-5 axis-y">
                 <div class="well">
                     <p>
                         {{ $pageDescription }}

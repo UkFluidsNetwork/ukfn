@@ -6290,7 +6290,14 @@ footer {
     width: 98.5% !important;
     top: 0 !important;
     min-height: 150px !important; }
+  #resources-filters {
+    position: relative !important;
+    width: 98.5% !important;
+    top: 0 !important;
+    min-height: 150px !important; }
   #talks-col {
+    height: 58vh !important; }
+  #resources-col {
     height: 58vh !important; } }
 
 .text-left {
