@@ -50,7 +50,9 @@
                     </a>
                     <div ng-if="sigCtrl.thisSig.data.smallimage" class='sig-map-image' class="">
                         <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">
-                            <img class='sig-map-image' src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}" class="thumb" alt="@{{sigCtrl.thisSig.data.smallimage}}">
+                            <img class='sig-map-image'
+                                 src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}"
+                                 alt="@{{sigCtrl.thisSig.data.smallimage}}">
                         </a>
                     </div>
                     <p class="linre-break">
