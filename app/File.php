@@ -3,23 +3,48 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class File extends Model
 {
-    /**
-     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @access protected
-     * @static
-     */
-    protected static function boot()
-    {
-        parent::boot();
 
-        static::addGlobalScope('deleted', function (Builder $builder) {
-            $builder->where('files.deleted', '=', '0');
-        });
+    use SoftDeletes;
+    
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+    ];
+    
+    /**
+     * Get the tutorial that this file belongs to
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function turorial()
+    {
+        return $this->belongsTo('App\Tutorial');
+    }
+    
+    /**
+     * Get the type of this file
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function filetype()
+    {
+        return $this->belongsTo('App\Filetype');
+    }
+    
+    /**
+     * Get the user that uploaded this file
+     * 
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
     }
 }

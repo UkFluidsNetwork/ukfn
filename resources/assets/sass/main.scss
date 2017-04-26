@@ -5,9 +5,11 @@
 
 @import "variables";
 @import "talks";
+@import "resources";
 @import "forms";
 @import "sig";
 @import "admin_nav";
+@import "bootstrap";
 
 
 /* Google font */
@@ -167,7 +169,7 @@ ADMIN
   top                                 : 0;
   width                               : 100%;
   position                            : fixed;
-  z-index                             : 99999;
+  z-index                             : 10;
 }
 #menu-bar.affix + .container-fluid {
   padding-top                         : 50px;
@@ -312,7 +314,7 @@ footer {
   .hide-this {
     display: none;
   }
-  
+
   #top-nav-bar > .nav.navbar-nav {
     margin-top: 17px !important;
   }
@@ -320,15 +322,26 @@ footer {
   .navbar-brand > img {
     height: 60px !important;
   }
-  
+
   #talks-filters {
       position: relative !important;
       width: 98.5% !important;
       top: 0 !important;
       min-height: 150px !important;
   }
-  
+
+  #resources-filters {
+      position: relative !important;
+      width: 98.5% !important;
+      top: 0 !important;
+      min-height: 150px !important;
+  }
+
   #talks-col {
+      height: 58vh !important;
+  }
+
+  #resources-col {
       height: 58vh !important;
   }
 }
@@ -462,4 +475,8 @@ footer {
 .btn-ukfn:hover {
     background-color: $ukfn-darkblue !important;
     color: white !important;
+}
+
+.panel {
+    border-bottom-width: 2px;
 }

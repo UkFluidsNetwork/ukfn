@@ -16,9 +16,11 @@
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
             <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
-                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}" 
-                        map-type-control="false" street-view-control="false" 
-                        zoom-control="true" zoom-control-options="{style:'SMALL', position:'TOP_RIGHT'}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
+                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}"
+                        scrollwheel="false"
+                        draggable="true"
+                        map-type-control="false" street-view-control="false"
+                        zoom-control-options="{style:'SMALL', position:'TOP_RIGHT'}" options='@{{ sigCtrl.options }}' zoom="6" class="mapHeight">
                     <custom-marker ng-repeat="institution in sigCtrl.thisSig.data.institutions" position="@{{ institution.lat }},@{{ institution.lng }}"
                         title="@{{institution.name}}" icon="@{{ sigCtrl.customIcon }}"><div class="map-pointer"></div>
                     </custom-marker>
@@ -29,7 +31,7 @@
             </div>
         </div>
         <!-- Sig institutions -->
-        <div class="col-md-3 col-md-pull-6 col-sm-5 mapHeight axis-y nopadding-left">
+        <div class="col-lg-3 col-lg-pull-6 col-md-3 col-md-pull-6 mapHeight axis-y">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <div ng-if="sigCtrl.displayAll">
                 <div class="page-header nomargin-top">
@@ -55,7 +57,9 @@
                     </a>
                     <div ng-if="sigCtrl.thisSig.data.smallimage" class='sig-map-image' class="">
                         <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">
-                            <img class='sig-map-image' src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}" class="thumb" alt="@{{sigCtrl.thisSig.data.smallimage}}">
+                            <img class='sig-map-image'
+                                 src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}"
+                                 alt="@{{sigCtrl.thisSig.data.smallimage}}">
                         </a>
                     </div>
                     <p class="linre-break">
@@ -84,7 +88,7 @@
             </div>
         </div>
         <!-- SIG list -->
-        <div class="col-md-3 col-md-12 mapHeight axis-y">
+        <div class="col-lg-3 col-md-3 mapHeight axis-y">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <ul class="nav nav-pills nav-stacked">
                 <li ng-class="sigCtrl.displayAll ? 'active' : ''">

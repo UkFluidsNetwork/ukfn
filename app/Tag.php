@@ -137,6 +137,27 @@ class Tag extends Model
     {
         return self::getByTagtypeName('Facilities');
     }
+    
+    /**
+     * Get all tag categories of type sub-disciplines
+     * 
+     * @author Javier Arias <ja573@cam.ac.uk>
+     * @access public
+     * @return array
+     */
+    public static function getAllDisciplinesCategories()
+    {
+        $categories = [];
+        $curCategory = "";
+        $disciplines = self::getByTagtypeName('Sub-disciplines');
+        foreach ($disciplines as $discipline) {
+            if ($curCategory !== $discipline->category) {
+                $categories[] = ["category" => $discipline->category];
+                $curCategory = $discipline->category;
+            }
+        }
+        return $categories;
+    }
 
     /**
      * Get the id of a tagtype given its name

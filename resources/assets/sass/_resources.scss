@@ -1,0 +1,112 @@
+.media-icon {
+    margin-left: 15px;
+}
+
+#resources-filters {
+    background-color: white !important;
+    position: fixed !important;
+    width: 30% !important;
+    top: 214px !important;
+    //min-height: 180px !important;
+}
+
+.resource-series-filter > .selectize-control > .selectize-input {
+    width: 70% !important;
+    margin-top: 15px !important;
+    margin-left: 65px !important;
+}
+
+.resource-series-filter > .selectize-control > .selectize-dropdown {
+    margin-left: 65px !important;
+    width: 70% !important;
+}
+
+#resources-filters ul {
+    list-style: none;
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#resources-filters ul li {
+    color: #000;
+    display: block;
+    position: relative;
+    float: left;
+    width: 100%;
+    height: 50px;
+}
+
+#resources-filters ul li:first-child {
+    margin-top: -15px;
+}
+
+#resources-filters ul li:last-child {
+    margin-bottom: 10px;
+}
+
+#resources-filters ul li input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
+}
+
+#resources-filters ul li input[type=checkbox]:checked ~ .check {
+    border: 4px solid $ukfn-darkblue;
+}
+
+#resources-filters ul li input[type=checkbox]:checked ~ .check::before{
+    background: $ukfn-darkblue;
+}
+
+#resources-filters ul li label {
+    display: block;
+    position: relative;
+    font-weight: 500;
+    font-size: 1.1em;
+    padding: 25px 25px 25px 75px;
+    margin: 5px -15px;
+    height: 30px;
+    z-index: 9;
+    cursor: pointer;
+    -webkit-transition: all 0.25s linear;
+}
+
+#resources-filters ul li:hover label {
+    color: $ukfn-lightblue;
+}
+
+#resources-filters ul li .check {
+    box-sizing: initial;
+    display: block;
+    position: absolute;
+    border: 4px solid $ukfn-darkblue;
+    height: 12px;
+    width: 12px;
+    top: 30px;
+    left: 20px;
+    z-index: 5;
+    transition: border .25s linear;
+    -webkit-transition: border .25s linear;
+}
+
+#resources-filters ul li:hover .check {
+    border: 4px solid $ukfn-lightblue !important;
+}
+
+#resources-filters ul li:hover .check::before {
+    background: $ukfn-lightblue !important;
+}
+
+#resources-filters ul li .check::before {
+    display: block;
+    position: absolute;
+    content: '';
+    height: 8px;
+    width: 8px;
+    top: 2px;
+    left: 2px;
+    margin: auto;
+    transition: background 0.25s linear;
+    -webkit-transition: background 0.25s linear;
+}
