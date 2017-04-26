@@ -16,7 +16,7 @@
                         ng-change="resourcesCtrl.updateQuery()"
                         ng-model="resourcesCtrl.searchTerms">
                     </selectize>
-                    <br>
+                    <!--br>
                     <h4>Resource type</h4>  
                     <ul>
                         <li>
@@ -59,7 +59,7 @@
 
                             <div class="check"></div>
                         </li>
-                    </ul>
+                    </ul-->
                 </div>
                 <!-- Filters - end -->
             </div>
@@ -190,7 +190,7 @@
                     </div>
                     <!-- inner resource - tutorials -end !-->
                 </div>
-                <!-- resources - end -->
+                <!-- resources - end --><br><br><br>
             </div>
         </div>
     </div>
