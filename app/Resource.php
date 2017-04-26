@@ -25,7 +25,7 @@ class Resource extends Model
      */
     public function tutorials()
     {
-        return $this->hasMany('App\Tutorial');
+        return $this->hasMany('App\Tutorial')->orderBy('priority');
     }
 
     /**
