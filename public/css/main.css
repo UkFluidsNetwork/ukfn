@@ -110,8 +110,7 @@ a.list-group-item.talk:focus {
   background-color: white !important;
   position: fixed !important;
   width: 30% !important;
-  top: 214px !important;
-  min-height: 180px !important; }
+  top: 214px !important; }
 
 .resource-series-filter > .selectize-control > .selectize-input {
   width: 70% !important;
@@ -6382,5 +6381,8 @@ footer {
 .sig-big-image {
   width: 100%;
   margin-top: 20px; }
+
+.panel {
+  border-bottom-width: 2px; }
 
 /*# sourceMappingURL=main.css.map */
