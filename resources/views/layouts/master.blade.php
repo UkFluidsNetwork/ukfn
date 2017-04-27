@@ -77,8 +77,8 @@
                             <li class="{{ Request::is('talks*') ? 'active' : '' }}">
                                 {{ Html::link('/talks', 'Talks') }}
                             </li>
-                            <li class="{{ Request::is('resources*') ? 'active' : '' }}">
-                                {{ Html::link('/resources', 'Resources') }}
+                            <li class="{{ Request::is('researcher-resources*') ? 'active' : '' }}">
+                                {{ Html::link('/researcher-resources', 'Resources') }}
                             </li>
                             <li class="{{ Request::is('admin*') ? 'active' : '' }}">
                                 {{ Html::link('/admin', 'Admin') }}

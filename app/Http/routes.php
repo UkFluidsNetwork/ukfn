@@ -19,7 +19,7 @@ Route::get('sig/calendar', 'SigsController@calendar');
 Route::get('sig/{slug}', 'SigsController@sigPage');
 Route::get('sig/{slug}/{page}', 'SigsController@sigPage');
 Route::get('srv', 'SrvsController@index');
-Route::get('resources', 'ResourcesController@index');
+Route::get('researcher-resources', 'ResourcesController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('talks/stream', 'TalksController@stream');
 Route::get('contact', 'PagesController@contact');
