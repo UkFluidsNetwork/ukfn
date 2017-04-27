@@ -2,12 +2,21 @@
 @section('content')
 @include('flash.success')
 <div class="line-break display-block" style="overflow: auto">
-    <h2 class="full-width">
+    <h2 class="full-width line-break">
        Special Interest Groups
-       <a href="/sig/calendar/" class="pull-right btn btn-default">
-           SIG meetings
+       <a id="sig-calendar-btn"
+          href="/sig/calendar/"
+          class="pull-right btn btn-default">
+           SIG meeting calendar
        </a>
     </h2>
+    <div class="ell">
+        <p>
+          <span class="glyphicon glyphicon-exclamation-sign"></span> 
+          If you are interested in joining a SIG, please contact the SIG leader directly.
+          There may be a third call for SIG proposals in Spring 2018.
+        </p>
+    </div>
 </div>
 
 <div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
