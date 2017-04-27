@@ -4,6 +4,35 @@
 <h2 class='line-break'>Admin</h2>
 <section class="page-header">
   <div>
+    <p class="h4 text-danger">Executive Committee</p>
+    <p class="line-break-dbl-top">
+    <ul>
+        <li>Prof. Matthew Juniper (PI), <i>Engineering, University of Cambridge</i></li>
+        <li>Prof. Berend van Wachem, <i>Mechanical Engineering, Imperial College London</i></li>
+        <li>Prof. Steve Tobias, <i>Applied Maths, University of Leeds</i></li>
+        <li>Prof. Ann Juel, <i>Physics & Astronomy, University of Manchester</i></li>
+        <li>Prof. Neil Sandham, <i>Aerospace Enginering, University of Southampton</i></li>
+        <li>Prof. Paul Linden, <i>Applied Maths, University of Cambridge</i></li>
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Advisory Board</p>
+    <p class="line-break-dbl-top">
+    <ul>
+        <li>Dr Simon Bittleston, <i>Schlumberger Gould Research</i></li>
+        <li>Dr Ton van den Bremer, <i>University of Edinburgh</i></li>
+        <li>Prof. Gert Jan van Heijst, <i>Burgerscentrum</i></li>
+        <li>Prof. Ann Karagozian, <i>American Physical Society DFD and UCLA</i></li>
+        <li>Dr David Standingford, <i>ERCOFTAC</i></li>
+    </ul>
+    </p>
+  </div>
+</section>
+<section class="page-header">
+  <div>
     <p class="h4 text-danger">Proposal documents</p>
     <p class="line-break-dbl-top">
     <ul>
