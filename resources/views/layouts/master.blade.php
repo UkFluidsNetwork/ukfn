@@ -24,13 +24,13 @@
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/angApp.js')}}"></script>
         <script src="{{ asset('js/angCtrl.js')}}"></script>
-       
+
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <script src="{{ asset('/js/vendor/angular-selectize2/dist/selectize.js')}}"></script>
         <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>
         <script src="{{ asset('js/vendor/moment/moment.js')}}"></script>
         <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
-                
+
         <!-- favicon -->
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png?v=2') }}">
@@ -51,7 +51,7 @@
         <link rel="manifest" href="{{ asset('/manifest.json') }}">
         <!-- end of favicon -->
     </head>
-    <body ng-app="ukfn"> 
+    <body ng-app="ukfn">
         <!-- TOP NAV - START -->
         <div id="menu-bar" data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
@@ -123,7 +123,7 @@
                                             Logout
                                         </a>
                                     </li>
-                                </ul>                                
+                                </ul>
                             </li>
 
                             @else
@@ -213,7 +213,7 @@
                     </p>
                     <p class="footer-credits">
                         Designed by
-                        <a href="{{ url('http://arias.re') }}" class="footer-color" target="_blank">arias.re</a> &
+                        <a href="{{ url('http://arias.re') }}" class="footer-color" target="_blank">arias.re</a> &amp;
                         <a href="{{ url('https://barczyk.net') }}" class="footer-color" target="_blank" title="barczyk.net website">barczyk.net</a>
                     </p>
                 </div>
