@@ -5,16 +5,58 @@
 <div class="well">
   <h2 class="line-break">Welcome</h2>
   <p>
-    The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics. 
-    Activities started in September 2016 and are funded for 3 years.
+    Fluid mechanics underpins many established and emerging UK industries as
+    well as critical societal issues such as air pollution,
+    energy consumption, climate science, biology and medicine.
   </p>
   <p>
-    The UKFN will fund {{ Html::link('/sig', 'Special Interest Group (SIG) meetings', ['title'=>'Special Interest Group (SIG)']) }},
-    {{ Html::link('/srv', 'Short Research Visits (SRVs)', ['title'=>'Short Research Visits']) }},
-    and a website containing resources for all fluid mechanics researchers.
+    Fluid mechanics is particularly strong in the UK, with world-class
+    activity at several dozen institutions, involving hundreds of
+    scientists and engineers. These institutions and individuals need to work
+    together in order to benefit from the recent trend towards funding
+    a small number of large grants.
   </p>
   <p>
-    Registration is open to anyone interested in contributing to UKFN, to do so please {{ Html::link('/register', 'register here') }}.
+    The aim of the UK Fluids Network is to:
+    <ul>
+        <li>
+           develop cross-institution bottom-up research programs and proposals;
+        </li>
+        <li>
+          promote links with researchers and organisations in Europe and beyond;
+        </li>
+        <li>
+          provide resources to the research community worldwide;
+        </li>
+        <li>
+           act as a broker between UK academics and industry.
+        </li>
+    </ul>
+  </p>
+  <p>
+    The UKFN funds:
+    <ul>
+        <li>Special Interest Groups (SIGs);</li>
+        <li>Short Research Visits (SRVs);</li>
+        <li>
+            a website containing resources for all fluid mechanics researchers.
+        </li>
+    </ul>
+  </p>
+  <p>
+    We encourage you to join the network and to play a part by:
+    <ul>
+        <li>signing up for the monthly newsletter</li>
+        <li>
+           registering your expertise in our searchable database of researchers;
+        </li>
+        <li>joining a Special Interest Group by emailing the SIG leader;</li>
+        <li>contributing talks or researcher resources.</li>
+    </ul>
+  </p>
+  <p>
+    If yoy have any questions or suggestions, please
+    {{ Html::link('/contact', 'contact us') }}.
   </p>
 </div>
 <div class="container-fluid">
