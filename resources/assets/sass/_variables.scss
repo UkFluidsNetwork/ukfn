@@ -1,4 +1,4 @@
-/** colours **/
+//colours
 $light-grey: #d9d9d9;
 $ukfn-darkblue: #1B75BB;
 $ukfn-lightblue: #2DA9E0;
@@ -6,10 +6,14 @@ $text-main: #333333;
 $brand-primary: $ukfn-darkblue;
 $brand-info: $ukfn-lightblue;
 
-/** iconography **/
+// iconography
 $icon-font-path: "../fonts/bootstrap/"; // path from css location (not sass)
 
-/** media queries breakpoints **/
+// navbar
+$navbar-default-bg: #FFFFFF;
+$navbar-default-link-active-bg: transparent;
+
+// media queries breakpoints
 $screen-sm: 850px;
 $screen-md: 992px;
 $screen-lg: 1400px;

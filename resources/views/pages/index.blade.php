@@ -2,21 +2,19 @@
 @section('content')
 @include ('flash.success')
 
-<div class="well">
-  <h2 class="line-break">Welcome</h2>
+<div class="well responsive">
   <p>
     Fluid mechanics underpins many established and emerging UK industries as
     well as critical societal issues such as air pollution,
     energy consumption, climate science, biology and medicine.
-  </p>
-  <p>
     Fluid mechanics is particularly strong in the UK, with world-class
     activity at several dozen institutions, involving hundreds of
     scientists and engineers. These institutions and individuals need to work
     together in order to benefit from the recent trend towards funding
-    a small number of large grants.
+    a small number of large grants. If you have any questions or suggestions,
+    please {{ Html::link('/contact', 'contact us') }}.
   </p>
-  <p>
+  <div id="well-col-1">
     The aim of the UK Fluids Network is to:
     <ul>
         <li>
@@ -32,8 +30,8 @@
            act as a broker between UK academics and industry.
         </li>
     </ul>
-  </p>
-  <p>
+  </div>
+  <div id="well-col-2">
     The UKFN funds:
     <ul>
         <li>Special Interest Groups (SIGs);</li>
@@ -42,8 +40,8 @@
             a website containing resources for all fluid mechanics researchers.
         </li>
     </ul>
-  </p>
-  <p>
+  </div>
+  <div id="well-col-3">
     We encourage you to join the network and to play a part by:
     <ul>
         <li>signing up for the monthly newsletter</li>
@@ -53,11 +51,7 @@
         <li>joining a Special Interest Group by emailing the SIG leader;</li>
         <li>contributing talks or researcher resources.</li>
     </ul>
-  </p>
-  <p>
-    If yoy have any questions or suggestions, please
-    {{ Html::link('/contact', 'contact us') }}.
-  </p>
+  </div>
 </div>
 <div class="container-fluid">
   <div class="row">

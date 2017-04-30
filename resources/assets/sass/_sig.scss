@@ -1,4 +1,18 @@
-.mapHeight { 
+.map-pointer {
+    height: 12px;
+    width: 12px;
+    border-radius: 50%;
+    display: inline-block;
+    border: solid white 1px;
+    background-image: radial-gradient(circle farthest-corner at 45px 45px , red, #a94442);
+}
+
+/* Important! without this margin the custom map pointer is offset */
+.custom-marker.map-pointer {
+    margin-top: 14px;
+}
+
+.mapHeight {
     height: 800px !important;
 }
 
@@ -40,10 +54,4 @@ img.sig-map-image {
     border-width: 1px 1px 1px 5px;
     margin: 20px 0;
     padding: 20px;
-}
-
-@media only screen and (max-width: 1200px) {
-  .mobile-nopadding-from-md {
-    padding: 0 !important;
-  }
 }
