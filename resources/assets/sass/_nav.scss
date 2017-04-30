@@ -1,0 +1,91 @@
+#top-content {
+    height: 130px;
+    height: 130px;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.logo {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: 100px;
+}
+
+.navbar-nav>li>a {
+    font-size: 1.2em;
+}
+
+#username {
+    display: block;
+    padding: 15px;
+}
+
+/* Top Navigation Bar style overide */
+.navbar-custom {
+    border-radius: 0 !important;
+    background-color: white;
+}
+
+/* To Navigation dropdown menu style overide */
+.submenu-icons {
+    margin-right: 8px;
+}
+
+/* Style to "glue" navbar to the top */
+#menu-bar.affix {
+    top: 0;
+    width: 100%;
+    position: fixed;
+    z-index: 10;
+}
+
+#menu-bar.affix + .container-fluid {
+    padding-top: 50px;
+}
+
+#menu-bar.affix > nav > .container-fluid > #top-nav-bar > .nav.navbar-nav {
+    margin-top: 17px !important;
+}
+
+#menu-bar.affix > nav > .container-fluid > .navbar-header > .navbar-brand > img {
+    height: 60px !important;
+}
+
+.navbar-header {
+    height: auto !important;
+}
+
+.navbar-brand {
+    padding: 0px 15px !important;
+    height: auto !important;
+}
+
+.nav.navbar-nav {
+    margin-top: 35px !important;
+}
+
+.navbar-default
+.navbar-nav > li > a {
+    color: #000 !important;
+}
+
+.navbar-default
+.navbar-nav > li > a:focus,
+.navbar-default
+.navbar-nav > li > a:hover {
+    color: $ukfn-darkblue !important;
+}
+
+.navbar-default
+.navbar-nav > .active > a,
+.navbar-default
+.navbar-nav > .active > a:focus,
+.navbar-default
+.navbar-nav > .active > a:hover {
+    color: $ukfn-darkblue !important;
+    background-color: transparent !important;
+}
+
+.navbar-toggle {
+    margin-top: 23px !important;
+}

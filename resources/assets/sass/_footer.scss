@@ -1,0 +1,20 @@
+footer {
+    background-color: #262626;
+    min-height: 150px;
+    color: #ccc;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.footer-credits {
+    padding-top: 20px;
+}
+
+.footer-color, .footer-color:active, .footer-color:visited, .footer-color:hover, footer-color:link {
+    color: #ccc;
+    text-decoration: none;
+}
+
+.footer-color:hover {
+    color: #fff;
+}
