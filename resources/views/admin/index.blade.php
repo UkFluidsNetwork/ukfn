@@ -7,12 +7,48 @@
     <p class="h4 text-danger">Executive Committee</p>
     <p class="line-break-dbl-top">
     <ul>
-        <li>Prof. Matthew Juniper (PI), <i>Engineering, University of Cambridge</i></li>
-        <li>Prof. Berend van Wachem, <i>Mechanical Engineering, Imperial College London</i></li>
-        <li>Prof. Steve Tobias, <i>Applied Maths, University of Leeds</i></li>
-        <li>Prof. Ann Juel, <i>Physics & Astronomy, University of Manchester</i></li>
-        <li>Prof. Neil Sandham, <i>Aerospace Enginering, University of Southampton</i></li>
-        <li>Prof. Paul Linden, <i>Applied Maths, University of Cambridge</i></li>
+        <li>
+            <a href="http://www2.eng.cam.ac.uk/~mpj1001/MJ_biography.html"
+               target="_blank">
+                Prof. Matthew Juniper (PI)
+            </a>,
+            <i>Engineering, University of Cambridge</i>
+        </li>
+        <li>
+            <a href="https://www.imperial.ac.uk/people/b.van-wachem"
+               target="_blank">
+                Prof. Berend van Wachem
+            </a>,
+            <i>Mechanical Engineering, Imperial College London</i>
+        </li>
+        <li>
+            <a href="http://www1.maths.leeds.ac.uk/~smt/"
+               target="_blank">
+                Prof. Steve Tobias
+            </a>,
+            <i>Applied Maths, University of Leeds</i>
+        </li>
+        <li>
+            <a href="http://www.maths.manchester.ac.uk/~ajuel/"
+               target="_blank">
+                Prof. Ann Juel
+            </a>,
+            <i>Physics & Astronomy, University of Manchester</i>
+        </li>
+        <li>
+            <a href="http://www.southampton.ac.uk/engineering/about/staff/nds9.page"
+               target="_blank">
+                Prof. Neil Sandham
+            </a>,
+            <i>Aerospace Enginering, University of Southampton</i>
+        </li>
+        <li>
+            <a href="http://www.damtp.cam.ac.uk/people/p.f.linden/"
+               target="_blank">
+                Prof. Paul Linden
+            </a>,
+            <i>Applied Maths, University of Cambridge</i>
+        </li>
     </ul>
     </p>
   </div>
