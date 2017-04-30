@@ -38,18 +38,18 @@
 }
 
 /* active links - menu items */
-.admin-panel-sidebar .nav>li>a.active {  
-    color: $ukfn-darkblue !important; 
+.admin-panel-sidebar .nav>li>a.active {
+    color: $ukfn-darkblue !important;
     border-right: $ukfn-darkblue 2px solid;
 }
 
 /* hide all (inactive) nested list */
 .admin-panel-sidebar .nav ul.nav {
-    display: none;           
+    display: none;
 }
 /* show active nested list */
 .admin-panel-sidebar .nav>.active>ul.nav {
-    display: block !important;           
+    display: block !important;
 }
 
 /* collapsed menu item ovveride*/
@@ -59,4 +59,4 @@
     background-color: transparent;
     border: 1px solid #ddd;
     text-align: left;
-} 
+}
