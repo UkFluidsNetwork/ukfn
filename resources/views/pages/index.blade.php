@@ -15,7 +15,7 @@
     please {{ Html::link('/contact', 'contact us') }}.
   </p>
   <div id="well-col-1">
-    The aim of the UK Fluids Network is to:
+    The aims of the UK Fluids Network are to:
     <ul>
         <li>
            develop cross-institution bottom-up research programs and proposals;
