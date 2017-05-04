@@ -39,8 +39,10 @@ class EventsController extends Controller
 
         foreach ($eventsData as $event) {
             $event->subtitle = $event->subtitle ? ", " . $event->subtitle : '';
-            $event->date = PagesController::formatDate($event->start, $event->end);
-            $event->description = PagesController::makeLinksInText($event->description);
+            $event->date = PagesController::formatDate(
+                                  $event->start, $event->end);
+            $event->description = PagesController::makeLinksInText(
+                                  $event->description);
             $event->new = $event->created_at >= $threshold;
             $events[] = $event;
         }
@@ -73,7 +75,8 @@ class EventsController extends Controller
             $event->date = date("g:ia l jS F", strtotime($event->start));
         }
 
-        return view('panel.events.view', compact('events', 'bread', 'breadCount'));
+        return view('panel.events.view',
+                    compact('events', 'bread', 'breadCount'));
     }
 
     /**
@@ -99,7 +102,8 @@ class EventsController extends Controller
 
         $event = Event::findOrFail($id);
 
-        return view('panel.events.edit', compact('event', 'bread', 'breadCount'));
+        return view('panel.events.edit',
+                    compact('event', 'bread', 'breadCount'));
     }
 
     /**
