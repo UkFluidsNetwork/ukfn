@@ -22,7 +22,7 @@ class EventsController extends Controller
         $events = [];
         $today = new DateTime();
         $threshold = $today->modify('-14 days')->format('Y-m-d');
-        
+
         $newEvents = Event::getEvents(
             "created_at",
             "desc",
@@ -34,11 +34,11 @@ class EventsController extends Controller
             "desc",
             [["created_at", "<", $threshold]]
         );
-        
+
         $eventsData = $newEvents + $oldEvents;
-        
+
         foreach ($eventsData as $event) {
-            $event->subtitle = $event->subtitle ? ", " . $event->subtitle : '';            
+            $event->subtitle = $event->subtitle ? ", " . $event->subtitle : '';
             $event->date = PagesController::formatDate($event->start, $event->end);
             $event->description = PagesController::makeLinksInText($event->description);
             $event->new = $event->created_at >= $threshold;
