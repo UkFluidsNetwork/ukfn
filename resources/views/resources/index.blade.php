@@ -7,9 +7,9 @@
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-md-push-7">
                 <!-- Filters - start -->
-                <div id="resources-filters" class="bs-callout bs-callout-info container-fluid">
-                    <h4>Search by subject</h4>
-                    <br>
+                <div id="resources-filters"
+                     style="padding-top: 25px;"
+                     class="bs-callout bs-callout-info container-fluid">
                     <selectize id="disciplines_search" 
                         options='resourcesCtrl.disciplines'
                         config='resourcesCtrl.selectizeDisciplinesConfig'
@@ -74,7 +74,7 @@
                 </div>
                 <!-- resources - start -->
                 <div class='panel panel-default' ng-repeat="resource in resourcesCtrl.resources">
-                    <a  ng-href="#collapse" ng-click="isCollapsed = !isCollapsed"
+                    <a  ng-href="@{{ '#collapse-' + resource.id }}" ng-click="isCollapsed = !isCollapsed"
                         data-toggle='collapse' 
                         class="noborder list-group-item talk panel-body accordion-toggle">
                         <i ng-class="{'glyphicon-chevron-up': isCollapsed, 'glyphicon-chevron-down': !isCollapsed}" 
@@ -95,7 +95,7 @@
                         </span>
                     </a>
                     <!-- inner resource - tutorials - start !-->
-                    <div ng-attr-id="@{{ 'collapse' }}" 
+                    <div ng-attr-id="@{{ 'collapse-' + resource.id }}" 
                          class='accordion-body collapse padding' 
                          style='padding-top:0;'>
                         <div ng-repeat="tutorial in resource.tutorials">
@@ -113,9 +113,11 @@
                             <div class="line-break-top">
                                 <div>
                                     <!-- Button trigger modal -->
-                                    <button ng-repeat="file in tutorial.files"
+                                    <button ng-if="file.filetype.shortname !== 'Link'"
+                                            ng-repeat="file in tutorial.files"
                                             ng-click="resourcesCtrl.showframe['modal-'+file.id] = true"
-                                            type="button" class="btn btn-default"
+                                            type="button"
+                                            class="btn btn-default btn-resource"
                                             style="margin-right:10px;" 
                                             data-toggle="modal"
                                             data-backdrop="static"
@@ -124,6 +126,16 @@
                                         <i class="glyphicon @{{resourcesCtrl.icons[file.filetype.shortname]}}"></i>
                                         @{{file.filetype.shortname}}
                                     </button>
+                                    <a ng-if="file.filetype.shortname === 'Link'"
+                                            ng-repeat="file in tutorial.files"
+                                            ng-href="@{{file.path}}"
+                                            target="_blank"
+                                            type="button"
+                                            class="btn btn-default btn-resource"
+                                            style="margin-right:10px;">
+                                        <i class="glyphicon @{{resourcesCtrl.icons[file.filetype.shortname]}}"></i>
+                                        @{{file.filetype.shortname}}
+                                    </a>
                                     <div ng-repeat="file in tutorial.files"
                                          class="modal fade" style="margin-top:10%;"
                                          id="@{{file.id}}" tabindex="-1"

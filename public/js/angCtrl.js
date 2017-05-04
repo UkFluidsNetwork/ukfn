@@ -456,6 +456,8 @@ angular.module('ukfn').config(function($sceDelegateProvider) {
    // Allow same origin resource loads.
    'self',
    // Allow loading from our assets domain.  Notice the difference between * and **.
+   'https://upload.sms.cam.ac.uk/**',
+   'https://sms.cam.ac.uk/**',
    'http://sms.cam.ac.uk/**']);
  });
  
@@ -479,7 +481,8 @@ angular.module('ukfn')
             Code: "glyphicon-console",
             Slides: "glyphicon-blackboard",
             Audio: "glyphicon-headphones",
-            Video: "glyphicon-film"
+            Video: "glyphicon-film",
+            Link: "glyphicon-new-window"
         };
 
         controller.loading = true; // flag to display loading message
