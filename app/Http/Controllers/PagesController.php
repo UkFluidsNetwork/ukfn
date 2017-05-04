@@ -26,26 +26,26 @@ use Storage;
 
 class PagesController extends Controller
 {
-    
+
     /**
      * Default breadcrumbs for /myaccount
-     * 
+     *
      * @var array
      */
     private static $myAccountCrumbs = [
-        ['label' => 'My Account', 'path' => '/myaccount']        
+        ['label' => 'My Account', 'path' => '/myaccount']
     ];
 
     /**
      * Home Page
-     * 
+     *
      * @access public
      * @return \Illuminate\View\View
      */
     public function index()
     {
         SEO::setTitle('Home');
-        
+
         // get news to display
         $news = NewsController::getNews();
         // get events to display
@@ -58,7 +58,7 @@ class PagesController extends Controller
 
     /**
      * Contact Us GET Controller
-     * 
+     *
      * @access public
      * @return \Illuminate\View\View
      * @author Robert Barczyk <robert@barczyk.net>
@@ -72,7 +72,7 @@ class PagesController extends Controller
 
     /**
      * Contact Us POST Controller
-     * 
+     *
      * @access public
      * @param ContactUsRequest $request Validation Rules
      * @return \Illuminate\View\View
@@ -96,7 +96,7 @@ class PagesController extends Controller
 
     /**
      * Get array of tweets
-     * 
+     *
      * @access public
      * @return array ["date", "text"]
      * @access public
@@ -131,12 +131,12 @@ class PagesController extends Controller
         if (empty($rawTweets)) {
             return $tweets;
         }
-        
+
         $decodedTweets = json_decode($rawTweets);
 
         foreach ($decodedTweets as $fullTweet) {
             $tweet = new stdClass();
-            // retweets start with: RT @username: 
+            // retweets start with: RT @username:
             if (preg_match('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', $fullTweet->text)) {
                 $tweet->user = $fullTweet->entities->user_mentions[0]->name; // it is a retweet, use original author
                 $textToFormat = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $fullTweet->text);
@@ -163,7 +163,7 @@ class PagesController extends Controller
             $text = preg_replace("/@(\w+)/i", "<a href=\"http://twitter.com/$1\">$0</a>", $text); // replace @user with link to user
             $text = preg_replace("/#(\w+)/i", "<a href=\"http://twitter.com/hashtag/$1\">$0</a>", $text); // replace #hashtag with link to hashtag
             $tweet->text = $text;
-            
+
             $tweets[] = $tweet;
         }
 
@@ -172,7 +172,7 @@ class PagesController extends Controller
 
     /**
      * Render my account view
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @return Illuminate\Support\Facades\View
      */
@@ -188,7 +188,7 @@ class PagesController extends Controller
 
     /**
      * Render the personal details view
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @return Illuminate\Support\Facades\View
      */
@@ -207,7 +207,7 @@ class PagesController extends Controller
 
     /**
      * Render the academic details view
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @return Illuminate\Support\Facades\View
      */
@@ -249,7 +249,7 @@ class PagesController extends Controller
 
     /**
      * Render the change password interface
-     * 
+     *
      * @author Robert Barczyk <robert@barczyk.net>
      * @return Illuminate\Support\Facades\View
      */
@@ -259,13 +259,13 @@ class PagesController extends Controller
 
         $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Change Password', 'path' => '/myaccount/password']]);
         $breadCount = count($bread);
-        
+
         return view('pages.password', compact('bread', 'breadCount'));
     }
 
     /**
      * Render the preferences view
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @access public
      * @return Illuminate\Support\Facades\View
@@ -279,13 +279,13 @@ class PagesController extends Controller
 
         $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Preferences', 'path' => '/myaccount/preferences']]);
         $breadCount = count($bread);
-        
+
         return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
     }
 
     /**
      * Save the preferences of the user
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @param PreferencesRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -310,7 +310,7 @@ class PagesController extends Controller
 
     /**
      * Save the personal details of the user
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @param PersonalDetailsRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -336,7 +336,7 @@ class PagesController extends Controller
 
     /**
      * Save the academic details of the user
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @param AcademicDetailsRequest $request
      * @return \Illuminate\Http\RedirectResponse
@@ -375,10 +375,10 @@ class PagesController extends Controller
             return Redirect::back()->withErrors(['password' => 'Current password is incorrect']);
         }
     }
-    
+
     /**
      * Convert raw URIs into anchor tags
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @param string $textToFormat
      * @return string
@@ -391,10 +391,10 @@ class PagesController extends Controller
                 $textToFormat
             );
     }
-    
+
     /**
      * Format a date or date range
-     * 
+     *
      * @author Javier Arias <ja573@cam.ac.uk>
      * @param string $start
      * @param string $end
@@ -432,7 +432,7 @@ class PagesController extends Controller
     /**
      * When a $name is provided add a timestamp and replace whitespace with
      * underscores. When no $name is given a timestamp is returned.
-     * 
+     *
      * @param string $name an optional file name to include in the result
      * @return string
      */
@@ -441,10 +441,10 @@ class PagesController extends Controller
         $fileName = $name ? $name . "." . time() : time();
         return str_replace(' ', '_', $fileName);
     }
-    
+
     /**
      * Move a temporary file from form into its final location and get its path
-     * 
+     *
      * @param \Illuminate\Http\UploadedFile $file
      * @param string $disk name of the storage::disk()
      * @param string|null $name the final name of the file
@@ -455,13 +455,13 @@ class PagesController extends Controller
         if ($file === null) {
             return null;
         }
-        
+
         try {
             $location = Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix();
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        
+
         $fileName = self::sanitizeFilename($name);
         $fileName .= "." . $file->getClientOriginalExtension();
 
@@ -469,7 +469,7 @@ class PagesController extends Controller
         if ($fileMoved) {
             return $fileName;
         }
-        
+
         return null;
     }
 }
