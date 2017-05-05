@@ -8,7 +8,6 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <link href="{{ asset('css/main.css') }}?v=5" rel="stylesheet" type="text/css">
-        <link href="{{ asset('css/bootstrap-select.min.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
