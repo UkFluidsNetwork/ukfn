@@ -1,12 +1,11 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        {!! SEO::generate() !!}
-        <!-- For The jQuerry to work on IE 11 -->
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
+        {!! SEO::generate() !!}
         <link href="{{ asset('css/main.css') }}?v=5" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
@@ -30,7 +29,6 @@
         <script src="{{ asset('js/vendor/moment/moment.js')}}"></script>
         <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
 
-        <!-- favicon -->
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png?v=2') }}">
         <meta name="theme-color" content="#ffffff">
@@ -43,14 +41,13 @@
         <link rel="apple-touch-icon" sizes="144x144" href="{{ asset('pictures/favicon/apple-icon-144x144.png?v=2') }}">
         <link rel="apple-touch-icon" sizes="152x152" href="{{ asset('pictures/favicon/apple-icon-152x152.png?v=2') }}">
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('pictures/favicon/apple-icon-180x180.png?v=2') }}">
-        <link rel="icon" type="image.png" sizes="192x192"  href="{{ asset('pictures/favicon/android-icon-192x192.png?v=2') }}">
-        <link rel="icon" type="image.png" sizes="32x32" href="{{ asset('pictures/favicon/favicon-32x32.png?v=2') }}">
-        <link rel="icon" type="image.png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png?v=2') }}">
-        <link rel="icon" type="image.png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png?v=2') }}">
+        <link rel="icon" type="image/png" sizes="192x192"  href="{{ asset('pictures/favicon/android-icon-192x192.png?v=2') }}">
+        <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('pictures/favicon/favicon-32x32.png?v=2') }}">
+        <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png?v=2') }}">
+        <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png?v=2') }}">
         <link rel="manifest" href="{{ asset('/manifest.json') }}">
-        <!-- end of favicon -->
     </head>
-    <body ng-app="ukfn">
+    <body data-ng-app="ukfn">
         <!-- TOP NAV - START -->
         <div id="menu-bar" data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
@@ -62,7 +59,9 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="{{ URL::to('/')}}">
-                            <img src="{{ asset('pictures/logo.png') }}" class="logo">
+                            <img src="{{ asset('pictures/logo.png') }}"
+                                 alt="UK Fluids Network logo"
+                                 class="logo">
                         </a>
                     </div>
                     <div class="collapse navbar-collapse" id="top-nav-bar">
