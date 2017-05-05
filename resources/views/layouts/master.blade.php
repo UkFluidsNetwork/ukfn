@@ -5,6 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="web_author" content="Javier Arias, javier@arias.re">
         {!! SEO::generate() !!}
         <link href="{{ asset('css/main.css') }}?v=5" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
@@ -45,7 +46,7 @@
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('pictures/favicon/favicon-32x32.png?v=2') }}">
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png?v=2') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png?v=2') }}">
-        <link rel="manifest" href="{{ asset('/manifest.json') }}">
+        <link rel="manifest" type="application/json" href="{{ asset('/manifest.json') }}">
     </head>
     <body data-ng-app="ukfn">
         <!-- TOP NAV - START -->
