@@ -12,7 +12,9 @@ class EventsController extends Controller
 {
 
     /**
-     * Get list of events formatted and ordered by date
+     * Get list of events formatted and ordered by date.
+     * We want to display newly created events first, with a "new" flag,
+     * followed by the rest of the, non past, events.
      * @return array
      * @access public
      * @author Javier Arias <javier@arias.re>
@@ -21,6 +23,7 @@ class EventsController extends Controller
     {
         $events = [];
         $today = new DateTime();
+        $todayFormated = $today->format('Y-m-d');
         $threshold = $today->modify('-14 days')->format('Y-m-d');
 
         $newEvents = Event::getEvents(
@@ -31,8 +34,8 @@ class EventsController extends Controller
 
         $oldEvents = Event::getEvents(
             "start",
-            "desc",
-            [["created_at", "<", $threshold]]
+            "asc",
+            [["created_at", "<", $threshold], ["start", ">=", $todayFormated]]
         );
 
         $eventsData = $newEvents + $oldEvents;
