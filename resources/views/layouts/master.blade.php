@@ -141,6 +141,13 @@
             </nav>
         </div>
         <!-- NAVBAR - END -->
+        <!-- NOSCRIPT - START -->
+        <noscript>
+            <div class="alert alert-danger" role="alert">
+                This site will not work properly while JavaScript is disabled.
+            </div>
+        </noscript>
+        <!-- NOSCRIPT - END -->
         <!-- MAIN CONTENT - START -->
         <div class="container-fluid" id="main-content">
             <div class="row">
