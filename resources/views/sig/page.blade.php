@@ -16,9 +16,9 @@
 </div>
 
 @if ($sig->url)
-<h2 class="text-danger line-break">{{ $sig->name }} {{ Html::link($sig->url, 'External page', ['class' => 'btn btn-default pull-right', 'target' => '_blank']) }}</h2>
+<h2 class="text-danger line-break">{{ $sig->id }}. {{ $sig->name }} {{ Html::link($sig->url, 'External page', ['class' => 'btn btn-default pull-right', 'target' => '_blank']) }}</h2>
 @else
-<h2 class="text-danger line-break">{{ $sig->name }}</h2>
+<h2 class="text-danger line-break">{{ $sig->id }}. {{ $sig->name }}</h2>
 @endif
 
 <div class="container-fluid nopadding-left">
