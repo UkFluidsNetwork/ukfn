@@ -15,13 +15,15 @@ class Talk extends Model
      * @var array
      */
     protected $fillable = [
-        'title', 'speaker', 'start', 'end', 'speakerurl', 'venue', 'organiser', 'aggregator_id', 'abstract', 'institution_id', 
+        'title', 'speaker', 'start', 'end', 'speakerurl', 'venue',
+        'organiser', 'aggregator_id', 'abstract', 'institution_id',
         'teradekip', 'streamingurl', 'recordingurl', 'recordinguntil'
     ];
 
 
     /**
-     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
+     * The booting method of the model.
+     * It has been overwritten to exclude soft-deleted records from queries
      *
      * @access protected
      * @static
@@ -48,13 +50,14 @@ class Talk extends Model
 
     /**
      * Get current talks only
-     * 
+     *
      * @return array
      */
     public static function getFutureTalks($aggregators = [])
     {
         return DB::table('talks')
-            ->leftJoin('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
+            ->leftJoin('aggregators',
+                       'talks.aggregator_id', '=', 'aggregators.id')
             ->select('talks.*')
             ->where('talks.end', '>', Carbon::now())
             ->where(function($query) use ($aggregators) {
@@ -70,13 +73,14 @@ class Talk extends Model
 
     /**
      * Get current talks only
-     * 
+     *
      * @return array
      */
     public static function getPastTalks($aggregators = [])
     {
         return DB::table('talks')
-            ->leftJoin('aggregators', 'talks.aggregator_id', '=', 'aggregators.id')
+            ->leftJoin('aggregators',
+                       'talks.aggregator_id', '=', 'aggregators.id')
             ->select('talks.*')
             ->where('talks.end', '<', Carbon::now())
             ->where(function($query) use ($aggregators) {
@@ -92,7 +96,7 @@ class Talk extends Model
 
     /**
      * Get current talks only
-     * 
+     *
      * @return array
      */
     public static function getRecordedTalks($searchTerms = [])
@@ -109,13 +113,13 @@ class Talk extends Model
                     }
                 }
             })
-            ->orderBy('start', 'ASC')
+            ->orderBy('start', 'DESC')
             ->get();
     }
-    
+
     /**
      * Determine whether this talk is to be streamed
-     * 
+     *
      * @return boolean
      */
     public function isStreamed()
@@ -123,53 +127,54 @@ class Talk extends Model
         return ($this->streamingurl !== null && $this->streamingurl !== "")
             ||($this->teradekip !== null && $this->teradekip !== "");
     }
-    
+
     /**
-     * Determine whether this talk has been recorded and we are allowed to display the recording
-     * 
+     * Determine whether this talk has been recorded
+     * and we are allowed to display the recording
+     *
      * @return boolean
      */
     public function isRecorded()
     {
         return $this->recordingurl !== null && $this->recordingurl !== "";
     }
-    
+
     /**
-     * Determine whether the stream for this talk can be displayed. 
+     * Determine whether the stream for this talk can be displayed.
      * It defaults to the duration of the talk plus 15m before and 1h after.
-     * 
+     *
      * @return boolean
      */
     public function displayStream()
     {
         return $this->isStreamed() && !$this->isFuture() && !$this->isPast();
     }
-    
+
     /**
      * Determine whether the recording for this talk can be displayed.
-     * 
+     *
      * @return boolean
      */
     public function displayRecording()
     {
-        return $this->isRecorded() && ($this->recordinguntil === null 
-            || $this->recordinguntil === "0000-00-00" 
+        return $this->isRecorded() && ($this->recordinguntil === null
+            || $this->recordinguntil === "0000-00-00"
             || Carbon::parse($this->recordinguntil) > Carbon::now());
     }
-    
+
     /**
      * Determine whether a talk is in the future
-     * 
+     *
      * @return boolean
      */
     public function isFuture()
     {
         return Carbon::now() < Carbon::parse($this->start)->addMinutes(-15);
     }
-    
+
     /**
      * Determine whether a talk is in the past
-     * 
+     *
      * @return boolean
      */
     public function isPast()
