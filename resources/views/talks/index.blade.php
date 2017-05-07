@@ -7,7 +7,6 @@
             <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-md-push-7">
                 <!-- Filters - start -->
                 <div id="talks-filters" class="bs-callout bs-callout-info container-fluid">
-                    <h4>Filters</h4>
                     <ul>
                         <li>
                             <input ng-checked="talksCtrl.query === 'future'" type="radio" id="current-option" name="selector">
