@@ -1,9 +1,12 @@
 @extends('layouts.master')
 @section('content')
-
     <h2 class='line-break'>Researcher resources</h2>
-    <div class="container-fluid nopadding" ng-app="ukfn" ng-controller="resourcesController as resourcesCtrl"
-         ng-init="resourcesCtrl.updateQuery();resourcesCtrl.loadCategories();resourcesCtrl.loadDisciplines();">
+    <div ng-app="ukfn"
+         ng-controller="resourcesController as resourcesCtrl"
+         ng-init="resourcesCtrl.updateQuery();
+             resourcesCtrl.loadCategories();
+             resourcesCtrl.loadDisciplines();"
+         class="container-fluid nopadding">
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-md-push-7">
                 <!-- Filters - start -->
@@ -16,50 +19,6 @@
                         ng-change="resourcesCtrl.updateQuery()"
                         ng-model="resourcesCtrl.searchTerms">
                     </selectize>
-                    <!--br>
-                    <h4>Resource type</h4>  
-                    <ul>
-                        <li>
-                            <input ng-checked="resourcesCtrl.types.Notes"
-                                   type="checkbox" id="type-notes" name="type-notes">
-                            <label for="current-option"
-                                ng-click="resourcesCtrl.types.Notes = !resourcesCtrl.types.Notes; resourcesCtrl.updateQuery()">
-                                Notes<icon class="media-icon glyphicon glyphicon-file"></icon>
-                            </label>
-
-                            <div class="check"></div>
-                        </li>
-                        <li>
-                            <input ng-checked="resourcesCtrl.types.Code"
-                                   type="checkbox" id="type-code" name="type-code">
-                            <label for="recorded-option"
-                                ng-click="resourcesCtrl.types.Code = !resourcesCtrl.types.Code; resourcesCtrl.updateQuery()">
-                                Code<icon class="media-icon glyphicon glyphicon-console"></icon>
-                            </label>
-
-                            <div class="check"></div>
-                        </li>
-                        <li>
-                            <input ng-checked="resourcesCtrl.types.Slides"
-                                   type="checkbox" id="type-slides" name="type-slides">
-                            <label for="past-option"
-                                ng-click="resourcesCtrl.types.Slides = !resourcesCtrl.types.Slides; resourcesCtrl.updateQuery()">
-                                Slides<icon class="media-icon glyphicon glyphicon-blackboard"></icon>
-                            </label>
-
-                            <div class="check"></div>
-                        </li>
-                        <li>
-                            <input ng-checked="resourcesCtrl.types.Video"
-                                   type="checkbox" id="type-video" name="type-video">
-                            <label for="past-option"
-                                ng-click="resourcesCtrl.types.Video = !resourcesCtrl.types.Video; resourcesCtrl.updateQuery()">
-                                Video clip<icon class="media-icon glyphicon glyphicon-film"></icon>
-                            </label>
-
-                            <div class="check"></div>
-                        </li>
-                    </ul-->
                 </div>
                 <!-- Filters - end -->
             </div>
@@ -69,20 +28,26 @@
                         {{ $pageDescription }}
                     </p>
                     <p>
-                        To add to these courses, please {{ Html::link('/contact', 'contact us') }}.
+                        To add to these courses, please
+                        {{ Html::link('/contact', 'contact us') }}.
                     </p>
                 </div>
                 <!-- resources - start -->
-                <div class='panel panel-default' ng-repeat="resource in resourcesCtrl.resources">
-                    <a  ng-href="@{{ '#collapse-' + resource.id }}" ng-click="isCollapsed = !isCollapsed"
+                <div ng-repeat="resource in resourcesCtrl.resources"
+                     class='panel panel-default'>
+                    <a  ng-href="@{{ '#collapse-' + resource.id }}"
+                        ng-click="isCollapsed = !isCollapsed"
                         data-toggle='collapse' 
                         class="noborder list-group-item talk panel-body accordion-toggle">
-                        <i ng-class="{'glyphicon-chevron-up': isCollapsed, 'glyphicon-chevron-down': !isCollapsed}" 
+                        <i ng-class="{'glyphicon-chevron-up': isCollapsed,
+                                      'glyphicon-chevron-down': !isCollapsed}" 
                            class='glyphicon pull-right'></i>
 
                         <span class="display-block text-danger">
                             <div class="panel-title line-break-half">
-                                <span style="margin-right:10px;">@{{resource.name}}</span>
+                                <span style="margin-right:10px;">
+                                    @{{resource.name}}
+                                </span>
                                 <i ng-repeat="type in resource.types" 
                                    style="color:black; margin-left:5px;" 
                                    class="glyphicon @{{resourcesCtrl.icons[type]}}"></i>
@@ -127,12 +92,12 @@
                                         @{{file.filetype.shortname}}
                                     </button>
                                     <a ng-if="file.filetype.shortname === 'Link'"
-                                            ng-repeat="file in tutorial.files"
-                                            ng-href="@{{file.path}}"
-                                            target="_blank"
-                                            type="button"
-                                            class="btn btn-default btn-resource"
-                                            style="margin-right:10px;">
+                                       ng-repeat="file in tutorial.files"
+                                       ng-href="@{{file.path}}"
+                                       target="_blank"
+                                       type="button"
+                                       class="btn btn-default btn-resource"
+                                       style="margin-right:10px;">
                                         <i class="glyphicon @{{resourcesCtrl.icons[file.filetype.shortname]}}"></i>
                                         @{{file.filetype.shortname}}
                                     </a>
@@ -177,7 +142,6 @@
                                                         scrolling="no" 
                                                         frameborder="0" 
                                                         allowfullscreen></iframe>
-                                              
                                                 </div>
                                           </div>
                                           <div class="modal-footer">
@@ -185,7 +149,9 @@
                                                 ng-if="!resourcesCtrl.isUrl(file.name)"
                                                 href="@{{file.path}}/@{{file.name}}"
                                                 target="_blank">
-                                                Open in new tab <small class="glyphicon glyphicon-new-window"></small></a>
+                                                    Open in new tab
+                                                    <small class="glyphicon glyphicon-new-window"></small>
+                                            </a>
                                             <button ng-attr-id="close-@{{file.id}}" 
                                                 ng-click="resourcesCtrl.showframe['modal-'+file.id] = false"
                                                 type="button"
@@ -195,16 +161,14 @@
                                         </div>
                                       </div>
                                     </div>
-                                    
                                 </div>
                             </div>
                         </div>
                     </div>
                     <!-- inner resource - tutorials -end !-->
                 </div>
-                <!-- resources - end --><br><br><br>
+                <!-- resources - end -->
             </div>
         </div>
     </div>
-
 @endsection
