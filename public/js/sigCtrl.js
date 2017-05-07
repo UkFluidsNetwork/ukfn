@@ -1,17 +1,13 @@
-/**
- * SIG Controler
- *
- * @author Robert Barczyk <robert@barczyk.net>
- * @param {storage} $localStorage
- * @param {$http} $http
- */
 angular.module('ukfn')
         .controller('sigController', function ($http, $localStorage) {
-            // no undeclared variables
-
             // this scope name
             var controller = this;
             controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
+            controller.MAPS_API_URL = "https://maps.google.com/maps/api/js";
+            controller.MAPS_API_KEY = "AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI";
+            controller.MAP_URL = controller.MAPS_API_URL
+                                 + "?key="
+                                 + controller.MAPS_API_KEY;
             controller.$storage = $localStorage;
             controller.selectedSigId = null; // initially selected SIG
 
@@ -105,6 +101,8 @@ angular.module('ukfn')
                     'latitude'  : '54.8',
                     'longtitude': '-4.40'
                 };
+        controller.map.coordinates = controller.map.latitude
+                                    + ", " + controller.map.longtitude;
 
         // map options
         controller.options = {
@@ -289,8 +287,9 @@ angular.module('ukfn')
          * @param {int} sigMain
          * @returns {void}
          */
-        controller.addMember = function(userId, sigMain = -1)
+        controller.addMember = function(userId, sigMain)
         {
+            sigMain = typeof sigMain !== 'undefined' ? sigMain : -1;
             // if not membership is selected terminate
             if (sigMain === -1) {return;}
 
@@ -348,208 +347,4 @@ angular.module('ukfn')
                 controller.loadUsers();
             });
         };
-    });
-
-/**
- * Talks Controler
- *
- * @author Robert Barczyk <robert@barczyk.net>
- * @param {storage} $localStorage
- * @param {$http} $http
- */
-angular.module('ukfn')
-    .controller('talksController', function ($http, $localStorage, $sce) {
-        // this scope name
-        var controller = this;
-        controller.$storage = $localStorage;
-        controller.searchTerms = []; // terms entered in recorded search box
-        controller.selectedAggregators = []; // aggregators selected in past filter
-        controller.aggregators = []; // aggregators given as options
-        controller.loading = true; // flag to display loading message
-        controller.query = ""; // future/recorded/past
-        controller.currentQuery = ""; // current selected query
-        controller.showframe = [];
-
-        controller.updateQuery = function(query) {
-            controller.query = query;
-            if (controller.currentQuery !== controller.query) {
-                controller.aggregators = [];
-                controller.searchTerms = [];
-                controller.selectedAggregators = [];
-                controller.currentQuery = controller.query;
-            }
-            controller.loadTalks();
-        };
-
-        controller.loadTalks = function() {
-            var lookup = [];
-            var url = '/api/talks/' + controller.query;
-            controller.loading = true;
-            // clear array of available talks before making the request.
-            controller.talks = [];
-
-            $http(
-                {
-                    method: 'GET',
-                    url: url,
-                    params: {
-                        feeds: JSON.stringify(controller.selectedAggregators),
-                        search: JSON.stringify(controller.searchTerms)
-                    }
-                }
-            ).then(function (response) {
-                controller.loading = false;
-                controller.talks = response.data;
-                // get uniqe aggregators for this set of talks
-                for (var i = 0; i < controller.talks.length; i++)  {
-                    if (controller.talks[i].aggregator !== null) {
-                        var aggregator = controller.talks[i].aggregator.name;
-                        var aggregatorId = controller.talks[i].aggregator.id;
-                        if (!(aggregator in lookup)) {
-                            lookup[aggregator] = true;
-                            controller.aggregators.push({id: aggregatorId, label: aggregator});
-                        }
-                    }
-
-                    if (controller.talks[i].recordingurl) {
-                        controller.talks[i].recordingurl = $sce.trustAsResourceUrl(controller.talks[i].recordingurl);
-                    }
-                    if (controller.talks[i].streamingurl) {
-                        controller.talks[i].streamingurl = $sce.trustAsResourceUrl(controller.talks[i].streamingurl);
-                    }
-                }
-            });
-        };
-        
-        controller.selectizeSeriesConfig = {
-            create: false,
-            plugins: ['remove_button'],
-            delimiter: ',',
-            searchField: 'label',
-            framework: 'bootstrap',
-            valueField: 'id',
-            labelField: 'label',
-            placeholder: 'Select series'
-          };
-
-        controller.selectizeSearchConfig = {
-            create: true,
-            plugins: ['remove_button'],
-            delimiter: ',',
-            searchField: 'label',
-            framework: 'bootstrap',
-            valueField: 'id',
-            labelField: 'label',
-            placeholder: 'Enter search term(s)'
-          };
-    });
-
-/**
- * Talks Controler
- *
- * @author Javier Arias <javier@arias.re>
- * @param {storage} $localStorage
- * @param {$http} $http
- */
-angular.module('ukfn').config(function($sceDelegateProvider) {
- $sceDelegateProvider.resourceUrlWhitelist([
-   // Allow same origin resource loads.
-   'self',
-   // Allow loading from our assets domain.  Notice the difference between * and **.
-   'https://upload.sms.cam.ac.uk/**',
-   'https://sms.cam.ac.uk/**',
-   'http://sms.cam.ac.uk/**']);
- });
- 
-angular.module('ukfn')
-    .controller('resourcesController', function ($http, $localStorage, $sce) {
-        // this scope name
-        var controller = this;
-        controller.$storage = $localStorage;
-        controller.disciplines = []; // disciplines for selectize
-        controller.categories = []; // discipline categories for selectize optgroup
-        controller.searchTerms = []; // terms entered in recorded search box
-        controller.types = {
-            Notes: true,
-            Code: true,
-            Slides: true,
-            Audio: true,
-            Video: true
-        };
-        controller.icons = {
-            Notes: "glyphicon-file",
-            Code: "glyphicon-console",
-            Slides: "glyphicon-blackboard",
-            Audio: "glyphicon-headphones",
-            Video: "glyphicon-film",
-            Link: "glyphicon-new-window"
-        };
-
-        controller.loading = true; // flag to display loading message
-
-        controller.updateQuery = function(query) {
-            controller.loadResources();
-        };
-
-        controller.loadDisciplines = function() {
-            var url = '/api/tags/disciplines';
-            controller.disciplines = [];
-
-            $http({method: 'GET', url: url}).then(function (response) {
-                var curCategory = ""
-                for (var i = 0; i < response.data.length; i++)  {
-                    var category = response.data[i].category;
-                    if (category !== curCategory) {
-                        controller.categories.push({'category': category});
-                        curCategory = category;
-                    }
-                }
-                controller.disciplines = response.data;
-            });
-        };
-
-        controller.loadResources = function() {
-            var url = '/api/resources/';
-            controller.loading = true;
-            // clear array of available resources before making the request.
-            controller.resources = [];
-
-            $http(
-                {
-                    method: 'GET',
-                    url: url,
-                    params: {
-                        types: JSON.stringify(controller.types),
-                        search: JSON.stringify(controller.searchTerms)
-                    }
-                }
-            ).then(function (response) {
-                controller.loading = false;
-                controller.resources = response.data;
-            });
-        };
-        
-        controller.isUrl = function(s) {
-            var regexp = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-            return regexp.test(s);
-        };
-        
-        controller.isPdf = function(s) {
-            return s.includes(".pdf");
-        };
-
-        controller.selectizeDisciplinesConfig = {
-            create: false,
-            plugins: ['remove_button', 'optgroup_columns'],
-            delimiter: ',',
-            searchField: 'name',
-            framework: 'bootstrap',
-            valueField: 'id',
-            labelField: 'name',
-            optgroupField: 'category',
-            optgroupLabelField: 'category',
-            optgroupValueField: 'category',
-            optgroups: controller.categories,
-            placeholder: 'Enter subject area(s)'
-          };
     });

@@ -2,7 +2,7 @@
 @section('content')
 
     <h2 class='line-break'>Researcher resources</h2>
-    <div class="container-fluid nopadding" ng-controller="resourcesController as resourcesCtrl"
+    <div class="container-fluid nopadding" ng-app="ukfn" ng-controller="resourcesController as resourcesCtrl"
          ng-init="resourcesCtrl.updateQuery();resourcesCtrl.loadCategories();resourcesCtrl.loadDisciplines();">
         <div class="row">
             <div class="col-lg-4 col-lg-offset-1 col-md-4 col-md-offset-1 col-md-push-7">

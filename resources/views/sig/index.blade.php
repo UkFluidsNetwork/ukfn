@@ -12,20 +12,20 @@
     </h2>
     <div class="ell">
         <p>
-          <span class="glyphicon glyphicon-exclamation-sign"></span> 
+          <span class="glyphicon glyphicon-exclamation-sign"></span>
           If you are interested in joining a SIG, please contact the SIG leader directly.
           There may be a third call for SIG proposals in Spring 2018.
         </p>
     </div>
 </div>
 
-<div ng-controller="sigController as sigCtrl" ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
+<div ng-app="ukfn" ng-controller="sigController as sigCtrl"
+     ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
-<!--            <div style="float:right; margin-top:-50px;margin-right:10px;font-size:larger;"><b>New:</b> {{Html::link('/sig/second-call', 'second round of SIGs')}}</div>-->
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
-            <div class="" map-lazy-load="https://maps.google.com/maps/api/js?key=AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI" >
-                <ng-map center="@{{ sigCtrl.map.latitude }}, @{{ sigCtrl.map.longtitude }}"
+            <div map-lazy-load="@{{ sigCtrl.MAP_URL }}" >
+                <ng-map center="@{{ sigCtrl.map.coordinates }}"
                         scrollwheel="false"
                         draggable="true"
                         map-type-control="false" street-view-control="false"

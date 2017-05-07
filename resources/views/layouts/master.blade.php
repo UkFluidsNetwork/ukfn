@@ -22,7 +22,9 @@
         <script src="{{ asset('js/analytics.js')}}"></script>
         <script src="{{ asset('js/main.js')}}"></script>
         <script src="{{ asset('js/angApp.js')}}"></script>
-        <script src="{{ asset('js/angCtrl.js')}}"></script>
+        <script src="{{ asset('js/sigCtrl.js')}}"></script>
+        <script src="{{ asset('js/talksCtrl.js')}}"></script>
+        <script src="{{ asset('js/resourcesCtrl.js')}}"></script>
 
         <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
         <script src="{{ asset('/js/vendor/angular-selectize2/dist/selectize.js')}}"></script>
@@ -48,8 +50,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png?v=2') }}">
         <link rel="manifest" type="application/json" href="{{ asset('/manifest.json') }}">
     </head>
-    <body data-ng-app="ukfn">
-        <!-- TOP NAV - START -->
+    <body>
+        <!-- NAVBAR - START -->
         <div id="menu-bar" data-spy="affix" data-offset-top="40">
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
                 <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12" >
@@ -138,7 +140,7 @@
                 </div>
             </nav>
         </div>
-        <!-- TOP NAV - END -->
+        <!-- NAVBAR - END -->
         <!-- MAIN CONTENT - START -->
         <div class="container-fluid" id="main-content">
             <div class="row">
