@@ -142,7 +142,7 @@
                             <span class="display-table-cell">
                                @{{ talk.venue }}
                             </span>
-                        </span>                    
+                        </span>
                         <span ng-if="talk.displayRecording" class="display-block text-muted">
                             <icon class="glyphicon glyphicon-facetime-video icon-item-padding display-table-cell"></icon>
                             <span class="display-table-cell"> Recording available</span>
@@ -181,4 +181,4 @@
         </div>
     </div>
 
-@endsection                      
+@endsection
