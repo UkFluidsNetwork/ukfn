@@ -25,8 +25,8 @@ class TalksController extends Controller
 
     /**
      * Talks main page
+     *
      * @return view
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function index()
     {
@@ -40,28 +40,27 @@ class TalksController extends Controller
 
     /**
      * View Talk
+     *
      * @param intiger $id
      * @return view
-     * @access public
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function view($id)
     {
         $nonFormatedtalk = Talk::findOrFail($id);
         $talk = self::formatTalks([$nonFormatedtalk])[0];
-        
+
         return view('talks.view', compact('talk'));
     }
 
     /**
      * Update all talks
+     *
      * @access public
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public static function updateTalks()
     {
         $aggregators = Aggregator::all();
-        
+
         foreach ($aggregators as $aggregator) {
             $xml = simplexml_load_file($aggregator->url);
 
@@ -149,52 +148,51 @@ class TalksController extends Controller
 
     /**
      * Exclude exceptions and format the date of the remaining ones
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @static
-     * @param array $talks
+     *
+     * @param array $rawTalks
      * @param string $dateFormat
      * @return array
      */
-    public static function formatTalks($talks, $dateFormat = "l jS F")
+    public static function formatTalks($rawTalks, $dateFormat = "l jS F")
     {
-        $formattedTalks = [];
+        $talks = [];
         $index = 0;
-        foreach ($talks as $talk) {
+        foreach ($rawTalks as $talk) {
             if (in_array($talk->title, static::$exceptions)) {
                 continue;
             }
-            
-            // we instantiate a talk object in case $talk is a std object rather than actual intance of Talk, 
+
+            // we instantiate a talk object in case $talk is a std object
+            // rather than actual intance of Talk,
             // otherwise we cannnot use functions in the Talk class
             $talk = Talk::findOrFail($talk->id);
-            $formattedTalks[$index] = $talk;
-            $formattedTalks[$index]->aggregator = $talk->aggregator_id ? Aggregator::findOrFail($talk->aggregator_id) : null;
-            $formattedTalks[$index]->isRecorded = $talk->isRecorded();
-            $formattedTalks[$index]->isStreamed = $talk->isStreamed();
-            $formattedTalks[$index]->displayStream = $talk->displayStream();
-            $formattedTalks[$index]->displayRecording = $talk->displayRecording();
-            $formattedTalks[$index]->isFuture = $talk->isFuture();
-            $formattedTalks[$index]->when = PagesController::formatDate($talk->start);
+            $talks[$index] = $talk;
+            $talks[$index]->aggregator = $talk->aggregator_id
+                ? Aggregator::findOrFail($talk->aggregator_id)
+                : null;
+            $talks[$index]->isRecorded = $talk->isRecorded();
+            $talks[$index]->isStreamed = $talk->isStreamed();
+            $talks[$index]->displayStream = $talk->displayStream();
+            $talks[$index]->displayRecording = $talk->displayRecording();
+            $talks[$index]->isFuture = $talk->isFuture();
+            $talks[$index]->when = PagesController::formatDate($talk->start);
             $index++;
         }
 
-        return $formattedTalks;
+        return $talks;
     }
 
     /**
      * Generate the page description for the talks section
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
-     * @static
+     *
      * @return string
      */
     private static function getSEODescription()
     {
         $description = 'Fluids-related seminars and talks in the UK, imported from the ';
-        
+
         $talksRSS = Aggregator::all();
-        
+
         foreach ($talksRSS as $key => $feed) {
             $description.= $feed->name;
             if ($key + 1 < count($talksRSS) - 1) {
@@ -206,12 +204,10 @@ class TalksController extends Controller
         $description.= ' RSS Feeds';
         return $description;
     }
-    
+
     /**
      * Get all current, past, or recorded talks in JSON
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @author Robert Barczyk <robert@barczyk.net>
+     *
      * @param string $query
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -220,13 +216,17 @@ class TalksController extends Controller
     {
         $queriesAllowed = ["future", "past", "recorded"];
         $parameters = $request->all();
-        $feeds = isset($parameters['feeds']) && $parameters['feeds'] !== "[]" ? json_decode($parameters['feeds']) : null;
-        $terms = isset($parameters['search'])&& $parameters['search'] !== "[]" ? json_decode($parameters['search']) : null;
-        
+        $feeds = isset($parameters['feeds']) && $parameters['feeds'] !== "[]"
+            ? json_decode($parameters['feeds'])
+            : null;
+        $terms = isset($parameters['search'])&& $parameters['search'] !== "[]"
+            ? json_decode($parameters['search'])
+            : null;
+
         if (!in_array($query, $queriesAllowed)) {
             return response()->json('Invalid query', 500);
         }
-        
+
         switch ($query) {
             case "future":
                 $bareTalks = Talk::getFutureTalks($feeds);
@@ -241,44 +241,41 @@ class TalksController extends Controller
         $talks = self::formatTalks($bareTalks);
         return response()->json($talks);
     }
-    
+
     /**
      * Set the generic SEO description for talks
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
-     * @static
+     *
      * @return void
      */
     private static function setSEODescription()
     {
         SEO::setDescription(self::getSEODescription());
     }
-    
+
     /**
      * View all current talks in Admin Panel
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @access public
+     *
      * @return void
      */
     public function talksList()
     {
-        $allTalks = Talk::all();   
+        $allTalks = Talk::all();
         $talks = self::formatTalks($allTalks);
-                        
+
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Talks', 'path' => '/panel/talks']
         ];
-        
+
         $breadCount = count($bread);
-        
-        return view('panel.talks.list', compact('talks', 'bread', 'breadCount'));
+
+        return view('panel.talks.list', compact(
+            'talks', 'bread', 'breadCount'));
     }
-    
+
     /**
      * Add new talk
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @access public
+     *
      * @return void
      */
     public function add()
@@ -293,13 +290,14 @@ class TalksController extends Controller
         $talk = new Talk();
         $aggregators = AggregatorsController::getSelect();
         $institutions = InstitutionsController::getSelect();
-        
-        return view('panel.talks.add', compact('talk', 'bread', 'breadCount', 'aggregators', 'institutions'));
+
+        return view('panel.talks.add', compact(
+            'talk', 'bread', 'breadCount', 'aggregators', 'institutions'));
     }
-    
+
      /**
      * Create new talk
-     * @author Robert Barczyk <robert@barczyk.net>
+     *
      * @param TalksFormRequest $request
      * @return void
      */
@@ -318,46 +316,45 @@ class TalksController extends Controller
 
         return redirect('/panel/talks/');
     }
-       
+
     /**
      * Update selected talk
+     *
      * @param type $id
      * @param TalkUpdateRequest $request
      * @return void
-     * @author Robert Barczyk <rb783@cam.ac.uk>
      */
     public function update($id, TalksFormRequest $request)
     {
         try {
             $talk = Talk::findOrFail($id);
             $input = $request->all();
-            
+
             $talk->recordingurl = $request->input('recordingurl');
             $talk->streamingurl = $request->input('streamingurl');
             $talk->teradekip = $request->input('teradekip');
-            
+
             if ($request->input('recordinguntil') != '') {
-                $talk->recordinguntil = $request->input('recordinguntil');    
+                $talk->recordinguntil = $request->input('recordinguntil');
             } else {
-                $talk->recordinguntil = null;    
+                $talk->recordinguntil = null;
             }
 
             $talk->fill($input);
             $talk->save();
-            
+
             Session::flash('success_message', 'Edited succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
         return redirect('/panel/talks');
     }
-    
+
     /**
-     * Edit news
-     * @access public
+     * Edit talks
+     *
      * @param int $id
      * @return void
-     * @author Robert Barczyk <rb783@cam.ac.uk>
      */
     public function edit($id)
     {
@@ -366,19 +363,20 @@ class TalksController extends Controller
             ['label' => 'Talks', 'path' => '/panel/talks'],
             ['label' => 'Edit', 'path' => '/panel/talks/edit'],
         ];
-        
+
         $breadCount = count($bread);
 
         $talk = Talk::findOrFail($id);
         $aggregators = AggregatorsController::getSelect();
         $institutions = InstitutionsController::getSelect();
 
-        return view('panel.talks.edit', compact('talk', 'aggregators', 'bread', 'breadCount', 'institutions'));
+        return view('panel.talks.edit', compact(
+            'talk', 'aggregators', 'bread', 'breadCount', 'institutions'));
     }
 
     /**
-     * Delete selected talk via admin panel
-     * @author Robert Barczyk <robert@barczyk.net>
+     * Delete talk method
+     *
      * @param intiger $id aggregator id
      * @return void
      */
@@ -394,15 +392,16 @@ class TalksController extends Controller
         }
         return redirect('/panel/talks');
     }
-    
+
     /**
      * Set up to test SMS streaming facility.
-     * 
-     * @todo if it works, embed the code within /talks and /talks:id, otherwise remove
+     *
+     * @todo if it works, embed the code within /talks and /talks:id,
+     * otherwise remove
      * @return \Illuminate\View\View
      */
     public function stream()
     {
-        return view('talks.stream');        
+        return view('talks.stream');
     }
 }
