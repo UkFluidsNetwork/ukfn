@@ -5,6 +5,7 @@ $ukfn-lightblue: #2DA9E0;
 $text-main: #333333;
 $brand-primary: $ukfn-darkblue;
 $brand-info: $ukfn-lightblue;
+$brand-danger: #a94442;
 
 // iconography
 $icon-font-path: "../fonts/bootstrap/"; // path from css location (not sass)
@@ -17,3 +18,6 @@ $navbar-default-link-active-bg: transparent;
 $screen-sm: 850px;
 $screen-md: 992px;
 $screen-lg: 1400px;
+
+// carousel
+$carousel-control-opacity: .3;
