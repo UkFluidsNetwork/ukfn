@@ -8,7 +8,7 @@
 
 <script type="text/javascript">
     jwplayer("streamer").setup({
-        "file": "rtsp://live1.sms.cam.ac.uk:1935/ENG/live",
+        "file": "rtmp://live1.sms.cam.ac.uk:1935/ENG/live",
         "autostart": true,
         "aspectratio": "16:9",
         "width": "100%",
