@@ -164,37 +164,36 @@
         <!-- SUBSCRIPTION - START -->
         <div class="container-fluid signup" id="subscription-sign-up-form">
             <div class="row">
-                <div class="col-lg-offset-2 col-lg-8 col-md-offset-1 col-md-10 col-sm-offset-1 col-sm-10 col-xs-12">
+                <div class="col-lg-offset-4 col-lg-4 col-md-offset-3 col-md-6 col-sm-offset-3 col-sm-7 col-xs-12">
                     {!! Form::open(['url' => 'signup#subscription-sign-up-form']) !!}
-                    <div class="row">
-                        <div class="col-lg-offset-3 col-lg-6 col-md-offset-2 col-md-8 col-sm-offset-1 col-sm-10 col-xs-12 line-break ">
-                            <span class='display-block h3 text-danger text-uppercase'>Sign up to our mailing list</span>
-                            <span class='display-block line-break'>for information on jobs, events and news in UK fluids</span>
-                        </div>
+                    <div class="line-break">
+                        <span class='display-block h3 text-danger text-uppercase'>Sign up to our mailing list</span>
+                        <span class='display-block line-break'>for information on jobs, events and news in UK fluids</span>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-offset-3 col-lg-4 col-md-offset-2 col-md-6 col-sm-offset-1 col-sm-8 col-xs-12">
-                            <div class='form-group {{ $errors->has('subscription-email') ? ' has-error line-break-dbl' : '' }} input-group-lg'>
-                                {!! Form::label('subscription-email', 'Subscribe :', ['class' => 'sr-only']) !!}
-                                {!! Form::text('subscription-email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
-                                @if ($errors->has('subscription-email'))
+                    <div class='form-group {{ $errors->has('subscription-email') ? ' has-error line-break-dbl' : '' }} input-group-lg'>
+                        {!! Form::label('subscription-email', 'Subscribe :', ['class' => 'sr-only']) !!}
+                        {!! Form::text('subscription-email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
+                        @if ($errors->has('subscription-email'))
 
-                                <span class="display-block text-danger line-break-top">
-                                    <span>{{ $errors->first('subscription-email') }}</span>
-                                </span>
-                                @endif
-                                @if (Session::has('subscription_signup_ok'))
+                        <span class="display-block text-danger line-break-top">
+                            <span>{{ $errors->first('subscription-email') }}</span>
+                        </span>
+                        @endif
+                        @if (Session::has('subscription_signup_ok'))
 
-                                <strong class="display-block text-success line-break-top">
-                                    {{ Session::get('subscription_signup_ok') }}
-                                </strong>
-                                @endif
-
-                            </div>
-                        </div>
-                        <div class="col-lg-2 col-md-2 btn-group col-sm-2 col-xs-12 input-group-lg">
-                            <input type="submit" class="btn btn-lg btn-default text-uppercase btn-signup" name="submit-subscribe" value="Subscribe">
-                        </div>
+                        <strong class="display-block text-success line-break-top">
+                            {{ Session::get('subscription_signup_ok') }}
+                        </strong>
+                        @endif
+                    </div>
+                    <div>
+                        <div class="g-recaptcha pull-left"
+                             data-sitekey="6LdfWiEUAAAAAK-g3UWFFZANyAi9xhXCrndBOFM0"></div>
+                        <input type="submit" 
+                               class="btn btn-lg btn-default btn-signup pull-left"
+                               style="margin-left: 29px;"
+                               name="submit-subscribe"
+                               value="Subscribe">
                     </div>
                     </form>
                 </div>
