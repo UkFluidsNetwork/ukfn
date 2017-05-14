@@ -31,6 +31,7 @@
         <script src="{{ asset('js/vendor/angularjs-dropdown-multiselect.min.js')}}"></script>
         <script src="{{ asset('js/vendor/moment/moment.js')}}"></script>
         <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+        <script src='https://www.google.com/recaptcha/api.js'></script>
 
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage" content="{{ asset('pictures/favicon/ms-icon-144x144.png?v=2') }}">
