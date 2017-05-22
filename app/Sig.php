@@ -235,6 +235,16 @@ class Sig extends Model
     }
 
     /**
+     * Get the key personnel of this sig
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function personnel()
+    {
+        return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 3);
+    }
+
+    /**
      * Get the id of the user who is the leader of the SIG
      * 
      * @access public

@@ -57,7 +57,6 @@ angular.module('ukfn')
             /**
              * Get selected sig and its institutions
              *
-             * @author Robert Barczyk <robert@barczyk.net>
              * @param {intiger} id
              * @returns {json}
              */
@@ -77,7 +76,6 @@ angular.module('ukfn')
         /**
          * Set active sig on sig map
          *
-         * @author Robert Barczyk <robert@barczyk.net>
          * @param {type} id
          * @returns {undefined}
          */
@@ -88,7 +86,6 @@ angular.module('ukfn')
         /**
          * Display all sigs on sig map
          *
-         * @author Robert Barczyk <robert@barczyk.net>
          * @returns {undefined}
          */
         controller.dispAll = function() {
@@ -195,7 +192,7 @@ angular.module('ukfn')
             {name: "Member", id: 0, seleted: true},
             {name: "Leader", id: 1},
             {name: "Co-Leader", id: 2},
-            {name: "Key personel", id: 3}
+            {name: "Key personnel", id: 3}
         ];
 
         // translate membership code to string
@@ -209,7 +206,7 @@ angular.module('ukfn')
                     return "Co-Leader";
                     break;
                 case 3:
-                    return "Key personel";
+                    return "Key personnel";
                     break;
                 case 0:
                     return "Member";

@@ -216,13 +216,38 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is a leader of the sig given by $sigId
-     * 
+     *
      * @param int $sigId
      * @return boolean
      */
     public function isLeaderOfSig($sigId)
     {
-        return $this->sigs()->where('sigs.id', $sigId)->where('main', 1)->count() > 0;
+        return $this->sigs()->where('sigs.id', $sigId)
+                            ->where('main', 1)->count() > 0;
+    }
+
+    /**
+     * Determine if the user is a coleader of the sig given by $sigId
+     *
+     * @param int $sigId
+     * @return boolean
+     */
+    public function isColeaderOfSig($sigId)
+    {
+        return $this->sigs()->where('sigs.id', $sigId)
+                            ->where('main', 2)->count() > 0;
+    }
+
+    /**
+     * Determine if the user is a key member of the sig given by $sigId
+     *
+     * @param int $sigId
+     * @return boolean
+     */
+    public function isKeyPersonnelOfSig($sigId)
+    {
+        return $this->sigs()->where('sigs.id', $sigId)
+                            ->where('main', 3)->count() > 0;
     }
 
     /**
