@@ -1,0 +1,25 @@
+#!/bin/bash
+
+# options
+ artisan_path="/var/www/artisan"
+ artisan_command="queue:listen"
+ artisan_parameters="--timeout 180"
+ log_dir_path="/customers/5/f/8/ukfluids.net/httpd.private/log"
+ log_file_path="listener.log"
+ date=$(date +"%Y-%b-%d-%H-%M")
+
+# create directories if they do not exist
+ if [ ! -d "$log_dir_path" ]; then
+   mkdir -p $log_dir_path;
+ fi
+
+# end previous commands
+ ps=$(ps aux | grep "[a]rtisan $artisan_command" | awk '{print $2}')
+ if [ ! -z "$ps" ]; then
+   killps=$(kill $ps)
+   echo "$date killed $killps" >> $log_dir_path/$log_file_path
+ fi
+
+# start listener
+ run=$(timeout -sHUP 10m php $artisan_path $artisan_command $artisan_parameters & 2>&1)
+ echo "$date listened $run" >> $log_dir_path/$log_file_path

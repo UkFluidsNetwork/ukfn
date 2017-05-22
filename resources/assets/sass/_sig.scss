@@ -16,14 +16,6 @@
     height: 800px !important;
 }
 
-#sig-navigation > nav {
-    margin: -27px 0px !important;
-}
-
-#sig-navigation > nav > ul {
-    margin: 0px !important;
-}
-
 div.sig-map-image {
     padding: 5px 0px 10px 0px;
 }
@@ -38,8 +30,16 @@ img.sig-map-image {
     border-left-color: $ukfn-darkblue !important;
 }
 
+.bs-callout-danger {
+    border-left-color: $brand-danger !important;
+}
+
 .bs-callout-info h4 {
     color: $ukfn-darkblue !important;
+}
+
+.bs-callout-danger h4 {
+   color: $brand-danger !important;
 }
 
 .bs-callout {
