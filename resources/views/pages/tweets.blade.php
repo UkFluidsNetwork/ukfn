@@ -3,8 +3,11 @@
     <section class="page-header">
         <div class="line-break">
             <div class="text-primary">
-                <strong class="panel-title">{{ $tweet->user }}</strong>
+                <strong class="panel-title">
+                  <a href="{{ $tweet->userUrl }}" target="_blank">{{ $tweet->user }}</a>
+                </strong>
             </div>
+            <div class="text-muted">{{ "@" . $tweet->username }}</div>
             <div class="text-muted">{{ $tweet->date }}</div>
         </div>
         <p class="line-break">{!! $tweet->text !!}</p>

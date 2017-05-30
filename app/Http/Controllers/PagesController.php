@@ -165,10 +165,14 @@ class PagesController extends Controller
             $tweet = new stdClass();
             // retweets start with: RT @username:
             if (preg_match('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', $fullTweet->text)) {
-                $tweet->user = $fullTweet->entities->user_mentions[0]->name; // it is a retweet, use original author
+                // it is a retweet, use original author
+                $tweet->user = $fullTweet->entities->user_mentions[0]->name;
+                $tweet->username = $fullTweet->entities->user_mentions[0]
+                                                        ->screen_name;
                 $textToFormat = preg_replace('/^(R)(T) (@)([a-zA-Z0-9_]*)(: )/', '', $fullTweet->text);
             } else {
                 $tweet->user = $fullTweet->user->name; // not a retweet
+                $tweet->username = $fullTweet->user->screen_name;
                 $textToFormat = $fullTweet->text; // use original text
             }
             // include images/videos if it has any
@@ -182,7 +186,11 @@ class PagesController extends Controller
                 }
             }
             // link to tweet on twitter
-            $tweet->link = "https://twitter.com/" . $fullTweet->user->screen_name . "/status/" . $fullTweet->id;
+            $tweet->link = "https://twitter.com/"
+                           . $fullTweet->user->screen_name
+                           . "/status/"
+                           . $fullTweet->id;
+            $tweet->userUrl = "https://twitter.com/" . $tweet->username;
             // date posted
             $tweet->date = self::formatDate($fullTweet->created_at);
             // format the text
