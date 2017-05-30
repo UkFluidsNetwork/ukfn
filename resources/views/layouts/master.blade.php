@@ -82,6 +82,9 @@
                             <li class="{{ Request::is('researcher-resources*') ? 'active' : '' }}">
                                 {{ Html::link('/researcher-resources', 'Resources', ['alt' => 'Researcher Resources']) }}
                             </li>
+                            <li class="{{ Request::is('competition*') ? 'active' : '' }}">
+                                {{ Html::link('/competition', 'Competition', ['alt' => 'Photo and video competition']) }}
+                            </li>
                             <li class="{{ Request::is('about*') ? 'active' : '' }}">
                                 {{ Html::link('/about', 'About', ['alt' => 'Information about the network']) }}
                             </li>
