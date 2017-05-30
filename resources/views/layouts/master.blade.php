@@ -82,11 +82,8 @@
                             <li class="{{ Request::is('researcher-resources*') ? 'active' : '' }}">
                                 {{ Html::link('/researcher-resources', 'Resources', ['alt' => 'Researcher Resources']) }}
                             </li>
-                            <li class="{{ Request::is('admin*') ? 'active' : '' }}">
-                                {{ Html::link('/admin', 'Admin', ['alt' => 'Information about the network']) }}
-                            </li>
-                            <li class="{{ Request::is('contact') ? 'active' : '' }}">
-                                {{ Html::link('/contact', 'Contact', ['alt' => 'Contact Us']) }}
+                            <li class="{{ Request::is('about*') ? 'active' : '' }}">
+                                {{ Html::link('/about', 'About', ['alt' => 'Information about the network']) }}
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">

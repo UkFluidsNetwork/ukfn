@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App;
+use SEO;
 use App\Page;
 use Auth;
 use App\User;
 use App\Title;
 use App\Tag;
+use App\Message;
 use App\Institution;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\PreferencesRequest;
@@ -16,8 +19,8 @@ use App\Http\Requests\PasswordUpdateRequest;
 use App\Http\Controllers\MailingController;
 use TwitterAPIExchange;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\MessagesController;
 use Illuminate\Support\Facades\Session;
-use SEO;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use DateTime;
@@ -57,41 +60,65 @@ class PagesController extends Controller
     }
 
     /**
-     * Contact Us GET Controller
+     * Render "About" section
      *
-     * @access public
      * @return \Illuminate\View\View
-     * @author Robert Barczyk <robert@barczyk.net>
      */
-    public function contact()
+    public function about()
     {
-        SEO::setTitle('Contact Us');
+        SEO::setTitle('About');
+        SEO::setDescription('Find more about the grants that support UKFN, '
+            . 'the proposal documents, minutes of the meetings held '
+            . 'by the panel, a list of institutional points of contact, '
+            . 'and a summary of the emails we send to our mailing list.');
 
-        return view('pages.contact');
+        $listMessages = Message::getMailinglistMessages();
+        $publicMessages = Message::getPublicMessages();
+        $listEmails = MessagesController::formatMessages($listMessages);
+        $publicEmails = MessagesController::formatMessages($publicMessages);
+        $totalListEmails = count($listEmails);
+        $totalPublicEmails = count($publicEmails);
+
+        return view('pages.about', compact('listEmails', 'publicEmails',
+                                      'totalListEmails', 'totalPublicEmails'));
     }
 
     /**
-     * Contact Us POST Controller
+     * Display a message sent to the mailing list, or made public, given and ID
      *
-     * @access public
+     * @param int $id Message ID
+     * @return \Illuminate\View\View
+     */
+    public function viewMessage($id)
+    {
+        $message = Message::findOrFail($id);
+        if ($message->public || $message->mailinglist) {
+            $message->date = date("l jS F", strtotime($message->created_at));
+            $message->text = nl2br(e($message->body));
+            return view('pages.viewmessage', compact('message'));
+        } else {
+            App::abort(404);
+        }
+    }
+
+    /**
+     * Send message from contact form
+     *
      * @param ContactUsRequest $request Validation Rules
      * @return \Illuminate\View\View
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function sendMessage(ContactUsRequest $request)
     {
-        // validate input data from form
         $name = $request->input('name');
         $from = $request->input('email');
         $message = $request->input('message');
 
-        // send mail
         Page::sendForm($name, $from, $message);
 
-        // set success message
-        Session::flash('success_message', 'Thank you for your message. We will get back to you shortly.');
+        Session::flash('success_message',
+              'Thank you for your message. We will get back to you shortly.');
 
-        return view('pages.contact');
+        return view('pages.about');
     }
 
     /**

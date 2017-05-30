@@ -22,9 +22,10 @@ Route::get('srv', 'SrvsController@index');
 Route::get('researcher-resources', 'ResourcesController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('talks/stream', 'TalksController@stream');
-Route::get('contact', 'PagesController@contact');
-Route::get('admin', 'AdminController@index');
-Route::get('viewmessage/{id}', 'AdminController@viewmessage');
+Route::get('about', 'PagesController@about');
+Route::get('contact', function() {return Redirect::to('about');}); // old URI
+Route::get('admin', function() {return Redirect::to('about');}); // old URI
+Route::get('viewmessage/{id}', 'PagesController@viewmessage');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/{id}', 'TalksController@view');
 Route::get('register', 'Auth\AuthController@registration');
