@@ -191,4 +191,49 @@
   </div>
 </section>
 @endif
+<section class="page-header">
+  <div>
+    <p class="h4 text-danger">Contact us</p>
+    <p class="line-break-dbl-top">
+{!! Form::open(['url' => 'contact']) !!}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+          <div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
+            {!! Form::label('name', 'Name :', ['class' => 'control-label']) !!}
+            {!! Form::text('name', null, ['class' => 'form-control','placeholder' => 'Your name']) !!}
+            @if ($errors->has('name'))
+              <span class="text-danger">
+                <span>{{ $errors->first('name') }}</span>
+              </span>
+            @endif
+          </div>
+          <div class='form-group {{ $errors->has('email') ? ' has-error line-break-dbl' : '' }}'>
+            {!! Form::label('email', 'Email :', ['class' => 'control-label']) !!}
+            {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
+            @if ($errors->has('email'))
+              <span class="text-danger">
+                <span>{{ $errors->first('email') }}</span>
+              </span>
+            @endif
+          </div>
+          <div class='form-group {{ $errors->has('message') ? ' has-error line-break-dbl' : '' }}'>
+            {!! Form::label('message', 'Message :', ['class' => 'control-label']) !!}
+            {!! Form::textarea('message', null, ['class' => 'form-control','placeholder' => 'Your message']) !!}
+            @if ($errors->has('message'))
+              <span class="text-danger">
+                <span>{{ $errors->first('message') }}</span>
+              </span>
+            @endif
+          </div>
+          <div class='form-group line-break-dbl-top'>
+            {!! Form::submit('Send Message', ['class' => 'btn btn-default btn-lg']) !!}
+          </div>
+        </div>
+      </div>
+    </div>
+  {!! Form::close() !!}
+    </p>
+  </div>
+</section>
 @endsection
