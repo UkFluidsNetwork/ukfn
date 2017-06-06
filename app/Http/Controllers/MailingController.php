@@ -14,6 +14,7 @@ use App\Http\Requests\SendMailRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\PanelController;
+use App\Http\Controllers\PagesController;
 use App\Http\Requests\SubscriptionRequest;
 
 class MailingController extends Controller
@@ -21,7 +22,7 @@ class MailingController extends Controller
 
     /**
      * List of supported email addresses
-     * @access private
+     *
      * @var array
      */
     private $emails = [
@@ -34,7 +35,6 @@ class MailingController extends Controller
      *
      * @param SubscriptionRequest $request
      * @return redirect to the viewing page
-     * @author Javier Arias <ja573@cam.ac.uk>
      */
     public function subscription(SubscriptionRequest $request)
     {
@@ -43,26 +43,30 @@ class MailingController extends Controller
 
         $this->subscribe($email, $user_id);
 
-        $this->addToQueue(env('MAIL_USERNAME'), $email, 'UK Fluids Network Mailing List', ['email' => $email], 'mail.subscribed');
+        $this->addToQueue(env('MAIL_USERNAME'),
+                          $email,
+                          'UK Fluids Network Mailing List',
+                          ['email' => $email],
+                          'mail.subscribed');
 
-        return Redirect::to(URL::previous() . "#subscription-sign-up-form")->with('subscription_signup_ok', 'Your email has been added to our database.');
+        return Redirect::to(URL::previous() . "#subscription-sign-up-form")
+                          ->with('subscription_signup_ok',
+                                 'Your email has been added to our database.');
     }
-    
+
     /**
      * Register a new address in the subscriptions list
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public 
+     *
      * @param string $email
      * @param int $user_id
      */
     public function subscribe($email, $user_id = null)
     {
         $id = $this->getSubscriptionId($email);
-        
+
         if ($id) {
+            Subscription::withTrashed()->where('id', $id)->restore();
             $subscription = Subscription::findOrFail($id);
-            $subscription->deleted = 0;
             $subscription->user_id = $user_id;
             $subscription->save();
         } else {
@@ -74,43 +78,32 @@ class MailingController extends Controller
     }
 
     /**
-     * Render all Mailing list emails
+     * Render mailing list view
      *
      * @return void
-     * @access public
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
+        $mailingList = Subscription::All();
+
+        foreach ($mailingList as $r) {
+            $r->created = PagesController::formatDate($r->created_at);
         }
 
-        $list = Subscription::getAll();
-        $mailingList = [];
-        $index = 0;
-
-        foreach ($list as $result) {
-            $mailingList[$index]['email'] = $result->email;
-            $mailingList[$index]['created_at'] = Carbon::parse($result->created_at)->format('l jS F, H:i');
-            $index++;
-        }
-
-        // Bread crumbs array
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Subscriptions', 'path' => '/panel/subscriptions']
         ];
         $breadCount = count($bread);
 
-        return view('panel.subscriptions.view', compact('bread', 'breadCount', 'mailingList'));
+        return view('panel.subscriptions.view',
+                    compact('bread', 'breadCount', 'mailingList'));
     }
 
     /**
      * Render send mail interface
-     * @access public
+     *
      * @return void
-     * @author Robert Barczyk <robert@barczyk.net>
      */
     public function send()
     {
@@ -129,9 +122,9 @@ class MailingController extends Controller
     }
 
     /**
-     * Dispatch email to be sent to the mailing list or other addresses, the message sent is stored.
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     * Dispatch email to be sent to the mailing list or other addresses,
+     * the message sent is stored.
+     *
      * @param SendMailRequest $request
      * @return void
      */
@@ -198,8 +191,7 @@ class MailingController extends Controller
 
     /**
      * Add a message to the mail queue
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param string $from
      * @param string $to
      * @param string $subject
@@ -207,15 +199,17 @@ class MailingController extends Controller
      * @param string $template
      * @param string $attachment
      */
-    public function addToQueue($from, $to, $subject, $parameters, $template = "mail.email", $attachment = null)
+    public function addToQueue($from, $to, $subject, $parameters,
+                               $template = "mail.email", $attachment = null)
     {
-        $this->dispatch(new SendEmail($from, $to, $subject, $parameters, $template, $attachment));
+        $this->dispatch(new SendEmail(
+                $from, $to, $subject, $parameters, $template, $attachment));
     }
 
     /**
-     * Render the unsubscribe page. Checks whether the supplied email and id match.
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     * Render the unsubscribe page.
+     * Checks whether the supplied email and id match.
+     *
      * @param string $querystring {email}{id}
      * @return void
      */
@@ -236,8 +230,7 @@ class MailingController extends Controller
 
     /**
      * Mark a subscription as deleted
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @return void
      */
@@ -245,67 +238,91 @@ class MailingController extends Controller
     {
         try {
             $this->cancelSubscription($id);
-            Session::flash('success_message', 'You have been unsubscribed from the mailing list.');
+            Session::flash('success_message',
+                'You have been unsubscribed from the mailing list.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
         return redirect('/');
     }
-    
+
+    /**
+     * Admin version of removeSubscription()
+     *
+     * @param int $id
+     * @return void
+     */
+    public function deleteSubscription($id)
+    {
+        try {
+            $this->cancelSubscription($id);
+            Session::flash('success_message', 'Subscription removed.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/subscriptions');
+    }
+
     /**
      * Delete a subscription by id or email address
-     * 
+     *
      * @param int $id
      * @param string $email
      * @return boolean
      */
-    public function cancelSubscription($id = null, $email = null, $user_id = null)
+    public function cancelSubscription($id = null, $email = null,
+                                       $user_id = null)
     {
         if (!$id && !$email && !$user_id) {
             return false;
         }
-        
-        $subscription_id = $id ? $id : ($email ? $this->getSubscriptionId($email) : $this->getSubscriptionIdByUser($user_id));
+
+        $subscription_id = $id
+                           ? $id
+                           : ($email
+                              ? $this->getSubscriptionId($email)
+                              : $this->getSubscriptionIdByUser($user_id));
         $subscription = Subscription::findOrFail($subscription_id);
-        $subscription->deleted = 1;
-        
-        return $subscription->save();
+
+        return $subscription->delete();
     }
 
     /**
      * Set a thankful flash message and redirect to home
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return void
      */
     public function keepSubscription()
     {
-        Session::flash('success_message', 'Thank you for keeping your subscription to the mailing list.');
+        Session::flash('success_message',
+            'Thank you for keeping your subscription to the mailing list.');
         return redirect('/');
     }
 
     /**
      * Get the id of a subscription given an email address
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
+     *
      * @param string $email
      * @return int|null
      */
     private function getSubscriptionId($email)
     {
-        return isset(Subscription::getIdByEmail($email)[0]) ? (int) Subscription::getIdByEmail($email)[0] : null;
+        return isset(Subscription::getIdByEmail($email)[0])
+               ? (int) Subscription::getIdByEmail($email)[0]
+               : null;
     }
 
     /**
      * Get the id of a subscription given a user id
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
+     *
      * @param int $user_id
      * @return int|null
      */
     private function getSubscriptionIdByUser($user_id)
     {
-        return isset(Subscription::getIdByUser($user_id)[0]) ? (int) Subscription::getIdByUser($user_id)[0] : null;
+        return isset(Subscription::getIdByUser($user_id)[0])
+               ? (int) Subscription::getIdByUser($user_id)[0]
+               : null;
     }
 
     /**
@@ -318,11 +335,10 @@ class MailingController extends Controller
      * @param boolean $public
      * @param boolean $mailing
      * @param string $toEmailRaw
-     * @static
-     * @access public
-     * @author Robert Barczyk <robert@barczyk.net>
      */
-    public static function addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attachment)
+    public static function addNewMessage($from, $subject, $body, $userID,
+                                         $public, $mailing, $toEmailRaw,
+                                         $attachment)
     {
         $m = new Message();
         $m->from = $from;
