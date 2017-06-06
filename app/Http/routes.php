@@ -25,6 +25,7 @@ Route::get('talks/stream', 'TalksController@stream');
 Route::get('about', 'PagesController@about');
 Route::get('contact', function() {return Redirect::to('about');}); // old URI
 Route::get('admin', function() {return Redirect::to('about');}); // old URI
+Route::get('competition', 'CompetitionController@index');
 Route::get('viewmessage/{id}', 'PagesController@viewmessage');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/{id}', 'TalksController@view');
