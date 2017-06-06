@@ -36,9 +36,21 @@
         <td class="hide-this">{{ $user->created }}</td>
         <td>{{ $user->updated }}</td>
         <td>{{ Html::link('/panel/users/edit/' . $user->id, "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>
+             {{ Form::open(
+                    ['action' => ['UsersController@delete', $user->id],
+                     'class' => 'delete']) }}
+             {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
+             {{ Form::close() }}
+        </td>
       </tr>
       @endforeach
       </tbody>
     </table>
   </div>
+<script>
+ $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this user?");
+ });
+</script>
 @endsection
