@@ -213,7 +213,7 @@ class SigsController extends Controller
     {
         $sigs = [];
         $key = 0;
-        $allSigs = Sig::all();
+        $allSigs = Sig::orderBy('name', 'asc')->get();
 
         foreach ($allSigs as $sig) {
             $sigs[$key] = $sig;

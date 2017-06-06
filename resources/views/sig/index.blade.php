@@ -81,7 +81,6 @@
                        class="text-danger">
                         <div class="text-danger line-break">
                             <strong>
-                                @{{ sigCtrl.thisSig.data.id }}.
                                 @{{ sigCtrl.thisSig.data.name }}
                             </strong>
                         </div>
@@ -140,7 +139,7 @@
                     <a href=""
                        ng-click="sigCtrl.getSig(sig.id);
                                 sigCtrl.setActive(sig.id);">
-                        @{{ sig.id }}. @{{ sig.name }}
+                        @{{ sig.name }}
                     </a>
                 </li>
             </ul>
