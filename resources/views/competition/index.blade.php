@@ -4,7 +4,7 @@
   <h2 class='line-break'>Photo and Video Competition</h2>
   <div class="well">
     <p>
-      The UK Fluids Network is launching a competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition will run every 4 months, with the first deadline 30 June 2017.
+      The UK Fluids Network is launching a competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition will run every 4 months, with the first deadline 31 July 2017.
     <p>
   </div>
   <p>
@@ -14,27 +14,27 @@
 The photo or video can be on any subject related to fluid mechanics – so not only experimental observations and numerical simulation results but also, for example, illustrations of working in a laboratory or out in the field.
   </p>
   <p>
-The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website [and ideally Naked Scientists and JFM, if we can].
+The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
-  <p><b>The closing date for entries is 30 June 2017.</b></p>
+  <p><b>The closing date for entries is 31 July 2017.</b></p>
   <p>
   How to enter
   <ul>
     <li>You must be a UK-based fluid mechanics researcher, i.e. at a university, research institute, or company</li>
     <li>Email photos directly to <a href="mailto:competition@ukfluids.net">competition@ukfluids.net</a>. Submit videos by giving a link to a suitable data-sharing website, e.g. Dropbox.</li>
     <li>
-      The covering email must contain the following information:
+      In both cases, the covering email must contain the following information:
       <ol type="a">
         <li>Name and affiliation</li>
         <li>Title (max 10 words)</li>
         <li>Description, including whether (for photos) the image is a composite or has been enhanced (max 50 words)</li>
-        <li>Keywords</li>
+        <li>Keywords (max 50)</li>
         <li>A statement granting non-exclusive use of the media:
           <p>
 “I have checked with my [supervisor/manager/sponsor] __________________ that I have permission to enter the proposed photo(s)/video(s) in the competition and give the UK Fluids Network the right to publish them on its website and elsewhere.”
           </p>
         </li>
-        <li>Whether it has won other competitions</li>
+        <li>Whether the photo/video has won other competitions</li>
         <li>Any due acknowledgements</li>
       </ol>
     </li>
@@ -51,7 +51,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
   <p>
     Judging
     <ul>
-      <li>After the closing date, the UKFN website will display all entries and visitors to the website will be asked to vote for their favourite photo and video (voters will be identified via their Twitter account or email address) to give a shortlist that will be judged by the Executive Committee.</li>
+      <li>After the closing date, the UKFN website will display all entries and visitors to the website will be asked to vote for their favourite photo and video (voters will be identified via their email address) to give a shortlist that will be judged by the Executive Committee.</li>
     </ul>
   </p>
 
