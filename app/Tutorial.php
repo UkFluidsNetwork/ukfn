@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Tutorial extends Model
 {
-    
+
     use SoftDeletes;
-    
+
     /**
      * The attributes that are mass assignable.
      *
@@ -17,20 +17,20 @@ class Tutorial extends Model
      */
     protected $fillable = [
     ];
-    
+
     /**
      * Get the files that belong to this tutorial
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function files()
     {
         return $this->hasMany('App\File');
     }
-    
+
     /**
      * Get the resource that this tutorial belongs to
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function resources()

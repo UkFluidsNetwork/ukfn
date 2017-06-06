@@ -107,6 +107,7 @@ Route::post('news', 'NewsController@create')->middleware('admin');
 Route::post('events/delete/{id}', 'EventsController@delete')->middleware('admin');
 Route::post('events', 'EventsController@create')->middleware('admin');
 Route::post('sendmail', 'MailingController@sendMail')->middleware('admin');
+Route::post('mailing/delete/{id}', 'MailingController@deleteSubscription')->middleware('admin');
 Route::post('tags/delete/{id}', 'TagsController@delete')->middleware('admin');
 Route::post('tags/add', 'TagsController@create')->middleware('admin');
 Route::post('institutions/delete/{id}', 'InstitutionsController@delete')->middleware('admin');
