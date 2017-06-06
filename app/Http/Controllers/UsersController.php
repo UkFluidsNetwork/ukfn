@@ -15,8 +15,7 @@ class UsersController extends Controller
 
     /**
      * List all users
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return void
      */
     public function view()
@@ -33,13 +32,13 @@ class UsersController extends Controller
             $user->updated = date("d M H:i", strtotime($user->updated_at));
         }
 
-        return view('panel.users.view', compact('users', 'bread', 'breadCount'));
+        return view('panel.users.view',
+                     compact('users', 'bread', 'breadCount'));
     }
 
     /**
      * Edit users
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @return void
      */
@@ -67,28 +66,27 @@ class UsersController extends Controller
 
         $vars = [
             'user',
-            'bread', 
-            'breadCount', 
+            'bread',
+            'breadCount',
             'titles',
             'groups',
-            'subDisciplines', 
-            'applicationAreas', 
+            'subDisciplines',
+            'applicationAreas',
             'techniques',
-            'institutions', 
-            'facilities', 
-            'curDisciplinesCategory', 
-            'curApplicationCategory', 
+            'institutions',
+            'facilities',
+            'curDisciplinesCategory',
+            'curApplicationCategory',
             'userTags',
             'userInstitutions'
         ];
-        
+
         return view('panel.users.edit', compact($vars));
     }
 
     /**
      * Update users
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param EventsFormRequest $request
      * @return void
@@ -100,7 +98,7 @@ class UsersController extends Controller
             $input = $request->all();
             $user->fill($input);
             $user->save();
-            
+
             $institutions = $request->institutions ? : [];
             $user->updateInstitutions($institutions);
             $user->updateTags($request->toArray());
@@ -113,8 +111,7 @@ class UsersController extends Controller
 
     /**
      * Add users
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @return void
      */
@@ -141,28 +138,27 @@ class UsersController extends Controller
 
         $vars = [
             'user',
-            'bread', 
-            'breadCount', 
+            'bread',
+            'breadCount',
             'titles',
             'groups',
-            'subDisciplines', 
-            'applicationAreas', 
+            'subDisciplines',
+            'applicationAreas',
             'techniques',
-            'institutions', 
-            'facilities', 
-            'curDisciplinesCategory', 
-            'curApplicationCategory', 
+            'institutions',
+            'facilities',
+            'curDisciplinesCategory',
+            'curApplicationCategory',
             'userTags',
             'userInstitutions'
         ];
-        
+
         return view('panel.users.add', compact($vars));
     }
 
     /**
      * Create users
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param EventsFormRequest $request
      * @return void
      */
@@ -182,10 +178,28 @@ class UsersController extends Controller
         }
         return redirect('/panel/users');
     }
-    
+
+    /**
+     * Delete a user
+     *
+     * @param int $id
+     * @return void
+     */
+    public function delete($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/users');
+    }
+
     /**
      * Full list of users to export to CSV
-     * 
+     *
      * @return void
      */
     public function export()
@@ -194,27 +208,26 @@ class UsersController extends Controller
         if (!$admin->checkIsAdmin()) {
             return redirect('/');
         }
-        
+
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users'],
             ['label' => 'Export', 'path' => '/panel/users/export'],
         ];
         $breadCount = count($bread);
-        
+
         $users = User::all();
 
-        return view('panel.users.export', compact('users', 'bread', 'breadCount'));
+        return view('panel.users.export',
+                     compact('users', 'bread', 'breadCount'));
     }
-    
+
     /*
-     * Get all users API.<br>
-     * Available to admins or sig leaders
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @return json
+     * Get all users in JSON format
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getUsersJson() 
+    public function getUsersJson()
     {
         $users = [];
         $allUsers = User::all();
@@ -222,30 +235,31 @@ class UsersController extends Controller
         foreach ($allUsers as $user) {
             $user->title;
             $user->institutions;
-            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $user->fullname = $user->title->shortname . " "
+                              . $user->name . " " . $user->surname;
             $user->sigs;
             $users[] = $user;
         }
-        
+
         return response()->json($users);
     }
-    
+
     /**
-     * Get selected user API. <br>
-     * Available to admin or sig leaders
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
+     * Get a specic user in JSON, givent it's $id
+     *
      * @param int $id
-     * @return json
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getUserJson($id) 
+    public function getUserJson($id)
     {
         $user = User::findOrFail($id);
         $user->title;
         $user->institutions;
-        $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+        $user->fullname = $user->title->shortname . " "
+                          . $user->name . " " . $user->surname;
         $user->sigs;
 
         return response()->json($user);
     }
 }
+
