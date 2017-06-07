@@ -217,12 +217,12 @@
             <div class="row">
                 <div class="col-lg-offset-2 col-lg-8 col-md-12 col-sm-12 col-xs-12 text-center">
                     <p class="footer-credits">
-                        &copy; 2017 ukfluids.net
+                        &copy; 2017 UK Fluids Network
                     </p>
                     <p class="footer-credits">
-                        Designed by
-                        <a href="{{ url('http://arias.re') }}" class="footer-color" target="_blank">arias.re</a> &amp;
-                        <a href="{{ url('https://barczyk.net') }}" class="footer-color" target="_blank" title="barczyk.net website">barczyk.net</a>
+                        Developed by
+                        <a href="{{ url('http://arias.re') }}" class="footer-color" target="_blank">Javier Arias</a> &amp;
+                        <a href="{{ url('https://barczyk.net') }}" class="footer-color" target="_blank" title="barczyk.net website">Robert Barczyk</a>
                     </p>
                 </div>
             </div>
