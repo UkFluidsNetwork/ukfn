@@ -55,3 +55,16 @@ img.sig-map-image {
     margin: 20px 0;
     padding: 20px;
 }
+
+.panel-heading {
+    padding: 15px 15px !important;
+}
+
+.panel-primary > .panel-heading > a {
+    color: $ukfn-darkblue;
+    text-decoration: none;
+}
+
+.panel-primary > .panel-heading {
+    background-color: white !important;
+}

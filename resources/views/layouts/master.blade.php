@@ -7,7 +7,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="web_author" content="Javier Arias, javier@arias.re">
         {!! SEO::generate() !!}
-        <link href="{{ asset('css/main.css') }}?v=7" rel="stylesheet" type="text/css">
+        <link href="{{ asset('css/main.css') }}?v=8" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">

@@ -22,6 +22,7 @@
 
 <div ng-app="ukfn" ng-controller="sigController as sigCtrl"
      ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
+  <div class="hide-mobile">
     <div class="container-fluid nopadding">
         <!-- UK map -->
         <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
@@ -145,5 +146,46 @@
             </ul>
         </div>
     </div>
+  </div>
+  <div class="hide-desktop">
+    <!-- SIG list accordion -->
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-primary" ng-repeat="sig in sigCtrl.allSigs.data">
+        <div class="panel-heading">
+          <a data-toggle="collapse"
+             data-parent="#accordion"
+             ng-click="sigCtrl.getSig(sig.id); sigCtrl.setActive(sig.id);"
+             ng-href="@{{ '#collapse' + sig.id }}">
+             <h4 class="panel-title">
+              @{{ sig.name }}
+            </h4>
+          </a>
+         </h4>
+        </div>
+        <div ng-attr-id="@{{ 'collapse' + sig.id }}"
+             class="panel-collapse collapse" style="text-align: center;">
+          <div ng-if="sig.bigimage"
+               class='sig-map-image'>
+            <a href="/sig/@{{sig.shortname}}">
+              <img class='sig-map-image'
+                   src="/pictures/sig/@{{sig.bigimage}}"
+                   alt="@{{sig.bigimage}}">
+            </a>
+           </div>
+           <p class="line-break">
+             @{{ sigCtrl.thisSig.data.description }}
+           </p>
+           <p  ng-repeat="leader in sigCtrl.thisSig.data.leader">
+             <strong class="line-break">Leader:</strong> @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i>
+           </p>
+           <p>
+             <a class="btn btn-default" href="/sig/@{{sig.shortname}}">
+               More details
+             </a>
+           </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @endsection

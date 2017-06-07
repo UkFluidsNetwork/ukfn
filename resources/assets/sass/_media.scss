@@ -4,7 +4,13 @@
     }
 }
 
-@media only screen and (max-width: 1000px) and (min-width:0px) {
+@media only screen and (min-width:851px) {
+    .hide-desktop {
+        display: none;
+    }
+}
+
+@media only screen and (max-width: 850px) and (min-width:0px) {
     .hide-this {
         display: none;
     }
@@ -64,6 +70,10 @@
         width: 100% !important;
         padding-left: 0px !important;
         padding-right: 0px !important;
+    }
+
+    .hide-mobile {
+        display: none;
     }
 }
 
