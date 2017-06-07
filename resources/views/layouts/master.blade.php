@@ -12,6 +12,34 @@
         <link href="{{ asset('css/vendor/selectize.bootstrap3.css') }}" rel="stylesheet" type="text/css">
         <link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
 
+        <script type="application/ld+json">
+        {
+          "@context": "http://schema.org",
+          "@type": "Organization",
+          "name": "UK Fluids Network",
+          "alternateName": "UKFN",
+          "description": "UKFN is a network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics.",
+          "url": "https://ukfluids.net",
+          "logo": "https://ukfluids.net/pictures/logo.png",
+          "email": "info@ukfluids.net",
+          "foundingDate": "2016-09-01",
+          "location": {
+            "@type": "PostalAddress",
+            "addressCountry": "UK"
+          },
+          "sameAs": [
+            "https://twitter.com/UKFluidsNetwork",
+            "https://www.facebook.com/UKFluids/"
+          ],
+          "sponsor": {
+            "@type": "Organization",
+            "name": "EPSRC",
+            "url": "https://www.epsrc.ac.uk/",
+            "logo": "https://www.epsrc.ac.uk/epsrc/includes/themes/EPSRC/images/logo.png"
+          }
+        }
+        </script>
+
         <script src="{{ asset('js/vendor/jquery/jquery.min.js')}}"></script>
         <script src="{{ asset('js/vendor/angular/angular.min.js')}}"></script>
         <script src="{{ asset('js/vendor/angular-messages/angular-messages.min.js')}}"></script>
