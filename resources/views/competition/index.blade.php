@@ -28,7 +28,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
         <li>Name and affiliation</li>
         <li>Title (max 10 words)</li>
         <li>Description, including whether (for photos) the image is a composite or has been enhanced (max 50 words)</li>
-        <li>Keywords (max 50)</li>
+        <li>Keywords (max 5)</li>
         <li>A statement granting non-exclusive use of the media:
           <p>
 “I have checked with my [supervisor/manager/sponsor] __________________ that I have permission to enter the proposed photo(s)/video(s) in the competition and give the UK Fluids Network the right to publish them on its website and elsewhere.”
@@ -53,6 +53,9 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
     <ul>
       <li>After the closing date, the UKFN website will display all entries and visitors to the website will be asked to vote for their favourite photo and video (voters will be identified via their email address) to give a shortlist that will be judged by the Executive Committee.</li>
     </ul>
+  </p>
+  <p>
+    If you have any questions, please email <a href="mailto:competition@ukfluids.net">competition@ukfluids.net</a>.
   </p>
 
 @endsection
