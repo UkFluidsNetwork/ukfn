@@ -19,7 +19,29 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
   <p><b>The closing date for entries is 31 July 2017.</b></p>
   <div class="container-fluid nopadding-left">
     <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-8">
+        <div class="col-sm-4 col-sm-push-8">
+            <div class="bs-callout bs-callout-info">
+                <h4>Key points</h4>
+                <ul class="keypoints">
+                    <li>
+                        <span>Cash prizes of £200 for the best photo and the best video.</span>
+                    </li>
+                    <li>
+                        <span>The closing date is 31 July 2017.</span>
+                    </li>
+                    <li>
+                        <span>Finalists will be chosen by popular vote.</span>
+                    </li>
+                    <li>
+                        <span>Winning photo and video will be published on the website.</span>
+                    </li>
+                    <li>
+                        <span>If you have any questions, please email <a href="mailto:competition@ukfluids.net">competition@ukfluids.net</a>.</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="col-sm-8 col-sm-pull-4">
             <div class="bs-callout bs-callout-danger">
               <h4>How to enter</h4>
               <ul>
@@ -56,28 +78,6 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
               <h4>Judging</h4>
                 <ul>
                   <li>After the closing date, the UKFN website will display all entries and visitors to the website will be asked to vote for their favourite photo and video (voters will be identified via their email address) to give a shortlist that will be judged by the Executive Committee.</li>
-                </ul>
-            </div>
-        </div>
-        <div class="col-lg-4 col-md-4 col-sm-4">
-            <div class="bs-callout bs-callout-info">
-                <h4>Key points</h4>
-                <ul class="keypoints">
-                    <li>
-                        <span>Cash prizes of £200 for the best photo and the best video.</span>
-                    </li>
-                    <li>
-                        <span>The closing date is 31 July 2017.</span>
-                    </li>
-                    <li>
-                        <span>Finalists will be chosen by popular vote.</span>
-                    </li>
-                    <li>
-                        <span>Winning photo and video will be published on the website.</span>
-                    </li>
-                    <li>
-                        <span>If you have any questions, please email <a href="mailto:competition@ukfluids.net">competition@ukfluids.net</a>.</span>
-                    </li>
                 </ul>
             </div>
         </div>
