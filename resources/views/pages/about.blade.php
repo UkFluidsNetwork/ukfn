@@ -140,9 +140,28 @@
 <section class="page-header">
   <div>
     <p class="h4 text-danger">Communications</p>
-    <p class="line-break-dbl-top">
-     <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">User guide to communications via the UKFN website</a>
-    </p>
+    <ul class="line-break-dbl-top">
+      <li>
+        <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">
+          User guide to communications via the UKFN website
+        </a>
+      </li>
+      <li>
+        <a href="/pictures/ukfn-logo-250.png" target="_blank">
+          UKFN logo 250x115
+        </a>
+      </li>
+      <li>
+        <a href="/pictures/ukfn-logo-500.png" target="_blank">
+          UKFN logo 500x230
+        </a>
+      </li>
+      <li>
+        <a href="/pictures/ukfn-logo-1000.png" target="_blank">
+          UKFN logo 1000x460
+        </a>
+      </li>
+    </ul>
   </div>
 </section>
 <section class="page-header">

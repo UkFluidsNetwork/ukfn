@@ -91,7 +91,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="{{ URL::to('/')}}">
-                            <img src="{{ asset('pictures/uknf-logo-250.png') }}"
+                            <img src="{{ asset('pictures/ukfn-logo-250.png') }}"
                                  alt="UK Fluids Network logo"
                                  class="logo">
                         </a>
