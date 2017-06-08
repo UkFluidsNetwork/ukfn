@@ -3,9 +3,9 @@
     <section class="page-header">
         <div class="line-break">
             <div class="text-primary">
-                <strong class="panel-title">
+                <h4 class="panel-title strong line-height-default">
                   <a href="{{ $tweet->userUrl }}" target="_blank">{{ $tweet->user }}</a>
-                </strong>
+                </h4>
             </div>
             <div class="text-muted">{{ "@" . $tweet->username }}</div>
             <div class="text-muted">{{ $tweet->date }}</div>

@@ -125,6 +125,14 @@ input[type="text"], textarea, button {
     margin-right: 0 !important;
 }
 
+.strong {
+    font-weight: bold !important;
+}
+
+.line-height-default {
+    line-height: inherit !important;
+}
+
 #google_calendar > iframe {
     width: 100% !important;
     max-height: 100% !important;

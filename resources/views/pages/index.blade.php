@@ -61,7 +61,9 @@
       <section class="page-header">
         <div class="line-break">
           <div class="text-danger">
-            <strong class="panel-title">{{ $new->title }}</strong>
+            <h4 class="panel-title strong line-height-default">
+              {{ $new->title }}
+            </h4>
           </div>
           <div class="text-muted">{{ $new->date }}</div>
         </div>
@@ -83,7 +85,9 @@
               @if ($event->new)
               <span class="label label-new label-ukfn-blue">New</span>
               @endif
-            <strong class="panel-title">{{ $event->title }}</strong>
+            <h4 class="panel-title strong line-height-default">
+              {{ $event->title }}
+            </h4>
           </div>
           <div class="text-muted">{{ $event->date }}{{ $event->subtitle }}</div>
         </div>
