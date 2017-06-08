@@ -163,7 +163,7 @@
          </h4>
         </div>
         <div ng-attr-id="@{{ 'collapse' + sig.id }}"
-             class="panel-collapse collapse" style="text-align: center;">
+             class="panel-collapse collapse">
           <div ng-if="sig.bigimage"
                class='sig-map-image'>
             <a href="/sig/@{{sig.shortname}}">
@@ -172,14 +172,16 @@
                    alt="@{{sig.bigimage}}">
             </a>
            </div>
-           <p class="line-break">
+           <p class="line-break padding-left padding-right">
              @{{ sigCtrl.thisSig.data.description }}
            </p>
-           <p  ng-repeat="leader in sigCtrl.thisSig.data.leader">
+           <p  ng-repeat="leader in sigCtrl.thisSig.data.leader"
+               class="text-center">
              <strong class="line-break">Leader:</strong> @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i>
            </p>
-           <p>
-             <a class="btn btn-default" href="/sig/@{{sig.shortname}}">
+           <p class="text-center">
+             <a class="btn btn-default"
+                href="/sig/@{{sig.shortname}}">
                More details
              </a>
            </p>
