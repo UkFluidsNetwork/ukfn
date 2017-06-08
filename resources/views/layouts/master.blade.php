@@ -20,7 +20,7 @@
           "alternateName": "UKFN",
           "description": "UKFN is a network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics.",
           "url": "https://ukfluids.net",
-          "logo": "https://ukfluids.net/pictures/logo.png",
+          "logo": "https://ukfluids.net/pictures/ukfn-logo-250.png",
           "email": "info@ukfluids.net",
           "foundingDate": "2016-09-01",
           "location": {
@@ -91,7 +91,7 @@
                             <span class="icon-bar"></span>
                         </button>
                         <a class="navbar-brand" href="{{ URL::to('/')}}">
-                            <img src="{{ asset('pictures/logo.png') }}"
+                            <img src="{{ asset('pictures/uknf-logo-250.png') }}"
                                  alt="UK Fluids Network logo"
                                  class="logo">
                         </a>
