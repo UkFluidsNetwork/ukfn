@@ -99,22 +99,22 @@
                     <div class="collapse navbar-collapse" id="top-nav-bar">
                         <ul class="nav navbar-nav">
                             <li class="{{ Request::is('sig*') ? 'active' : '' }}">
-                                {{ Html::link('/sig', 'SIG', ['alt' => 'Special Interest Groups']) }}
+                                {{ Html::link('/sig', 'SIG', ['title' => 'Special Interest Groups']) }}
                             </li>
                             <li class="{{ Request::is('srv*') ? 'active' : '' }}">
-                                {{ Html::link('/srv', 'SRV', ['alt' => 'Short Research Visits']) }}
+                                {{ Html::link('/srv', 'SRV', ['title' => 'Short Research Visits']) }}
                             </li>
                             <li class="{{ Request::is('talks*') ? 'active' : '' }}">
-                                {{ Html::link('/talks', 'Talks', ['alt' => 'Fluids Related Seminars']) }}
+                                {{ Html::link('/talks', 'Talks', ['title' => 'Fluids Related Seminars']) }}
                             </li>
                             <li class="{{ Request::is('researcher-resources*') ? 'active' : '' }}">
-                                {{ Html::link('/researcher-resources', 'Resources', ['alt' => 'Researcher Resources']) }}
+                                {{ Html::link('/researcher-resources', 'Resources', ['title' => 'Researcher Resources']) }}
                             </li>
                             <li class="{{ Request::is('competition*') ? 'active' : '' }}">
-                                {{ Html::link('/competition', 'Competition', ['alt' => 'Photo and video competition']) }}
+                                {{ Html::link('/competition', 'Competition', ['title' => 'Photo and video competition']) }}
                             </li>
                             <li class="{{ Request::is('about*') ? 'active' : '' }}">
-                                {{ Html::link('/about', 'About', ['alt' => 'Information about the network']) }}
+                                {{ Html::link('/about', 'About', ['title' => 'Information about the network']) }}
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
