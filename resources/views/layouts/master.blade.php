@@ -249,7 +249,7 @@
                     </p>
                     <p class="footer-credits">
                         Developed by
-                        <a href="{{ url('http://arias.re') }}" class="footer-color" target="_blank">Javier Arias</a> &amp;
+                        <a href="{{ url('https://arias.re') }}" class="footer-color" target="_blank">Javier Arias</a> &amp;
                         <a href="{{ url('https://barczyk.net') }}" class="footer-color" target="_blank" title="barczyk.net website">Robert Barczyk</a>
                     </p>
                 </div>
