@@ -4,28 +4,151 @@
 <div class="line-break display-block" style="overflow: auto">
     <h2 class="full-width line-break">
        Special Interest Groups
-       <a id="sig-calendar-btn"
-          href="/sig/calendar/"
-          class="pull-right btn btn-default">
+    </h2>
+</div>
+
+<div style="text-align:center;">
+    <div class="col-sm-4 col-xs-12">
+        <a id="sig-calendar-btn" href="/sig/calendar/"
+          style="width: 100%"
+          class="btn btn-default line-break-dbl">
            SIG meeting calendar
        </a>
-    </h2>
-    <div class="ell">
-        <p>
-          <span class="glyphicon glyphicon-exclamation-sign"></span>
-          If you are interested in joining a SIG,
-          please contact the SIG leader directly.
-          There may be a third call for SIG proposals in Spring 2018.
-        </p>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <button id="sig-calendar-btn"
+           data-toggle="modal"
+           data-target="#join-sig"
+           style="width: 100%"
+           class="btn btn-default line-break-dbl">
+           Join a SIG
+        </button>
+        <div class="modal fade" style="margin-top: 10%;"
+             id="join-sig"
+             role="dialog"
+             aria-labelledby="label-join-sig">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="label-join-sig">
+                            Join a SIG
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                        If you are interested in joining a SIG,
+                        please contact the SIG leader directly.
+                        There may be a third call for SIG proposals
+                        in Spring 2018.
+                      </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <button id="sig-calendar-btn"
+           data-toggle="modal"
+           data-target="#sig-call"
+           style="width: 100%"
+           class="btn btn-default line-break-dbl">
+           Next call
+        </button>
+        <div class="modal fade" style="margin-top: 10%;"
+             id="sig-call"
+             role="dialog"
+             aria-labelledby="label-sig-call">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="label-sig-call">
+                            Next call
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                        The next call for SIG proposals will be in
+                        Spring 2018.
+                      </p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
 <div ng-app="ukfn" ng-controller="sigController as sigCtrl"
      ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
-  <div class="hide-mobile">
     <div class="container-fluid nopadding">
+        <!-- SIG list -->
+        <div class="col-md-3 col-sm-5 col-xs-12 mapHeight axis-y">
+            <div class="line-break hidden-sm hidden-md hidden-lg"></div>
+            <!-- SIG list accordion -->
+            <div class="panel-group" id="accordion">
+              <div class="panel panel-primary hide-mobile">
+                <div class="panel-heading">
+                  <a data-toggle="collapse"
+                     data-parent="#accordion"
+                     ng-click="sigCtrl.dispAll(); sigCtrl.setActive(false)"
+                     ng-href="@{{ '#collapse-all' }}">
+                    <h4 class="panel-title">All SIGs</h4>
+                  </a>
+                </div>
+                <div ng-attr-id="@{{ 'collapse-all' }}"
+                     class="panel-collapse collapse">
+                </div>
+              </div>
+              <div class="panel panel-primary" ng-repeat="sig in sigCtrl.allSigs.data">
+                <div class="panel-heading">
+                  <a data-toggle="collapse"
+                     data-parent="#accordion"
+                     ng-click="sigCtrl.getSig(sig.id); sigCtrl.setActive(sig.id);"
+                     ng-href="@{{ '#collapse' + sig.id }}">
+                     <h4 class="panel-title">
+                      @{{ sig.name }}
+                    </h4>
+                  </a>
+                 </h4>
+                </div>
+                <div ng-attr-id="@{{ 'collapse' + sig.id }}"
+                     class="panel-collapse collapse">
+                  <div ng-if="sig.bigimage"
+                       class='sig-map-image'>
+                    <a href="/sig/@{{sig.shortname}}">
+                      <img class='sig-map-image'
+                           src="/pictures/sig/@{{sig.bigimage}}"
+                           alt="@{{sig.bigimage}}">
+                    </a>
+                   </div>
+                   <p class="line-break padding-left padding-right">
+                     @{{ sigCtrl.thisSig.data.description }}
+                   </p>
+                   <p  ng-repeat="leader in sigCtrl.thisSig.data.leader"
+                       class="text-center">
+                     <strong class="line-break">Leader:</strong> @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i>
+                   </p>
+                   <p class="text-center">
+                     <a class="btn btn-default"
+                        href="/sig/@{{sig.shortname}}">
+                       More details
+                     </a>
+                   </p>
+                </div>
+              </div>
+            </div>
+        </div>
         <!-- UK map -->
-        <div class="col-md-6 col-md-push-3 col-sm-7 mobile-nopadding-from-md">
+        <div class="col-md-6 col-sm-7 mobile-nopadding-from-md hide-mobile">
             <div map-lazy-load="@{{ sigCtrl.MAP_URL }}" >
                 <ng-map center="@{{ sigCtrl.map.coordinates }}"
                         scrollwheel="false"
@@ -57,11 +180,10 @@
             </div>
         </div>
         <!-- Sig institutions -->
-        <div class="col-lg-3 col-lg-pull-6 col-md-3 col-md-pull-6
-                    mapHeight axis-y">
+        <div class="col-md-3 mapHeight axis-y hidden-sm">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <div ng-if="sigCtrl.displayAll">
-                <div class="page-header nomargin-top">
+                <div class="nomargin-top">
                     <div class="text-danger line-break">
                         <strong>All SIGs</strong>
                     </div>
@@ -77,41 +199,10 @@
                 </ul>
             </div>
             <div ng-if="!sigCtrl.displayAll">
-                <div class="page-header" style="margin-top: 0px;">
-                    <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}"
-                       class="text-danger">
-                        <div class="text-danger line-break">
-                            <strong>
-                                @{{ sigCtrl.thisSig.data.name }}
-                            </strong>
-                        </div>
-                    </a>
-                    <div ng-if="sigCtrl.thisSig.data.smallimage"
-                         class='sig-map-image'>
-                        <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">
-                            <img class='sig-map-image'
-                                 src="/pictures/sig/@{{sigCtrl.thisSig.data.smallimage}}"
-                                 alt="@{{sigCtrl.thisSig.data.smallimage}}">
-                        </a>
+                <div class="nomargin-top">
+                    <div class="text-danger line-break">
+                        <strong>@{{ sigCtrl.thisSig.data.name }}</strong>
                     </div>
-                    <p class="linre-break">
-                        @{{ sigCtrl.thisSig.data.description }}
-                    </p>
-                    <p>
-                        <a href="/sig/@{{sigCtrl.thisSig.data.shortname}}">
-                          More details
-                        </a>
-                    </p>
-                </div>
-                <div class="page-header" style="margin-top: 0px;">
-                    <p>
-                        <strong class="line-break">Leader</strong>
-                    </p>
-                    <ul ng-repeat="leader in sigCtrl.thisSig.data.leader"
-                        class="no-li-style">
-                        <li>
-                            @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i></li>
-                    </ul>
                 </div>
                 <p>
                     <strong class="line-break">Institutions</strong>
@@ -123,71 +214,6 @@
                 </ul>
             </div>
         </div>
-        <!-- SIG list -->
-        <div class="col-lg-3 col-md-3 mapHeight axis-y">
-            <div class="line-break hidden-sm hidden-md hidden-lg"></div>
-            <ul class="nav nav-pills nav-stacked">
-                <li ng-class="sigCtrl.displayAll ? 'active' : ''">
-                    <a href=""
-                       ng-click="sigCtrl.dispAll(); sigCtrl.setActive(false)">
-                        All SIGs
-                    </a>
-                </li>
-            </ul>
-            <ul class="nav nav-pills nav-stacked"
-                ng-repeat="sig in sigCtrl.allSigs.data">
-                <li ng-class="sigCtrl.sigActive === sig.id ? 'active' : ''" >
-                    <a href=""
-                       ng-click="sigCtrl.getSig(sig.id);
-                                sigCtrl.setActive(sig.id);">
-                        @{{ sig.name }}
-                    </a>
-                </li>
-            </ul>
-        </div>
     </div>
-  </div>
-  <div class="hide-desktop">
-    <!-- SIG list accordion -->
-    <div class="panel-group" id="accordion">
-      <div class="panel panel-primary" ng-repeat="sig in sigCtrl.allSigs.data">
-        <div class="panel-heading">
-          <a data-toggle="collapse"
-             data-parent="#accordion"
-             ng-click="sigCtrl.getSig(sig.id); sigCtrl.setActive(sig.id);"
-             ng-href="@{{ '#collapse' + sig.id }}">
-             <h4 class="panel-title">
-              @{{ sig.name }}
-            </h4>
-          </a>
-         </h4>
-        </div>
-        <div ng-attr-id="@{{ 'collapse' + sig.id }}"
-             class="panel-collapse collapse">
-          <div ng-if="sig.bigimage"
-               class='sig-map-image'>
-            <a href="/sig/@{{sig.shortname}}">
-              <img class='sig-map-image'
-                   src="/pictures/sig/@{{sig.bigimage}}"
-                   alt="@{{sig.bigimage}}">
-            </a>
-           </div>
-           <p class="line-break padding-left padding-right">
-             @{{ sigCtrl.thisSig.data.description }}
-           </p>
-           <p  ng-repeat="leader in sigCtrl.thisSig.data.leader"
-               class="text-center">
-             <strong class="line-break">Leader:</strong> @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i>
-           </p>
-           <p class="text-center">
-             <a class="btn btn-default"
-                href="/sig/@{{sig.shortname}}">
-               More details
-             </a>
-           </p>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
 @endsection
