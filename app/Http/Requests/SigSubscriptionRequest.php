@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Http\Requests\Request;
 
 
-class SubscriptionRequest extends Request
+class SigSubscriptionRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -26,7 +26,8 @@ class SubscriptionRequest extends Request
     public function rules()
     {
       return [
-        'subscription-email' => 'required|email'
+        'subscribe-sig-email' => 'required|email',
+        'sig_id' => 'required'
       ];
     }
 }
