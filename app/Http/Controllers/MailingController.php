@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Redirect;
 use App\Http\Controllers\PanelController;
 use App\Http\Controllers\PagesController;
 use App\Http\Requests\SubscriptionRequest;
+use App\Http\Requests\SigSubscriptionRequest;
 
 class MailingController extends Controller
 {
@@ -31,6 +32,20 @@ class MailingController extends Controller
     ];
 
     /**
+     * SIG Subscription Controller for adding new emails
+     *
+     * @param SigSubscriptionRequest $request
+     * @return redirect to the viewing page
+     */
+    public function sigSubscription(SigSubscriptionRequest $request)
+    {
+       $email = $request->input('subscribe-sig-email');
+       $sig_id = $request->input('sig_id');
+       $user_id = isset(Auth::user()->id) ? Auth::user()->id : null;
+       return $this->processSubscription($email, $user_id, $sig_id);
+    }
+
+    /**
      * Subscription Controller for adding new emails
      *
      * @param SubscriptionRequest $request
@@ -40,18 +55,43 @@ class MailingController extends Controller
     {
         $email = $request->input('subscription-email');
         $user_id = isset(Auth::user()->id) ? Auth::user()->id : null;
+        return $this->processSubscription($email, $user_id);
+    }
 
-        $this->subscribe($email, $user_id);
+    /**
+     * Add the subscription, send the confirmation email, and return safely.
+     *
+     * @param string $email
+     * @param int $user_id
+     * @param int $sig_id
+     * @return redirect to the viewing page
+     */
+    private function processSubscription($email, $user_id = null,
+                                         $sig_id = null)
+    {
+       // $this->subscribe($email, $user_id, $sig_id);
 
-        $this->addToQueue(env('MAIL_USERNAME'),
+        if (is_null($sig_id)) {
+            $subject = "UK Fluids Network Mailing List";
+            $template = "mail.subscribed";
+            $redirect = URL::previous() . "#subscription-sign-up-form";
+            $success = "subscription_signup_ok";
+            $message = "Thank you for subscribing.";
+        } else {
+            $subject = "UK Fluids Network SIG mailing list";
+            $template = "mail.sig_subscribed";
+            $redirect = URL::previous() . "#sig-name";
+            $success = "sig_subscription_signup_ok";
+            $message = "Your email has been passed to the SIG leader.";
+        }
+
+        /*$this->addToQueue(env('MAIL_USERNAME'),
                           $email,
-                          'UK Fluids Network Mailing List',
+                          $subject,
                           ['email' => $email],
-                          'mail.subscribed');
-
-        return Redirect::to(URL::previous() . "#subscription-sign-up-form")
-                          ->with('subscription_signup_ok',
-                                 'Your email has been added to our database.');
+                          $template);
+*/
+        return Redirect::to($redirect)->with($success, $message);
     }
 
     /**
@@ -59,8 +99,9 @@ class MailingController extends Controller
      *
      * @param string $email
      * @param int $user_id
+     * @param int $sig_id
      */
-    public function subscribe($email, $user_id = null)
+    public function subscribe($email, $user_id = null, $sig_id = null)
     {
         $id = $this->getSubscriptionId($email);
 
@@ -68,11 +109,13 @@ class MailingController extends Controller
             Subscription::withTrashed()->where('id', $id)->restore();
             $subscription = Subscription::findOrFail($id);
             $subscription->user_id = $user_id;
+            $subscription->sig_id = $sig_id;
             $subscription->save();
         } else {
             $subscription = new Subscription;
             $subscription->email = $email;
             $subscription->user_id = $user_id;
+            $subscription->sig_id = $sig_id;
             $subscription->save();
         }
     }

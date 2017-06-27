@@ -48,7 +48,7 @@
         </div>
     </div>
 </div>
-<h2>{{ $sig->name }}</h2>
+<h2 id="sig-name">{{ $sig->name }}</h2>
 <div class="container-fluid nopadding-left">
     <div class="row">
         <div class="col-lg-8 col-md-8 col-sm-8">
@@ -59,21 +59,39 @@
                         {{ $sig->description }}
                     </p>
                 </div>
-                <div class="bs-callout bs-callout-danger">
+                <div class="bs-callout bs-callout-danger" id="sig-subscription">
                     <h4>Join SIG Mailing list</h4>
                     <p>
+                      {!! Form::open(['url' => 'subscribe-sig#sig-name']) !!}
                       <div class="input-group">
+                        <input type="text" hidden="hidden" id="sig_id"
+                               value="{{ $sig->id }}">
                         <label for="subscribe-sig-email"
                                class="sr-only">Subscribe</label>
                         <input type="text"
                                id="subscribe-sig-email"
+                               name="subscribe-sig-email"
                                class="form-control"
                                placeholder="your@email.com">
                         <span class="input-group-btn">
                           <button class="btn btn-default"
-                                  type="button">Subscribe</button>
+                                  type="submit">Subscribe</button>
                         </span>
                       </div>
+                        @if ($errors->has('subscribe-sig-email'))
+
+                        <span class="display-block text-danger line-break-top">
+                         <span>{{ $errors->first('subscribe-sig-email') }}</span>
+                        </span>
+                        @endif
+                        @if (Session::has('sig_subscription_signup_ok'))
+
+                        <strong class="display-block text-success
+                                       line-break-top">
+                            {{ Session::get('sig_subscription_signup_ok') }}
+                        </strong>
+                        @endif
+                     {!! Form::close() !!}
                     </p>
                 </div>
                 @if (!empty($sig->users))

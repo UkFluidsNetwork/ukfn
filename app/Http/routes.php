@@ -90,6 +90,7 @@ Route::get('panel/files', 'FilesController@index')->middleware('admin');
 // public 
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
+Route::post('subscribe-sig', 'MailingController@sigSubscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
 Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
 Route::post('unsubscribe', 'MailingController@keepSubscription');
