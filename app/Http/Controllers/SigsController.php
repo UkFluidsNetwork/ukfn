@@ -22,19 +22,26 @@ class SigsController extends Controller
     ];
 
     /**
-     * Render the SIG overview map
-     * 
+     * Render the SIG overview page; the map is not rendered on mobiles.
+     *
+     * @param string $slug Used to preselect a SIG, if provided
      * @return void
      */
     public function map($slug = null)
     {
-        SEO::setTitle('Special Interest Groups');
-        SEO::setDescription('UKFN is pleased to invite proposals for the second round of Special Interest Groups. '
-            . 'The call is open to anyone working in fluid mechanics in the UK.');
-
         $selectedSigId = $slug ? self::getIdBySlug($slug) : 0;
         $agent = new Agent();
         $isMobile = $agent->isMobile();
+
+        if ($isMobile) {
+            $title = "SIG";
+        } else {
+            $title = "Special Interest Groups";
+        }
+
+        SEO::setTitle($title);
+        SEO::setDescription("Special Interest Groups (SIGs) are open to anyone"
+            . " working in fluid mechanics in the UK.");
 
         return view('sig.index', compact('selectedSigId', 'isMobile'));
     }
