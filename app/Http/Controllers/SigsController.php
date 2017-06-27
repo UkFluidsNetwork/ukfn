@@ -10,6 +10,7 @@ use App\Institution;
 use App\Http\Requests\SigsFormRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Jenssegers\Agent\Agent;
 use SEO;
 
 class SigsController extends Controller
@@ -32,8 +33,10 @@ class SigsController extends Controller
             . 'The call is open to anyone working in fluid mechanics in the UK.');
 
         $selectedSigId = $slug ? self::getIdBySlug($slug) : 0;
+        $agent = new Agent();
+        $isMobile = $agent->isMobile();
 
-        return view('sig.index', compact('selectedSigId'));
+        return view('sig.index', compact('selectedSigId', 'isMobile'));
     }
 
     /**

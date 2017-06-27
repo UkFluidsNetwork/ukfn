@@ -75,6 +75,20 @@
     .hide-mobile {
         display: none;
     }
+
+    .no-axis-mobile {
+        overflow-y: hidden !important;
+    }
+
+    .mapHeight {
+        height: 100% !important;
+    }
+
+    .sig-extra-btn {
+        padding-top: 15px !important;
+        padding-bottom: 15px !important;
+        margin-bottom: 15px !important;
+    }
 }
 
 @media only screen and (max-width: 500px) and (min-width:0px) {

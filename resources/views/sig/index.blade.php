@@ -1,6 +1,7 @@
 @extends('layouts.master')
 @section('content')
 @include('flash.success')
+
 <div class="line-break display-block" style="overflow: auto">
     <h2 class="full-width line-break">
        Special Interest Groups
@@ -11,7 +12,7 @@
     <div class="col-sm-4 col-xs-12">
         <a id="sig-calendar-btn" href="/sig/calendar/"
           style="width: 100%"
-          class="btn btn-default line-break-dbl">
+          class="btn btn-default line-break-dbl sig-extra-btn">
            SIG meeting calendar
        </a>
     </div>
@@ -20,7 +21,7 @@
            data-toggle="modal"
            data-target="#join-sig"
            style="width: 100%"
-           class="btn btn-default line-break-dbl">
+           class="btn btn-default line-break-dbl sig-extra-btn">
            Join a SIG
         </button>
         <div class="modal fade" style="margin-top: 10%;"
@@ -56,7 +57,7 @@
            data-toggle="modal"
            data-target="#sig-call"
            style="width: 100%"
-           class="btn btn-default line-break-dbl">
+           class="btn btn-default line-break-dbl sig-extra-btn">
            Next call
         </button>
         <div class="modal fade" style="margin-top: 10%;"
@@ -91,7 +92,8 @@
      ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
     <div class="container-fluid nopadding">
         <!-- SIG list -->
-        <div class="col-md-3 col-sm-5 col-xs-12 mapHeight axis-y">
+        <div class="col-md-3 col-sm-5 col-xs-12 mapHeight axis-y
+                    no-axis-mobile">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <!-- SIG list accordion -->
             <div class="panel-group" id="accordion">
@@ -148,6 +150,7 @@
             </div>
         </div>
         <!-- UK map -->
+        @if (!$isMobile)
         <div class="col-md-6 col-sm-7 mobile-nopadding-from-md hide-mobile">
             <div map-lazy-load="@{{ sigCtrl.MAP_URL }}" >
                 <ng-map center="@{{ sigCtrl.map.coordinates }}"
@@ -180,7 +183,7 @@
             </div>
         </div>
         <!-- Sig institutions -->
-        <div class="col-md-3 mapHeight axis-y hidden-sm">
+        <div class="col-md-3 mapHeight axis-y hidden-sm hide-mobile">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <div ng-if="sigCtrl.displayAll">
                 <div class="nomargin-top">
@@ -214,6 +217,7 @@
                 </ul>
             </div>
         </div>
+        @endif
     </div>
 </div>
 @endsection
