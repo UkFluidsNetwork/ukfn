@@ -200,6 +200,11 @@ class MailingController extends Controller
 
         self::addNewMessage($from, $subject, $body, $userID, $public, $mailing, $toEmailRaw, $attOriginalName);
 
+        Session::flash('success_message',
+                       'Your e-mail has been saved, but not sent.');
+        return redirect('/panel/sendmail');
+        die("Sending mail to mailing list is currently disabled.");
+
         switch ($mailing) {
             case 1:
                 $addresses = Subscription::getEmails();
