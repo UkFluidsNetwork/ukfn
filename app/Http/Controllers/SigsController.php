@@ -301,7 +301,7 @@ class SigsController extends Controller
 
     /**
      * Find the id of a SIG given its slug
-     * 
+     *
      * @param string $slug
      * @return int|null
      */
@@ -315,7 +315,7 @@ class SigsController extends Controller
 
         return null;
     }
-    
+
     public function results()
     {
         return view('sig.siglist');
@@ -324,7 +324,7 @@ class SigsController extends Controller
     /**
      * Add any ukfn member to selected SIG
      * Restricted to admin and SIG leaders
-     * 
+     *
      * @access public
      * @author Robert Barczyk <robert@barczyk.net>
      * @param type $id
@@ -357,8 +357,7 @@ class SigsController extends Controller
     /**
      * API: Get selected sig members
      * Restricted to sig leaders and administrators
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
+     *
      * @param int $id Sig id
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -380,7 +379,7 @@ class SigsController extends Controller
 
     /**
      * Attach a user to a sig
-     * 
+     *
      * @param int $id
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
@@ -404,7 +403,7 @@ class SigsController extends Controller
 
         $sig = Sig::findOrFail($id);
         $user = User::findOrFail($parameters['user_id']);
-        
+
         switch ($action) {
             case "add":
                 $sig->users()->attach($user->id, ['main' => $parameters['main']]);
@@ -419,14 +418,13 @@ class SigsController extends Controller
                 $actionPerformed = !$user->belongsToSig($sig->id);
                 break;
         }
-        
+
         return $actionPerformed ? response()->json("performed: ${action}") : response()->json("could not ${action}", 500);
     }
 
     /**
      * Google Calendar of SIG meetings
      *
-     * @author Robert Barczyk <rb783@cam.ac.uk>
      * @return void
      */
     public static function calendar()
@@ -447,3 +445,4 @@ class SigsController extends Controller
         return view('sig.calendar', compact('bread', 'backBtn'));
     }
 }
+
