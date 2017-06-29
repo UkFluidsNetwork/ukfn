@@ -434,6 +434,16 @@ class SigsController extends Controller
         SEO::setTitle('Calendar of SIG meetings');
         SEO::setDescription('Calendar of all the meetings organised by the Special Interest Groups (SIG) that participate in the UK FLuids Network.');
 
-        return view('sig.calendar', compact('bread'));
+        $agent = new Agent();
+        $isMobile = $agent->isMobile();
+
+        if ($isMobile) {
+            $backBtn = "SIG Overview";
+        } else {
+            $backBtn = "SIG Map";
+        }
+
+
+        return view('sig.calendar', compact('bread', 'backBtn'));
     }
 }
