@@ -105,7 +105,8 @@
                   </a>
                 </div>
                 <div ng-attr-id="@{{ 'collapse-all' }}"
-                     class="panel-collapse collapse">
+                     ng-class="{in: sigCtrl.thisSig.data.id == null}"
+                     class="panel-collapse collapse ">
                    <p class="line-break padding-left padding-right">
                     There are 41 Special Interest Groups
                     spanning 64 universities
@@ -117,7 +118,7 @@
                 <div class="panel-heading">
                   <a data-toggle="collapse"
                      data-parent="#accordion"
-                     ng-click="sigCtrl.getSig(sig.id); sigCtrl.setActive(sig.id);"
+                     ng-click="sigCtrl.getSig(sig.id); sigCtrl.setActive(sig.id);sigCtrl.displayAll = false;"
                      ng-href="@{{ '#collapse' + sig.id }}">
                      <h4 class="panel-title">
                       @{{ sig.name }}
@@ -126,6 +127,7 @@
                  </h4>
                 </div>
                 <div ng-attr-id="@{{ 'collapse' + sig.id }}"
+                     ng-class="{in: sig.id == sigCtrl.thisSig.data.id}"
                      class="panel-collapse collapse">
                   <div ng-if="sig.bigimage"
                        class='sig-map-image'>
