@@ -256,12 +256,12 @@ class SigsController extends Controller
 
     /**
      * Render a SIG individual page
-     * 
+     *
      * @access public
      * @param string $slug
      * @return void
      */
-    public function sigPage($slug, $page = "home")
+    public function sigPage($slug, $page = "")
     {
         $sig = Sig::findOrfail(self::getIdBySlug($slug));
 
@@ -272,12 +272,6 @@ class SigsController extends Controller
             return $this->map($slug);
         }
 
-        // define the selected tab
-        $tabs = ['home', 'members'];
-        if (!in_array($page, $tabs)) {
-            $page = 'home';
-        }
-
         // temporary so that tweets are displayed
         $sig->twitterurl = $sig->twitterurl ?: 'UKFluidsNetwork';
 
@@ -286,11 +280,24 @@ class SigsController extends Controller
         if ($sig->twitterurl) {
             $tweets = PagesController::getTweets($sig->twitterurl, 5);
         }
+
         // generate navigation buttons
-        $allSig = Sig::all();
+        $allSig = Sig::orderBy('name')->get();
         $shortname = $sig->shortname;
-        $previousSigShortname = $sig->id > 1 ? $allSig[$sig->id - 2]->shortname : $allSig[count($allSig) - 1]->shortname;
-        $nextSigShortname = $sig->id < count($allSig) ? $allSig[$sig->id]->shortname : $allSig[0]->shortname;
+        $curSig = 0;
+        foreach ($allSig as $k => $s) {
+            if ($s->id === $sig->id) {
+                $curSig = $k;
+                break;
+            }
+        }
+
+        $previousSigShortname = $curSig > 0
+                                ? $allSig[$curSig - 1]->shortname
+                                : $allSig[count($allSig) - 1]->shortname;
+        $nextSigShortname = $curSig < count($allSig) - 1
+                            ? $allSig[$curSig + 1]->shortname
+                            : $allSig[0]->shortname;
         $prevSigPath = "/sig/${previousSigShortname}";
         $nextSigPath = "/sig/${nextSigShortname}";
         $mapSigPath = "/sig/${shortname}/map";
