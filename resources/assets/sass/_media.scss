@@ -2,11 +2,19 @@
     .hide-this {
         display: none;
     }
+
+    .carousel-control.up {
+        font-size: 30px !important;
+    }
 }
 
 @media only screen and (min-width:851px) {
     .hide-desktop {
         display: none;
+    }
+
+    .carousel-control.up {
+        font-size: 30px !important;
     }
 }
 
@@ -94,6 +102,10 @@
 @media only screen and (max-width: 500px) and (min-width:0px) {
     #sig-calendar-btn {
         margin-top: 5px;
+    }
+
+    .carousel-control.up {
+        font-size: 20px !important;
     }
 
     h1 {

@@ -30,20 +30,11 @@
                     <span class="glyphicon glyphicon-chevron-right"></span>
                     <span class="sr-only">Next</span>
                 </a>
-                @if (false) <!-- FIXME -->
-                    <a title="SIG map" class="up carousel-control"
-                       href="{{$mapSigPath}}">
-                        <span class="glyphicon glyphicon-chevron-up"></span>
-                        <span class="sr-only">SIG map</span>
-                    </a>
-                @endif
-                @if ($sig->url && false) <!-- FIXME -->
-                    <a title="Home page" class="down carousel-control"
-                       href="{{$sig->url}}">
-                        <span class="glyphicon glyphicon-chevron-down"></span>
-                        <span class="sr-only">Home page</span>
-                    </a>
-                @endif
+                <a title="SIG map" class="up carousel-control"
+                    href="{{$mapSigPath}}">
+                    <span class="glyphicon glyphicon-chevron-up"></span>
+                    <span class="sr-only">SIG map</span>
+                </a>
             </div>
         </div>
     </div>
