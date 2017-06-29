@@ -44,8 +44,6 @@
                         <p>
                         If you are interested in joining a SIG,
                         please contact the SIG leader directly.
-                        There may be a third call for SIG proposals
-                        in Spring 2018.
                       </p>
                     </div>
                 </div>
@@ -78,9 +76,9 @@
                     </div>
                     <div class="modal-body">
                         <p>
-                        The next call for SIG proposals will be in
-                        Spring 2018.
-                      </p>
+                        There may be a third call for SIG proposals
+                        in Spring 2018.
+                       </p>
                     </div>
                 </div>
             </div>
@@ -108,9 +106,14 @@
                 </div>
                 <div ng-attr-id="@{{ 'collapse-all' }}"
                      class="panel-collapse collapse">
+                   <p class="line-break padding-left padding-right">
+                    There are 41 Special Interest Groups
+                    spanning 64 universities
+                  </p>
                 </div>
               </div>
-              <div class="panel panel-primary" ng-repeat="sig in sigCtrl.allSigs.data">
+              <div ng-repeat="sig in sigCtrl.allSigs.data"
+                   class="panel panel-primary">
                 <div class="panel-heading">
                   <a data-toggle="collapse"
                      data-parent="#accordion"

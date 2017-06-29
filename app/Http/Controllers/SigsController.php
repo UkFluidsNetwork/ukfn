@@ -41,7 +41,8 @@ class SigsController extends Controller
 
         SEO::setTitle($title);
         SEO::setDescription("Special Interest Groups (SIGs) are open to anyone"
-            . " working in fluid mechanics in the UK.");
+            . " working in fluid mechanics in the UK. There are 41 SIGs"
+            . " spanning 64 universities.");
 
         return view('sig.index', compact('selectedSigId', 'isMobile'));
     }
