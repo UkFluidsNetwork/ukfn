@@ -26,7 +26,8 @@ class SubscriptionRequest extends Request
     public function rules()
     {
       return [
-        'subscription-email' => 'required|email'
+        'subscription-email' => 'required|email',
+        'g-recaptcha-response' => 'required'
       ];
     }
 }
