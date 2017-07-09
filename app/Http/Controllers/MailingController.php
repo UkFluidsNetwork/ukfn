@@ -27,8 +27,8 @@ class MailingController extends Controller
      * @var array
      */
     private $emails = [
-        'info' => "info@ukfluids.net",
-        'no-reply' => "no-reply@ukfluids.net"
+        'info' => "info@fluids.ac.uk",
+        'no-reply' => "no-reply@fluids.ac.uk"
     ];
 
     /**
