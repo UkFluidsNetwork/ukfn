@@ -82,6 +82,13 @@
     <body>
         <!-- NAVBAR - START -->
         <div id="menu-bar" data-spy="affix" data-offset-top="40">
+
+        @if ($_SERVER['SERVER_NAME'] == "localhost")
+        <div style="width:100%;height:40px;background-color:#1B75BB;color:white;text-align:center;font-size:22px;padding:13px;padding-bottom:45px;">
+          UK Fluids Network has a new domain: <a style="color:white;" href="fluids.ac.uk">fluids.ac.uk</a>
+        </div>
+        @endif
+
             <nav class="navbar navbar-default navbar-custom" id="top-nav">
                 <div class="container-fluid col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12" >
                     <div class="navbar-header">
