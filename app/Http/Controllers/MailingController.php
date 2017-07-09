@@ -69,7 +69,7 @@ class MailingController extends Controller
     private function processSubscription($email, $user_id = null,
                                          $sig_id = null)
     {
-       $this->subscribe($email, $user_id, $sig_id);
+        $this->subscribe($email, $user_id, $sig_id);
 
         if (is_null($sig_id)) {
             $subject = "UK Fluids Network Mailing List";
