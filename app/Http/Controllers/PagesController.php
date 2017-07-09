@@ -118,7 +118,7 @@ class PagesController extends Controller
         Session::flash('success_message',
               'Thank you for your message. We will get back to you shortly.');
 
-        return view('pages.about');
+        return redirect('/about');
     }
 
     /**
