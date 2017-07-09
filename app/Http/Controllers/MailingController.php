@@ -69,7 +69,7 @@ class MailingController extends Controller
     private function processSubscription($email, $user_id = null,
                                          $sig_id = null)
     {
-       // $this->subscribe($email, $user_id, $sig_id);
+        $this->subscribe($email, $user_id, $sig_id);
 
         if (is_null($sig_id)) {
             $subject = "UK Fluids Network Mailing List";
@@ -85,12 +85,12 @@ class MailingController extends Controller
             $message = "Your email has been passed to the SIG leader.";
         }
 
-        /*$this->addToQueue(env('MAIL_USERNAME'),
+        $this->addToQueue(env('MAIL_USERNAME'),
                           $email,
                           $subject,
                           ['email' => $email],
                           $template);
-*/
+
         return Redirect::to($redirect)->with($success, $message);
     }
 
