@@ -85,7 +85,7 @@
 
         @if ($_SERVER['SERVER_NAME'] == "ukfluids.net")
         <div style="width:100%;height:40px;background-color:#1B75BB;color:white;text-align:center;font-size:22px;padding:13px;padding-bottom:45px;">
-          UK Fluids Network has a new domain: <a style="color:white;" href="https://fluids.ac.uk">fluids.ac.uk</a>
+          The UK Fluids Network has a new address: <a style="color:white;" href="https://fluids.ac.uk">fluids.ac.uk</a>
         </div>
         @endif
 

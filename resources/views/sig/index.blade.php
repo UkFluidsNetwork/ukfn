@@ -109,7 +109,7 @@
                      class="panel-collapse collapse ">
                    <p class="line-break padding-left padding-right">
                     There are 41 Special Interest Groups
-                    spanning 64 universities
+                    spanning 64 institutions.
                   </p>
                 </div>
               </div>
