@@ -19,9 +19,9 @@
           "name": "UK Fluids Network",
           "alternateName": "UKFN",
           "description": "UKFN is a network of academic and industrial research groups, focused on innovative developments and applications in Fluid Mechanics.",
-          "url": "https://ukfluids.net",
-          "logo": "https://ukfluids.net/pictures/ukfn-logo-250.png",
-          "email": "info@ukfluids.net",
+          "url": "https://fluids.ac.uk",
+          "logo": "https://fluids.ac.uk/pictures/ukfn-logo-250.png",
+          "email": "info@fluids.ac.uk",
           "foundingDate": "2016-09-01",
           "location": {
             "@type": "PostalAddress",
@@ -85,7 +85,7 @@
 
         @if ($_SERVER['SERVER_NAME'] == "ukfluids.net")
         <div style="width:100%;height:40px;background-color:#1B75BB;color:white;text-align:center;font-size:22px;padding:13px;padding-bottom:45px;">
-          UK Fluids Network has a new domain: <a style="color:white;" href="fluids.ac.uk">fluids.ac.uk</a>
+          UK Fluids Network has a new domain: <a style="color:white;" href="https://fluids.ac.uk">fluids.ac.uk</a>
         </div>
         @endif
 
