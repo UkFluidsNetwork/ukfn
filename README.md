@@ -10,16 +10,27 @@ The main CSS code is compiled from SASS using gulp
 ```sh
 gulp
 ```
-## Cronjobs
-The app's mailing system and talk update depends on two cronjobs. One.com does not allow setting up cronjobs so the workaround is to set them in a different machine that activates a couple of bash scripts in the actual server.
 
-`run-listener` runs the `artisan queue:listen` command, which listens for new mailing jobs to execute:
+## Mailqueue
+Laravel provides [job queues](https://laravel.com/docs/5.2/queues), which we use to handle sending email.
+
+To monitor the queue worker we use supervisor, a process monitor for linux. Supervisor will run different processes and automatically restart them if they stop for any readon. The command to run the queue worker is:
+
+```sh
+artisan queue:work --sleep=3 --tries=5 --daemon
 ```
-*/10 * * * *  ssh ukfluids.net@ssh.ukfluids.net "bash ~/run-listener"
+
+Since daemon queue workers are long-lived processes, they will not pick up changes in your code without being restarted. To do so:
+
+```sh
+php artisan queue:restart
 ```
-`run-scheduler` runs the `artisan schedule:run` command, which is in charge of [laravel's task scheduler](https://laravel.com/docs/5.4/scheduling), allowing cronjob like behaviour with php. All the commands that the scheduler will run are specified in `app/Console/Kernel.php`, under the `schedule()` function.
+
+## Cronjobs
+
+`artisan schedule:run` command, which is in charge of [laravel's task scheduler](https://laravel.com/docs/5.4/scheduling), allows cronjob like behaviour with php. All the commands that the scheduler will run are specified in `app/Console/Kernel.php`, under the `schedule()` function. A single cronjob entry is required:
 ```
-* * * * *  ssh ukfluids.net@ssh.ukfluids.net "bash ~/run-scheduler"
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
 ```
 
 ## Built with
