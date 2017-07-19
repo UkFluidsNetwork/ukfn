@@ -102,7 +102,12 @@
     <p class="line-break-dbl-top">
     <ul>
       <li>
-        Advisory Board meeting, Wednesday 29 March 2017: 
+        Executive Committee meeting, Friday 30 June 2017:
+        [<a href="{{ asset('files/meetings/Agenda_300617_EC_meeting.pdf') }}">Agenda_300617_EC_meeting.pdf</a>],
+        [<a href="{{ asset('files/meetings/Minutes_300617_EC_meeting.pdf') }}">Minutes_300617_EC_meeting.pdf</a>]
+      </li>
+      <li>
+        Advisory Board meeting, Wednesday 29 March 2017:
         [<a href="{{ asset('files/meetings/Agenda_290317_AB_meeting.pdf') }}">Agenda_290317_AB_meeting.pdf</a>],
         [<a href="{{ asset('files/meetings/Minutes_290317_AB_meeting.pdf') }}">Minutes_290317_AB_meeting.pdf</a>]
       </li>
@@ -116,13 +121,13 @@
         [<a href="{{ asset('files/meetings/Minutes_111116_EC_meeting.pdf') }}">Minutes_111116_EC_meeting.pdf</a>]
       </li>
       <li>
-        Advisory Board meeting, Wednesday 21st September 2016: 
-        [<a href="{{ asset('files/meetings/Agenda_210916_AB_meeting.pdf') }}">Agenda_210916_AB_meeting.pdf</a>], 
+        Advisory Board meeting, Wednesday 21st September 2016:
+        [<a href="{{ asset('files/meetings/Agenda_210916_AB_meeting.pdf') }}">Agenda_210916_AB_meeting.pdf</a>],
         [<a href="{{ asset('files/meetings/Minutes_210916_AB_meeting.pdf') }}">Minutes_210916_AB_meeting.pdf</a>]
       </li>
       <li>
-        Executive Committee meeting, Friday 9th September 2016: 
-        [<a href="{{ asset('files/meetings/Agenda_090916_EC_meeting.pdf') }}">Agenda_090916_EC_meeting.pdf</a>], 
+        Executive Committee meeting, Friday 9th September 2016:
+        [<a href="{{ asset('files/meetings/Agenda_090916_EC_meeting.pdf') }}">Agenda_090916_EC_meeting.pdf</a>],
         [<a href="{{ asset('files/meetings/Minutes_090916_EC_meeting.pdf') }}">Minutes_090916_EC_meeting.pdf</a>]
       </li>
     </ul>
