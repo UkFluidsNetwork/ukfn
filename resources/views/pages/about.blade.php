@@ -1,10 +1,84 @@
 @extends('layouts.master')
 @section('content')
 
-<h2 class='line-break'>Admin</h2>
+<h2 class='line-break'>About</h2>
 <section class="page-header">
   <div>
-    <p class="h4 text-danger">Executive Committee</p>
+    <p class="h4 text-danger">Contact us</p>
+    <p class="line-break-dbl-top">
+{!! Form::open(['url' => 'contact']) !!}
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
+          <div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
+            {!! Form::label('name', 'Name :', ['class' => 'control-label']) !!}
+            {!! Form::text('name', null, ['class' => 'form-control','placeholder' => 'Your name']) !!}
+            @if ($errors->has('name'))
+              <span class="text-danger">
+                <span>{{ $errors->first('name') }}</span>
+              </span>
+            @endif
+          </div>
+          <div class='form-group {{ $errors->has('email') ? ' has-error line-break-dbl' : '' }}'>
+            {!! Form::label('email', 'Email :', ['class' => 'control-label']) !!}
+            {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
+            @if ($errors->has('email'))
+              <span class="text-danger">
+                <span>{{ $errors->first('email') }}</span>
+              </span>
+            @endif
+          </div>
+          <div class='form-group {{ $errors->has('message') ? ' has-error line-break-dbl' : '' }}'>
+            {!! Form::label('message', 'Message :', ['class' => 'control-label']) !!}
+            {!! Form::textarea('message', null, ['class' => 'form-control','placeholder' => 'Your message']) !!}
+            @if ($errors->has('message'))
+              <span class="text-danger">
+                <span>{{ $errors->first('message') }}</span>
+              </span>
+            @endif
+          </div>
+          <div class='form-group line-break-dbl-top'>
+            {!! Form::submit('Send Message', ['class' => 'btn btn-default btn-lg']) !!}
+          </div>
+        </div>
+      </div>
+    </div>
+  {!! Form::close() !!}
+    </p>
+  </div>
+</section>
+<section class="page-header">
+<h3>Downloads</h3>
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">UKFN logo</p>
+    <ul class="line-break-dbl-top">
+      <li>
+        <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">
+          User guide to communications via the UKFN website
+        </a>
+      </li>
+      <li>
+        <a href="/pictures/ukfn-logo-250.png" target="_blank">
+          UKFN logo 250x115
+        </a>
+      </li>
+      <li>
+        <a href="/pictures/ukfn-logo-500.png" target="_blank">
+          UKFN logo 500x230
+        </a>
+      </li>
+      <li>
+        <a href="/pictures/ukfn-logo-1000.png" target="_blank">
+          UKFN logo 1000x460
+        </a>
+      </li>
+    </ul>
+  </div>
+</section>
+<section class="page-header">
+<h3>People</h3>
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">Executive Committee</p>
     <p class="line-break-dbl-top">
     <ul>
         <li>
@@ -52,10 +126,9 @@
     </ul>
     </p>
   </div>
-</section>
-<section class="page-header">
+
   <div>
-    <p class="h4 text-danger">Advisory Board</p>
+    <p class="h4 text-danger line-break-dbl-top">Advisory Board</p>
     <p class="line-break-dbl-top">
     <ul>
         <li>Dr Simon Bittleston, <i>Schlumberger Gould Research</i></li>
@@ -66,39 +139,23 @@
     </ul>
     </p>
   </div>
-</section>
-<section class="page-header">
+
   <div>
-    <p class="h4 text-danger">Proposal documents</p>
+    <p class="h4 text-danger line-break-dbl-top">Institutional points of contact</p>
     <p class="line-break-dbl-top">
-    <ul>
-      <li><a href="{{ asset('files/UKFN_CfS_151020.pdf') }}">Case for Support</a></li>
-      <li><a href="{{ asset('files/UKFN_CfS_Gantt_151102.pdf') }}">Workplan</a></li>
-      <li><a href="{{ asset('files/UKFN_PtI__151020.pdf') }}">Pathways to Impact</a></li>
-      <li><a href="{{ asset('files/UKFN_JoR_151020.pdf') }}">Justification of Resources</a></li>
+    <ul class="line-break-dbl-top">
+      <li>
+      <a href="{{ asset('files/UKFN_instn_PoC_161024.pdf') }}">List of points of contact</a>
+      </li>
     </ul>
     </p>
   </div>
 </section>
+
 <section class="page-header">
+<h3>Documents</h3>
   <div>
-    <p class="h4 text-danger">Grants on the Web</p>
-    <p class="line-break-dbl-top">
-      Web pages giving details of the EPSRC grant for UK Fluids Network.
-      There are multiple entries because it was a joint proposal between Cambridge, ICL, Leeds, Manchester, and Southampton.
-    <ul>
-      <li>Cambridge: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032861/1') }}</li>
-      <li>ICL: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032934/1') }}</li>
-      <li>Leeds: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/P000851/1') }}</li>
-      <li>Manchester: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032411/1') }}</li>
-      <li>Southampton: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032152/1') }}</li>
-    </ul>
-    </p>
-  </div>
-</section>
-<section class="page-header">
-  <div>
-    <p class="h4 text-danger">Minutes of meetings</p>
+    <p class="h4 text-danger line-break-dbl-top">Minutes of meetings</p>
     <p class="line-break-dbl-top">
     <ul>
       <li>
@@ -133,54 +190,9 @@
     </ul>
     </p>
   </div>
-</section>
-<section class="page-header">
-  <div>
-    <p class="h4 text-danger">Institutional points of contact</p>
-    <p class="line-break-dbl-top">
-      <a href="{{ asset('files/UKFN_instn_PoC_161024.pdf') }}">List of points of contact</a>
-    </p>
-  </div>
-</section>
-<section class="page-header">
-  <div>
-    <p class="h4 text-danger">Communications</p>
-    <ul class="line-break-dbl-top">
-      <li>
-        <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">
-          User guide to communications via the UKFN website
-        </a>
-      </li>
-      <li>
-        <a href="/pictures/ukfn-logo-250.png" target="_blank">
-          UKFN logo 250x115
-        </a>
-      </li>
-      <li>
-        <a href="/pictures/ukfn-logo-500.png" target="_blank">
-          UKFN logo 500x230
-        </a>
-      </li>
-      <li>
-        <a href="/pictures/ukfn-logo-1000.png" target="_blank">
-          UKFN logo 1000x460
-        </a>
-      </li>
-    </ul>
-  </div>
-</section>
-<section class="page-header">
-  <div>
-    <p class="h4 text-danger">Set of values</p>
-    <p class="line-break-dbl-top">
-     <a href="{{ asset('files/UKFN_set_of_values_170110.pdf') }}">Set of values underpinning the running of the UK Fluids Network</a>
-    </p>
-  </div>
-</section>
 @if($totalListEmails)
-<section class="page-header">
   <div>
-    <p class="h4 text-danger">Records of emails sent to mailing list</p>
+    <p class="h4 text-danger line-break-dbl-top">List of emails sent to mailing list</p>
     <p class="line-break-dbl-top">
     <ul>
       @foreach ($listEmails as $message)
@@ -194,12 +206,10 @@
     </ul>
     </p>
   </div>
-</section>
 @endif
 @if($totalPublicEmails)
-<section class="page-header">
   <div>
-    <p class="h4 text-danger">Records of emails sent to all points of contact</p>
+    <p class="h4 text-danger line-break-dbl-top">List of emails sent to all points of contact</p>
     <p class="line-break-dbl-top">
     <ul>
       @foreach ($publicEmails as $message)
@@ -213,50 +223,57 @@
     </ul>
     </p>
   </div>
-</section>
 @endif
+</section>
+
 <section class="page-header">
+<h3>Reference</h3>
   <div>
-    <p class="h4 text-danger">Contact us</p>
+    <p class="h4 text-danger line-break-dbl-top">Communications</p>
+    <ul class="line-break-dbl-top">
+      <li>
+        <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">
+          User guide to communications via the UKFN website
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">Set of values</p>
     <p class="line-break-dbl-top">
-{!! Form::open(['url' => 'contact']) !!}
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-lg-6 col-md-8 col-sm-12 col-xs-12">
-          <div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
-            {!! Form::label('name', 'Name :', ['class' => 'control-label']) !!}
-            {!! Form::text('name', null, ['class' => 'form-control','placeholder' => 'Your name']) !!}
-            @if ($errors->has('name'))
-              <span class="text-danger">
-                <span>{{ $errors->first('name') }}</span>
-              </span>
-            @endif
-          </div>
-          <div class='form-group {{ $errors->has('email') ? ' has-error line-break-dbl' : '' }}'>
-            {!! Form::label('email', 'Email :', ['class' => 'control-label']) !!}
-            {!! Form::text('email', null, ['class' => 'form-control','placeholder' => 'your@email.com']) !!}
-            @if ($errors->has('email'))
-              <span class="text-danger">
-                <span>{{ $errors->first('email') }}</span>
-              </span>
-            @endif
-          </div>
-          <div class='form-group {{ $errors->has('message') ? ' has-error line-break-dbl' : '' }}'>
-            {!! Form::label('message', 'Message :', ['class' => 'control-label']) !!}
-            {!! Form::textarea('message', null, ['class' => 'form-control','placeholder' => 'Your message']) !!}
-            @if ($errors->has('message'))
-              <span class="text-danger">
-                <span>{{ $errors->first('message') }}</span>
-              </span>
-            @endif
-          </div>
-          <div class='form-group line-break-dbl-top'>
-            {!! Form::submit('Send Message', ['class' => 'btn btn-default btn-lg']) !!}
-          </div>
-        </div>
-      </div>
-    </div>
-  {!! Form::close() !!}
+    <ul class="line-break-dbl-top">
+      <li>
+     <a href="{{ asset('files/UKFN_set_of_values_170110.pdf') }}">Set of values underpinning the running of the UK Fluids Network</a>
+      </li>
+    </ul>
+    </p>
+  </div>
+
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">Proposal documents</p>
+    <p class="line-break-dbl-top">
+    <ul>
+      <li><a href="{{ asset('files/UKFN_CfS_151020.pdf') }}">Case for Support</a></li>
+      <li><a href="{{ asset('files/UKFN_CfS_Gantt_151102.pdf') }}">Workplan</a></li>
+      <li><a href="{{ asset('files/UKFN_PtI__151020.pdf') }}">Pathways to Impact</a></li>
+      <li><a href="{{ asset('files/UKFN_JoR_151020.pdf') }}">Justification of Resources</a></li>
+    </ul>
+    </p>
+  </div>
+
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">Grants on the Web</p>
+    <p class="line-break-dbl-top">
+      Web pages giving details of the EPSRC grant for UK Fluids Network.
+      There are multiple entries because it was a joint proposal between Cambridge, ICL, Leeds, Manchester, and Southampton.
+    <ul>
+      <li>Cambridge: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032861/1') }}</li>
+      <li>ICL: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032934/1') }}</li>
+      <li>Leeds: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/P000851/1') }}</li>
+      <li>Manchester: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032411/1') }}</li>
+      <li>Southampton: {{ Html::link('http://gow.epsrc.ac.uk/NGBOViewGrant.aspx?GrantRef=EP/N032152/1') }}</li>
+    </ul>
     </p>
   </div>
 </section>
