@@ -52,7 +52,7 @@
         @if (false)
         <button class="btn btn-default" data-toggle="modal"
                 data-target="#srv-1">
-            Summary
+            Report
         </button>
         <div class="modal fade" style="margin-top: 10%;"
              id="srv-1" role="dialog" arial-labelledby="label-srv1">
