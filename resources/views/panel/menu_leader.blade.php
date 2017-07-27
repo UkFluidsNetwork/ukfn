@@ -4,14 +4,29 @@
             Menu
         </button>
     </div>
-    <ul id="adminnav" class="nav nav-stacked fixed collapse navbar-collapse"> 
+    <ul id="adminnav" class="nav nav-stacked fixed collapse navbar-collapse">
         <li class="{{ Request::is('panel/sig*') ? 'active' : '' }}">
             @foreach (Auth::user()->sigLeaderships() as $sig)
-            <a href="{{URL::to('/panel/sig/edit/' . $sig->id)}}" class="{{ Request::is('panel/sig/edit/' . $sig->id) ? 'active' : '' }}">{{$sig->shortname}}</a>
-            
+            <a href="{{URL::to('/panel/sig/edit/' . $sig->id)}}"
+               class="{{ Request::is('panel/sig/edit/' . $sig->id)
+                         ? 'active' : '' }}">
+               {{$sig->shortname}}
+            </a>
+
             <ul id="admin-subnav-tags" class="nav nav-stacked">
                 <li>
-                    <a href="{{URL::to('/panel/sig/members/' . $sig->id)}}" class="{{ Request::is('panel/sig/members/' . $sig->id) ? 'active' : '' }}">Members</a>
+                    <a href="{{URL::to('/panel/sig/members/' . $sig->id)}}"
+                       class="{{ Request::is('panel/sig/members/' . $sig->id)
+                                 ? 'active' : '' }}">
+                       Members
+                    </a>
+                </li>
+                <li>
+                    <a href="{{URL::to('/panel/sig/subscriptions/'.$sig->id)}}"
+                       class="{{Request::is('panel/sig/subscriptions/'.$sig->id)
+                                 ? 'active' : '' }}">
+                       Subscriptions
+                    </a>
                 </li>
             </ul>
             @endforeach

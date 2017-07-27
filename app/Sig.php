@@ -265,7 +265,17 @@ class Sig extends Model
     {
         return $this->coleaders->lists('id')->toArray();
     }
-    
+
+    /**
+     * Get the subscriptions associated with this sig
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function subscriptions()
+    {
+        return $this->hasMany('App\Subscription');
+    }
+
     /**
      * Find whether a given status is allowed as a type of member
      * 

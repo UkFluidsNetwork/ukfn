@@ -32,6 +32,8 @@
         <td>{{ $sig->updated }}</td>
         <td>{{ Html::link('/panel/sig/edit/' . $sig->id, "Edit", ["class" => "btn btn-primary"])}}</td>
         <td>{{ Html::link('/panel/sig/members/' . $sig->id, "Members", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/sig/subscriptions/' . $sig->id,
+               "Subscriptions", ["class" => "btn btn-primary"])}}</td>
         <td>
              {{ Form::open(['action' => ['SigsController@delete', $sig->id]]) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}

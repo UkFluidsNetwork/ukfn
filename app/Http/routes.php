@@ -46,6 +46,7 @@ Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('
 // require canEditSig
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('sig');
 Route::get('panel/sig/members/{id}', 'SigsController@members')->middleware('sig');
+Route::get('panel/sig/subscriptions/{id}', 'SigsController@subscriptions')->middleware('sig');
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
 // require canViewUsers
 Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-leader');

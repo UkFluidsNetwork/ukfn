@@ -26,8 +26,7 @@ class SigSubscriptionRequest extends Request
     public function rules()
     {
       return [
-        'subscribe-sig-email' => 'required|email',
-        'sig_id' => 'required'
+        'subscribe-sig-email' => 'required|email'
       ];
     }
 }

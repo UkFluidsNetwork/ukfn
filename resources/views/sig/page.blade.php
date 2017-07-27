@@ -56,6 +56,7 @@
                       {!! Form::open(['url' => 'subscribe-sig#sig-name']) !!}
                       <div class="input-group">
                         <input type="text" hidden="hidden" id="sig_id"
+                               name="sig_id"
                                value="{{ $sig->id }}">
                         <label for="subscribe-sig-email"
                                class="sr-only">Subscribe</label>
