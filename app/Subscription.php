@@ -58,5 +58,15 @@ class Subscription extends Model
     {
         return $this->belongsTo('App\User');
     }
+
+    /**
+     * Get the sig associated with the given subscription
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function sigs()
+    {
+        return $this->belongsTo('App\Sig');
+    }
 }
 

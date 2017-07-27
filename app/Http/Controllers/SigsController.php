@@ -7,6 +7,7 @@ use App\Sig;
 use App\Tag;
 use App\User;
 use App\Institution;
+use App\Subscription;
 use App\Http\Requests\SigsFormRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
@@ -450,6 +451,45 @@ class SigsController extends Controller
 
 
         return view('sig.calendar', compact('bread', 'backBtn'));
+    }
+
+    /**
+     * List SIG mailing subscriptions
+     *
+     * @param int $id
+     * @return void
+     */
+    public function subscriptions($id)
+    {
+        $sig = Sig::findOrFail($id);
+        $mailingList = $sig->subscriptions;
+
+        foreach ($mailingList as $l) {
+            $l->created = PagesController::formatDate($l->created_at);
+        }
+
+        if (Auth::user()->isSigLeader()) {
+            $bread = [
+                ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
+                ['label' => 'Subscriptions',
+                  'path' => "/panel/sig/subscriptions/${id}"],
+            ];
+        }
+
+        if (Auth::user()->isAdmin()) {
+            $bread = array_merge(
+                static::$sigPanelCrumbs,
+                [
+                    ['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"],
+                    ['label' => 'Subscriptions',
+                     'path' => "/panel/sig/subscriptions/${id}"],
+                ]
+            );
+        }
+        $breadCount = count($bread);
+
+        return view('panel.sigs.subscriptions',
+                    compact('mailingList', 'bread', 'breadCount'));
     }
 }
 
