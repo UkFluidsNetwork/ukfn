@@ -36,7 +36,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
                         <span>Winning photo and video will be published on the website.</span>
                     </li>
                     <li>
-                        <span>If you have any questions, please email <a href="mailto:competition@ukfluids.net">competition@ukfluids.net</a>.</span>
+                        <span>If you have any questions, please email <a href="mailto:competition@fluids.ac.uk">competition@fluids.ac.uk</a>.</span>
                     </li>
                 </ul>
             </div>
@@ -46,7 +46,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
               <h4>How to enter</h4>
               <ul>
                 <li>You must be a UK-based fluid mechanics researcher, i.e. at a university, research institute, or company</li>
-                <li>Email photos directly to <a href="mailto:competition@ukfluids.net">competition@ukfluids.net</a>. Submit videos by giving a link to a suitable data-sharing website, e.g. Dropbox.</li>
+                <li>Email photos directly to <a href="mailto:competition@fluids.ac.uk">competition@fluids.ac.uk</a>. Submit videos by giving a link to a suitable data-sharing website, e.g. Dropbox.</li>
                 <li>
                   In both cases, the covering email must contain the following information:
                   <ol type="a">
