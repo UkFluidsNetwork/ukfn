@@ -1,7 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-<h2 class='line-break'>About</h2>
 <section class="page-header">
   <div>
     <p class="h4 text-danger">Contact us</p>

@@ -120,8 +120,8 @@
                             <li class="{{ Request::is('competition*') ? 'active' : '' }}">
                                 {{ Html::link('/competition', 'Competition', ['title' => 'Photo and video competition']) }}
                             </li>
-                            <li class="{{ Request::is('about*') ? 'active' : '' }}">
-                                {{ Html::link('/about', 'About', ['title' => 'Information about the network']) }}
+                            <li class="{{ Request::is('connect*') ? 'active' : '' }}">
+                                {{ Html::link('/connect', 'Connect', ['title' => 'Information about the network']) }}
                             </li>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
