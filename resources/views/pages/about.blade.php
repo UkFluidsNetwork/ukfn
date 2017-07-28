@@ -52,11 +52,6 @@
     <p class="h4 text-danger line-break-dbl-top">UKFN logo</p>
     <ul class="line-break-dbl-top">
       <li>
-        <a href="{{ asset('files/UKFN_comms_161024.pdf') }}">
-          User guide to communications via the UKFN website
-        </a>
-      </li>
-      <li>
         <a href="/pictures/ukfn-logo-250.png" target="_blank">
           UKFN logo 250x115
         </a>
