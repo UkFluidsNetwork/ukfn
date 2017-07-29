@@ -18,7 +18,7 @@ class ResourcesController extends Controller
     {
         $pageDescription = "This section contains courses, tutorials, hints, tips and snippets of software, aimed at academic and industrial researchers in fluid mechanics.";
         SEO::setTitle('Researcher resources');
-        SEO::setDescription($pageDescription); 
+        SEO::setDescription($pageDescription);
 
         $resources = [];
 
@@ -54,7 +54,7 @@ class ResourcesController extends Controller
                 foreach ($resource->tutorials[$key]->files as $index => $file) {
                     $file->filetype;
                     if (!in_array($file->filetype->shortname, $fileTypes)) {
-                        $fileTypes[] = $file->filetype->shortname; 
+                        $fileTypes[] = $file->filetype->shortname;
                     }
                     $resource->tutorials[$key]->files[$index] = $file;
                 }
@@ -72,7 +72,7 @@ class ResourcesController extends Controller
                     $toAdd = false;
                 }
             }
-            
+
             $tagFound = true;
             if (!empty($disciplines)) {
                 $tagFound = false;
