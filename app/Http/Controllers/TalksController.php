@@ -26,7 +26,7 @@ class TalksController extends Controller
     /**
      * Talks main page
      *
-     * @return view
+     * @return Illuminate\Support\Facades\View
      */
     public function index()
     {
@@ -42,7 +42,7 @@ class TalksController extends Controller
      * View Talk
      *
      * @param intiger $id
-     * @return view
+     * @return Illuminate\Support\Facades\View
      */
     public function view($id)
     {
@@ -55,7 +55,7 @@ class TalksController extends Controller
     /**
      * Update all talks
      *
-     * @access public
+     * @return void
      */
     public static function updateTalks()
     {
@@ -150,10 +150,9 @@ class TalksController extends Controller
      * Exclude exceptions and format the date of the remaining ones
      *
      * @param array $rawTalks
-     * @param string $dateFormat
      * @return array
      */
-    public static function formatTalks($rawTalks, $dateFormat = "l jS F")
+    public static function formatTalks($rawTalks)
     {
         $talks = [];
         $index = 0;
@@ -189,7 +188,8 @@ class TalksController extends Controller
      */
     private static function getSEODescription()
     {
-        $description = 'Fluids-related seminars and talks in the UK, imported from the ';
+        $description = 'Fluids-related seminars and talks in the UK, '
+                     . 'imported from the ';
 
         $talksRSS = Aggregator::all();
 
@@ -255,7 +255,7 @@ class TalksController extends Controller
     /**
      * View all current talks in Admin Panel
      *
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function talksList()
     {
@@ -276,7 +276,7 @@ class TalksController extends Controller
     /**
      * Add new talk
      *
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
@@ -299,7 +299,7 @@ class TalksController extends Controller
      * Create new talk
      *
      * @param TalksFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(TalksFormRequest $request)
     {
@@ -322,7 +322,7 @@ class TalksController extends Controller
      *
      * @param type $id
      * @param TalkUpdateRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, TalksFormRequest $request)
     {
@@ -354,7 +354,7 @@ class TalksController extends Controller
      * Edit talks
      *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
@@ -378,7 +378,7 @@ class TalksController extends Controller
      * Delete talk method
      *
      * @param intiger $id aggregator id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
