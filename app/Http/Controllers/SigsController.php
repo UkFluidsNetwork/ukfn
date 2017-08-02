@@ -26,7 +26,7 @@ class SigsController extends Controller
      * Render the SIG overview page; the map is not rendered on mobiles.
      *
      * @param string $slug Used to preselect a SIG, if provided
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function map($slug = null)
     {
@@ -50,9 +50,8 @@ class SigsController extends Controller
 
     /**
      * List all sigs
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @return void
+     *
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
@@ -70,22 +69,22 @@ class SigsController extends Controller
 
     /**
      * Edit sigs
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
         $sig = Sig::findOrFail($id);
+        $bread = array_merge(static::$sigPanelCrumbs,
+                                [['label' => 'Edit',
+                                  'path' => "/panel/sig/edit/${id}"]]);
 
         if (Auth::user()->isSigLeader()) {
-            $bread = [['label' => $sig->shortname, 'path' => "/panel/sig/${id}"]];
-        }
-
-        if (Auth::user()->isAdmin()) {
-            $bread = array_merge(static::$sigPanelCrumbs, [['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"]]);
+            // only admins have the concept of "the panel" - sig leaders
+            // just manage their sig, thus the first crumb is the sig name
+            $bread = [['label' => $sig->shortname,
+                       'path' => "/panel/sig/${id}"]];
         }
 
         $breadCount = count($bread);
@@ -99,17 +98,20 @@ class SigsController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        return view('panel.sigs.edit', compact('sig', 'sigTags', 'sigInstitutions', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
+        return view('panel.sigs.edit',
+                    compact('sig', 'sigTags', 'sigInstitutions',
+                            'institutions', 'subDisciplines',
+                            'applicationAreas', 'techniques',
+                            'facilities', 'curDisciplinesCategory',
+                            'curApplicationCategory', 'bread', 'breadCount'));
     }
 
     /**
      * Update sigs
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @author Robert Barczyk <rb783@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, SigsFormRequest $request)
     {
@@ -127,10 +129,16 @@ class SigsController extends Controller
             $smallImage = $request->file('smallimage');
 
             if ($bigImage) {
-                $sig->bigimage = PagesController::uploadFile($bigImage, 'sig-pictures', strtolower($request->shortname) . "_large_");
+                $name = strtolower($request->shortname) . "_large_";
+                $sig->bigimage = PagesController::uploadFile($bigImage,
+                                                             'sig-pictures',
+                                                             $name);
             }
             if ($smallImage) {
-                $sig->smallimage = PagesController::uploadFile($bigImage, 'sig-pictures', strtolower($request->shortname) . "_small_");
+                $name = strtolower($request->shortname) . "_small_";
+                $sig->smallimage = PagesController::uploadFile($bigImage,
+                                                               'sig-pictures',
+                                                               $name);
             }
 
             $sig->save();
@@ -152,14 +160,14 @@ class SigsController extends Controller
 
     /**
      * Add sigs
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
-        $bread = array_merge(static::$sigPanelCrumbs, [['label' => 'Add', 'path' => "/panel/sig/add"]]);
+        $bread = array_merge(static::$sigPanelCrumbs,
+                             [['label' => 'Add', 'path' => "/panel/sig/add"]]);
         $breadCount = count($bread);
 
         $sig = new Sig;
@@ -173,15 +181,19 @@ class SigsController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        return view('panel.sigs.add', compact('sig', 'sigInstitutions', 'sigTags', 'institutions', 'subDisciplines', 'applicationAreas', 'techniques', 'facilities', 'curDisciplinesCategory', 'curApplicationCategory', 'bread', 'breadCount'));
+        return view('panel.sigs.add',
+                    compact('sig', 'sigInstitutions', 'sigTags',
+                            'institutions', 'subDisciplines',
+                            'applicationAreas', 'techniques', 'facilities',
+                            'curDisciplinesCategory', 'curApplicationCategory',
+                            'bread', 'breadCount'));
     }
 
     /**
      * Create sigs
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(SigsFormRequest $request)
     {
@@ -203,10 +215,9 @@ class SigsController extends Controller
 
     /**
      * Delete sigs
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
@@ -238,7 +249,8 @@ class SigsController extends Controller
     public function getSigInstitutionsJson($id)
     {
         $sig = Sig::findOrFail($id);
-        // json will get rid of all this stuff, so we need to explicitely load it @todo find a better way
+        // json gets rid of all data automatically loaded for the object
+        // we need to explictely load it
         $sig->institutions;
         $sig->leader;
         foreach ($sig->leader as $key => $leader) {
@@ -273,7 +285,7 @@ class SigsController extends Controller
             return $this->map($slug);
         }
 
-        // temporary so that tweets are displayed
+        // fixme: temporary so that tweets are displayed
         $sig->twitterurl = $sig->twitterurl ?: 'UKFluidsNetwork';
 
         // get tweet feeds
@@ -331,25 +343,23 @@ class SigsController extends Controller
 
     /**
      * Add any ukfn member to selected SIG
-     * Restricted to admin and SIG leaders
      *
-     * @access public
-     * @author Robert Barczyk <robert@barczyk.net>
      * @param type $id
-     * @return type
+     * @return Illuminate\Support\Facades\View
      */
     public function members($id)
     {
         if (Auth::user()->isSigLeader()) {
             $bread = [
                 ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
-                ['label' => 'Add Members', 'path' => "/panel/sig/addmembers/${id}"],
+                ['label' => 'Add Members',
+                 'path' => "/panel/sig/addmembers/${id}"],
             ];
         }
 
         if (Auth::user()->isAdmin()) {
             $bread = array_merge(
-                static::$sigPanelCrumbs, 
+                static::$sigPanelCrumbs,
                 [
                     ['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"],
                     ['label' => 'Members', 'path' => "/panel/sig/members/${id}"],
@@ -359,7 +369,8 @@ class SigsController extends Controller
 
         $sig = Sig::findOrFail($id);
         $breadCount = count($bread);
-        return view('panel.sigs.members', compact('id', 'bread', 'breadCount', 'sig'));
+        return view('panel.sigs.members',
+                    compact('id', 'bread', 'breadCount', 'sig'));
     }
 
     /**
@@ -377,7 +388,8 @@ class SigsController extends Controller
         foreach ($sig->users as $user) {
             $user->title;
             $user->institutions;
-            $user->fullname = $user->title->shortname . " " . $user->name . " " . $user->surname;
+            $user->fullname = $user->title->shortname . " "
+                              . $user->name . " " . $user->surname;
             $user->pivot;
             $users[] = $user;
         }
@@ -414,12 +426,15 @@ class SigsController extends Controller
 
         switch ($action) {
             case "add":
-                $sig->users()->attach($user->id, ['main' => $parameters['main']]);
+                $sig->users()->attach($user->id,
+                                      ['main' => $parameters['main']]);
                 $actionPerformed = $user->belongsToSig($sig->id);
                 break;
             case "update":
-                $sig->users()->updateExistingPivot($user->id, ['main' => $parameters['main']]);
-                $actionPerformed = $user->sigStatusId($sig->id) === $parameters['main'];
+                $sig->users()->updateExistingPivot($user->id,
+                                              ['main' => $parameters['main']]);
+                $actionPerformed = $user->sigStatusId($sig->id)
+                                   === $parameters['main'];
                 break;
             case "delete":
                 $sig->users()->detach($user->id);
@@ -427,13 +442,14 @@ class SigsController extends Controller
                 break;
         }
 
-        return $actionPerformed ? response()->json("performed: ${action}") : response()->json("could not ${action}", 500);
+        return $actionPerformed ? response()->json("performed: ${action}")
+                                : response()->json("could not ${action}", 500);
     }
 
     /**
      * Google Calendar of SIG meetings
      *
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public static function calendar()
     {
@@ -457,7 +473,7 @@ class SigsController extends Controller
      * List SIG mailing subscriptions
      *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function subscriptions($id)
     {
