@@ -2,29 +2,37 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\NewsFormRequest;
-use Illuminate\Support\Facades\Session;
 use Auth;
 use App\News;
+use App\Http\Requests\NewsFormRequest;
+use Illuminate\Support\Facades\Session;
 
 class NewsController extends Controller
 {
 
     /**
+     * Default breadcrumbs for /panel/news
+     *
+     * @var array
+     */
+    private static $crumbs = [
+        ['label' => 'Panel', 'path' => '/panel'],
+        ['label' => 'News', 'path' => '/panel/news']
+    ];
+
+    /**
      * Get list of news formatted and ordered by date
+     *
      * @return array
-     * @access public
-     * @author Javier Arias <javier@arias.re>
      */
     public static function getNews()
     {
-        $news = [];
-        $newsData = News::getNews("created_at", "desc", 15);
+        $news = News::getNews("created_at", "desc", 15);
 
-        foreach ($newsData as $new) {
+        foreach ($news as $new) {
             $new->date = PagesController::formatDate($new->created_at);
-            $new->description = PagesController::makeLinksInText($new->description);
-            $news[] = $new;
+            $new->description = PagesController::makeLinksInText(
+                                    $new->description);
         }
 
         return $news;
@@ -32,26 +40,18 @@ class NewsController extends Controller
 
     /**
      * List all news
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @return void
+     *
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'News', 'path' => '/panel/news']
-        ];
+        $bread = static::$crumbs;
         $breadCount = count($bread);
 
         $news = News::getNews();
         foreach ($news as $new) {
-            $new->created = date("d M H:i", strtotime($new->created_at));
-            $new->updated = date("d M H:i", strtotime($new->updated_at));
+            $new->created = PagesController::formatDate($new->created_at);
+            $new->updated = PagesController::formatDate($new->updated_at);
         }
 
         return view('panel.news.view', compact('news', 'bread', 'breadCount'));
@@ -59,23 +59,14 @@ class NewsController extends Controller
 
     /**
      * Edit news
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'News', 'path' => '/panel/news'],
-            ['label' => 'Edit', 'path' => '/panel/news/edit'],
-        ];
+        $crumb =  [['label' => 'Edit', 'path' => '/panel/news/edit']];
+        $bread = array_merge(static::$crumbs, $crumb);
         $breadCount = count($bread);
 
         $new = News::findOrFail($id);
@@ -85,11 +76,10 @@ class NewsController extends Controller
 
     /**
      * Update news
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, NewsFormRequest $request)
     {
@@ -108,23 +98,14 @@ class NewsController extends Controller
 
     /**
      * Add news
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'News', 'path' => '/panel/news'],
-            ['label' => 'Add', 'path' => '/panel/news/add'],
-        ];
+        $crumb =  [['label' => 'Add', 'path' => '/panel/news/add']];
+        $bread = array_merge(static::$crumbs, $crumb);
         $breadCount = count($bread);
 
         return view('panel.news.add', compact('bread', 'breadCount'));
@@ -132,12 +113,11 @@ class NewsController extends Controller
 
     /**
      * Create news
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
-    public function create(NewsFormRequest $request)
+    public nunction create(NewsFormRequest $request)
     {
         try {
             $new = new News;
@@ -154,10 +134,9 @@ class NewsController extends Controller
 
     /**
      * Delete news
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
@@ -171,3 +150,4 @@ class NewsController extends Controller
         return redirect('/panel/news');
     }
 }
+
