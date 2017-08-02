@@ -16,7 +16,7 @@ class UsersController extends Controller
     /**
      * List all users
      *
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
@@ -28,8 +28,8 @@ class UsersController extends Controller
 
         $users = User::all();
         foreach ($users as $user) {
-            $user->created = date("d M H:i", strtotime($user->created_at));
-            $user->updated = date("d M H:i", strtotime($user->updated_at));
+            $user->created = PagesController::formatDate($user->created_at);
+            $user->updated = PagesController::formatDate($user->updated_at);
         }
 
         return view('panel.users.view',
@@ -40,7 +40,7 @@ class UsersController extends Controller
      * Edit users
      *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
@@ -64,24 +64,11 @@ class UsersController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        $vars = [
-            'user',
-            'bread',
-            'breadCount',
-            'titles',
-            'groups',
-            'subDisciplines',
-            'applicationAreas',
-            'techniques',
-            'institutions',
-            'facilities',
-            'curDisciplinesCategory',
-            'curApplicationCategory',
-            'userTags',
-            'userInstitutions'
-        ];
-
-        return view('panel.users.edit', compact($vars));
+        return view('panel.users.edit',
+                    compact('user', 'bread', 'breadCount', 'titles', 'groups',
+                            'subDisciplines', 'applicationAreas', 'techniques',
+                            'institutions', 'facilities',
+                            'curDisciplinesCategory', 'curApplicationCategory',                             'userTags', 'userInstitutions'));
     }
 
     /**
@@ -89,7 +76,7 @@ class UsersController extends Controller
      *
      * @param int $id
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, UsersFormRequest $request)
     {
@@ -113,7 +100,7 @@ class UsersController extends Controller
      * Add users
      *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
@@ -136,31 +123,19 @@ class UsersController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        $vars = [
-            'user',
-            'bread',
-            'breadCount',
-            'titles',
-            'groups',
-            'subDisciplines',
-            'applicationAreas',
-            'techniques',
-            'institutions',
-            'facilities',
-            'curDisciplinesCategory',
-            'curApplicationCategory',
-            'userTags',
-            'userInstitutions'
-        ];
-
-        return view('panel.users.add', compact($vars));
+        return view('panel.users.add',
+                    compact('user', 'bread', 'breadCount', 'titles', 'groups',
+                            'subDisciplines', 'applicationAreas', 'techniques',
+                            'institutions', 'facilities',
+                            'curDisciplinesCategory', 'curApplicationCategory',
+                            'userTags', 'userInstitutions'));
     }
 
     /**
      * Create users
      *
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(UsersFormRequest $request)
     {
@@ -183,7 +158,7 @@ class UsersController extends Controller
      * Delete a user
      *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
@@ -201,14 +176,10 @@ class UsersController extends Controller
      * Full list of users to export to CSV
      *
      * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function export()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Users', 'path' => '/panel/users'],
