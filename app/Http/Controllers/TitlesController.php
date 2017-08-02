@@ -12,16 +12,11 @@ class TitlesController extends Controller
 
     /**
      * List all titles
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @return void
+     *
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Titles', 'path' => '/panel/titles']
@@ -30,27 +25,22 @@ class TitlesController extends Controller
 
         $titles = Title::all();
         foreach ($titles as $title) {
-            $title->created = date("d M H:i", strtotime($title->created_at));
-            $title->updated = date("d M H:i", strtotime($title->updated_at));
+            $title->created = PagesController::formatDate($title->created_at);
+            $title->updated = PagesController::formatDate($title->updated_at);
         }
 
-        return view('panel.titles.view', compact('titles', 'bread', 'breadCount'));
+        return view('panel.titles.view',
+                    compact('titles', 'bread', 'breadCount'));
     }
 
     /**
      * Edit titles
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Titles', 'path' => '/panel/titles'],
@@ -60,16 +50,16 @@ class TitlesController extends Controller
 
         $title = Title::findOrFail($id);
 
-        return view('panel.titles.edit', compact('title', 'bread', 'breadCount'));
+        return view('panel.titles.edit',
+                    compact('title', 'bread', 'breadCount'));
     }
 
     /**
      * Update titles
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, TitlesFormRequest $request)
     {
@@ -87,18 +77,12 @@ class TitlesController extends Controller
 
     /**
      * Add titles
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Titles', 'path' => '/panel/titles'],
@@ -111,10 +95,9 @@ class TitlesController extends Controller
 
     /**
      * Create titles
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(TitlesFormRequest $request)
     {
@@ -132,10 +115,9 @@ class TitlesController extends Controller
 
     /**
      * Delete titles
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function delete($id)
     {
