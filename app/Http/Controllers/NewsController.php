@@ -117,7 +117,7 @@ class NewsController extends Controller
      * @param EventsFormRequest $request
      * @return Illuminate\Support\Facades\Redirect
      */
-    public nunction create(NewsFormRequest $request)
+    public function create(NewsFormRequest $request)
     {
         try {
             $new = new News;
