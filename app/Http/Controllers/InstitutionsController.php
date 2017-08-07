@@ -13,16 +13,11 @@ class InstitutionsController extends Controller
 
     /**
      * List all institutions
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @return void
+     *
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Institutions', 'path' => '/panel/institutions']
@@ -31,27 +26,24 @@ class InstitutionsController extends Controller
 
         $institutions = Institution::all();
         foreach ($institutions as $institution) {
-            $institution->created = date("d M H:i", strtotime($institution->created_at));
-            $institution->updated = date("d M H:i", strtotime($institution->updated_at));
+            $institution->created = PagesController::formatDate(
+                                        $institution->created_at);
+            $institution->updated = PagesController::formatDate(
+                                        $institution->updated_at);
         }
 
-        return view('panel.institutions.view', compact('institutions', 'bread', 'breadCount'));
+        return view('panel.institutions.view',
+                    compact('institutions', 'bread', 'breadCount'));
     }
 
     /**
      * Edit an institution
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Institutions', 'path' => '/panel/institutions'],
@@ -62,16 +54,17 @@ class InstitutionsController extends Controller
         $institution = Institution::findOrFail($id);
         $institutiontypes = Institutiontype::lists('name', 'id');
 
-        return view('panel.institutions.edit', compact('institution', 'bread', 'breadCount', 'institutiontypes'));
+        return view('panel.institutions.edit',
+                    compact('institution', 'bread', 'breadCount',
+                            'institutiontypes'));
     }
 
     /**
      * Update an institution
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param InstitutionsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, InstitutionsFormRequest $request)
     {
@@ -89,18 +82,12 @@ class InstitutionsController extends Controller
 
     /**
      * Add an institution
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Institutions', 'path' => '/panel/institutions'],
@@ -109,15 +96,15 @@ class InstitutionsController extends Controller
         $breadCount = count($bread);
         $institutiontypes = Institutiontype::lists('name', 'id');
 
-        return view('panel.institutions.add', compact('bread', 'breadCount', 'institutiontypes'));
+        return view('panel.institutions.add',
+                    compact('bread', 'breadCount', 'institutiontypes'));
     }
 
     /**
      * Create an institution
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param InstitutionsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(InstitutionsFormRequest $request)
     {
@@ -135,10 +122,9 @@ class InstitutionsController extends Controller
 
     /**
      * Delete an institution
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
@@ -153,24 +139,27 @@ class InstitutionsController extends Controller
         return redirect('/panel/institutions');
     }
 
+    /**
+     * Get all institutions in JSON format
+     */
     public function getAllJson()
     {
         return Institution::all()->toJson();
     }
-    
+
     /**
      * Return array of institution_id => name
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
+     *
      * @return array
      */
     public static function getSelect()
     {
         $institutions = Institution::all();
-        $foramated = [];        
+        $foramated = [];
         foreach ($institutions as $institution) {
             $foramated[$institution->id] = $institution->name;
         }
         return $foramated;
     }
 }
+
