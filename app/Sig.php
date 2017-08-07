@@ -15,22 +15,21 @@ class Sig extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'shortname', 'description', 'bigimage', 'smallimage', 'twitterurl'
+        'name', 'shortname', 'description', 'bigimage', 'smallimage',
+        'twitterurl'
     ];
-    
+
     /**
-     * List of valid statuses for a member (member, leader, co-leader, key personnel).
-     * 
+     * List of valid statuses for a member (member, leader, co-leader,
+     * key personnel).
      * @var array
      */
     private static $validMembershipStatus = [0, 1, 2, 3];
 
     /**
-     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access protected
-     * @static
+     * The booting method of the model. It has been overwritten to exclude
+     * soft-deleted records from queries
+     *
      */
     protected static function boot()
     {
@@ -42,15 +41,17 @@ class Sig extends Model
     }
 
     /**
-     * Compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
+     * Compare old and new tags to determine which ones we are deleting
+     * (in old but not in  new) and which ones we are adding
+     * (in new but not in old)
+     *
      * @param array $tags Multidimensional array containing an array per tagtype
      * @return void
      */
     public function updateTags($tags)
     {
-        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+        $tagtypes = ['disciplines' => 1, 'applications' => 2,
+                     'techniques' => 3, 'facilities' => 4];
 
         $currentTags = $this->getTagIds();
         if (!empty($currentTags)) {
@@ -72,7 +73,10 @@ class Sig extends Model
         foreach ($tagtypes as $type => $key) {
             if (!empty($tags[$type])) {
                 foreach ($tags[$type] as $element) {
-                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
+                    $id = is_numeric($element)
+                          ? $element
+                          : Tag::create(['name' => $element,
+                                'category' => 'Other', 'tagtype_id' => $key]);
                     $this->tags()->attach($id);
                 }
             }
@@ -80,9 +84,10 @@ class Sig extends Model
     }
 
     /**
-     * Compare old and new institutions to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
+     * Compare old and new institutions to determine which ones we are
+     * deleting (in old but not in  new) and which ones we are adding
+     * (in new but not in old)
+     *
      * @param array $institutions
      * @return void
      */
@@ -100,7 +105,9 @@ class Sig extends Model
         if (!empty($institutions)) {
             foreach ($institutions as $inputInstitution) {
                 if (!in_array($inputInstitution, $currentInstitutions)) {
-                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
+                    $id = is_numeric($inputInstitution)
+                          ? $inputInstitution
+                          : Institution::create(['name' => $inputInstitution]);
                     $this->institutions()->attach($id);
                 }
             }
@@ -109,7 +116,7 @@ class Sig extends Model
 
     /**
      * Find a SIG given its short name
-     * 
+     *
      * @param string $slug
      * @return array
      */
@@ -122,27 +129,29 @@ class Sig extends Model
 
     /**
      * Get the users associated with the given sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
     {
-        return $this->belongsToMany('App\User', 'sig_users')->withTimestamps()->withPivot('main');
+        return $this->belongsToMany('App\User', 'sig_users')
+                    ->withTimestamps()->withPivot('main');
     }
 
     /**
      * Get the institution associated with the given sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function institutions()
     {
-        return $this->belongsToMany('App\Institution', 'sig_institutions')->withTimestamps()->withPivot('main');
+        return $this->belongsToMany('App\Institution', 'sig_institutions')
+                    ->withTimestamps()->withPivot('main');
     }
 
     /**
      * Get the tags associated with the given sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
@@ -152,8 +161,7 @@ class Sig extends Model
 
     /**
      * Get the list of tag ids associated with the sig
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getTagIds()
@@ -163,8 +171,7 @@ class Sig extends Model
 
     /**
      * Get the list of institution ids associated with the sig
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getInstitutionIds()
@@ -174,28 +181,29 @@ class Sig extends Model
 
     /**
      * Get the main institution of this sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function mainInstitution()
     {
-        return $this->belongsToMany('App\Institution', 'sig_institutions')->wherePivot('main', 1);
+        return $this->belongsToMany('App\Institution', 'sig_institutions')
+                    ->wherePivot('main', 1);
     }
 
     /**
      * Get the main institution of this sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function secondaryInstitutions()
     {
-        return $this->belongsToMany('App\Institution', 'sig_institutions')->wherePivot('main', 2);
+        return $this->belongsToMany('App\Institution', 'sig_institutions')
+                    ->wherePivot('main', 2);
     }
 
     /**
      * Get the id of the main institution associated with the sig
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getMainInstitutionId()
@@ -205,8 +213,7 @@ class Sig extends Model
 
     /**
      * Get the id of the secondary institutions associated with the sig
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getSecondaryInstitutionIds()
@@ -216,22 +223,24 @@ class Sig extends Model
 
     /**
      * Get the leader (main user) of this sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function leader()
     {
-        return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 1);
+        return $this->belongsToMany('App\User', 'sig_users')
+                    ->wherePivot('main', 1);
     }
 
     /**
      * Get the co-leaders of this sig
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function coleaders()
     {
-        return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 2);
+        return $this->belongsToMany('App\User', 'sig_users')
+                    ->wherePivot('main', 2);
     }
 
     /**
@@ -241,13 +250,13 @@ class Sig extends Model
      */
     public function personnel()
     {
-        return $this->belongsToMany('App\User', 'sig_users')->wherePivot('main', 3);
+        return $this->belongsToMany('App\User', 'sig_users')
+                    ->wherePivot('main', 3);
     }
 
     /**
      * Get the id of the user who is the leader of the SIG
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getLeaderId()
@@ -257,8 +266,7 @@ class Sig extends Model
 
     /**
      * Get the ids of the users who are co-leaders of the SIG
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getColeaderIds()
@@ -278,7 +286,7 @@ class Sig extends Model
 
     /**
      * Find whether a given status is allowed as a type of member
-     * 
+     *
      * @param int $status
      * @return boolean
      */
@@ -287,3 +295,4 @@ class Sig extends Model
         return in_array($status, static::$validMembershipStatus);
     }
 }
+
