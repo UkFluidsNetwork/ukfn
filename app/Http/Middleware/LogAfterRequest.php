@@ -23,9 +23,8 @@ final class LogAfterRequest
     }
 
     /**
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
      * @param string $request
+     * @return void
      */
     public function terminate($request)
     {
@@ -34,10 +33,9 @@ final class LogAfterRequest
 
     /**
      * Create a new log entry
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
+     *
      * @param string $data
+     * @return void
      */
     private function logRequest($data)
     {
@@ -52,9 +50,7 @@ final class LogAfterRequest
     }
 
     /**
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @see http://php.net/manual/en/function.filter-input.php
-     * @access private
      * @return string
      */
     private function getBrowserInfo()
@@ -63,7 +59,6 @@ final class LogAfterRequest
     }
 
     /**
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @see http://php.net/manual/en/function.filter-input.php
      * @access private
      * @return string
@@ -74,7 +69,6 @@ final class LogAfterRequest
     }
 
     /**
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @see http://php.net/manual/en/function.filter-input.php
      * @access private
      * @return string
@@ -84,3 +78,4 @@ final class LogAfterRequest
         return filter_input(INPUT_SERVER, 'REQUEST_URI');
     }
 }
+
