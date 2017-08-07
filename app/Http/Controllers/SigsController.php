@@ -270,7 +270,6 @@ class SigsController extends Controller
     /**
      * Render a SIG individual page
      *
-     * @access public
      * @param string $slug
      * @return void
      */

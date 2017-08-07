@@ -60,7 +60,6 @@ final class LogAfterRequest
 
     /**
      * @see http://php.net/manual/en/function.filter-input.php
-     * @access private
      * @return string
      */
     private function getIpAddress()
@@ -70,7 +69,6 @@ final class LogAfterRequest
 
     /**
      * @see http://php.net/manual/en/function.filter-input.php
-     * @access private
      * @return string
      */
     private function getRequest()

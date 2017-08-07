@@ -42,7 +42,6 @@ class PagesController extends Controller
     /**
      * Home Page
      *
-     * @access public
      * @return \Illuminate\View\View
      */
     public function index()
@@ -125,9 +124,7 @@ class PagesController extends Controller
     /**
      * Get array of tweets
      *
-     * @access public
      * @return array ["date", "text"]
-     * @access public
      */
     public static function getTweets($screenName, $maxTweets = 10)
     {

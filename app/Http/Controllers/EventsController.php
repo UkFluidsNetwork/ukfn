@@ -146,7 +146,6 @@ class EventsController extends Controller
     /**
      * Create an event
      *
-     * @access public
      * @param EventsFormRequest $request
      * @return Illuminate\Support\Facades\Redirect
      */
