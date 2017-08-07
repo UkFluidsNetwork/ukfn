@@ -8,7 +8,8 @@ class SigsFormRequest extends Request
 {
 
     /**
-     * Determine if the user is authorized to make this request. We allow all requests as middleware is taking care of it.
+     * Determine if the user is authorized to make this request.
+     * We allow all requests as middleware is taking care of it.
      *
      * @return bool
      */
@@ -21,7 +22,6 @@ class SigsFormRequest extends Request
      * Get the validation rules that apply to the request.
      *
      * @return array
-     * @author Javier Arias <ja573@cam.ac.uk>
      */
     public function rules()
     {
@@ -32,3 +32,4 @@ class SigsFormRequest extends Request
         ];
     }
 }
+
