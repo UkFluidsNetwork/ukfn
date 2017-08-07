@@ -12,25 +12,27 @@ class TagsController extends Controller
 {
 
     /**
+     * Default breadcrumbs for /panel/tags
+     *
+     * @var array
+     */
+    private static $crumbs = [
+        ['label' => 'Panel', 'path' => '/panel'],
+        ['label' => 'Tags', 'path' => '/panel/tags']
+    ];
+
+    /**
      * List all tags
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @return void
+     *
+     * @return Illuminate\Support\Facades\View
      */
     public function view($show = 'all')
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Tags', 'path' => '/panel/tags']
-        ];
+        $bread = static::$crumbs;
         $breadCount = count($bread);
 
         switch ($show) {
-            case "all": 
+            case "all":
                 $tags = Tag::all();
                 $tagtype = "All";
                 break;
@@ -51,57 +53,46 @@ class TagsController extends Controller
                 $tagtype = "Facilities";
                 break;
         }
-        
+
         if (!empty($tags)) {
             foreach ($tags as $tag) {
-                $tag->created = date("d M H:i", strtotime($tag->created_at));
-                $tag->updated = date("d M H:i", strtotime($tag->updated_at));
+                $tag->created = PagesController::formatDate($tag->created_at);
+                $tag->updated = PagesController::formatDate($tag->updated_at);
             }
         }
 
-        return view('panel.tags.view', compact('tags', 'bread', 'breadCount', 'tagtype'));
+        return view('panel.tags.view',
+                    compact('tags', 'bread', 'breadCount', 'tagtype'));
     }
 
     /**
      * Edit tags
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Tags', 'path' => '/panel/tags'],
-            ['label' => 'Edit', 'path' => '/panel/tags/edit'],
-        ];
+        $crumb =  [['label' => 'Edit', 'path' => '/panel/tags/edit']];
+        $bread = array_merge(static::$crumbs, $crumb);
         $breadCount = count($bread);
 
         $tag = Tag::findOrFail($id);
         $tagtypes = Tagtype::lists('name', 'id');
 
-        return view('panel.tags.edit', compact('tag', 'bread', 'breadCount', 'tagtypes'));
+        return view('panel.tags.edit',
+                    compact('tag', 'bread', 'breadCount', 'tagtypes'));
     }
 
     /**
      * Update tags
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param TagsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, TagsFormRequest $request)
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-        
         try {
             $tag = Tag::findOrFail($id);
             $input = $request->all();
@@ -116,42 +107,30 @@ class TagsController extends Controller
 
     /**
      * Add tags
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Tags', 'path' => '/panel/tags'],
-            ['label' => 'Add', 'path' => '/panel/tags/add'],
-        ];
+        $crumb =  [['label' => 'Edit', 'path' => '/panel/tags/add']];
+        $bread = array_merge(static::$crumbs, $crumb);
         $breadCount = count($bread);
 
         $tagtypes = Tagtype::lists('name', 'id');
-        
-        return view('panel.tags.add', compact('bread', 'breadCount', 'tagtypes'));
+
+        return view('panel.tags.add',
+                    compact('bread', 'breadCount', 'tagtypes'));
     }
 
     /**
      * Create tags
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param TagsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(TagsFormRequest $request)
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-        
         try {
             $tag = new Tag;
             $input = $request->all();
@@ -166,17 +145,12 @@ class TagsController extends Controller
 
     /**
      * Delete tags
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-        
         try {
             $tag = Tag::findOrFail($id);
             $tag->users()->detach($tag->getUserIds());
@@ -199,7 +173,7 @@ class TagsController extends Controller
     {
         $tags = [];
         switch ($tagtype) {
-            case "all": 
+            case "all":
                 $tags = Tag::all();
                 break;
             case "disciplines":
@@ -217,11 +191,11 @@ class TagsController extends Controller
         }
         return response()->json($tags);
     }
-    
+
     /**
      * Get all categories of tags belonging to a given tagtype
      *
-     * @todo Implement the rest cases: applications, techniques, facilities, and all
+     * @todo Implement the rest of the cases: applications, techniques, etc.
      * @param string $tagtype
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -233,6 +207,6 @@ class TagsController extends Controller
                 $categories = Tag::getAllDisciplinesCategories();
                 break;
         }
-        return response()->json($categories);        
+        return response()->json($categories);
     }
 }

@@ -15,9 +15,8 @@ class EventsController extends Controller
      * Get list of events formatted and ordered by date.
      * We want to display newly created events first, with a "new" flag,
      * followed by the rest of the, non past, events.
+     *
      * @return array
-     * @access public
-     * @author Javier Arias <javier@arias.re>
      */
     public static function getEvents()
     {
@@ -55,16 +54,12 @@ class EventsController extends Controller
 
     /**
      * List all events
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Events', 'path' => '/panel/events']
@@ -73,9 +68,9 @@ class EventsController extends Controller
 
         $events = Event::getEvents();
         foreach ($events as $event) {
-            $event->created = date("d M H:i", strtotime($event->created_at));
-            $event->updated = date("d M H:i", strtotime($event->updated_at));
-            $event->date = date("g:ia l jS F", strtotime($event->start));
+            $event->created = PagesController::formatDate($event->created_at);
+            $event->updated = PagesController::formatDate($event->updated_at);
+            $event->date    = PagesController::formatDate($event->start);
         }
 
         return view('panel.events.view',
@@ -84,18 +79,12 @@ class EventsController extends Controller
 
     /**
      * Edit an event
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
-        $admin = new PanelController();
-        if (!$admin->checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
             ['label' => 'Panel', 'path' => '/panel'],
             ['label' => 'Events', 'path' => '/panel/events'],
@@ -111,11 +100,10 @@ class EventsController extends Controller
 
     /**
      * Update an event
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, EventsFormRequest $request)
     {
@@ -134,10 +122,9 @@ class EventsController extends Controller
 
     /**
      * Add an event
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\View
      */
     public function add()
     {
@@ -158,10 +145,10 @@ class EventsController extends Controller
 
     /**
      * Create an event
-     * @author Javier Arias <ja573@cam.ac.uk>
+     *
      * @access public
      * @param EventsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(EventsFormRequest $request)
     {
@@ -180,10 +167,9 @@ class EventsController extends Controller
 
     /**
      * Delete an event
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @param int $id
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
