@@ -56,7 +56,8 @@ class PagesController extends Controller
         // get tweets to display
         $tweets = self::getTweets('UKFluidsNetwork');
         $totalTweets = count($tweets);
-        return view('pages.index', compact('news', 'events', 'tweets', 'totalTweets'));
+        return view('pages.index',
+                     compact('news', 'events', 'tweets', 'totalTweets'));
     }
 
     /**
@@ -105,7 +106,7 @@ class PagesController extends Controller
      * Send message from contact form
      *
      * @param ContactUsRequest $request Validation Rules
-     * @return \Illuminate\View\View
+     * @return \Illuminate\View\Redirect
      */
     public function sendMessage(ContactUsRequest $request)
     {
@@ -127,7 +128,6 @@ class PagesController extends Controller
      * @access public
      * @return array ["date", "text"]
      * @access public
-     * @author Javier Arias <javier@arias.re>
      */
     public static function getTweets($screenName, $maxTweets = 10)
     {
@@ -208,7 +208,6 @@ class PagesController extends Controller
     /**
      * Render my account view
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @return Illuminate\Support\Facades\View
      */
     public function myAccount()
@@ -224,7 +223,6 @@ class PagesController extends Controller
     /**
      * Render the personal details view
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @return Illuminate\Support\Facades\View
      */
     public function personalDetails()
@@ -243,7 +241,6 @@ class PagesController extends Controller
     /**
      * Render the academic details view
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @return Illuminate\Support\Facades\View
      */
     public function academicDetails()
@@ -261,7 +258,8 @@ class PagesController extends Controller
         $curDisciplinesCategory = null;
         $curApplicationCategory = null;
 
-        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Academic Details', 'path' => '/myaccount/academic']]);
+        $bread = array_merge(static::$myAccountCrumbs,
+           [['label' => 'Academic Details', 'path' => '/myaccount/academic']]);
         $breadCount = count($bread);
 
         $vars = [
@@ -285,14 +283,14 @@ class PagesController extends Controller
     /**
      * Render the change password interface
      *
-     * @author Robert Barczyk <robert@barczyk.net>
      * @return Illuminate\Support\Facades\View
      */
     public function changePassword()
     {
         SEO::setTitle('Change Password');
 
-        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Change Password', 'path' => '/myaccount/password']]);
+        $bread = array_merge(static::$myAccountCrumbs,
+            [['label' => 'Change Password', 'path' => '/myaccount/password']]);
         $breadCount = count($bread);
 
         return view('pages.password', compact('bread', 'breadCount'));
@@ -301,8 +299,6 @@ class PagesController extends Controller
     /**
      * Render the preferences view
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
      * @return Illuminate\Support\Facades\View
      */
     public function preferences()
@@ -310,18 +306,20 @@ class PagesController extends Controller
         SEO::setTitle('Preferences');
 
         $user = User::findOrFail(Auth::user()->id);
-        $subscription = !is_null($user->subscription['id']) && $user->subscription['deleted'] == 0;
+        $subscription = !is_null($user->subscription['id'])
+                        && $user->subscription['deleted'] == 0;
 
-        $bread = array_merge(static::$myAccountCrumbs, [['label' => 'Preferences', 'path' => '/myaccount/preferences']]);
+        $bread = array_merge(static::$myAccountCrumbs,
+            [['label' => 'Preferences', 'path' => '/myaccount/preferences']]);
         $breadCount = count($bread);
 
-        return view('pages.preferences', compact('bread', 'breadCount', 'subscription'));
+        return view('pages.preferences',
+                    compact('bread', 'breadCount', 'subscription'));
     }
 
     /**
      * Save the preferences of the user
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @param PreferencesRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -346,7 +344,6 @@ class PagesController extends Controller
     /**
      * Save the personal details of the user
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @param PersonalDetailsRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -372,7 +369,6 @@ class PagesController extends Controller
     /**
      * Save the academic details of the user
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @param AcademicDetailsRequest $request
      * @return \Illuminate\Http\RedirectResponse
      */
@@ -393,9 +389,9 @@ class PagesController extends Controller
 
     /**
      * Update user password
+     *
      * @param PasswordUpdateRequest $request
-     * @return void
-     * @author Robert Barczyk <robert@barczyk.net>
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function updatePassword(PasswordUpdateRequest $request)
     {
@@ -407,14 +403,14 @@ class PagesController extends Controller
             Session::flash('alert-class', 'alert-success');
             return redirect('/myaccount');
         } else {
-            return Redirect::back()->withErrors(['password' => 'Current password is incorrect']);
+            return Redirect::back()->withErrors(
+                ['password' => 'Current password is incorrect']);
         }
     }
 
     /**
      * Convert raw URIs into anchor tags
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @param string $textToFormat
      * @return string
      */
@@ -430,7 +426,6 @@ class PagesController extends Controller
     /**
      * Format a date or date range
      *
-     * @author Javier Arias <ja573@cam.ac.uk>
      * @param string $start
      * @param string $end
      * @return string
@@ -483,7 +478,7 @@ class PagesController extends Controller
      * @param \Illuminate\Http\UploadedFile $file
      * @param string $disk name of the storage::disk()
      * @param string|null $name the final name of the file
-     * @return string|null the name of the file if upload succeeded or null if not
+     * @return string|null the name of the file if upload succeeded, null if not
      */
     public static function uploadFile($file, $disk, $name = null)
     {
@@ -508,3 +503,4 @@ class PagesController extends Controller
         return null;
     }
 }
+
