@@ -24,9 +24,6 @@ class Talk extends Model
     /**
      * The booting method of the model.
      * It has been overwritten to exclude soft-deleted records from queries
-     *
-     * @access protected
-     * @static
      */
     protected static function boot()
     {

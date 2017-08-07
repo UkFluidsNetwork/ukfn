@@ -8,10 +8,12 @@ class Log extends Model
 {
 
     /**
-     * Needed so that laravel knows that this table does not have created_at nor updated_at fields
-     * @access public
+     * Needed so that laravel knows that this table does not have
+     * created_at nor updated_at fields
+     *
      * @var boolean
      */
     public $timestamps = false;
 
 }
+

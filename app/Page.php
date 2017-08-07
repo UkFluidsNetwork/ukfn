@@ -9,8 +9,6 @@ class Page extends Model
   /**
    * Functions sends email from Contact Us form
    *
-   * @access public
-   * @static
    * @param string $name
    * @param string $from
    * @param string $message
@@ -26,3 +24,4 @@ class Page extends Model
     mail($to, $subject, $message, $headers);
   }
 }
+

@@ -195,7 +195,6 @@ class User extends Authenticatable
     /**
      * Get the list of tag ids associated with the user
      *
-     * @access public
      * @return array
      */
     public function getTagIds()
@@ -206,7 +205,6 @@ class User extends Authenticatable
     /**
      * Get the list of institution ids associated with the user
      *
-     * @access public
      * @return array
      */
     public function getInstitutionIds()
