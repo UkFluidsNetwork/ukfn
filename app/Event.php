@@ -17,12 +17,11 @@ class Event extends Model
 
     /**
      * Get all events
+     *
      * @param string $orderBy Attribute to order by
      * @param string $direction OrderBy direction
      * @param integer $limit Limit results
      * @return array
-     * @access public
-     * @author Javier Arias <javier@arias.re>
      */
     public static function getEvents($orderBy = "start", $direction = "desc", $where = [], $limit = null)
     {
@@ -33,3 +32,4 @@ class Event extends Model
                 ->get();
     }
 }
+

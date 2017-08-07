@@ -13,7 +13,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'surname', 'email', 'password', 'title_id', 'group_id', 'department_id', 'orcidid', 'url'
+        'name', 'surname', 'email', 'password', 'title_id', 'group_id',
+        'department_id', 'orcidid', 'url'
     ];
 
     /**
@@ -26,15 +27,17 @@ class User extends Authenticatable
     ];
 
     /**
-     * Compare old and new tags to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
+     * Compare old and new tags to determine which ones we are deleting
+     * (in old but not in  new) and which ones we are adding
+     * (in new but not in old)
+     *
      * @param array $tags Multidimensional array containing an array per tagtype
      * @return void
      */
     public function updateTags($tags)
     {
-        $tagtypes = ['disciplines' => 1, 'applications' => 2, 'techniques' => 3, 'facilities' => 4];
+        $tagtypes = ['disciplines' => 1, 'applications' => 2,
+                     'techniques' => 3, 'facilities' => 4];
 
         $currentTags = $this->getTagIds();
         if (!empty($currentTags)) {
@@ -56,7 +59,10 @@ class User extends Authenticatable
         foreach ($tagtypes as $type => $key) {
             if (!empty($tags[$type])) {
                 foreach ($tags[$type] as $element) {
-                    $id = is_numeric($element) ? $element : Tag::create(['name' => $element, 'category' => 'Other', 'tagtype_id' => $key]);
+                    $id = is_numeric($element)
+                          ? $element
+                          : Tag::create(['name' => $element,
+                                'category' => 'Other', 'tagtype_id' => $key]);
                     $this->tags()->attach($id);
                 }
             }
@@ -64,9 +70,10 @@ class User extends Authenticatable
     }
 
     /**
-     * Compare old and new institutions to determine which ones we are deleting (in old but not in  new) and which ones we are adding (in new but not in old)
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
+     * Compare old and new institutions to determine which ones
+     * we are deleting (in old but not in  new) and which ones
+     * we are adding (in new but not in old)
+     *
      * @param array $institutions
      * @return void
      */
@@ -84,7 +91,9 @@ class User extends Authenticatable
         if (!empty($institutions)) {
             foreach ($institutions as $inputInstitution) {
                 if (!in_array($inputInstitution, $currentInstitutions)) {
-                    $id = is_numeric($inputInstitution) ? $inputInstitution : Institution::create(['name' => $inputInstitution]);
+                    $id = is_numeric($inputInstitution)
+                          ? $inputInstitution
+                          : Institution::create(['name' => $inputInstitution]);
                     $this->institutions()->attach($id);
                 }
             }
@@ -93,27 +102,29 @@ class User extends Authenticatable
 
     /**
      * Get the institutions associated with the given user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function institutions()
     {
-        return $this->belongsToMany('App\Institution', 'institution_users')->withTimestamps();
+        return $this->belongsToMany('App\Institution', 'institution_users')
+                    ->withTimestamps();
     }
 
     /**
      * Get the sigs associated with the given user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function sigs()
     {
-        return $this->belongsToMany('App\Sig', 'sig_users')->withPivot('main')->withTimestamps();
+        return $this->belongsToMany('App\Sig', 'sig_users')
+                    ->withPivot('main')->withTimestamps();
     }
 
     /**
      * Get the tags associated with the given user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function tags()
@@ -123,7 +134,7 @@ class User extends Authenticatable
 
     /**
      * Get the title associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function title()
@@ -133,7 +144,7 @@ class User extends Authenticatable
 
     /**
      * Get the group associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function group()
@@ -143,7 +154,7 @@ class User extends Authenticatable
 
     /**
      * Get the group associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\belongsTo
      */
     public function department()
@@ -153,7 +164,7 @@ class User extends Authenticatable
 
     /**
      * Get the subscription associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
     public function subscription()
@@ -163,7 +174,7 @@ class User extends Authenticatable
 
     /**
      * Get the news associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function news()
@@ -173,7 +184,7 @@ class User extends Authenticatable
 
     /**
      * Get the events associated with the user
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function events()
@@ -183,7 +194,7 @@ class User extends Authenticatable
 
     /**
      * Get the list of tag ids associated with the user
-     * 
+     *
      * @access public
      * @return array
      */
@@ -194,7 +205,7 @@ class User extends Authenticatable
 
     /**
      * Get the list of institution ids associated with the user
-     * 
+     *
      * @access public
      * @return array
      */
@@ -205,13 +216,15 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is allowed to edit the sig given by $sigId
-     * 
+     *
      * @param int $sigId
      * @return boolean
      */
     public function canEditSig($sigId)
     {
-        return $this->isAdmin() || $this->isLeaderOfSig($sigId);
+        return $this->isAdmin()
+               || $this->isLeaderOfSig($sigId)
+               || $this->isColeaderOfSig($sigId);
     }
 
     /**
@@ -252,7 +265,7 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is asscociated with the sig given by $sigId
-     * 
+     *
      * @param int $sigId
      * @return boolean
      */
@@ -263,7 +276,7 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is an administrator.
-     * 
+     *
      * @return boolean
      */
     public function isAdmin()
@@ -273,7 +286,7 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is the leader of at least one sig.
-     * 
+     *
      * @return boolean
      */
     public function isSigLeader()
@@ -283,7 +296,7 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is the co-leader of at least one sig.
-     * 
+     *
      * @return boolean
      */
     public function isSigCoLeader()
@@ -293,7 +306,7 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is the key personnel of at least one sig.
-     * 
+     *
      * @return boolean
      */
     public function isSigKeyPersonnel()
@@ -303,7 +316,7 @@ class User extends Authenticatable
 
     /**
      * Determine if the user is the member of at least one sig.
-     * 
+     *
      * @return boolean
      */
     public function isSigMember()
@@ -313,7 +326,7 @@ class User extends Authenticatable
 
     /**
      * Get the SIG for which the user is a leader
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function sigLeaderships()
@@ -323,7 +336,7 @@ class User extends Authenticatable
 
     /**
      * Get the IDs of the SIG for which the user is a leader
-     * 
+     *
      * @return array
      */
     public function sigLeadershipsIds()
@@ -332,8 +345,9 @@ class User extends Authenticatable
     }
 
     /**
-     * Get the value of the sig_users.main attribute for the user and a given $sigId
-     * 
+     * Get the value of the sig_users.main attribute for the user
+     * and a given $sigId
+     *
      * @param int $sigId
      * @return int
      */
@@ -347,7 +361,7 @@ class User extends Authenticatable
 
     /**
      * Get the membership status of the user for a given $sigId
-     * 
+     *
      * @param int $sigId
      * @return string
      */
@@ -362,3 +376,4 @@ class User extends Authenticatable
         return null;
     }
 }
+

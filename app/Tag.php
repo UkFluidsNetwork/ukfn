@@ -17,29 +17,24 @@ class Tag extends Model
     protected $fillable = [
         'name', 'tagtype_id', 'category'
     ];
-    
+
     /**
-     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access protected
-     * @static
+     * The booting method of the model. It has been overwritten
+     * to exclude soft-deleted records from queries
+     *
      */
     protected static function boot()
     {
         parent::boot();
-        
+
         static::addGlobalScope('deleted', function (Builder $builder) {
-           $builder->where('tags.deleted', '=', '0'); 
+           $builder->where('tags.deleted', '=', '0');
         });
     }
 
     /**
      * Get all tags
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
-     * @static
+     *
      * @return array
      */
     public static function getAll()
@@ -49,25 +44,22 @@ class Tag extends Model
 
     /**
      * Get all tags that match a given tagtype_id
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
-     * @static
+     *
      * @param int $tagtype_id
      * @return array
      */
     private static function getByTagtype($tagtype_id)
     {
-        return DB::table('tags')->where('tagtype_id', $tagtype_id)->orderBy('category','ASC')->orderBy('name', 'ASC')->get();
+        return DB::table('tags')->where('tagtype_id', $tagtype_id)
+                  ->orderBy('category','ASC')->orderBy('name', 'ASC')->get();
     }
 
     /**
      * Get all tags that match a given tagtype name
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
-     * @static
+     *
      * @param string $tagtype
      * @return array
-     */    
+     */
     private static function getByTagtypeName($tagtype)
     {
         switch ($tagtype) {
@@ -86,15 +78,13 @@ class Tag extends Model
             default:
                 return null;
         }
-        
+
         return self::getByTagtype($tagtype_id);
     }
-    
+
     /**
      * Get all tags of type sub-disciplines
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return array
      */
     public static function getAllDisciplines()
@@ -104,9 +94,7 @@ class Tag extends Model
 
     /**
      * Get all tags of type application areas
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return array
      */
     public static function getAllApplicationAreas()
@@ -116,9 +104,7 @@ class Tag extends Model
 
     /**
      * Get all tags of type techniques
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return array
      */
     public static function getAllTechniques()
@@ -128,21 +114,17 @@ class Tag extends Model
 
     /**
      * Get all tags of type facilities
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return array
      */
     public static function getAllFacilities()
     {
         return self::getByTagtypeName('Facilities');
     }
-    
+
     /**
      * Get all tag categories of type sub-disciplines
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return array
      */
     public static function getAllDisciplinesCategories()
@@ -161,9 +143,7 @@ class Tag extends Model
 
     /**
      * Get the id of a tagtype given its name
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access private
+     *
      * @return int|null
      */
     private static function findTagtypeByName($name)
@@ -174,9 +154,7 @@ class Tag extends Model
 
     /**
      * Get the users associated with this tag
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function users()
@@ -186,9 +164,7 @@ class Tag extends Model
 
     /**
      * Get the institutions associated with this tag
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function institutions()
@@ -198,9 +174,7 @@ class Tag extends Model
 
     /**
      * Get the tagtype of this tag
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function tagtype()
@@ -211,20 +185,17 @@ class Tag extends Model
 
     /**
      * Get the list of user ids associated with the tag
-     * 
-     * @access public
+     *
      * @return array
      */
     public function getUserIds()
     {
         return $this->users->lists('id')->toArray();
     }
-    
+
     /**
      * Get the sigs associated with this tag
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access public
+     *
      * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function sigs()
@@ -232,3 +203,4 @@ class Tag extends Model
         return $this->belongsToMany('App\Sig', 'sig_tags');
     }
 }
+

@@ -18,11 +18,8 @@ class Title extends Model
     ];
 
     /**
-     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access protected
-     * @static
+     * The booting method of the model. It has been overwritten to
+     * exclude soft-deleted records from queries
      */
     protected static function boot()
     {
@@ -35,7 +32,7 @@ class Title extends Model
 
     /**
      * Get the users associated with the given title
-     * 
+     *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
      */
     public function users()
@@ -43,3 +40,4 @@ class Title extends Model
         return $this->hasMany('App\User');
     }
 }
+

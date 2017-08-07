@@ -15,20 +15,18 @@ class Aggregator extends Model
     protected $fillable = [
         'name', 'longname'
     ];
-    
+
     /**
-     * The booting method of the model. It has been overwritten to exclude soft-deleted records from queries
-     * 
-     * @author Javier Arias <ja573@cam.ac.uk>
-     * @access protected
-     * @static
+     * The booting method of the model.
+     * It has been overwritten to exclude soft-deleted records from queries
      */
     protected static function boot()
     {
         parent::boot();
-        
+
         static::addGlobalScope('deleted', function (Builder $builder) {
            $builder->where('aggregators.deleted', '=', '0'); 
         });
     }
 }
+
