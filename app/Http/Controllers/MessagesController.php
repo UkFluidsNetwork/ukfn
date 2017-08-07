@@ -10,9 +10,9 @@ class MessagesController extends Controller
 {
 
     /**
-     * Render all messages in Admin panel
+     * Render list of messages
      *
-     * @return type
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
