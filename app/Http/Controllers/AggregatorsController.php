@@ -12,17 +12,14 @@ use Illuminate\Support\Facades\Session;
 
 class AggregatorsController extends Controller
 {
+
     /**
-     * View all aggregators / feeds in admin panel
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @return void
+     * List all feeds
+     *
+     * @return Illuminate\Support\Facades\View
      */
     public function view()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
                 ['label' => 'Panel', 'path' => '/panel'],
                 ['label' => 'Talks', 'path' => '/panel/talks'],
@@ -33,15 +30,17 @@ class AggregatorsController extends Controller
 
         $aggregators = Aggregator::all();
 
-        return view('panel.aggregators.viewall', compact('aggregators','bread', 'breadCount'));
+        return view('panel.aggregators.viewall',
+                    compact('aggregators','bread', 'breadCount'));
     }
 
+    /**
+     * Render aggregator add form
+     *
+     * @return Illuminate\Support\Facades\View
+     */
     public function add()
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
                 ['label' => 'Panel', 'path' => '/panel'],
                 ['label' => 'Talks', 'path' => '/panel/talks'],
@@ -52,22 +51,19 @@ class AggregatorsController extends Controller
         $breadCount = count($bread);
 
         $aggregator = new Aggregator();
-        
-        return view('panel.aggregators.add', compact('bread', 'breadCount', 'aggregator'));
+
+        return view('panel.aggregators.add',
+                    compact('bread', 'breadCount', 'aggregator'));
     }
 
     /**
      * Edit selected aggregator / RSS feed
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @param intiger $id
-     * @return void
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\View
      */
     public function edit($id)
     {
-        if (!PanelController::checkIsAdmin()) {
-            return redirect('/');
-        }
-
         $bread = [
                 ['label' => 'Panel', 'path' => '/panel'],
                 ['label' => 'Talks', 'path' => '/panel/talks'],
@@ -79,14 +75,15 @@ class AggregatorsController extends Controller
         $aggregator = Aggregator::findOrFail($id);
 
 
-        return view('panel.aggregators.edit', compact('bread', 'breadCount', 'aggregator'));
+        return view('panel.aggregators.edit',
+                    compact('bread', 'breadCount', 'aggregator'));
     }
 
     /**
      * Delete selected aggregator / feed via admin panel
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @param intiger $id aggregator id
-     * @return void
+     *
+     * @param int $id aggregator id
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
@@ -103,11 +100,10 @@ class AggregatorsController extends Controller
 
     /**
      * Update selected aggregator
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
-     * @param intiger $id
+     *
+     * @param int $id
      * @param AggregatorsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, AggregatorsFormRequest $request)
     {
@@ -125,9 +121,9 @@ class AggregatorsController extends Controller
 
     /**
      * Add new RSS feed / aggregator
-     * @author Robert Barczyk <robert@barczyk.net>
+     *
      * @param AggregatorsFormRequest $request
-     * @return void
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function create(AggregatorsFormRequest $request)
     {
@@ -144,11 +140,10 @@ class AggregatorsController extends Controller
 
         return redirect('/panel/talks/feeds');
     }
-    
+
     /**
      * Return array of aggregator_id => name
-     * 
-     * @author Robert Barczyk <robert@barczyk.net>
+     *
      * @return array
      */
     public static function getSelect()
@@ -161,3 +156,4 @@ class AggregatorsController extends Controller
         return $formated;
     }
 }
+
