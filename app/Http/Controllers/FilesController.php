@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\File;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FileUploadRequest;
