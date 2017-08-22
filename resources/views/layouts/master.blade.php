@@ -78,6 +78,7 @@
         <link rel="icon" type="image/png" sizes="96x96" href="{{ asset('pictures/favicon/favicon-96x96.png?v=2') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('pictures/favicon/favicon-16x16.png?v=2') }}">
         <link rel="manifest" type="application/json" href="{{ asset('/manifest.json') }}">
+        @yield('head')
     </head>
     <body>
         <!-- NAVBAR - START -->
@@ -188,7 +189,7 @@
         <div class="container-fluid" id="main-content">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
-                    @if(Session::has('message'))
+                    @if (Session::has('message'))
                     <p class="alert {{ Session::get('alert-class', 'alert-info') }}">{{ Session::get('message') }}</p>
                     @endif
                     @yield('content')

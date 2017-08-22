@@ -2,6 +2,24 @@
 @section('content')
 
   <h2 class='line-break'>Photo and Video Competition</h2>
+  <div style="text-align:center;">
+    <div class="row">
+    <div class="col-sm-6 col-xs-12">
+      <a href="/competition/vote/photos/"
+         class="btn btn-primary line-break-dbl"
+         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
+           Photo entries
+       </a>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <a href="/competition/vote/videos/"
+         class="btn btn-primary line-break-dbl"
+         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
+           Video entries
+       </a>
+    </div>
+    </div>
+  </div>
   <div class="well">
     <p>
       The UK Fluids Network is launching a competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition will run every 4 months, with the first deadline 31 July 2017.
@@ -16,7 +34,9 @@ The photo or video can be on any subject related to fluid mechanics – so not o
   <p>
 The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
-  <p><b>The closing date for entries is 31 July 2017.</b></p>
+  <p><b>Voting is open until 31 August 2017.</b></p>
+@if (false)
+  <p><b>The closing date for entries was 31 July 2017.</b></p>
   <div class="container-fluid nopadding-left">
     <div class="row">
         <div class="col-sm-4 col-sm-push-8">
@@ -27,7 +47,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
                         <span>Cash prizes of £200 for the best photo and the best video.</span>
                     </li>
                     <li>
-                        <span>The closing date is 31 July 2017.</span>
+                        <span>The closing date was 31 July 2017.</span>
                     </li>
                     <li>
                         <span>Finalists will be chosen by popular vote.</span>
@@ -92,4 +112,5 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
           font-size: 14px;
       }
       </style>
+@endif
 @endsection

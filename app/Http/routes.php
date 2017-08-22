@@ -27,6 +27,7 @@ Route::get('about', function() {return Redirect::to('connect');}); // old URI
 Route::get('contact', function() {return Redirect::to('connect');}); // old URI
 Route::get('admin', function() {return Redirect::to('connect');}); // old URI
 Route::get('competition', 'CompetitionController@index');
+Route::get('competition/vote/{type}', 'CompetitionController@displayEntries');
 Route::get('viewmessage/{id}', 'PagesController@viewmessage');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/{id}', 'TalksController@view');
@@ -48,6 +49,9 @@ Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('sig');
 Route::get('panel/sig/members/{id}', 'SigsController@members')->middleware('sig');
 Route::get('panel/sig/subscriptions/{id}', 'SigsController@subscriptions')->middleware('sig');
+Route::get('panel/sig/box/{id}', 'SigsController@listBoxes')->middleware('sig');
+Route::get('panel/sig/box/add/{id}', 'SigsController@addBox')->middleware('sig');
+Route::get('panel/sig/box/edit/{id}', 'SigsController@editBox')->middleware('sig');
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
 // require canViewUsers
 Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-leader');
@@ -89,19 +93,22 @@ Route::get('panel/talks/feeds/edit/{id}', 'AggregatorsController@edit')->middlew
 Route::get('panel/files/add', 'FilesController@add')->middleware('admin');
 Route::get('panel/files', 'FilesController@index')->middleware('admin');
 /** POST requests * */
-// public 
+// public
 Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
 Route::post('subscribe-sig', 'MailingController@sigSubscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
 Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
 Route::post('unsubscribe', 'MailingController@keepSubscription');
+Route::post('competition/vote', 'CompetitionController@vote');
 // require login
 Route::post('myaccount/personal', 'PagesController@updatePersonalDetails')->middleware('auth');
 Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->middleware('auth');
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 // require canEditSig
+Route::post('/panel/sig/box/add', 'SigsController@createBox')->middleware('sig');
+Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig');
 Route::post('sig/members/{action}/{id}', 'SigsController@administerMember')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');
@@ -130,6 +137,7 @@ Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('ad
 /** PATCH requests * */
 // require canEditSig
 Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('sig');
+Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig');
 // require admin
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('admin');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('admin');

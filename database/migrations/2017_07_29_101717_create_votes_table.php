@@ -14,7 +14,7 @@ class CreateVotesTable extends Migration
     {
         Schema::create('votes', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('email')->unique();
+            $table->string('email');
             $table->integer('competitionentry_id')->unsigned();
             $table->nullableTimestamps();
             $table->softDeletes();
