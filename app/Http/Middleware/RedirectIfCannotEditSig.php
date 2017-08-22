@@ -18,8 +18,13 @@ final class RedirectIfCannotEditSig
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $sigId = isset($request->route()->parameters()['id']) ? $request->route()->parameters()['id'] : null;
-        $isAdmin = (Auth::guest() || $sigId === null) ? false : (Auth::user()->canEditSig($sigId));
+        $sigId = isset($request->route()->parameters()['id'])
+                 ? $request->route()->parameters()['id']
+                 : (isset($request->sig_id) ? $request->sig_id : null);
+        $isAdmin = (Auth::guest() || $sigId === null)
+                   ? false
+                   : (Auth::user()->canEditSig($sigId));
+
         if (!$isAdmin) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
@@ -31,3 +36,4 @@ final class RedirectIfCannotEditSig
         return $next($request);
     }
 }
+

@@ -52,6 +52,9 @@ Route::get('panel/sig/subscriptions/{id}', 'SigsController@subscriptions')->midd
 Route::get('panel/sig/box/{id}', 'SigsController@listBoxes')->middleware('sig');
 Route::get('panel/sig/box/add/{id}', 'SigsController@addBox')->middleware('sig');
 Route::get('panel/sig/box/edit/{id}', 'SigsController@editBox')->middleware('sig');
+Route::get('panel/sig/box/toggle/{id}', 'SigsController@toggleBoxStatus')->middleware('sig');
+Route::get('panel/sig/box/move/{direction}/{id}', 'SigsController@moveBox')->middleware('sig');
+
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
 // require canViewUsers
 Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-leader');

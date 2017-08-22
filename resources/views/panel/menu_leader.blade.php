@@ -1,6 +1,8 @@
 <nav class="admin-panel-sidebar" id="admin-side-bar">
     <div class="navbar-header nopadding">
-        <button type="button" class="navbar-toggle btn btn-block" data-toggle="collapse" data-target="#adminnav" id="admin-nav-mobile">
+        <button type="button" class="navbar-toggle btn btn-block"
+                data-toggle="collapse" data-target="#adminnav"
+                id="admin-nav-mobile">
             Menu
         </button>
     </div>
@@ -19,6 +21,13 @@
                        class="{{ Request::is('panel/sig/members/' . $sig->id)
                                  ? 'active' : '' }}">
                        Members
+                    </a>
+                </li>
+                <li>
+                    <a href="{{URL::to('/panel/sig/box/' . $sig->id)}}"
+                       class="{{ Request::is('panel/sig/box/' . $sig->id)
+                                 ? 'active' : '' }}">
+                       Edit Page
                     </a>
                 </li>
                 <li>

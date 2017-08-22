@@ -202,6 +202,26 @@ class Sig extends Model
     }
 
     /**
+     * Get the boxes of this sig
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function boxes()
+    {
+        return $this->hasMany('App\Sigbox')->orderBy('order');
+    }
+
+    /**
+     * Get the boxes of this sig
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function activeBoxes()
+    {
+        return $this->hasMany('App\Sigbox')->where('active', 1)->orderBy('order');
+    }
+
+    /**
      * Get the id of the main institution associated with the sig
      *
      * @return array

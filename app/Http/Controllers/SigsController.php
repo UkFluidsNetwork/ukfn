@@ -6,9 +6,11 @@ use Auth;
 use App\Sig;
 use App\Tag;
 use App\User;
+use App\Sigbox;
 use App\Institution;
 use App\Subscription;
 use App\Http\Requests\SigsFormRequest;
+use App\Http\Requests\SigBoxRequest;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Jenssegers\Agent\Agent;
@@ -192,7 +194,7 @@ class SigsController extends Controller
     /**
      * Create sigs
      *
-     * @param EventsFormRequest $request
+     * @param SigsFormRequest $request
      * @return Illuminate\Support\Facades\Redirect
      */
     public function create(SigsFormRequest $request)
@@ -505,6 +507,227 @@ class SigsController extends Controller
 
         return view('panel.sigs.subscriptions',
                     compact('mailingList', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Render SIG page design interface
+     *
+     * @param int $id SIG ID
+     * @return Illuminate\Support\Facades\View
+     */
+    public function listBoxes($id)
+    {
+        $sig = Sig::findOrFail($id);
+
+        if (Auth::user()->isSigLeader()) {
+            $bread = [
+                ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
+                ['label' => 'Edit Page',
+                  'path' => "/panel/sig/box/${id}"],
+            ];
+        }
+
+        if (Auth::user()->isAdmin()) {
+            $bread = array_merge(
+                static::$sigPanelCrumbs,
+                [
+                    ['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"],
+                    ['label' => 'Edit Page',
+                     'path' => "/panel/sig/box/${id}"],
+                ]
+            );
+        }
+        $breadCount = count($bread);
+
+        return view('panel.sigs.viewboxes',
+                    compact('sig', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Render SIG box add interface
+     *
+     * @param int $id SIG ID
+     * @return Illuminate\Support\Facades\View
+     */
+    public function addBox($id)
+    {
+        $sig = Sig::findOrFail($id);
+
+        if (Auth::user()->isSigLeader()) {
+            $bread = [
+                ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
+                ['label' => 'Edit Page',
+                  'path' => "/panel/sig/box/${id}"],
+                ['label' => 'Add Box',
+                  'path' => "/panel/sig/box/add/${id}"],
+            ];
+        }
+
+        if (Auth::user()->isAdmin()) {
+            $bread = array_merge(
+                static::$sigPanelCrumbs,
+                [
+                    ['label' => 'Edit', 'path' => "/panel/sig/edit/${id}"],
+                    ['label' => 'Edit Page',
+                     'path' => "/panel/sig/box/${id}"],
+                    ['label' => 'Add Box',
+                     'path' => "/panel/sig/box/add/${id}"],
+                ]
+            );
+        }
+        $breadCount = count($bread);
+        return view('panel.sigs.addbox',
+                    compact('sig', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Render SIG box edit interface
+     *
+     * @param int $id sig box ID
+     * @return Illuminate\Support\Facades\View
+     */
+    public function editBox($id)
+    {
+        $sigBox = Sigbox::findOrFail($id);
+
+        if (Auth::user()->isSigLeader()) {
+            $bread = [
+                ['label' => 'Manage SIG',
+                  'path' => "/panel/sig/edit/{$sigBox->sig_id}"],
+                ['label' => 'Edit Page',
+                  'path' => "/panel/sig/box/{$sigBox->sig_id}"],
+                ['label' => 'Edit Box',
+                  'path' => "/panel/sig/box/edit/${id}"],
+            ];
+        }
+
+        if (Auth::user()->isAdmin()) {
+            $bread = array_merge(
+                static::$sigPanelCrumbs,
+                [
+                    ['label' => 'Edit',
+                     'path' => "/panel/sig/edit/{$sigBox->sig_id}"],
+                    ['label' => 'Edit Page',
+                     'path' => "/panel/sig/box/{$sigBox->sig_id}"],
+                    ['label' => 'Edit Box',
+                     'path' => "/panel/sig/box/edit/${id}"],
+                ]
+            );
+        }
+        $breadCount = count($bread);
+        return view('panel.sigs.editbox',
+                    compact('sigBox', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Create sig box
+     *
+     * @param SigBoxRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function createBox(SigBoxRequest $request)
+    {
+        try {
+            $sigBox = new Sigbox;
+            $input = $request->all();
+            $sigBox->fill($input);
+            $sigBox->save();
+
+            Session::flash('success_message', 'Added succesfully. '
+                . 'Boxes are diabled by default, click on enable '
+                . 'to have them displayed on the sig page.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/sig/box/' . $sigBox->sig_id);
+    }
+
+    /**
+     * Update sig box
+     *
+     * @param int $id box id
+     * @param SigBoxRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function updateBox($id, SigBoxRequest $request)
+    {
+        try {
+            $sigBox = Sigbox::findOrFail($id);
+            $input = $request->all();
+            $sigBox->fill($input);
+            $sigBox->save();
+            Session::flash('success_message', 'Updated succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/sig/box/' . $sigBox->sig_id);
+    }
+
+    /**
+     * Change the order of a box
+     *
+     * @param string $direction up/down
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function moveBox($direction, $id)
+    {
+        try {
+            $sigBox = Sigbox::findOrFail($id);
+            if ($direction === "up") {
+                $sigBox->order--;
+            } else {
+                $sigBox->order++;
+            }
+            $sigBox->save();
+            Session::flash('success_message', 'Moved succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/sig/box/' . $sigBox->sig_id);
+    }
+
+
+    /**
+     * Enable/disable a sig box
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function toggleBoxStatus($id)
+    {
+        try {
+            $sigBox = Sigbox::findOrFail($id);
+            if ($sigBox->status() === "Enabled") {
+                $sigBox->active = 0;
+            } else {
+                $sigBox->active = 1;
+            }
+            $sigBox->save();
+            Session::flash('success_message', $sigBox->status()
+                                              . ' succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/sig/box/' . $sigBox->sig_id);
+    }
+
+    /**
+     * Delete sig boxes
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deleteBox($id)
+    {
+        try {
+            $sigBox = Sigbox::findOrFail($id);
+            $sigBox->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/sig/box/' . $sigBox->sig_id);
     }
 }
 

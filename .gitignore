@@ -1,4 +1,5 @@
 .env
+vendor/
 nbproject/
 node_modules/
 public/css/main.css
