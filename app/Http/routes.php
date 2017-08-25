@@ -109,9 +109,10 @@ Route::post('myaccount/personal', 'PagesController@updatePersonalDetails')->midd
 Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->middleware('auth');
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
+// require canEditSigBox
+Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig
 Route::post('/panel/sig/box/add', 'SigsController@createBox')->middleware('sig');
-Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig');
 Route::post('sig/members/{action}/{id}', 'SigsController@administerMember')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');
@@ -138,9 +139,10 @@ Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
 Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('admin');
 /** PATCH requests * */
+// require canEditSigBox
+Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig-box');
 // require canEditSig
 Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('sig');
-Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig');
 // require admin
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('admin');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('admin');

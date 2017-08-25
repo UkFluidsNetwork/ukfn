@@ -131,6 +131,14 @@
                     </p>
                 </div>
                 @endif
+                @if ($sig->activeBoxes)
+                @foreach ($sig->activeBoxes as $box)
+                <div class="bs-callout bs-callout-danger">
+                    <h4>{{ $box->title }}</h4>
+                    {!! $box->content !!}
+                </div>
+                @endforeach
+                @endif
             </div>
         </div>
         <div class="col-lg-4 col-md-4 col-sm-4">
