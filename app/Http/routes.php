@@ -51,9 +51,9 @@ Route::get('panel/sig/members/{id}', 'SigsController@members')->middleware('sig'
 Route::get('panel/sig/subscriptions/{id}', 'SigsController@subscriptions')->middleware('sig');
 Route::get('panel/sig/box/{id}', 'SigsController@listBoxes')->middleware('sig');
 Route::get('panel/sig/box/add/{id}', 'SigsController@addBox')->middleware('sig');
-Route::get('panel/sig/box/edit/{id}', 'SigsController@editBox')->middleware('sig');
-Route::get('panel/sig/box/toggle/{id}', 'SigsController@toggleBoxStatus')->middleware('sig');
-Route::get('panel/sig/box/move/{direction}/{id}', 'SigsController@moveBox')->middleware('sig');
+Route::get('panel/sig/box/edit/{id}', 'SigsController@editBox')->middleware('sig-box');
+Route::get('panel/sig/box/toggle/{id}', 'SigsController@toggleBoxStatus')->middleware('sig-box');
+Route::get('panel/sig/box/move/{direction}/{id}', 'SigsController@moveBox')->middleware('sig-box');
 
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
 // require canViewUsers
