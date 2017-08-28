@@ -33,10 +33,10 @@ return [
             'title' => 'UK Fluids Network',
             'description' => 'The UK Fluids Network is an EPSRC-funded network of academic and industrial research groups,'
             . ' focused on innovative developments and applications in Fluid Mechanics.',
-            'url' => 'https://ukfluids.net',
+            'url' => 'https://fluids.ac.uk',
             'type' => 'website',
             'site_name' => false,
-            'images' => ['https://ukfluids.net/pictures/logo.png'],
+            'images' => ['https://fluids.ac.uk/pictures/logo.png'],
             'locale' => 'en_UK'
         ],
     ],
