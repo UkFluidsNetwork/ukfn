@@ -49,6 +49,8 @@ Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('sig');
 Route::get('panel/sig/members/{id}', 'SigsController@members')->middleware('sig');
 Route::get('panel/sig/subscriptions/{id}', 'SigsController@subscriptions')->middleware('sig');
+Route::get('panel/sig/files/{id}', 'SigsController@listFiles')->middleware('sig');
+Route::get('panel/sig/files/add/{id}', 'SigsController@addFile')->middleware('sig');
 Route::get('panel/sig/box/{id}', 'SigsController@listBoxes')->middleware('sig');
 Route::get('panel/sig/box/add/{id}', 'SigsController@addBox')->middleware('sig');
 Route::get('panel/sig/box/edit/{id}', 'SigsController@editBox')->middleware('sig-box');
@@ -114,6 +116,7 @@ Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middlewar
 // require canEditSig
 Route::post('/panel/sig/box/add', 'SigsController@createBox')->middleware('sig');
 Route::post('sig/members/{action}/{id}', 'SigsController@administerMember')->middleware('sig');
+Route::post('panel/sig/files/add/{id}', 'FilesController@create')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');
 Route::post('news/delete/{id}', 'NewsController@delete')->middleware('admin');

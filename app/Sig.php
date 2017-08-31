@@ -212,6 +212,16 @@ class Sig extends Model
     }
 
     /**
+     * Get the files of this sig
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function files()
+    {
+        return $this->hasMany('App\File');
+    }
+
+    /**
      * Get the boxes of this sig
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany

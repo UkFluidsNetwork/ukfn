@@ -71,10 +71,12 @@ class FilesController extends Controller
                 $uploadedFile->getClientOriginalName(),
                 PATHINFO_FILENAME);
             $name = $request->input('filename') ? : $fileName;
+            $sig_id = $request->input('sig_id') ? : null;
             $file->name = PagesController::uploadFile(
                 $uploadedFile,
                 'public-files',
                 $name);
+            $file->sig_id = $sig_id;
             $file->path = "/files";
             $file->type = $uploadedFile->getClientMimeType();
             $file->user_id = Auth::user()->id;
@@ -84,7 +86,11 @@ class FilesController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/panel/files');
+        if (is_null($sig_id)) {
+            return redirect('/panel/files');
+        } else {
+            return redirect('/panel/sig/files/' . $sig_id);
+        }
     }
 
     /**

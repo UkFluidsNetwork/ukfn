@@ -6,6 +6,7 @@ use Auth;
 use App\Sig;
 use App\Tag;
 use App\User;
+use App\File;
 use App\Sigbox;
 use App\Institution;
 use App\Subscription;
@@ -728,6 +729,54 @@ class SigsController extends Controller
             Session:flash('error_message', $ex);
         }
         return redirect('/panel/sig/box/' . $sigBox->sig_id);
+    }
+    /**
+     * List sig files
+     *
+     * @return Illuminate\Support\Facades\View
+     */
+    public function listFiles($id)
+    {
+        $sig = Sig::findOrFail($id);
+        $bread = [
+          ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
+          ['label' => 'Files',
+            'path' => "/panel/sig/files/${id}"],
+         ];
+
+        $breadCount = count($bread);
+
+        $thisServer = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
+
+        $files = $sig->files;
+        foreach ($files as $file) {
+            $file->created = PagesController::formatDate($file->created_at);
+            $file->updated = PagesController::formatDate($file->updated_at);
+            $file->full_path = url($file->path . "/" . $file->name);
+        }
+
+        return view('panel.sigs.files',
+                    compact('bread', 'breadCount', 'files', 'sig'));
+    }
+    /**
+     * Add new sig file view
+     *
+     * @return Illuminate\Support\Facades\View
+     */
+    public function addFile($id)
+    {
+        $sig = Sig::findOrFail($id);
+        $bread = [
+          ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
+          ['label' => 'Add File',
+            'path' => "/panel/sig/files/add/${id}"],
+         ];
+
+        $file = new File();
+        $breadCount = count($bread);
+
+        return view('panel.sigs.addfile',
+                    compact('bread', 'breadCount', 'file', 'sig'));
     }
 }
 

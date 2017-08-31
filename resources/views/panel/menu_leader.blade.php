@@ -37,6 +37,13 @@
                        Subscriptions
                     </a>
                 </li>
+                <li>
+                    <a href="{{URL::to('/panel/sig/files/'.$sig->id)}}"
+                       class="{{Request::is('panel/sig/files/'.$sig->id)
+                                 ? 'active' : '' }}">
+                       Files
+                    </a>
+                </li>
             </ul>
             @endforeach
         </li>
