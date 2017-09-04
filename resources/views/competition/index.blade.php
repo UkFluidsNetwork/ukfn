@@ -5,17 +5,17 @@
   <div style="text-align:center;">
     <div class="row">
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/vote/photos/"
+      <a href="/competition/winner/photos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Photo entries
+           Winner Photo
        </a>
     </div>
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/vote/videos/"
+      <a href="/competition/winner/videos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Video entries
+           Winner Video
        </a>
     </div>
     </div>
@@ -34,7 +34,7 @@ The photo or video can be on any subject related to fluid mechanics – so not o
   <p>
 The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
-  <p><b>Voting is open until 31 August 2017.</b></p>
+  <p><b>Voting is closed.</b></p>
 @if (false)
   <p><b>The closing date for entries was 31 July 2017.</b></p>
   <div class="container-fluid nopadding-left">

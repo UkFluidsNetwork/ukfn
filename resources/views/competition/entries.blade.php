@@ -23,6 +23,24 @@
 @section('content')
 
   <h2 class='line-break'>{{ $title }} Entries</h2>
+
+  <div class="well">
+    <p>
+      The first UK Fluids Network photo and video competition has finished, and voting is now closed.
+    </p>
+    @if ($name === "photo")
+    <p>
+      Click <a href="/competition/winner/photos">here</a> to see the winner video.
+    </p>
+    @elseif ($name === "video")
+    <p>
+      Click <a href="/competition/winner/videos">here</a> to see the winner video.
+    </p>
+    @endif
+    <p>
+  </div>
+
+@if (false)
   @if (Session::has('vote_ok'))
     <div class="alert alert-success">
         @if ($name === "photo")
@@ -171,5 +189,6 @@ if ($entry->file->filetype->shortname !== $title) {
   </div>
 </div>
 @endforeach
+@endif
 
 @endsection

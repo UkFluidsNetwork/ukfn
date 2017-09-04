@@ -28,6 +28,7 @@ Route::get('contact', function() {return Redirect::to('connect');}); // old URI
 Route::get('admin', function() {return Redirect::to('connect');}); // old URI
 Route::get('competition', 'CompetitionController@index');
 Route::get('competition/vote/{type}', 'CompetitionController@displayEntries');
+Route::get('competition/winner/{type}', 'CompetitionController@displayWinners');
 Route::get('viewmessage/{id}', 'PagesController@viewmessage');
 Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/{id}', 'TalksController@view');

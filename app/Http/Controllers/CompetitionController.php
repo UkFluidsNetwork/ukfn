@@ -74,5 +74,35 @@ class CompetitionController extends Controller
 
         return Redirect::to(URL::previous());
     }
+
+    /**
+     * Render the winner interface for the competition
+     *
+     * @param string $type Type of entries to display: photo or videos
+     * @return Illuminate\Support\Facades\View
+     */
+    public function displayWinners($type)
+    {
+        $entriesIds = Competitionentry::winnersIds();
+        if ($type === "photos") {
+            $title = "Photo";
+        } elseif ($type === "videos") {
+            $title = "Video";
+        } else {
+            abort(404);
+        }
+
+        $entries = [];
+        // transform std objects into Competitionentry objects
+        foreach ($entriesIds as $entry) {
+            $entries[] = Competitionentry::findOrFail($entry->id);
+        }
+
+        $name = strtolower($title);
+        SEO::setTitle("{$title} Entries - Photo & Video Competition");
+        SEO::setDescription("Vote for the best {$type} in Fluid Mechanics");
+
+        return view('competition.winner', compact('entries', 'name', 'title'));
+    }
 }
 

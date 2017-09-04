@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
 
@@ -36,6 +37,16 @@ class Competitionentry extends Model
     }
 
     /**
+     * Get the institution the contestant is member of
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\belongsTo
+     */
+    public function institution()
+    {
+        return $this->belongsTo('App\Institution');
+    }
+
+    /**
      * Get the votes this entry has received
      *
      * @return \Illuminate\Database\Eloquent\Relations\hasMany
@@ -43,6 +54,16 @@ class Competitionentry extends Model
     public function votes()
     {
         return $this->hasMany('App\Vote');
+    }
+
+    /**
+     * Get the votes this entry has received
+     *
+     * @return array
+     */
+    public static function winnersIds()
+    {
+        return DB::table('competitionentries')->where('winner', '=', 1)->get();
     }
 }
 
