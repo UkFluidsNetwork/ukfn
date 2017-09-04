@@ -8,6 +8,7 @@ $baseDir = dirname($vendorDir);
 return array(
     'AddDisciplinesTags' => $baseDir . '/database/migrations/2016_11_06_145513_add_disciplines_tags.php',
     'AlterAggregators' => $baseDir . '/database/migrations/2017_01_21_120723_alter_aggregators.php',
+    'AlterCompetitionentresAddWinner' => $baseDir . '/database/migrations/2017_09_04_093422_alter_competitionentres_add_winner.php',
     'AlterEventsAddEnd' => $baseDir . '/database/migrations/2017_02_22_104011_alter_events_add_end.php',
     'AlterFiles' => $baseDir . '/database/migrations/2017_03_23_224914_alter_files.php',
     'AlterFilesAddSig' => $baseDir . '/database/migrations/2017_08_31_221047_alter_files_add_sig.php',
