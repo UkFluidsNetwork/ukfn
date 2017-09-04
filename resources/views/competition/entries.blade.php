@@ -30,7 +30,7 @@
     </p>
     @if ($name === "photo")
     <p>
-      Click <a href="/competition/winner/photos">here</a> to see the winner video.
+      Click <a href="/competition/winner/photos">here</a> to see the winner photo.
     </p>
     @elseif ($name === "video")
     <p>
