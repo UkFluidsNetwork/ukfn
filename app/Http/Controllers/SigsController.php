@@ -747,7 +747,7 @@ class SigsController extends Controller
 
         $thisServer = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
 
-        $files = $sig->files;
+        $files = $sig->files->sortByDesc("created_at");
         foreach ($files as $file) {
             $file->created = PagesController::formatDate($file->created_at);
             $file->updated = PagesController::formatDate($file->updated_at);
