@@ -26,8 +26,10 @@
         </td>
         <td>{{ $file->created }}</td>
         <td>
-             {{ Form::open(['action' => ['FilesController@delete', $file->id]]) }}
-             {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
+             {{ Form::open(['action' => ['FilesController@delete',
+                                         $file->id],
+                            'class' => 'delete' ]) }}
+             {{ Form::submit("Delete", ["class" => "btn btn-danger delete"]) }}
              {{ Form::close() }}
         </td>
       </tr>
@@ -35,4 +37,11 @@
       </tbody>
     </table>
   </div>
+
+<script>
+$(".delete").on("submit", function(){
+    return confirm("Do you want to permanently delete this file?");
+});
+</script>
+
 @endsection
