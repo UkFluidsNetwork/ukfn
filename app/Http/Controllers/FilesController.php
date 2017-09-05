@@ -44,7 +44,7 @@ class FilesController extends Controller
 
         $thisServer = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
 
-        $files = File::all();
+        $files = File::all()->sortByDesc("created_at");
         foreach ($files as $file) {
             $file->created = PagesController::formatDate($file->created_at);
             $file->updated = PagesController::formatDate($file->updated_at);
