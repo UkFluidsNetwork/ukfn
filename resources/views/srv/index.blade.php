@@ -1,6 +1,22 @@
 @extends('layouts.master')
 @section('content')
 
+<style>
+/* TODO: move to main css and replace js in other pages with this */
+.panel .accordion-toggle.collapsed:before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e114"; /* = chevron-down */
+    float: right;
+    color: grey;
+}
+.panel  .accordion-toggle:not(.collapsed):before {
+    font-family: 'Glyphicons Halflings';
+    content: "\e113"; /* = chevron-down */
+    float: right;
+    color: grey;
+}
+</style>
+
   <h2 class='line-break'>Short Research Visits</h2>
   <div class="well">
     <p>
@@ -20,7 +36,7 @@
     <div class="panel panel-default line-break-dbl">
         <a href="#collapse-srv{{ $srv->id }}"
            data-toggle="collapse"
-           class="noborder list-group-item talk panel-body accordion-toggle">
+           class="noborder list-group-item talk panel-body accordion-toggle collapsed">
             <i ng-class="{'glyphicon-chevron-up': isCollapsed, 'glyphicon-chevron-down': !isCollapsed}" class='glyphicon pull-right'></i>
 
         <span class="text-danger display-block">
