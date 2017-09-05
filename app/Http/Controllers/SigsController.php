@@ -113,7 +113,7 @@ class SigsController extends Controller
      * Update sigs
      *
      * @param int $id
-     * @param EventsFormRequest $request
+     * @param SigsFormRequest $request
      * @return Illuminate\Support\Facades\Redirect
      */
     public function update($id, SigsFormRequest $request)
