@@ -14,7 +14,7 @@ class Srv extends Model
      * @var array
      */
     protected $fillable = ['institution_id', 'description', 'name',
-          'visitor', 'user_id', 'department', 'visiting', 'report'];
+          'visitor', 'user_id', 'department', 'visiting', 'reporturl'];
 
     /**
      * Get the visitor user_id if it has one

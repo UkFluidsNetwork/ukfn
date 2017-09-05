@@ -47,12 +47,14 @@
         <div id="collapse-srv{{ $srv->id }}"
              class="accordion-body collapse padding">
             {!! $srv->description !!}
+        @if ($srv->reporturl)
+         <button class="btn btn-default btn-resource" data-toggle="modal"
+                 data-target="#srv-{{ $srv->id }}">
+              <i class="glyphicon glyphicon-file"></i> Report
+          </button>
+        @endif
         </div>
-        @if ($srv->report)
-        <button class="btn btn-default" data-toggle="modal"
-                data-target="#srv-{{ $srv->id }}">
-            Report
-        </button>
+        @if ($srv->reporturl)
         <div class="modal fade" style="margin-top: 10%;"
              id="srv-{{ $srv->id }}"
              role="dialog" arial-labelledby="label-srv{{ $srv->id }}">
@@ -68,7 +70,11 @@
                 </h4>
               </div>
               <div id="body-srv{{ $srv->id }}" class="modal-body">
-                    {{ $srv->report }}
+                <div class="embed-responsive embed-responsive-4by3">
+                  <object class="embed-responsive-item"
+                          data="{{ $srv->reporturl }}">
+                  </object>
+                </div>
               </div>
             </div>
           </div>

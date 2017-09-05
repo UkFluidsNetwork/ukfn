@@ -94,18 +94,19 @@
   </div>
 </div>
 
-<div class='form-group {{ $errors->has('report') ? ' has-error line-break-dbl' : '' }}'> 
-  {!! Form::label('report', 'Report:', ['class' => 'control-label col-lg-2 text-left']) !!}
+<div class='form-group {{ $errors->has('reporturl') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('reporturl', 'Report URL:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class=' col-lg-8'>
-    {!! Form::textarea('report', $srv->report, ['id' => 'report']) !!}
-    @if ($errors->has('report'))
+    {!! Form::text('reporturl', $srv->reporturl, ['class' => 'form-control',
+              'placeholder' =>
+              'URL to report PDF']) !!}
+    @if ($errors->has('reporturl'))
     <span class="text-danger">
-      <span>{{ $errors->first('report') }}</span>
+      <span>{{ $errors->first('reporturl') }}</span>
     </span>
     @endif
   </div>
 </div>
-
 
 {!! Form::submit('Save', ['class' => 'btn btn-default btn-lg2']) !!}
 
@@ -113,7 +114,6 @@
 
 <script>
   CKEDITOR.replace('description');
-  CKEDITOR.replace('report');
 </script>
 
 @endsection

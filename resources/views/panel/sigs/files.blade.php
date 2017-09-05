@@ -2,6 +2,13 @@
 @section('admincontent')
 
   <h2 class='line-break'>Files</h2>
+
+<div class="well"> 
+  <p>
+  You can <a href="/panel/sig/files/add/{{ $sig->id }}">upload any file</a> to a UK Fluids Network file storage; the file will then be publicly available using the resulting URL. Once uploaded you may reference to the file in the <a href="/panel/sig/box/{{$sig->id}}">SIG page</a>
+  </p>
+</div>
+
   {{ Html::link('/panel/sig/files/add/' . $sig->id, "Add File",
                 ["class" => "btn btn-default"])}}
 

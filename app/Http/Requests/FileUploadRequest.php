@@ -6,6 +6,7 @@ use App\Http\Requests\Request;
 
 class FileUploadRequest extends Request
 {
+
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -25,7 +26,9 @@ class FileUploadRequest extends Request
     {
         return [
             'file' => 'required',
-            'filename' => 'string'
+            'filename' => 'string',
+            'disk' => 'required'
         ];
     }
 }
+

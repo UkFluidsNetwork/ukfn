@@ -484,7 +484,9 @@ class PagesController extends Controller
         }
 
         try {
-            $location = Storage::disk($disk)->getDriver()->getAdapter()->getPathPrefix();
+            $location = Storage::disk($disk)->getDriver()
+                                            ->getAdapter()
+                                            ->getPathPrefix();
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }

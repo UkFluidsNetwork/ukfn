@@ -70,6 +70,30 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/pictures/sig'),
             'visibility' => 'public',
+        ],
+
+        'resources' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files/resources'),
+            'visibility' => 'public',
+        ],
+
+        'meetings' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files/meetings'),
+            'visibility' => 'public',
+        ],
+
+        'srv' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files/srv'),
+            'visibility' => 'public',
+        ],
+
+        'sig' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/files/sig'),
+            'visibility' => 'public',
         ]
     ],
 

@@ -3,12 +3,30 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Storage;
 use App\File;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FileUploadRequest;
 
 class FilesController extends Controller
 {
+
+    /**
+     * Mapping of storage disks and their real path as specified
+     * in /config/filesystems; sadly these cannot be retrieved
+     * programmatically and need to be hardcoded.
+     *
+     * @var array
+     */
+    public static $disks = [
+        "public-files" => "/files",
+        "attachments" => "/files/attachments",
+        "sig-pictures" => "/pictures/sig",
+        "resources" => "/resources",
+        "meetings" => "/meetings",
+        "srv" => "/files/srv",
+        "sig" => "/files/sig"
+    ];
 
     /**
      * List all files
@@ -51,9 +69,11 @@ class FilesController extends Controller
         ];
 
         $file = new File();
+        $disks = static::$disks;
         $breadCount = count($bread);
 
-        return view('panel.files.add', compact('bread', 'breadCount', 'file'));
+        return view('panel.files.add',
+                    compact('bread', 'breadCount', 'file', 'disks'));
     }
 
     /**
@@ -74,10 +94,10 @@ class FilesController extends Controller
             $sig_id = $request->input('sig_id') ? : null;
             $file->name = PagesController::uploadFile(
                 $uploadedFile,
-                'public-files',
+                $request['disk'],
                 $name);
             $file->sig_id = $sig_id;
-            $file->path = "/files";
+            $file->path = static::$disks[$request['disk']];
             $file->type = $uploadedFile->getClientMimeType();
             $file->user_id = Auth::user()->id;
             $file->save();
@@ -103,8 +123,9 @@ class FilesController extends Controller
     {
         try {
             $file = File::findOrFail($id);
-            $file->deleted = 1;
-            $file->save();
+            $disk = array_search($file->path, static::$disks);
+            Storage::disk($disk)->delete($file->name);
+            $file->delete();
             Session::flash('success_message', 'Deleted successfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);

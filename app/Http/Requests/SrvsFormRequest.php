@@ -28,7 +28,8 @@ class SrvsFormRequest extends Request
             'name' => 'required',
             'description' => 'required',
             'visitor' => 'required',
-            'visiting' => 'required'
+            'visiting' => 'required',
+            'reporturl' => 'url'
         ];
     }
 }

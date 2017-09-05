@@ -3,6 +3,15 @@
 
 <h2 class='line-break'>Upload new file</h2>
 
+<div class="well">
+  <p>
+  You may specify the file storage to use - file storages represent the path where the file will be uploaded to, e.g. /files/sig, /files/meetings. By default all files will be uploaded to /files
+  </p>
+  <p>
+  All file names will be suffixed with the current timestamp in order to ensure uniqueness; i.e. uploading the same file multiple times will not replace the previous files.
+  </p>
+</div>
+
 {!! Form::model($file, [
 'method' => 'POST',
 'action' => ['FilesController@create', $file->id],
@@ -30,10 +39,23 @@
     </div>
 </div>
 
+<div class='form-group {{ $errors->has('disk') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('disk', 'Storage:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::select('disk', $disks, null,
+                      ['class' => 'form-control'] ) !!}
+    @if ($errors->has('disk'))
+    <span class="text-danger">
+      <span>{{ $errors->first('disk') }}</span>
+    </span>
+    @endif
+  </div>
+</div>
+
 <div class='form-group {{ $errors->has('filename') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('filename', 'Additional file name', ['class' => 'control-label col-lg-2 text-left']) !!}
+    {!! Form::label('filename', 'Alternative file name (optional)', ['class' => 'control-label col-lg-2 text-left']) !!}
     <div class=' col-lg-8'>
-        {!! Form::text('filename', $file->filename, ['class' => 'form-control','placeholder' => 'Additional file name']) !!}
+        {!! Form::text('filename', $file->filename, ['class' => 'form-control','placeholder' => 'Alternative name to use instead of the native file name, e.g. UKFN_file_1']) !!}
         @if ($errors->has('filename'))
         <span class="text-danger">
             <span>{{ $errors->first('filename') }}</span>
@@ -45,7 +67,7 @@
 <div class=' col-lg-offset-2 col-lg-8'>
   	<div class='form-group line-break-dbl-top'>
     	{!! Form::submit('Upload', ['class' => 'btn btn-success btn-lg2']) !!}
-  	</div>    
+  	</div>
 </div>
 
 {!! Form::close() !!}
