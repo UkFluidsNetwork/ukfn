@@ -122,7 +122,7 @@ class SigsController extends Controller
 
         try {
             // prevent sig leader to change sig name
-            if (Auth::user()->isLeaderOfSig($id)) {
+            if (Auth::user()->isSigEditor($id)) {
                 $request['name'] = $sig->name;
             }
 
@@ -154,7 +154,7 @@ class SigsController extends Controller
             Session:flash('error_message', $ex);
         }
 
-        if (Auth::user()->isLeaderOfSig($id)) {
+        if (Auth::user()->isSigEditor($id)) {
             return redirect('/panel/sig/edit/' . $id);
         }
 

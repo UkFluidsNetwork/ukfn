@@ -226,6 +226,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Determine if the user can edit a sig AND is NOT an admin
+     *
+     * @param int $sigId
+     * @return boolean
+     */
+    public function isSigEditor($sigId)
+    {
+        return $this->isLeaderOfSig($sigId) || $this->isColeaderOfSig($sigId);
+    }
+
+    /**
      * Determine if the user is a leader of the sig given by $sigId
      *
      * @param int $sigId
