@@ -98,6 +98,9 @@ Route::get('panel/talks/feeds/add', 'AggregatorsController@add')->middleware('ad
 Route::get('panel/talks/feeds/edit/{id}', 'AggregatorsController@edit')->middleware('admin');
 Route::get('panel/files/add', 'FilesController@add')->middleware('admin');
 Route::get('panel/files', 'FilesController@index')->middleware('admin');
+Route::get('panel/srv', 'SrvsController@view')->middleware('admin');
+Route::get('panel/srv/add', 'SrvsController@add')->middleware('admin');
+Route::get('panel/srv/edit/{id}', 'SrvsController@edit')->middleware('admin');
 /** POST requests * */
 // public
 Route::post('contact', 'PagesController@sendMessage');
@@ -142,6 +145,8 @@ Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('ad
 Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
 Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('admin');
+Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
+Route::post('srv/add', 'SrvsController@create')->middleware('admin');
 /** PATCH requests * */
 // require canEditSigBox
 Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig-box');
@@ -157,6 +162,7 @@ Route::patch('/titles/update/{id}', 'TitlesController@update')->middleware('admi
 Route::patch('/users/update/{id}', 'UsersController@update')->middleware('admin');
 Route::patch('/panel/talks/update/{id}', 'TalksController@update')->middleware('admin');
 Route::patch('/panel/talks/feeds/update/{id}', 'AggregatorsController@update')->middleware('admin');
+Route::patch('/srv/update/{id}', 'SrvsController@update')->middleware('admin');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([

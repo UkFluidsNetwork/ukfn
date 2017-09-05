@@ -42,6 +42,14 @@
             </ul>
         </li>
 
+        <li class="{{ Request::is('panel/srv*') ? 'active' : '' }}">
+            <a href="{{ URL::to('panel/srv') }}" class="{{ Request::is('panel/srv*') ? 'active' : '' }}">SRV</a>
+            <ul id='admin-subnav-sig' class='nav nav-stacked'>
+                <li><a href="{{ URL::to('panel/srv') }}" class="{{ Request::is('panel/srv') ? 'active' : '' }}">SRV</a></li>
+                <li><a href="{{ URL::to('panel/srv/add') }}" class="{{ Request::is('panel/srv/add') ? 'active' : '' }}">Add</a></li>
+            </ul>
+        </li>
+
         <li class="{{ Request::is('panel/news*') ? 'active' : '' }}">
             <a href="{{ URL::to('panel/news') }}" class="{{ Request::is('panel/news*') ? 'active' : '' }}">News</a>
             <ul id='admin-subnav-news' class='nav nav-stacked'>
