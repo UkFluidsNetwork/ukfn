@@ -114,13 +114,30 @@ class FilesController extends Controller
     }
 
     /**
-     * Delete file
+     * Delete file. The route to this method only requires auth level,
+     * but further checks are performed inside the function
      *
      * @param int $id
      * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
+        $file = File::findOrFail($id);
+
+        // determine if the user can delete the file; this could be done
+        // in a middleware, but it would require instanciating the file
+        // object twice (once in the middleware, another one here)
+        $allow = false;
+        if ($file->sig_id) {
+            $allow = Auth::user()->canEditSig($file->sig_id);
+        } else {
+            $allow = Auth::user()->isAdmin();
+        }
+
+        if (!$allow) {
+            return redirect()->guest('login');
+        }
+
         try {
             $file = File::findOrFail($id);
             $disk = array_search($file->path, static::$disks);
@@ -130,7 +147,12 @@ class FilesController extends Controller
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
-        return redirect('/panel/files');
+
+        if (Auth::user()->isAdmin()) {
+            return redirect('/panel/files');
+        }
+
+        return redirect('/panel/sig/files/' . $file->sig_id);
     }
 }
 

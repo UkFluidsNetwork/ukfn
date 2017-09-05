@@ -20,6 +20,7 @@
           <th>Name</th>
           <th>URL</th>
           <th>Uploaded</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -34,9 +35,23 @@
                   ['target' => '_blank']) }}
         </td>
         <td>{{ $file->created }}</td>
+        <td>
+             {{ Form::open(['action' => ['FilesController@delete',
+                                         $file->id],
+                            'class' => 'delete' ]) }}
+             {{ Form::submit("Delete", ["class" => "btn btn-danger delete"]) }}
+             {{ Form::close() }}
+        </td>
       </tr>
       @endforeach
       </tbody>
     </table>
   </div>
+
+<script>
+$(".delete").on("submit", function(){
+    return confirm("Do you want to permanently delete this file?");
+});
+</script>
+
 @endsection

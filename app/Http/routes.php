@@ -115,6 +115,7 @@ Route::post('myaccount/personal', 'PagesController@updatePersonalDetails')->midd
 Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->middleware('auth');
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
+Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('auth'); //further checks in function
 // require canEditSigBox
 Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig
@@ -144,7 +145,6 @@ Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('admin');
 Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
 Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
-Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('admin');
 Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
 Route::post('srv/add', 'SrvsController@create')->middleware('admin');
 /** PATCH requests * */
