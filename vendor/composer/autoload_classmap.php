@@ -21,6 +21,7 @@ return array(
     'AlterSigExternalurl' => $baseDir . '/database/migrations/2017_01_21_142425_alter_sig_externalurl.php',
     'AlterSigInstitutions' => $baseDir . '/database/migrations/2017_03_15_173014_alter_sig_institutions.php',
     'AlterSigInstitutionsShortnames' => $baseDir . '/database/migrations/2016_12_20_052445_alter_sig_institutions_shortnames.php',
+    'AlterSrvsAddDescription' => $baseDir . '/database/migrations/2017_09_05_093803_alter_srvs_add_description.php',
     'AlterSuggestionsAddLeader' => $baseDir . '/database/migrations/2016_11_26_172747_alter_suggestions_add_leader.php',
     'AlterTagsCategory' => $baseDir . '/database/migrations/2016_11_03_105958_alter_tags_category.php',
     'AlterTagsMakeModeratedNullable' => $baseDir . '/database/migrations/2016_11_05_162152_alter_tags_make_moderated_nullable.php',
