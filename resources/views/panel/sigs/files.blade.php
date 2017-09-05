@@ -16,7 +16,6 @@
     <table class='table'>
       <thead>
         <tr>
-          <th>ID</th>
           <th>Name</th>
           <th>URL</th>
           <th>Uploaded</th>
@@ -26,7 +25,6 @@
       <tbody>
       @foreach ($files as $file)
       <tr>
-        <td>{{ $file->id }}</td>
         <td>{{ $file->name }}</td>
         <td>
              {{ Html::link(

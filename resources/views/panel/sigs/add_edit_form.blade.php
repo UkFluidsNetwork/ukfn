@@ -109,7 +109,7 @@
 </div>
 
 <div class="form-group {{ $errors->has('bigiamge') ? ' has-error' : ''}}">
-    <label for='bigimage' class="control-label col-lg-2 text-left">Big image</label>
+    <label for='bigimage' class="control-label col-lg-2 text-left">Large image</label>
     <div class=' col-lg-8'>
         <div class='col-lg-4 col-md-4 col-sm-4 col-xs-4 nopadding'>
             <label class="btn btn-default">
@@ -163,9 +163,9 @@
 </div>
 
 <div class='form-group {{ $errors->has('twitterurl') ? ' has-error line-break-dbl' : '' }}'>
-    {!! Form::label('twitterurl', 'Twitter URL:', ['class' => 'control-label col-lg-2 text-left']) !!}
+    {!! Form::label('twitterurl', 'Twitter Username:', ['class' => 'control-label col-lg-2 text-left']) !!}
     <div class=' col-lg-8'>
-        {!! Form::text('twitterurl', $sig->twitterurl, ['class' => 'form-control','placeholder' => 'Twitter URL']) !!}
+        {!! Form::text('twitterurl', $sig->twitterurl, ['class' => 'form-control','placeholder' => 'Twitter username (without hashtag)']) !!}
         @if ($errors->has('twitterurl'))
         <span class="text-danger">
             <span>{{ $errors->first('twitterurl') }}</span>
