@@ -164,7 +164,6 @@ class SigsController extends Controller
     /**
      * Add sigs
      *
-     * @param int $id
      * @return Illuminate\Support\Facades\View
      */
     public function add()
