@@ -66,6 +66,16 @@
                             </div>
                         </div>
                         <!-- Login button - end-->
+                        <!-- Signup button - start-->
+                        <hr>
+                        <div class="col-lg-10 col-lg-offset-1">
+                            <center>
+                                <a href="/register">
+                                    Create an account
+                                </a>
+                            </center>
+                        </div>
+                        <!-- Signup button - end-->
                     </form>
                 </div>
             </div>
