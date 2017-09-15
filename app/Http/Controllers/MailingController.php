@@ -85,11 +85,13 @@ class MailingController extends Controller
             $message = "Your email has been passed to the SIG leader.";
         }
 
+        /* FIXME temporary disable mail
         $this->addToQueue(env('MAIL_USERNAME'),
                           $email,
                           $subject,
                           ['email' => $email],
                           $template);
+        */
 
         return Redirect::to($redirect)->with($success, $message);
     }
