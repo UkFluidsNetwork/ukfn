@@ -65,6 +65,16 @@ class SendEmail extends Job implements ShouldQueue
      */
     private $attachment;
 
+    public function __construct($from, $to, $subject, $parameters, $template, $attachment = null)
+    {
+        $this->from = $from;
+        $this->to = $to;
+        $this->subject = $subject;
+        $this->parameters = $parameters;
+        $this->template = $template;
+        $this->attachment = $attachment;
+    }
+
     /**
      * We want to create a sentmessage record to keep track ot the actual emails sent
      *
