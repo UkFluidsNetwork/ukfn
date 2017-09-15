@@ -112,7 +112,9 @@
                           @else
                           {{ $member->name }} {{ $member->surname }} 
                           @endif
+                          @if (isset($member->institutions[0]))
                           (<i>{{ $member->institutions[0]->name }}</i>):
+                          @endif
                           {{ Html::link('mailto:' . $member->email,
                                         $member->email) }}
                           </td>
