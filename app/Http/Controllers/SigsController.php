@@ -634,8 +634,8 @@ class SigsController extends Controller
             $sigBox->save();
 
             Session::flash('success_message', 'Added succesfully. '
-                . 'Boxes are diabled by default, click on enable '
-                . 'to have them displayed on the sig page.');
+                . 'Boxes are disabled by default. Click on enable '
+                . 'to have them displayed on the SIG page.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
