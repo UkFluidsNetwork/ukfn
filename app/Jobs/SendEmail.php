@@ -95,6 +95,7 @@ class SendEmail extends Job implements ShouldQueue
         } while (!$messageSent);
 
         if ($messageSent) {
+            $this->sentMessage = $this->createSentMessage();
             $this->sentMessage->sent = date("Y-m-d H:i:s");
             $this->sentMessage->save();
         }
