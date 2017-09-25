@@ -3,6 +3,16 @@
 
 <section class="page-header">
   <div>
+    <p>
+      <a href="https://twitter.com/UKFluidsNetwork"
+         class="twitter-follow-button"
+         data-show-count="false"
+         data-size="large">Follow @UKFluidsNetwork</a>
+      <script async src="//platform.twitter.com/widgets.js" charset="utf-8">
+      </script>
+    </p>
+  </div>
+  <div>
     <p class="h4 text-danger">Contact us</p>
     <p class="line-break-dbl-top">
 {!! Form::open(['url' => 'contact']) !!}
