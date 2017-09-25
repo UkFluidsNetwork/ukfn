@@ -84,6 +84,21 @@ class PagesController extends Controller
     }
 
     /**
+     * Render directory section
+     *
+     * @return \Illuminate\View\View
+     */
+    public function researchersDirectory()
+    {
+        SEO::setTitle('Researchers Directory');
+        SEO::setDescription('');
+
+        $users = User::all()->where('researcher', 1);
+        $total = count($users);
+        return view('pages.directory', compact('total'));
+    }
+
+    /**
      * Display a message sent to the mailing list, or made public, given and ID
      *
      * @param int $id Message ID

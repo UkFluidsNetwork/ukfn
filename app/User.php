@@ -14,7 +14,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name', 'surname', 'email', 'password', 'title_id', 'group_id',
-        'department_id', 'orcidid', 'url'
+        'department_id', 'orcidid', 'url', 'researcher'
     ];
 
     /**
@@ -130,6 +130,18 @@ class User extends Authenticatable
     public function tags()
     {
         return $this->belongsToMany('App\Tag', 'user_tags')->withTimestamps();
+    }
+
+    /**
+     * Get the disciplines associated with the given user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function disciplines()
+    {
+        return $this->belongsToMany('App\Tag', 'user_tags')
+                    ->where('tagtype_id', 1)
+                    ->withTimestamps();
     }
 
     /**

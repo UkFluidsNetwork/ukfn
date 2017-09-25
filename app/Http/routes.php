@@ -22,6 +22,7 @@ Route::get('srv', 'SrvsController@index');
 Route::get('researcher-resources', 'ResourcesController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('talks/stream', 'TalksController@stream');
+Route::get('directory', 'PagesController@researchersDirectory');
 Route::get('connect', 'PagesController@about');
 Route::get('about', function() {return Redirect::to('connect');}); // old URI
 Route::get('contact', function() {return Redirect::to('connect');}); // old URI
@@ -40,6 +41,7 @@ Route::get('api/resources/', 'ResourcesController@getAllJson');
 Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 Route::get('api/tags/{tagtype}', 'TagsController@getAllJson');
 Route::get('api/tags/{tagtype}/categories', 'TagsController@getAllCategoriesJson');
+Route::get('api/public/users/', 'UsersController@getUsersPublicJson');
 // require login
 Route::get('myaccount', 'PagesController@myaccount')->middleware('auth');
 Route::get('myaccount/personal', 'PagesController@personalDetails')->middleware('auth');
@@ -60,7 +62,6 @@ Route::get('panel/sig/box/move/{direction}/{id}', 'SigsController@moveBox')->mid
 
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
 // require canViewUsers
-Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-leader');
 Route::get('api/users/{id}', 'UsersController@getUserJson')->middleware('admin-leader');
 // require admin
 Route::get('panel', 'PanelController@index')->middleware('admin');
@@ -121,6 +122,7 @@ Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middlewar
 // require canEditSig
 Route::post('/panel/sig/box/add', 'SigsController@createBox')->middleware('sig');
 Route::post('sig/members/{action}/{id}', 'SigsController@administerMember')->middleware('sig');
+Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-leader');
 Route::post('panel/sig/files/add/{id}', 'FilesController@create')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');

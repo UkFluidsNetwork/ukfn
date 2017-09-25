@@ -9,6 +9,7 @@ use App\Title;
 use App\Group;
 use App\Institution;
 use App\Tag;
+use Illuminate\Http\Request;
 
 class UsersController extends Controller
 {
@@ -208,8 +209,49 @@ class UsersController extends Controller
             $user->institutions;
             $user->fullname = $user->title->shortname . " "
                               . $user->name . " " . $user->surname;
+            $user->disciplines;
+
             $user->sigs;
             $users[] = $user;
+        }
+
+        return response()->json($users);
+    }
+
+    /*
+     * Get all users with reduced information in JSON format
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getUsersPublicJson(Request $request)
+    {
+        $parameters = $request->all();
+        $disciplines = isset($parameters['search'])
+                       && $parameters['search'] !== "[]"
+            ? json_decode($parameters['search'])
+            : null;
+
+        $users = [];
+        $allUsers = User::all()->where("researcher", 1);
+
+        foreach ($allUsers as $user) {
+            $user->institutions;
+            $user->disciplines;
+            $user->sigs;
+            unset($user->email);
+
+            if ($disciplines === null) {
+                $users[] = $user;
+                continue;
+            }
+
+            foreach ($user->disciplines as $discipline) {
+                if (in_array($discipline->id, $disciplines)) {
+                    $users[] = $user;
+                    break;
+                }
+            }
         }
 
         return response()->json($users);

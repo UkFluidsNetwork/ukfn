@@ -118,6 +118,9 @@
                             <li class="{{ Request::is('researcher-resources*') ? 'active' : '' }}">
                                 {{ Html::link('/researcher-resources', 'Resources', ['title' => 'Researcher Resources']) }}
                             </li>
+                          <li class="{{ Request::is('directory*') ? 'active' : '' }}">
+                                {{ Html::link('/directory', 'Directory', ['title' => 'Researchers Directory']) }}
+                            </li>
                             <li class="{{ Request::is('competition*') ? 'active' : '' }}">
                                 {{ Html::link('/competition', 'Competition', ['title' => 'Photo and video competition']) }}
                             </li>
@@ -165,9 +168,6 @@
                             </li>
 
                             @else
-                            <li class="{{ Request::is('register') ? 'active' : '' }}">
-                                <a href="{{ URL::to('/register') }}">Register</a>
-                            </li>
                             <li class="{{ Request::is('login') ? 'active' : '' }}">
                                 <a href="{{ URL::to('/login') }}">Login</a>
                             </li>
