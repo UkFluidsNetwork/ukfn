@@ -1,8 +1,17 @@
 @extends('layouts.master')
 @section('content')
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.10";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
 <section class="page-header">
-  <div>
+  <div class="line-break">
     <p>
       <a href="https://twitter.com/UKFluidsNetwork"
          class="twitter-follow-button"
@@ -10,6 +19,9 @@
          data-size="large">Follow @UKFluidsNetwork</a>
       <script async src="//platform.twitter.com/widgets.js" charset="utf-8">
       </script>
+
+      <div class="fb-follow" data-href="https://www.facebook.com/UKFluids/" data-layout="button" data-size="large" data-show-faces="false"></div>
+
     </p>
   </div>
   <div>
