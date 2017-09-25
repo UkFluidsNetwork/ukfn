@@ -53,10 +53,9 @@ class PagesController extends Controller
         // get events to display
         $events = EventsController::getEvents();
         // get tweets to display
-        $tweets = self::getTweets('UKFluidsNetwork');
-        $totalTweets = count($tweets);
+        $twitter = "UKFluidsNetwork";
         return view('pages.index',
-                     compact('news', 'events', 'tweets', 'totalTweets'));
+                     compact('news', 'events', 'twitter'));
     }
 
     /**

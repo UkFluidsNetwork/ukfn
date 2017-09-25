@@ -288,12 +288,7 @@ class SigsController extends Controller
 
         // fixme: temporary so that tweets are displayed
         $sig->twitterurl = $sig->twitterurl ?: 'UKFluidsNetwork';
-
-        // get tweet feeds
-        $tweets = [];
-        if ($sig->twitterurl) {
-            $tweets = PagesController::getTweets($sig->twitterurl, 5);
-        }
+        $twitter = $sig->twitterurl;
 
         // generate navigation buttons
         $allSig = Sig::orderBy('name')->get();
@@ -316,7 +311,7 @@ class SigsController extends Controller
         $nextSigPath = "/sig/${nextSigShortname}";
         $mapSigPath = "/sig/${shortname}/map";
 
-        return view('sig.page', compact('sig', 'tweets', 'page',
+        return view('sig.page', compact('sig', 'twitter', 'page',
             'prevSigPath', 'nextSigPath', 'mapSigPath'));
     }
 
