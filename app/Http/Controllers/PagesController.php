@@ -92,8 +92,8 @@ class PagesController extends Controller
         SEO::setTitle('Researchers Directory');
         SEO::setDescription('');
 
-        $users = User::all()->where('researcher', 1);
-        $total = count($users);
+        $total = User::where('researcher', 1)->count();
+
         return view('pages.directory', compact('total'));
     }
 
