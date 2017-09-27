@@ -24,3 +24,10 @@ function getFileDetails(id)
     var selectedFile = document.getElementById(id).files[0];
     $('#'+id+'_details').html(selectedFile.name);
 }
+
+function backToTop()
+{
+  $('body,html').animate({
+      scrollTop: 0
+  }, 800);
+}
