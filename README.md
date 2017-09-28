@@ -3,6 +3,10 @@
 ## Installation
 The project depends on a series of node packages
 ```sh
+composer install
+```
+
+```sh
 npm install
 ```
 
