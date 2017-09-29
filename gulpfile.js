@@ -39,5 +39,10 @@ elixir(function(mix) {
     mix.copy('node_modules/bootstrap-sass/assets/fonts',
              'resources/assets/sass/fonts');
 
+    mix.copy('vendor/components/font-awesome/fonts',
+             'public/css/fonts');
+    mix.copy('resources/assets/sass/lato-fonts',
+             'public/css/lato-fonts');
+
     mix.sass('main.scss');
 });
