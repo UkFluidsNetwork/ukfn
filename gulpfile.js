@@ -15,10 +15,6 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     // copy js from vendor packages to public/js
-    mix.copy('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
-             'public/js/bootstrap.min.js');
-    mix.copy('node_modules/jquery/dist/jquery.min.js',
-             'public/js/jquery.min.js');
     mix.copy('node_modules/angular/angular.min.js',
              'public/js/angular.min.js');
     mix.copy('node_modules/angular-messages/angular-messages.min.js',
@@ -32,7 +28,8 @@ elixir(function(mix) {
     mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js', 'public/js/angularjs-dropdown-multiselect.min.js');
 
     // move scripts to public/js
-    mix.scripts(['main.js', 'jquery.min.js', 'bootstrap.min.js'],
+    mix.scripts(['main.js', '../../../node_modules/jquery/dist/jquery.min.js',
+   '../../../node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js'],
                 'public/js/main.js')
        .scripts(['analytics.js'], 'public/js/analytics.js')
        .scripts(['angApp.js'], 'public/js/angApp.js')
