@@ -26,7 +26,18 @@ elixir(function(mix) {
              'public/js/ng-map.min.js');
     mix.copy('node_modules/angular-selectize2/dist/selectize.js',
              'public/js/selectize.js');
-    mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js',
-             'public/js/angularjs-dropdown-multiselect.min.js');
+    mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js', 'public/js/angularjs-dropdown-multiselect.min.js');
+
+    mix.copy('node_modules/selectize-scss/src',
+             'resources/assets/sass/selectize');
+    mix.copy('vendor/components/font-awesome/scss',
+             'resources/assets/sass/font-awesome');
+    mix.copy('node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss',
+             'resources/assets/sass/_bootstrap.scss');
+    mix.copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap',
+             'resources/assets/sass/bootstrap');
+    mix.copy('node_modules/bootstrap-sass/assets/fonts',
+             'resources/assets/sass/fonts');
+
     mix.sass('main.scss');
 });
