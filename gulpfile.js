@@ -54,15 +54,19 @@ elixir(function(mix) {
     mix.copy('resources/assets/sass/vendor',
              'public/css/vendor');
 
-    // copy fonts to public/fonts
+    // copy fonts to public/build/fonts
     mix.copy('vendor/components/font-awesome/fonts',
-             'public/fonts');
+             'public/build/fonts');
     mix.copy('resources/assets/fonts/lato-fonts',
-             'public/fonts/lato-fonts');
+             'public/build/fonts/lato-fonts');
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap',
-             'public/fonts/bootstrap');
+             'public/build/fonts/bootstrap');
 
 
     // compile all sass to css and move to public/css
     mix.sass('main.scss');
+
+    // include version
+    // See: https://laravel.com/docs/5.3/elixir#versioning-and-cache-busting
+    mix.version('public/css/main.css');
 });
