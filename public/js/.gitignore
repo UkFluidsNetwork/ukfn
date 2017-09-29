@@ -1,1 +1,8 @@
 bootstrap.min.js
+jquery.min.js
+angular.min.js
+angular-messages.min.js
+angularjs-dropdown-multiselect.min.js
+ng-map.min.js
+ngStorage.min.js
+selectize.js
