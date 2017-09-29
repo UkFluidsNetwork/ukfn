@@ -49,15 +49,17 @@ elixir(function(mix) {
              'resources/assets/sass/_bootstrap.scss');
     mix.copy('node_modules/bootstrap-sass/assets/stylesheets/bootstrap',
              'resources/assets/sass/bootstrap');
-    mix.copy('node_modules/bootstrap-sass/assets/fonts',
-             'resources/assets/sass/fonts');
-
-    mix.copy('vendor/components/font-awesome/fonts',
-             'public/css/fonts');
-    mix.copy('resources/assets/sass/lato-fonts',
-             'public/css/lato-fonts');
     mix.copy('resources/assets/sass/vendor',
              'public/css/vendor');
+
+    // copy fonts to public/fonts
+    mix.copy('vendor/components/font-awesome/fonts',
+             'public/fonts');
+    mix.copy('resources/assets/fonts/lato-fonts',
+             'public/fonts/lato-fonts');
+    mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap',
+             'public/fonts/bootstrap');
+
 
     // compile all sass to css and move to public/css
     mix.sass('main.scss');
