@@ -7,7 +7,7 @@
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="web_author" content="Javier Arias, javier@arias.re">
         {!! SEO::generate() !!}
-        <link href="{{ asset('css/main.css') }}?v=13" rel="stylesheet"
+        <link href="{{ asset('css/main.css') }}?v=14" rel="stylesheet"
               type="text/css">
 
         <script type="application/ld+json">
