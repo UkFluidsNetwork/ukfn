@@ -26,6 +26,8 @@ elixir(function(mix) {
     mix.copy('node_modules/angular-selectize2/dist/selectize.js',
              'public/js/selectize.js');
     mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js', 'public/js/angularjs-dropdown-multiselect.min.js');
+    mix.copy('resources/assets/js/vendor',
+             'public/js/vendor');
 
     // move scripts to public/js
     mix.scripts(['main.js', '../../../node_modules/jquery/dist/jquery.min.js',
@@ -54,6 +56,8 @@ elixir(function(mix) {
              'public/css/fonts');
     mix.copy('resources/assets/sass/lato-fonts',
              'public/css/lato-fonts');
+    mix.copy('resources/assets/sass/vendor',
+             'public/css/vendor');
 
     // compile all sass to css and move to public/css
     mix.sass('main.scss');
