@@ -18,6 +18,7 @@
     "jquery": "2.2.4",
     "karma": "~1.4.1",
     "ngmap": "^1.17.8",
-    "ngstorage": "~0.3.11"
+    "ngstorage": "~0.3.11",
+    "selectize-scss": "^0.9.2"
   }
 }
