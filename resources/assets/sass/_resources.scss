@@ -8,10 +8,13 @@
 
 #resources-filters {
     background-color: white !important;
-    position: fixed !important;
+    width: 100% !important;
+    margin-top: 0px !important;
+}
+
+#resources-filters.affix {
     width: 30% !important;
-    top: 214px !important;
-    //min-height: 180px !important;
+    position: fixed !important;
 }
 
 .resource-series-filter > .selectize-control > .selectize-input {

@@ -1,4 +1,16 @@
 @extends('layouts.admin')
+
+@section('head')
+<script src="{{ asset('js/angular.min.js')}}"></script>
+<script src="{{ asset('js/angular-messages.min.js')}}"></script>
+<script src="{{ asset('js/ngStorage.min.js')}}"></script>
+<script src="{{ asset('js/ng-map.min.js')}}"></script>
+<script src="{{ asset('js/angApp.js')}}"></script>
+<script src="{{ asset('js/selectize.js')}}"></script>
+<script src="{{ asset('js/angularjs-dropdown-multiselect.min.js')}}"></script>
+<script src="{{ asset('js/sigCtrl.js')}}"></script>
+@endsection
+
 @section('admincontent')
 
 <h2 class='line-break'>Add members to: {{$sig->name}}</h2>

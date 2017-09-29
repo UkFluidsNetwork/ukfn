@@ -1,4 +1,20 @@
 @extends('layouts.admin')
+
+@section('head')
+<link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
+<script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js')}}"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#event_start').datetimepicker();
+        $('#event_end').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+    });
+</script>
+
+@endsection
+
 @section('admincontent')
 
 <h2 class='line-break'>Add event</h2>
@@ -75,14 +91,5 @@
   </div>    
 </div>
 {!! Form::close() !!}
-
-<script type="text/javascript">
-    $(function () {
-        $('#event_start').datetimepicker();
-        $('#event_end').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-    });
-</script>
 
 @endsection

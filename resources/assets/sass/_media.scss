@@ -1,4 +1,4 @@
-@media only screen and (max-width: 1400px) and (min-width:1200px) {
+@media only screen and (max-width: $screen-lg) and (min-width:1200px) {
     .hide-this {
         display: none;
     }
@@ -8,7 +8,7 @@
     }
 }
 
-@media only screen and (min-width:851px) {
+@media only screen and (min-width: $screen-sm) {
     .hide-desktop {
         display: none;
     }
@@ -18,7 +18,7 @@
     }
 }
 
-@media only screen and (max-width: 850px) and (min-width:0px) {
+@media only screen and (max-width: $screen-md) and (min-width:0px) {
     .hide-this {
         display: none;
     }
@@ -42,10 +42,20 @@
         min-height: 150px !important;
     }
 
+    #talks-filters.affix {
+        width: 98.5% !important;
+        position: relative !important;
+    }
+
     #resources-filters {
         position: relative !important;
         width: 98.5% !important;
         top: 0 !important;
+    }
+
+    #resources-filters.affix {
+        width: 98.5% !important;
+        position: relative !important;
     }
 
     #talks-col {
@@ -97,9 +107,21 @@
         padding-bottom: 15px !important;
         margin-bottom: 15px !important;
     }
+
+    #subscription-email {
+        width: 80%;
+    }
+
+    #subscription-submit {
+        width: 80%;
+    }
+
+    .footer-subscribe {
+        margin-bottom: 150px;
+    }
 }
 
-@media only screen and (max-width: 500px) and (min-width:0px) {
+@media only screen and (max-width: $screen-xs) and (min-width:0px) {
     #sig-calendar-btn {
         margin-top: 5px;
     }

@@ -1,4 +1,9 @@
 @extends('layouts.admin')
+
+@section('head')
+<script src="{{ asset('js/main.js')}}"></script>
+@endsection
+
 @section('admincontent')
 
 <h2 class='line-break'>Send Mail</h2>

@@ -1,5 +1,15 @@
 @extends('layouts.master')
 
+@section('head')
+<script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
+<script src="{{ asset('js/angular.min.js')}}"></script>
+<script src="{{ asset('js/angular-messages.min.js')}}"></script>
+<script src="{{ asset('js/ngStorage.min.js')}}"></script>
+<script src="{{ asset('js/ng-map.min.js')}}"></script>
+<script src="{{ asset('js/angApp.js')}}"></script>
+<script src="{{ asset('js/selectize.js')}}"></script>
+@endsection
+
 @section('content')
 
 <div class="container-fluid">

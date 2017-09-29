@@ -5,9 +5,13 @@
 @import "resources";
 @import "sig";
 @import "admin_nav";
+@import "slider";
 @import "media";
 @import "bootstrap";
-@import url('https://fonts.googleapis.com/css?family=Lato:400,300');
+@import "selectize/selectize";
+@import "selectize/selectize.bootstrap3";
+@import "font-awesome/font-awesome";
+@import "lato-font";
 
 body {
     font-family: 'Lato', sans-serif;

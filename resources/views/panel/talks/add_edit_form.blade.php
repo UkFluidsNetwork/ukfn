@@ -1,3 +1,26 @@
+
+@section('head')
+<link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
+<script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
+
+<script type="text/javascript">
+    $(function () {
+        $('#talk_start').datetimepicker();
+        $('#talk_end').datetimepicker({
+            useCurrent: false //Important! See issue #1075
+        });
+        $("#talk_start").on("dp.change", function (e) {
+            $('#talk_end').data("DateTimePicker").minDate(e.date);
+        });
+        $("#talk_end").on("dp.change", function (e) {
+            $('#talk_start').data("DateTimePicker").maxDate(e.date);
+        });
+
+        $('#recording_until').datetimepicker();
+    });
+</script>
+@endsection
+
 <div class='form-group {{ $errors->has('title') ? ' has-error line-break-dbl' : '' }}'>
     {!! Form::label('title', 'Title:', ['class' => 'control-label col-lg-3 text-left']) !!}
     <div class=' col-lg-7'>        
@@ -171,21 +194,3 @@
         {!! Form::submit('Save', ['class' => 'btn btn-default']) !!}
     </div>    
 </div>
-
-<!-- date time picker initialisation -->
-<script type="text/javascript">
-    $(function () {
-        $('#talk_start').datetimepicker();
-        $('#talk_end').datetimepicker({
-            useCurrent: false //Important! See issue #1075
-        });
-        $("#talk_start").on("dp.change", function (e) {
-            $('#talk_end').data("DateTimePicker").minDate(e.date);
-        });
-        $("#talk_end").on("dp.change", function (e) {
-            $('#talk_start').data("DateTimePicker").maxDate(e.date);
-        });
-        
-        $('#recording_until').datetimepicker();
-    });
-</script>

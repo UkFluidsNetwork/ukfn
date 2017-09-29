@@ -27,7 +27,21 @@ class SubscriptionRequest extends Request
     {
       return [
         'subscription-email' => 'required|email',
-        'g-recaptcha-response' => 'required'
+        'human' => 'required'
+      ];
+    }
+
+    /**
+     * Get custom messages for the rules
+     *
+     * @return array
+     */
+    public function messages()
+    {
+      return [
+        'subscription-email.required' => 'Please enter your email address',
+        'subscription-email.email' => 'Please enter a valid email address',
       ];
     }
 }
+

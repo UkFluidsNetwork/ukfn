@@ -1,4 +1,17 @@
 @extends('layouts.master')
+
+@section('head')
+<script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
+<script src="{{ asset('js/angular.min.js')}}"></script>
+<script src="{{ asset('js/angular-messages.min.js')}}"></script>
+<script src="{{ asset('js/ngStorage.min.js')}}"></script>
+<script src="{{ asset('js/ng-map.min.js')}}"></script>
+<script src="{{ asset('js/angApp.js')}}"></script>
+<script src="{{ asset('js/selectize.js')}}"></script>
+<script src="{{ asset('js/angularjs-dropdown-multiselect.min.js')}}"></script>
+<script src="{{ asset('js/talksCtrl.js')}}"></script>
+@endsection
+
 @section('content')
 
     <h2 class='line-break'>Talks</h2>
@@ -10,7 +23,8 @@
             <div class="col-lg-4 col-lg-offset-1 col-md-4
                         col-md-offset-1 col-md-push-7">
                 <!-- Filters - start -->
-                <div id="talks-filters"
+                <div id="talks-filters" data-spy="affix"
+                     data-offset-top="50" data-offset-bottom="750"
                      class="bs-callout bs-callout-info container-fluid">
                     <ul>
                         <li>
@@ -180,5 +194,4 @@
             </div>
         </div>
     </div>
-
 @endsection

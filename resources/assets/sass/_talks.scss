@@ -10,11 +10,15 @@ a.list-group-item.talk:focus {
 
 #talks-filters {
     background-color: white !important;
-    position: fixed !important;
-    width: 30% !important;
-    top: 214px !important;
+    width: 100% !important;
     padding-top: 0px !important;
     padding-bottom: 35px !important;
+    margin-top: 0px !important;
+}
+
+#talks-filters.affix {
+    width: 30% !important;
+    position: fixed !important;
 }
 
 .talk-series-filter > .selectize-control > .selectize-input {
