@@ -28,6 +28,8 @@ elixir(function(mix) {
     mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js', 'public/js/angularjs-dropdown-multiselect.min.js');
     mix.copy('resources/assets/js/vendor',
              'public/js/vendor');
+    mix.copy('vendor/ckeditor/ckeditor',
+             'public/ckeditor');
 
     // move scripts to public/js
     mix.scripts(['main.js', '../../../node_modules/jquery/dist/jquery.min.js',
