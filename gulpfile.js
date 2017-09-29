@@ -1,5 +1,3 @@
-var elixir = require('laravel-elixir');
-
 /*
  |--------------------------------------------------------------------------
  | Elixir Asset Management
@@ -11,7 +9,12 @@ var elixir = require('laravel-elixir');
  |
  */
 
+// NB. Use gulp --production to obtain minimize versions
+
+var elixir = require('laravel-elixir');
+
 elixir(function(mix) {
+    // copy js from vendor packages to public/js
     mix.copy('node_modules/bootstrap-sass/assets/javascripts/bootstrap.min.js',
              'public/js/bootstrap.min.js');
     mix.copy('node_modules/jquery/dist/jquery.min.js',
@@ -28,6 +31,17 @@ elixir(function(mix) {
              'public/js/selectize.js');
     mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js', 'public/js/angularjs-dropdown-multiselect.min.js');
 
+    // move scripts to public/js
+    mix.scripts(['main.js', 'jquery.min.js', 'bootstrap.min.js'],
+                'public/js/main.js')
+       .scripts(['analytics.js'], 'public/js/analytics.js')
+       .scripts(['angApp.js'], 'public/js/angApp.js')
+       .scripts(['directoryCtrl.js'], 'public/js/directoryCtrl.js')
+       .scripts(['resourcesCtrl.js'], 'public/js/resourcesCtrl.js')
+       .scripts(['sigCtrl'], 'public/js/sigCtrl')
+       .scripts(['talksCtrl'], 'public/js/talksCtrl')
+
+    // copy css from vendor packages to sass folder
     mix.copy('node_modules/selectize-scss/src',
              'resources/assets/sass/selectize');
     mix.copy('vendor/components/font-awesome/scss',
@@ -44,5 +58,6 @@ elixir(function(mix) {
     mix.copy('resources/assets/sass/lato-fonts',
              'public/css/lato-fonts');
 
+    // compile all sass to css and move to public/css
     mix.sass('main.scss');
 });
