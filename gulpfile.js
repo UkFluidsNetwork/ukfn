@@ -39,8 +39,8 @@ elixir(function(mix) {
        .scripts(['angApp.js'], 'public/js/angApp.js')
        .scripts(['directoryCtrl.js'], 'public/js/directoryCtrl.js')
        .scripts(['resourcesCtrl.js'], 'public/js/resourcesCtrl.js')
-       .scripts(['sigCtrl'], 'public/js/sigCtrl')
-       .scripts(['talksCtrl'], 'public/js/talksCtrl')
+       .scripts(['sigCtrl.js'], 'public/js/sigCtrl.js')
+       .scripts(['talksCtrl.js'], 'public/js/talksCtrl.js')
 
     // copy css from vendor packages to sass folder
     mix.copy('node_modules/selectize-scss/src',
