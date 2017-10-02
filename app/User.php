@@ -234,7 +234,8 @@ class User extends Authenticatable
     {
         return $this->isAdmin()
                || $this->isLeaderOfSig($sigId)
-               || $this->isColeaderOfSig($sigId);
+               || $this->isColeaderOfSig($sigId)
+               || $this->isKeyPersonnelOfSig($sigId);
     }
 
     /**
