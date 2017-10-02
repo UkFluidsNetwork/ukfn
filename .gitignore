@@ -1,6 +1,8 @@
 .env
 .env.dev
 vendor/
+!resources/assets/js/vendor
+!resources/assets/sass/vendor
 nbproject/
 node_modules/
 public/css/
