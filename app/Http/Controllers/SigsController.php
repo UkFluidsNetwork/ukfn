@@ -83,7 +83,7 @@ class SigsController extends Controller
                                 [['label' => 'Edit',
                                   'path' => "/panel/sig/edit/${id}"]]);
 
-        if (Auth::user()->isSigLeader()) {
+        if (Auth::user()->isSigEditor()) {
             // only admins have the concept of "the panel" - sig leaders
             // just manage their sig, thus the first crumb is the sig name
             $bread = [['label' => $sig->shortname,
@@ -122,7 +122,7 @@ class SigsController extends Controller
 
         try {
             // prevent sig leader to change sig name
-            if (Auth::user()->isSigEditor($id)) {
+            if (Auth::user()->isSigEditorOf($id)) {
                 $request['name'] = $sig->name;
             }
 
@@ -154,7 +154,7 @@ class SigsController extends Controller
             Session:flash('error_message', $ex);
         }
 
-        if (Auth::user()->isSigEditor($id)) {
+        if (Auth::user()->isSigEditorOf($id)) {
             return redirect('/panel/sig/edit/' . $id);
         }
 
@@ -345,7 +345,7 @@ class SigsController extends Controller
      */
     public function members($id)
     {
-        if (Auth::user()->isSigLeader()) {
+        if (Auth::user()->isSigEditor()) {
             $bread = [
                 ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
                 ['label' => 'Add Members',
@@ -480,7 +480,7 @@ class SigsController extends Controller
             $l->created = PagesController::formatDate($l->created_at);
         }
 
-        if (Auth::user()->isSigLeader()) {
+        if (Auth::user()->isSigEditor()) {
             $bread = [
                 ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
                 ['label' => 'Subscriptions',
@@ -514,7 +514,7 @@ class SigsController extends Controller
     {
         $sig = Sig::findOrFail($id);
 
-        if (Auth::user()->isSigLeader()) {
+        if (Auth::user()->isSigEditor()) {
             $bread = [
                 ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
                 ['label' => 'Edit Page',
@@ -548,7 +548,7 @@ class SigsController extends Controller
     {
         $sig = Sig::findOrFail($id);
 
-        if (Auth::user()->isSigLeader()) {
+        if (Auth::user()->isSigEditor()) {
             $bread = [
                 ['label' => 'Manage SIG', 'path' => "/panel/sig/edit/${id}"],
                 ['label' => 'Edit Page',
@@ -585,7 +585,7 @@ class SigsController extends Controller
     {
         $sigBox = Sigbox::findOrFail($id);
 
-        if (Auth::user()->isSigLeader()) {
+        if (Auth::user()->isSigEditor()) {
             $bread = [
                 ['label' => 'Manage SIG',
                   'path' => "/panel/sig/edit/{$sigBox->sig_id}"],

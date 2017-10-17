@@ -232,10 +232,7 @@ class User extends Authenticatable
      */
     public function canEditSig($sigId)
     {
-        return $this->isAdmin()
-               || $this->isLeaderOfSig($sigId)
-               || $this->isColeaderOfSig($sigId)
-               || $this->isKeyPersonnelOfSig($sigId);
+        return $this->isAdmin() || $this->isSigEditorOf($sigId);
     }
 
     /**
@@ -244,9 +241,24 @@ class User extends Authenticatable
      * @param int $sigId
      * @return boolean
      */
-    public function isSigEditor($sigId)
+    public function isSigEditorOf($sigId)
     {
-        return $this->isLeaderOfSig($sigId) || $this->isColeaderOfSig($sigId);
+        return $this->isLeaderOfSig($sigId)
+               || $this->isColeaderOfSig($sigId)
+               || $this->isKeyPersonnelOfSig($sigId);
+    }
+
+    /**
+     * Determine if the user can edit SIG pages (in general)
+     *
+     * @param int $sigId
+     * @return boolean
+     */
+    public function isSigEditor()
+    {
+        return $this->isSigLeader()
+               || $this->isSigCoLeader()
+               || $this->isSigKeyPersonnel();
     }
 
     /**
@@ -364,6 +376,22 @@ class User extends Authenticatable
     public function sigLeadershipsIds()
     {
         return $this->sigs()->where('main', 1)->lists('id')->toArray();
+    }
+
+    /**
+     * Get the SIGs that this user can edit
+     *
+     * @return array
+     */
+    public function editableSigs()
+    {
+        $editable = [];
+        foreach ($this->sigs as $sig) {
+            if ($this->canEditSig($sig->id)) {
+                $editable[] = $sig;
+            }
+        }
+        return $editable;
     }
 
     /**

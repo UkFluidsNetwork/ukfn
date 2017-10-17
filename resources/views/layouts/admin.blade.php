@@ -22,7 +22,7 @@
         <div class="col-lg-2 col-md-2">
             @include('panel.menu')
         </div>
-        @elseif (Auth::user()->isSigLeader())
+        @elseif (Auth::user()->isSigEditor())
         <div class="col-lg-2 col-md-2">
             @include('panel.menu_leader')
         </div>

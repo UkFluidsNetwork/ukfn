@@ -8,7 +8,7 @@
     </div>
     <ul id="adminnav" class="nav nav-stacked fixed collapse navbar-collapse">
         <li class="{{ Request::is('panel/sig*') ? 'active' : '' }}">
-            @foreach (Auth::user()->sigLeaderships() as $sig)
+            @foreach (Auth::user()->editableSigs() as $sig)
             <a href="{{URL::to('/panel/sig/edit/' . $sig->id)}}"
                class="{{ Request::is('panel/sig/edit/' . $sig->id)
                          ? 'active' : '' }}">

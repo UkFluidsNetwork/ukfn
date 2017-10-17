@@ -137,8 +137,8 @@
                                             Admin Panel
                                         </a>
                                     </li>
-                                    @elseif(Auth::user()->isSigLeader())
-                                        @foreach (Auth::user()->sigLeaderships() as $sig)
+                                    @elseif(Auth::user()->isSigEditor())
+                                        @foreach (Auth::user()->editableSigs() as $sig)
                                         <li>
                                             <a href='{{ URL::to('/panel/sig/edit/'.$sig->id) }}'>
                                                 <span class="glyphicon glyphicon-wrench margin-right"></span>
