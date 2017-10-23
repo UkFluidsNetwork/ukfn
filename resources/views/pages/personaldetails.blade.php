@@ -15,7 +15,7 @@
 @include ('flash.success')
 
 <h2 class='line-break'>Personal Details</h2>
-<div class="container nopadding">
+  <div ng-app="ukfn" class="container-fluid nopadding">
     <div class="row nopadding">
         <div class='col-lg-8'>
             <form name="registrationForm" class="nopadding form-horizontal line-break-dbl-top" method="post" action="/myaccount/personal">

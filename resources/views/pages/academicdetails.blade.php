@@ -15,7 +15,7 @@
 @include ('flash.success')
 
 <h2 class='line-break'>Academic Details</h2>
-<div class="container nopadding">
+  <div ng-app="ukfn" class="container-fluid nopadding">
     <div class="row nopadding">
         <div class='col-lg-8'>
             <form name="registrationForm" class="nopadding form-horizontal line-break-dbl-top" method="post" action="/myaccount/academic">
@@ -49,7 +49,7 @@
                 </div>
                 <!-- institutions input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                    <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
                         <label for="institutions" class="control-label text-left">Institution</label>
                         <select id="institutions" type="text" class="form-control multi" name="institutions[]"
                             placeholder="Institution" multiple>
@@ -62,7 +62,7 @@
                 <!-- institutions input - end -->
                 <!-- sub-disciplines input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
+                    <div class="form-group {{ $errors->has('disciplines') ? ' has-error' : ''}}">
                         <label for="disciplines" class="control-label text-left">Fluids sub-disciplines</label><br>                  
                         Select the tags from the drop-down list that best represent your research interests
                         <select id="disciplines" type="text" class="tags form-control multi plugin-optgroup_columns" name="disciplines[]" placeholder="Fluids sub-disciplines" multiple>
@@ -82,7 +82,7 @@
                 <!-- sub-disciplines input - end -->
                 <!-- applications input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
+                    <div class="form-group {{ $errors->has('applications') ? ' has-error' : ''}}">
                         <label for="applications" class="control-label text-left">Application areas</label><br>
                         Select the tags from the drop-down list that best represent the application areas of your research; you may also add your own (suggested max 40 chars each) 
                         <select id="applications" type="text" class="tags form-control multi plugin-optgroup_columns" name="applications[]" placeholder="Application areas" multiple>
@@ -102,7 +102,7 @@
                 <!-- applications input - end -->
                 <!-- techniques input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
+                    <div class="form-group{{ $errors->has('techniques') ? ' has-error' : ''}}">
                         <label for="techniques" class="control-label text-left">Techniques</label><br>
                          Select the tags from the drop-down list that best represent your research techniques (analytical, numerical, experimental); you may also add your own (suggested max 40 chars each) 
                         <select id="techniques" type="text" class="tags form-control multi" name="techniques[]"
@@ -116,7 +116,7 @@
                 <!-- applications input - end -->
                 <!-- facilities input - start -->
                 <div class="col-lg-8 nopadding">
-                    <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
+                    <div class="form-group {{ $errors->has('facilities') ? ' has-error' : ''}}">
                         <label for='facilities' class="control-label text-left">Facilities</label><br>
                         Please list any facilities at your institution, such as wind tunnels, rotating tables, etc, for which you are responsible
                         <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"

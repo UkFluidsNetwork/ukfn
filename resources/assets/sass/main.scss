@@ -186,6 +186,10 @@ input[type="text"], textarea, button {
   left: 0px;
 }
 
+.has-feedback.input-icon-left .form-control {
+  padding-left: 43.5px;
+}
+
 .input-icon-left input {
   padding-left: 35px;
 }

@@ -8,12 +8,12 @@
 <script src="{{ asset('js/ng-map.min.js')}}"></script>
 <script src="{{ asset('js/angApp.js')}}"></script>
 <script src="{{ asset('js/selectize.js')}}"></script>
+<script src="{{ asset('js/angularjs-dropdown-multiselect.min.js')}}"></script>
 @endsection
 
 @section('content')
 
-<div class="container-fluid">
-    <div class="row">
+    <div ng-app="ukfn" class="container-fluid nopadding">
         <div ng-class="registerBasic ? '' : 'col-lg-4 col-lg-offset-4 col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3'">
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -220,7 +220,7 @@
                             </div>
                             <!-- institutions input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                                <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
                                     <label for="institutions" class="sr-only">Institution</label>
                                     <select id="institutions" type="text" class="form-control multi" name="institutions[]"
                                             placeholder="Institution" multiple>
@@ -233,7 +233,7 @@
                             <!-- institutions input - end -->
                             <!-- sub-disciplines input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('disciplines') ? ' has-error' : ''}}">
+                                <div class="form-group {{ $errors->has('disciplines') ? ' has-error' : ''}}">
                                     Select the tags from the drop-down list that best represent your research interests
                                     <label for="disciplines" class="sr-only">Fluids sub-disciplines</label>
                                     <!--i class="form-control-feedback glyphicon glyphicon-tint" aria-hidden="true"></i-->
@@ -258,7 +258,7 @@
                             <!-- sub-disciplines input - end -->
                             <!-- applications input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('applications') ? ' has-error' : ''}}">
+                                <div class="form-group {{ $errors->has('applications') ? ' has-error' : ''}}">
                                     Select the tags from the drop-down list that best represent the application areas of your research; you may also add your own (suggested max 40 chars each) 
                                     <label for="applications" class="sr-only">Application areas</label>
                                     <select id="applications" type="text" class="tags form-control multi" name="applications[]"
@@ -277,7 +277,7 @@
                             <!-- applications input - end -->
                             <!-- techniques input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('techniques') ? ' has-error' : ''}}">
+                                <div class="form-group {{ $errors->has('techniques') ? ' has-error' : ''}}">
                                     Select the tags from the drop-down list that best represent your research techniques (analytical, numerical, experimental); you may also add your own (suggested max 40 chars each) 
                                     <label for="techniques" class="sr-only">Techniques</label>
                                     <!--i class="form-control-feedback glyphicon glyphicon-wrench" aria-hidden="true"></i-->
@@ -292,7 +292,7 @@
                             <!-- applications input - end -->
                             <!-- facilities input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('facilities') ? ' has-error' : ''}}">
+                                <div class="form-group {{ $errors->has('facilities') ? ' has-error' : ''}}">
                                     Please list any facilities at your institution, such as wind tunnels, rotating tables, etc, for which you are responsible
                                     <label for='facilities' class="sr-only">Facilities</label>
                                     <select id="facilities" type="text" class="tags form-control multi" name="facilities[]"
