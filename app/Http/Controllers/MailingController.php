@@ -4,6 +4,7 @@ namespace app\Http\Controllers;
 
 use App;
 use Auth;
+use App\Sig;
 use Storage;
 use App\Message;
 use Carbon\Carbon;
@@ -40,8 +41,14 @@ class MailingController extends Controller
     public function sigSubscription(SigSubscriptionRequest $request)
     {
        $email = $request->input('subscribe-sig-email');
-       $sig_id = $request->input('sig_id');
        $user_id = isset(Auth::user()->id) ? Auth::user()->id : null;
+       $sig_id = $request->input('sig_id');
+
+       $sig = Sig::findOrFail($sig_id);
+       if (!$sig->mailinglist) {
+           return Redirect::to(URL::previous());
+       }
+
        return $this->processSubscription($email, $user_id, $sig_id);
     }
 
