@@ -128,6 +128,7 @@ class SigsController extends Controller
 
             $input = $request->all();
             $sig->fill($input);
+            $sig->mailinglist = isset($input['mailinglist']) ? 1 : 0;
             $bigImage = $request->file('bigimage');
             $smallImage = $request->file('smallimage');
 

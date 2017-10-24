@@ -16,7 +16,7 @@ class Sig extends Model
      */
     protected $fillable = [
         'name', 'shortname', 'description', 'bigimage', 'smallimage',
-        'twitterurl'
+        'twitterurl', 'mailinglist'
     ];
 
     /**
