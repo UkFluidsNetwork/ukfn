@@ -10,6 +10,33 @@
 <script src="{{ asset('js/selectize.js')}}"></script>
 <script src="{{ asset('js/angularjs-dropdown-multiselect.min.js')}}"></script>
 <script src="{{ asset('js/directoryCtrl.js')}}"></script>
+
+<style>
+    .filter-option {
+        margin-left: 22px;
+    }
+
+    .form-control-feedback.glyphicon {
+        z-index: 10;
+    }
+
+    .selectize-dropdown-content {
+        max-height: 666px !important;
+    }
+
+    /*WHOLO GROUP BOX*/
+    .optgroup {
+        width : 300px !important;
+        height : auto !important;
+        padding-bottom: 50px !important;
+        float: left !important;
+        border: none !important;
+    }
+    
+    .optgroup-header {
+        font-size:1.5em !important;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -24,18 +51,28 @@
 <div class="container-fluid"
      ng-app="ukfn"
      ng-controller="directoryController as dirCtrl"
-     ng-init="dirCtrl.updateQuery();
-             dirCtrl.loadCategories();
-             dirCtrl.loadDisciplines();">
+     ng-init="dirCtrl.updateQuery();">
   <div class="row">
     <div class="col-12">
-      <selectize id="disciplines_search"
-                 class="line-break"
-                 options='dirCtrl.disciplines'
-                 config='dirCtrl.selectizeDisciplinesConfig'
+        <select id="disciplines" type="text" name="disciplines[]"
+                class="tags form-control multi plugin-optgroup_columns"
+                placeholder="Fluids sub-disciplines" multiple
                  ng-change="dirCtrl.updateQuery()"
                  ng-model="dirCtrl.searchTerms">
-      </selectize>
+            @foreach($subDisciplines as $key => $discipline)
+            @if ($curDisciplinesCategory !== $discipline->category)
+                <optgroup label="{{$discipline->category}}">
+                {{$curDisciplinesCategory = $discipline->category}}
+
+            @endif
+                <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+
+            @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
+            </optgroup>
+
+            @endif
+            @endforeach
+        </select>
 
       <div ng-repeat="user in dirCtrl.users" class='panel panel-default'>
         <div class="panel-title list-group-item talk">
@@ -66,5 +103,21 @@
     </div>
   </div>
 </div>
+
+<script>
+    
+    $('.tags').selectize({
+        plugins: ['remove_button', 'optgroup_columns'],
+        delimiter: ',',
+        persist: false,
+        create: function(input) {
+            return {
+                value: input,
+                text: input
+            }
+        }
+    });
+
+</script>
 
 @endsection
