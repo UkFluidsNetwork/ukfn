@@ -74,6 +74,11 @@
             @endforeach
         </select>
 
+        <div ng-if="!dirCtrl.users.length && dirCtrl.loading"
+             class="line-break-dbl-top text-center larger">
+                    Loading...
+        </div>
+
       <div ng-repeat="user in dirCtrl.users" class='panel panel-default'>
         <div class="panel-title list-group-item talk">
           <span class="display-block text-danger line-break-half">
