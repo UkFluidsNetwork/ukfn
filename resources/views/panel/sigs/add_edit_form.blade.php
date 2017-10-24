@@ -233,6 +233,22 @@
 	@endif
   	</div>
 </div>
+
+<div class='form-group {{ $errors->has('mailinglist')
+            ? ' has-error line-break-dbl' : '' }}'>
+    {!! Form::label('mailinglist', 'Enable built-in mailing list: ',
+                    ['class' => 'control-label col-lg-2 text-left']) !!}
+    <div class=' col-lg-8'>
+        {!! Form::checkbox('mailinglist', $sig->mailinglist,
+                  $sig->mailinglist) !!}
+        @if ($errors->has('twitterurl'))
+        <span class="text-danger">
+            <span>{{ $errors->first('mailinglist') }}</span>
+        </span>
+        @endif
+    </div>
+</div>
+
 <div class=' col-lg-offset-2 col-lg-8'>
   	<div class='form-group line-break-dbl-top'>
     	{!! Form::submit('Save', ['class' => 'btn btn-success btn-lg2']) !!}

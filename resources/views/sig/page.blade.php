@@ -50,6 +50,8 @@
                         {{ $sig->description }}
                     </p>
                 </div>
+
+                @if ($sig->mailinglist)
                 <div class="bs-callout bs-callout-danger" id="sig-subscription">
                     <h4>Join SIG Mailing list</h4>
                     <p>
@@ -86,6 +88,8 @@
                      {!! Form::close() !!}
                     </p>
                 </div>
+                @endif
+
                 @if (!empty($sig->users))
                 <div class="bs-callout bs-callout-danger">
                     <h4>Members</h4>
