@@ -92,9 +92,11 @@ class PagesController extends Controller
         SEO::setTitle('Researchers Directory');
         SEO::setDescription('');
 
+        $curDisciplinesCategory = null;
+        $subDisciplines = Tag::getAllDisciplines();
         $total = User::where('researcher', 1)->count();
 
-        return view('pages.directory', compact('total'));
+        return view('pages.directory', compact('total', 'curDisciplinesCategory', 'subDisciplines'));
     }
 
     /**
