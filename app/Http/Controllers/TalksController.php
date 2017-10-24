@@ -62,6 +62,10 @@ class TalksController extends Controller
         $aggregators = Aggregator::all();
 
         foreach ($aggregators as $aggregator) {
+            if (!filter_var($aggregator->url, FILTER_VALIDATE_URL)) {
+                continue;
+            }
+
             $xml = simplexml_load_file($aggregator->url);
 
             switch ($aggregator->id) {
