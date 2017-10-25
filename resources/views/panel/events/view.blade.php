@@ -22,9 +22,12 @@
         <td>{{ $event->date }}</td>
         <td>{{ $event->created }}</td>
         <td>{{ $event->updated }}</td>
-        <td>{{ Html::link('/panel/events/edit/' . $event->id, "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/events/edit/' . $event->id, "Edit",
+                          ["class" => "btn btn-primary"])}}</td>
         <td>
-             {{ Form::open(['action' => ['EventsController@delete', $event->id]]) }}
+             {{ Form::open(['action' => ['EventsController@delete',
+                                         $event->id],
+                            'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}
         </td>
@@ -33,4 +36,9 @@
       </tbody>
     </table>
   </div>
+<script>
+ $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this event?");
+ });
+</script>
 @endsection

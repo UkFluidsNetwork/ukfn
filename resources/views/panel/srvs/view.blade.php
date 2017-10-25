@@ -26,7 +26,8 @@
                           "Edit", ["class" => "btn btn-primary"])}}</td>
         <td>
              {{ Form::open(['action' =>
-                            ['SrvsController@delete', $srv->id]]) }}
+                            ['SrvsController@delete', $srv->id],
+                            'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}
         </td>
@@ -35,4 +36,9 @@
       </tbody>
     </table>
   </div>
+<script>
+ $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this SRV?");
+ });
+</script>
 @endsection

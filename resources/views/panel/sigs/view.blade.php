@@ -36,7 +36,8 @@
         <td>{{ Html::link('/panel/sig/subscriptions/' . $sig->id,
                "Subscriptions", ["class" => "btn btn-primary"])}}</td>
         <td>
-             {{ Form::open(['action' => ['SigsController@delete', $sig->id]]) }}
+             {{ Form::open(['action' => ['SigsController@delete', $sig->id],
+                            'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}
         </td>
@@ -45,4 +46,9 @@
       </tbody>
     </table>
   </div>
+<script>
+ $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this SIG?");
+ });
+</script>
 @endsection

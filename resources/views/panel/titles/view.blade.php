@@ -24,7 +24,8 @@
         <td>{{ $title->updated }}</td>
         <td>{{ Html::link('/panel/titles/edit/' . $title->id, "Edit", ["class" => "btn btn-primary"])}}</td>
         <td>
-             {{ Form::open(['action' => ['TitlesController@delete', $title->id]]) }}
+             {{ Form::open(['action' => ['TitlesController@delete', $title->id],
+                            'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}
         </td>
@@ -33,4 +34,9 @@
       </tbody>
     </table>
   </div>
+<script>
+ $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this event?");
+ });
+</script>
 @endsection

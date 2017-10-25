@@ -20,9 +20,11 @@
         <td>{{ $new->title }}</td>
         <td>{{ $new->created }}</td>
         <td>{{ $new->updated }}</td>
-        <td>{{ Html::link('/panel/news/edit/' . $new->id, "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/news/edit/' . $new->id, "Edit",
+                          ["class" => "btn btn-primary"])}}</td>
         <td>
-             {{ Form::open(['action' => ['NewsController@delete', $new->id]]) }}
+             {{ Form::open(['action' => ['NewsController@delete', $new->id],
+                            'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}
         </td>
@@ -31,4 +33,9 @@
       </tbody>
     </table>
   </div>
+<script>
+ $(".delete").on("submit", function(){
+      return confirm("Do you want to delete this record?");
+ });
+</script>
 @endsection
