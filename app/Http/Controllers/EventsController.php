@@ -34,7 +34,7 @@ class EventsController extends Controller
         $oldEvents = Event::getEvents(
             "start",
             "asc",
-            [["created_at", "<", $threshold], ["start", ">=", $todayFormated]]
+            [["created_at", "<", $threshold], ["end", ">=", $todayFormated]]
         );
 
         $eventsData = $newEvents + $oldEvents;
