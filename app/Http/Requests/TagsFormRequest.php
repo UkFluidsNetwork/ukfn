@@ -14,7 +14,7 @@ class TagsFormRequest extends Request
      */
     public function authorize()
     {
-        return Auth::user()->isAdmin();
+        return true;
     }
 
     /**
