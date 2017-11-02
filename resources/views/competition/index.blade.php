@@ -1,48 +1,36 @@
 @extends('layouts.master')
 @section('content')
 
-  <h2 class='line-break'>Photo and Video Competition</h2>
-  <div style="text-align:center;">
-    <div class="row">
-    <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/photos/"
-         class="btn btn-primary line-break-dbl"
-         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Winner Photo
-       </a>
-    </div>
-    <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/videos/"
-         class="btn btn-primary line-break-dbl"
-         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Winner Video
-       </a>
-    </div>
-    </div>
-  </div>
+  <h2 class='line-break'>
+      Photo and Video Competition #2: the interface between solid and fluid mechanics
+  </h2>
+
   <div class="well">
     <p>
-      The UK Fluids Network is launching a competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition will run every 4 months, with the first deadline 31 July 2017.
+      The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics on the theme ‘The interface between solid and fluid mechanics’. The competition deadline is 30 November 2017.
     <p>
   </div>
   <p>
-  The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition will run every 4 months and the winner will be selected by the UKFN Executive Committee from a shortlist compiled by popular vote.
+  The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition runs every 4 months and the winner will be selected by a combination of popular vote and a panel of judges drawn from the UKFN Executive Committee and Advisory Board.
   </p>
   <p>
-The photo or video can be on any subject related to fluid mechanics – so not only experimental observations and numerical simulation results but also, for example, illustrations of working in a laboratory or out in the field.
+In this second competition, the photo or video should be on the subject ‘The interface between solid and fluid mechanics’.
   </p>
   <p>
 The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
-  <p><b>Voting is closed.</b></p>
-@if (false)
-  <p><b>The closing date for entries was 31 July 2017.</b></p>
+
+  <p><b>The closing date for entries is 30 November 2017.</b></p>
+
   <div class="container-fluid nopadding-left">
     <div class="row">
         <div class="col-sm-4 col-sm-push-8">
             <div class="bs-callout bs-callout-info">
                 <h4>Key points</h4>
                 <ul class="keypoints">
+                    <li>
+                        <span>The subject of the competition is ‘The interface between solid and fluid mechanics’</span>
+                    </li>
                     <li>
                         <span>Cash prizes of £200 for the best photo and the best video.</span>
                     </li>
@@ -97,7 +85,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
             <div class="bs-callout bs-callout-danger">
               <h4>Judging</h4>
                 <ul>
-                  <li>After the closing date, the UKFN website will display all entries and visitors to the website will be asked to vote for their favourite photo and video (voters will be identified via their email address) to give a shortlist that will be judged by the Executive Committee.</li>
+                  <li>After the closing date, the UKFN website will display all entries and visitors to the website will be asked to vote for their favourite photo and video (voters will be identified via their email address). The winner will be decided by a combination of the most popular and the highest scoring as judged by a panel drawn from the UKFN Executive Committee and Advisory Board..</li>
                 </ul>
             </div>
         </div>
@@ -112,5 +100,23 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
           font-size: 14px;
       }
       </style>
-@endif
+
+  <div style="text-align:center;">
+    <div class="row">
+    <div class="col-sm-6 col-xs-12">
+      <a href="/competition/winner/photos/"
+         class="btn btn-primary line-break-dbl-top"
+         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
+           Past Winner Photo
+       </a>
+    </div>
+    <div class="col-sm-6 col-xs-12">
+      <a href="/competition/winner/videos/"
+         class="btn btn-primary line-break-dbl-top"
+         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
+           Past Winner Video
+       </a>
+    </div>
+    </div>
+  </div>
 @endsection
