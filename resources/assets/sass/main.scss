@@ -322,6 +322,12 @@ input[type="text"], textarea, button {
     color: $ukfn-darkblue !important;
 }
 
+.label.highlight {
+    background-color: $ukfn-darkblue !important;
+    border: 1.5px $ukfn-darkblue solid !important;
+    color: white !important;
+}
+
 .btn-ukfn {
     color: $ukfn-darkblue !important;
     border-color: $ukfn-darkblue !important;
@@ -339,6 +345,11 @@ input[type="text"], textarea, button {
 
 .well.responsive {
     overflow: auto;
+}
+
+.text-danger > .highlight {
+    color: white !important;
+    background-color: $brand-danger !important;
 }
 
 #well-col-1 {

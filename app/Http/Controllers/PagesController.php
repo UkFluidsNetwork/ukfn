@@ -94,9 +94,10 @@ class PagesController extends Controller
 
         $curDisciplinesCategory = null;
         $subDisciplines = Tag::getAllDisciplines();
+        $institutions = Institution::all();
         $total = User::where('researcher', 1)->count();
 
-        return view('pages.directory', compact('total', 'curDisciplinesCategory', 'subDisciplines'));
+        return view('pages.directory', compact('total', 'curDisciplinesCategory', 'subDisciplines', 'institutions'));
     }
 
     /**

@@ -56,7 +56,7 @@
     <div class="col-12">
         <select id="disciplines" type="text" name="disciplines[]"
                 class="tags form-control multi plugin-optgroup_columns"
-                placeholder="Fluids sub-disciplines" multiple
+                placeholder="Fluids sub-disciplines and institutions" multiple
                  ng-change="dirCtrl.updateQuery()"
                  ng-model="dirCtrl.searchTerms">
             @foreach($subDisciplines as $key => $discipline)
@@ -65,11 +65,19 @@
                 {{$curDisciplinesCategory = $discipline->category}}
 
             @endif
-                <option value='{{ $discipline->id}}'>{{ $discipline->name}}</option>
+                <option value='tag{{ $discipline->id}}'>
+                    {{ $discipline->name}}
+                </option>
 
             @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
             </optgroup>
-
+            <optgroup label="Institutions">
+             @foreach($institutions as $key => $institution)
+                <option value='inst{{ $institution->id}}'>
+                    {{ $institution->name}}
+                </option>
+             @endforeach
+            </optgroup>
             @endif
             @endforeach
         </select>
@@ -82,9 +90,10 @@
       <div ng-repeat="user in dirCtrl.users" class='panel panel-default'>
         <div class="panel-title list-group-item talk">
           <span class="display-block text-danger line-break-half">
-            @{{ user.name }} @{{ user.surname }}
-            <span ng-repeat="ins in user.institutions">
-            | @{{ ins.name }}
+            @{{ user.name }} @{{ user.surname }} |
+            <span ng-repeat="ins in user.institutions"
+                  ng-class="{'highlight': dirCtrl.tagSelected('inst'+ins.id)}">
+            @{{ ins.name }}
             </span>
           </span>
           <span class="display-block display-table-cell">
@@ -97,6 +106,7 @@
                style="width: 100%; display: flow-root;"
                class="line-break-top line-break">
             <div ng-repeat="tag in user.disciplines"
+                 ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.id)}"
                   class="label label-new label-ukfn-blue margin-right"
                   style="float:left; margin-top: 5px;">
               @{{ tag.name }}

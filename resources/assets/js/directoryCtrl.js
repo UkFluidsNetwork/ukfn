@@ -50,6 +50,15 @@ angular.module('ukfn')
             });
         };
 
+        controller.tagSelected = function(tag_id) {
+            for (var i=0; i < controller.searchTerms.length; i++) {
+                if (controller.searchTerms[i] == tag_id) {
+                    return true;
+                }
+            }
+            return $.inArray(tag_id, controller.searchTerms) > -1;
+        };
+
         controller.selectizeDisciplinesConfig = {
             create: false,
             plugins: ['remove_button', 'optgroup_columns'],

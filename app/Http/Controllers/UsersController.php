@@ -227,7 +227,7 @@ class UsersController extends Controller
     public function getUsersPublicJson(Request $request)
     {
         $parameters = $request->all();
-        $disciplines = isset($parameters['search'])
+        $search = isset($parameters['search'])
                        && $parameters['search'] !== "[]"
             ? json_decode($parameters['search'])
             : null;
@@ -241,13 +241,19 @@ class UsersController extends Controller
             $user->sigs;
             unset($user->email);
 
-            if ($disciplines === null) {
+            if ($search === null) {
                 $users[] = $user;
                 continue;
             }
 
             foreach ($user->disciplines as $discipline) {
-                if (in_array($discipline->id, $disciplines)) {
+                if (in_array("tag".$discipline->id, $search)) {
+                    $users[] = $user;
+                    break;
+                }
+            }
+            foreach ($user->institutions as $institution) {
+                if (in_array("inst".$institution->id, $search)) {
                     $users[] = $user;
                     break;
                 }
