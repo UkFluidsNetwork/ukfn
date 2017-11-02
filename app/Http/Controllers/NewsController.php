@@ -27,7 +27,7 @@ class NewsController extends Controller
      */
     public static function getNews()
     {
-        $news = News::getNews("created_at", "desc", 15);
+        $news = News::getNews("created_at", "desc", 5);
 
         foreach ($news as $new) {
             $new->date = PagesController::formatDate($new->created_at);
