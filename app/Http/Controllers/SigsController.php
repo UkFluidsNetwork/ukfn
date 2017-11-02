@@ -324,7 +324,8 @@ class SigsController extends Controller
      */
     public static function getIdBySlug($slug)
     {
-        $sigStd = Sig::findBySlug($slug)[0];
+        $sigs   = Sig::findBySlug($slug);
+        $sigStd = isset($sigs[0]) ? $sigs[0] : [];
 
         if (!empty($sigStd)) {
             return $sigStd->id;
