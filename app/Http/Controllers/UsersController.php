@@ -240,6 +240,7 @@ class UsersController extends Controller
             $user->disciplines;
             $user->sigs;
             unset($user->email);
+            $filtered = false; // avoid double filtering
 
             if ($search === null) {
                 $users[] = $user;
@@ -249,13 +250,16 @@ class UsersController extends Controller
             foreach ($user->disciplines as $discipline) {
                 if (in_array("tag".$discipline->id, $search)) {
                     $users[] = $user;
+                    $filtered = true;
                     break;
                 }
             }
-            foreach ($user->institutions as $institution) {
-                if (in_array("inst".$institution->id, $search)) {
-                    $users[] = $user;
-                    break;
+            if (!$filtered) {
+                foreach ($user->institutions as $institution) {
+                    if (in_array("inst".$institution->id, $search)) {
+                        $users[] = $user;
+                        break;
+                    }
                 }
             }
         }
