@@ -57,8 +57,12 @@
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4">
       <h1>What's New</h1>
-      @foreach ($news as $new)
+      @foreach ($news as $key => $new)
+      @if ($key === 0)
+      <section class="page-header" style="margin-top: 2em;">
+      @else
       <section class="page-header">
+      @endif
         <div class="line-break">
           <div class="text-danger">
             <h4 class="panel-title strong line-height-default">
@@ -94,6 +98,11 @@
         <p>{!! $event->description !!}</p>
       </section>
       @endforeach
+      @if (empty($events))
+      <div class="text-muted line-break-dbl-top">
+          There are no future events to display.
+      </div>
+      @endif
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4">
       <h1>Tweets</h1>
