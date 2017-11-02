@@ -87,7 +87,10 @@
         <div class="line-break">
           <div class="text-danger">
               @if ($event->new)
-              <span class="label label-new label-ukfn-blue">New</span>
+              <span class="label label-new label-ukfn-blue
+                           pull-left margin-right">
+                  New
+              </span>
               @endif
             <h4 class="panel-title strong line-height-default">
               {{ $event->title }}
