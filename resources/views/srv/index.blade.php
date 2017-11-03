@@ -40,7 +40,7 @@
       [<a href="{{ asset('files/UKFN_SRVs_call_170919.pdf') }}">UKFN_SRVs_call_170919.pdf</a>]
     </p>
     <p>
-      Proposals will be assessed in batches every 4 months. The next deadline is 31 January 2018.
+      Proposals will be assessed in batches every 4 months. The next deadline is 31 January 2018. In exceptional cases, it will be possible to consider funding outside the normal deadlines. Please contact us for a preliminary discussion.
     </p>
   </div>
 
