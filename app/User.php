@@ -2,6 +2,7 @@
 
 namespace App;
 
+use DB;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -424,6 +425,20 @@ class User extends Authenticatable
             case 3: return "Key personnel";
         }
         return null;
+    }
+
+    /**
+     * Get the list of institutions linked to users
+     *
+     * @return array
+     */
+    public static function userInstitutions()
+    {
+        return DB::table('institution_users')
+            ->select(DB::raw('DISTINCT(`institution_id`) as id, name'))
+            ->join('institutions','institution_users.id','=','institutions.id')
+            ->orderBy('name')
+            ->get();
     }
 }
 
