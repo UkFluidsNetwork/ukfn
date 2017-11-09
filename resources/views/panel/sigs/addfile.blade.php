@@ -12,6 +12,9 @@
   <p>
   All file names will be suffixed with the current timestamp in order to ensure uniqueness; i.e. uploading the same file multiple times will not replace the previous files.
   </p>
+  <p>
+  N.B. The UKFN website is <b>not</b> intended as a repository for big files. If your file is big, please consider hosting it elsewhere and linking to it from the UKFN website.
+  </p>
 </div>
 
 {!! Form::open(["url" => "/panel/sig/files/add/" . $sig->id,
