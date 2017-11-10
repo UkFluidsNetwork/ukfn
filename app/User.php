@@ -436,7 +436,8 @@ class User extends Authenticatable
     {
         return DB::table('institution_users')
             ->select(DB::raw('DISTINCT(`institution_id`) as id, name'))
-            ->join('institutions','institution_users.id','=','institutions.id')
+            ->join('institutions','institution_users.institution_id',
+                '=','institutions.id')
             ->orderBy('name')
             ->get();
     }
