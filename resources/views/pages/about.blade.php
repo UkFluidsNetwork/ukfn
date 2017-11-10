@@ -105,9 +105,9 @@
             <i>Engineering, University of Cambridge</i>
         </li>
         <li>
-            <a href="https://www.imperial.ac.uk/people/b.van-wachem"
+            <a href="https://www.imperial.ac.uk/people/y.hardalupas"
                target="_blank">
-                Prof. Berend van Wachem
+                Prof. Yannis Hardalupas
             </a>,
             <i>Mechanical Engineering, Imperial College London</i>
         </li>
