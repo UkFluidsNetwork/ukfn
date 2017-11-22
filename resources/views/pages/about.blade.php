@@ -175,6 +175,11 @@
     <p class="line-break-dbl-top">
     <ul>
       <li>
+        Executive Committee meeting, Friday 22 September 2017:
+        [<a href="{{ asset('files/meetings/Agenda_220917_EC_meeting.1508422680.pdf') }}">Agenda_220917_EC_meeting.1508422680.pdf</a>],
+        [<a href="{{ asset('files/meetings/Minutes_220917_EC_meeting.1508422434.pdf') }}">Minutes_220917_EC_meeting.1508422434.pdf</a>]
+      </li>
+      <li>
         Executive Committee meeting, Friday 30 June 2017:
         [<a href="{{ asset('files/meetings/Agenda_300617_EC_meeting.pdf') }}">Agenda_300617_EC_meeting.pdf</a>],
         [<a href="{{ asset('files/meetings/Minutes_300617_EC_meeting.pdf') }}">Minutes_300617_EC_meeting.pdf</a>]
