@@ -20,20 +20,6 @@ class Talk extends Model
         'teradekip', 'streamingurl', 'recordingurl', 'recordinguntil'
     ];
 
-
-    /**
-     * The booting method of the model.
-     * It has been overwritten to exclude soft-deleted records from queries
-     */
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::addGlobalScope('deleted', function (Builder $builder) {
-            $builder->where('talks.deleted', '=', '0');
-        });
-    }
-
     /**
      * Find a talk given its talk id
      *

@@ -101,7 +101,6 @@ class TalksController extends Controller
                         $talk->message = $value->special_message;
                         $talk->created_at = Carbon::createFromFormat('D, d M Y H:i:s e', $value->created_at)->format('Y-m-d H:i:s');
                         $talk->updated_at = Carbon::createFromFormat('D, d M Y H:i:s e', $value->updated_at)->format('Y-m-d H:i:s');
-                        $talk->deleted = 0;
                         $talk->save();
                     }
 
@@ -141,7 +140,6 @@ class TalksController extends Controller
                             $talk->organiser = $imperialnewsevents->source;
                             $talk->created_at = Carbon::parse($value->published);
                             $talk->updated_at = Carbon::parse($value->updated);
-                            $talk->deleted = 0;
                             $talk->save();
                         }
                     }
@@ -376,25 +374,6 @@ class TalksController extends Controller
 
         return view('panel.talks.edit', compact(
             'talk', 'aggregators', 'bread', 'breadCount', 'institutions'));
-    }
-
-    /**
-     * Delete talk method
-     *
-     * @param intiger $id aggregator id
-     * @return Illuminate\Support\Facades\Redirect
-     */
-    public function delete($id)
-    {
-        try {
-            $talk = Talk::findOrFail($id);
-            $talk->deleted = 1;
-            $talk->save();
-            Session::flash('success_message', 'Deleted successfully.');
-        } catch (Exception $ex) {
-            Session:flash('error_message', $ex);
-        }
-        return redirect('/panel/talks');
     }
 
     /**
