@@ -377,6 +377,24 @@ class TalksController extends Controller
     }
 
     /**
+     * Edit talks
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\View
+     */
+    public function delete($id)
+    {
+        $talk = Talk::findOrFail($id);
+        try {
+            $talk->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/talks');
+    }
+
+    /**
      * Set up to test SMS streaming facility.
      *
      * @todo if it works, embed the code within /talks and /talks:id,
