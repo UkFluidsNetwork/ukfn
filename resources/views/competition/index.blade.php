@@ -26,27 +26,22 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
     <div class="row">
         <div class="col-sm-4 col-sm-push-8">
             <div class="bs-callout bs-callout-info">
-                <h4>Key points</h4>
-                <ul class="keypoints">
-                    <li>
-                        <span>The subject of the competition is <b>‘The interface between solid and fluid mechanics’</b></span>
-                    </li>
-                    <li>
-                        <span>Cash prizes of £200 for the best photo and the best video.</span>
-                    </li>
-                    <li>
-                        <span>The closing date was 31 July 2017.</span>
-                    </li>
-                    <li>
-                        <span>Finalists will be chosen by popular vote.</span>
-                    </li>
-                    <li>
-                        <span>Winning photo and video will be published on the website.</span>
-                    </li>
-                    <li>
-                        <span>If you have any questions, please email <a href="mailto:competition@fluids.ac.uk">competition@fluids.ac.uk</a>.</span>
-                    </li>
-                </ul>
+                <div style="text-align:center;">
+                    <a href="/competition/winner/photos/"
+                       class="btn btn-primary line-break-dbl-top"
+                       style="width: 100%; padding-bottom: 1em;
+                              padding-top: 1em; font-weight:bold;">
+                       Past Winner Photo
+                   </a>
+                </div>
+                <div style="text-align:center;">
+                    <a href="/competition/winner/videos/"
+                       class="btn btn-primary line-break-dbl-top"
+                       style="width: 100%; padding-bottom: 1em;
+                              padding-top: 1em; font-weight:bold;">
+                       Past Winner Video
+                   </a>
+                </div>
             </div>
         </div>
         <div class="col-sm-8 col-sm-pull-4">
@@ -91,32 +86,5 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
         </div>
     </div>
   </div>
-  <style>
-      .keypoints > li {
-          margin: 15px 0;
-          font-size: 20px;
-      }
-      .keypoints > li > span {
-          font-size: 14px;
-      }
-      </style>
 
-  <div style="text-align:center;">
-    <div class="row">
-    <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/photos/"
-         class="btn btn-primary line-break-dbl-top"
-         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Past Winner Photo
-       </a>
-    </div>
-    <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/videos/"
-         class="btn btn-primary line-break-dbl-top"
-         style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Past Winner Video
-       </a>
-    </div>
-    </div>
-  </div>
 @endsection
