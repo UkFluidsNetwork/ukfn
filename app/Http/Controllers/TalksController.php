@@ -377,10 +377,10 @@ class TalksController extends Controller
     }
 
     /**
-     * Edit talks
+     * Delete talks
      *
      * @param int $id
-     * @return Illuminate\Support\Facades\View
+     * @return Illuminate\Support\Facades\Redirect
      */
     public function delete($id)
     {
