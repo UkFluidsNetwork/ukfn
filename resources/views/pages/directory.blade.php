@@ -32,7 +32,7 @@
         float: left !important;
         border: none !important;
     }
-    
+
     .optgroup-header {
         font-size:1.5em !important;
     }
@@ -78,6 +78,20 @@
                 </option>
              @endforeach
             </optgroup>
+            <optgroup label="Application Areas">
+             @foreach($applications as $key => $application)
+                <option value='tag{{ $application->id}}'>
+                    {{ $application->name}}
+                </option>
+             @endforeach
+            </optgroup>
+            <optgroup label="Special Interest Groups (SIG)">
+             @foreach($sigs as $key => $sig)
+                <option value='sig{{ $sig->id}}'>
+                    {{ $sig->name}}
+                </option>
+             @endforeach
+            </optgroup>
             @endif
             @endforeach
         </select>
@@ -102,10 +116,29 @@
               <br>
             </span>
           </span>
-          <div ng-if="user.disciplines"
+          <div ng-if="user.sigs">
+            <span class="display-block display-table-cell"
+                  ng-repeat="sig in user.sigs">
+              <span ng-if="sig.pivot.main == 0">
+              SIG Member of
+              </span>
+              <span ng-if="sig.pivot.main == 1">
+              SIG Leader of
+              </span>
+              <span ng-if="sig.pivot.main == 2">
+              SIG Co-leader of
+              </span>
+              <span ng-if="sig.pivot.main == 3">
+              SIG Key Personnel of
+              </span>
+              <a href="/sig/@{{ sig.shortname}}">@{{ sig.name }}</a>
+              <br>
+            </span>
+          </div>
+          <div ng-if="user.tags"
                style="width: 100%; display: flow-root;"
                class="line-break-top line-break">
-            <div ng-repeat="tag in user.disciplines"
+            <div ng-repeat="tag in user.tags"
                  ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.id)}"
                   class="label label-new label-ukfn-blue margin-right"
                   style="float:left; margin-top: 5px;">

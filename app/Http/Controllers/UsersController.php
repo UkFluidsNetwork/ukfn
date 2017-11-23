@@ -237,7 +237,7 @@ class UsersController extends Controller
 
         foreach ($allUsers as $user) {
             $user->institutions;
-            $user->disciplines;
+            $user->tags;
             $user->sigs;
             unset($user->email);
             $filtered = false; // avoid double filtering
@@ -247,8 +247,8 @@ class UsersController extends Controller
                 continue;
             }
 
-            foreach ($user->disciplines as $discipline) {
-                if (in_array("tag".$discipline->id, $search)) {
+            foreach ($user->tags as $tag) {
+                if (in_array("tag".$tag->id, $search)) {
                     $users[] = $user;
                     $filtered = true;
                     break;
@@ -258,6 +258,16 @@ class UsersController extends Controller
                 foreach ($user->institutions as $institution) {
                     if (in_array("inst".$institution->id, $search)) {
                         $users[] = $user;
+                        $filtered = true;
+                        break;
+                    }
+                }
+            }
+            if (!$filtered) {
+                foreach ($user->sigs as $sig) {
+                    if (in_array("sig".$sig->id, $search)) {
+                        $users[] = $user;
+                        $filtered = true;
                         break;
                     }
                 }
