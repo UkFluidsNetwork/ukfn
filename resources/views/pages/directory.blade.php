@@ -117,7 +117,7 @@
             </span>
           </span>
           <div ng-if="user.sigs">
-            <span class="display-block display-table-cell"
+            <div
                   ng-repeat="sig in user.sigs">
               <span ng-if="sig.pivot.main == 0">
               SIG Member of
@@ -133,7 +133,7 @@
               </span>
               <a href="/sig/@{{ sig.shortname}}">@{{ sig.name }}</a>
               <br>
-            </span>
+            </div>
           </div>
           <div ng-if="user.tags"
                style="width: 100%; display: flow-root;"
