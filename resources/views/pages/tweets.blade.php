@@ -4,7 +4,7 @@
 
 <div class="line-break line-break-dbl-top"></div>
 
-<a class="twitter-timeline" data-tweet-limit="3"
+<a class="twitter-timeline" data-tweet-limit="5"
    href="https://twitter.com/{{ $twitter }}"
    data-chrome="noscrollbar nofooter transparent noheader">
     Tweets by {{ $twitter }}
