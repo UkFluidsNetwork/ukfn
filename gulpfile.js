@@ -68,5 +68,5 @@ elixir(function(mix) {
 
     // include version
     // See: https://laravel.com/docs/5.3/elixir#versioning-and-cache-busting
-    mix.version('public/css/main.css');
+    mix.version(['public/css/main.css', 'public/js/main.js']);
 });

@@ -38,7 +38,7 @@
         }
         </script>
 
-        <script src="{{ asset('js/main.js') }}"></script>
+        <script src="{{ elixir('js/main.js') }}"></script>
         <script src="{{ asset('js/analytics.js') }}" async="async"></script>
 
         <meta name="msapplication-TileColor" content="#ffffff">
