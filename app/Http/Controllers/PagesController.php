@@ -30,6 +30,11 @@ use Storage;
 class PagesController extends Controller
 {
 
+    private static $pagesPanelCrumbs = [
+        ['label' => 'Panel', 'path' => '/panel'],
+        ['label' => 'Pages', 'path' => '/panel/pages']
+    ];
+
     /**
      * Default breadcrumbs for /myaccount
      *
@@ -517,6 +522,65 @@ class PagesController extends Controller
         }
 
         return null;
+    }
+
+    /**
+     * When a $name is provided add a timestamp and replace whitespace with
+     *
+     * @return \Illuminate\View\View
+     */
+    public static function viewPages()
+    {
+        $bread = static::$pagesPanelCrumbs;
+        $breadCount = count($bread);
+
+        $pages = [
+            [
+                'id' => 1,
+                'title' => 'Connect',
+                'created' => "2017-11-05 19:44:34",
+                'updated' => "2017-11-07 20:03:21",
+            ]
+        ];
+
+        return view('panel.pages.view',
+                    compact('pages', 'bread', 'breadCount'));
+    }
+
+    /**
+     * When a $name is provided add a timestamp and replace whitespace with
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public static function editPage($id)
+    {
+        $bread = array_merge(static::$pagesPanelCrumbs,
+                                [['label' => 'Edit',
+                                  'path' => "/panel/pages/edit/${id}"]]);
+        $breadCount = count($bread);
+
+        $page = [
+                'id' => 1,
+                'title' => 'Connect',
+                'content' => "",
+                'created' => "2017-11-05 19:44:34",
+                'updated' => "2017-11-07 20:03:21",
+        ];
+
+        return view('panel.pages.edit',
+                    compact('page', 'bread', 'breadCount'));
+    }
+
+    /**
+     * When a $name is provided add a timestamp and replace whitespace with
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public static function updatePage($id)
+    {
+        return;
     }
 }
 
