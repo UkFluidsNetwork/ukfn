@@ -26,7 +26,7 @@ angular.module('ukfn')
         controller.loadUsers = function() {
             var url = '/api/public/users/';
             var query = JSON.stringify(controller.searchTerms);
-            var cacheId = url + '*' + query;
+            var cacheId = url + '*' + controller.searchTerms.sort();
             controller.loading = true;
 
             var cachedData = controller.$storage[cacheId];
