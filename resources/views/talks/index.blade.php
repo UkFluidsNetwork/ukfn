@@ -124,7 +124,9 @@
                 <!-- loading message - end -->
 
                 <!-- all talks list - start -->
-                <div class='panel panel-default' ng-repeat="talk in talksCtrl.talks">
+                <div class='panel panel-default'
+                     ng-repeat="talk in talksCtrl.talks"
+                     ng-if="!talksCtrl.loading" ng-cloak>
                     <a  ng-href="#collapse_@{{talk.id}}" ng-click="isCollapsed = !isCollapsed" data-toggle='collapse' 
                         class="noborder list-group-item talk panel-body accordion-toggle">
                         <i ng-class="{'glyphicon-chevron-up': isCollapsed, 'glyphicon-chevron-down': !isCollapsed}" class='glyphicon pull-right'></i>
