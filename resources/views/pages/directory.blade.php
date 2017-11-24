@@ -51,7 +51,7 @@
 <div class="container-fluid"
      ng-app="ukfn"
      ng-controller="directoryController as dirCtrl"
-     ng-init="dirCtrl.updateQuery();">
+     ng-init="dirCtrl.initialise();">
   <div class="row">
     <div class="col-12">
         <select id="disciplines" type="text" name="disciplines[]"
@@ -100,8 +100,8 @@
              class="line-break-dbl-top text-center larger">
                     Loading...
         </div>
-
-      <div ng-repeat="user in dirCtrl.users" class='panel panel-default'>
+      <div ng-repeat="user in dirCtrl.users" ng-if="!dirCtrl.loading"
+           class='panel panel-default' ng-cloak>
         <div class="panel-title list-group-item talk">
           <span class="display-block text-danger line-break-half">
             @{{ user.name }} @{{ user.surname }} |
@@ -153,11 +153,12 @@
 </div>
 
 <script>
-    
+
     $('.tags').selectize({
         plugins: ['remove_button', 'optgroup_columns'],
         delimiter: ',',
         persist: false,
+        closeAfterSelect: true,
         create: function(input) {
             return {
                 value: input,

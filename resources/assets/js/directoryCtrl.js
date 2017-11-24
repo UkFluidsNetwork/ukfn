@@ -3,52 +3,58 @@ angular.module('ukfn')
         // this scope name
         var controller = this;
         controller.$storage = $localStorage;
-        controller.disciplines = []; // disciplines for selectize
-        controller.categories = []; // discipline categories for selectize optgroup
         controller.searchTerms = []; // terms entered in recorded search box
-
         controller.loading = true; // flag to display loading message
 
+        controller.initialise = function() {
+            controller.clearCache();
+            controller.loadUsers();
+        }
+
         controller.updateQuery = function(query) {
-            controller.loadResources();
+            controller.loadUsers();
         };
 
-        controller.loadDisciplines = function() {
-            var url = '/api/tags/disciplines';
-            controller.disciplines = [];
-
-            $http({method: 'GET', url: url}).then(function (response) {
-                var curCategory = ""
-                for (var i = 0; i < response.data.length; i++)  {
-                    var category = response.data[i].category;
-                    if (category !== curCategory) {
-                        controller.categories.push({'category': category});
-                        curCategory = category;
-                    }
-                }
-                controller.disciplines = response.data;
-            });
+        controller.clearCache = function () {
+            var oneWeekAgo = new Date();
+            oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+            if (oneWeekAgo > controller.$storage['directory-date']) {
+                controller.$storage.$reset();
+            }
         };
 
-        controller.loadResources = function() {
+        controller.loadUsers = function() {
             var url = '/api/public/users/';
+            var query = JSON.stringify(controller.searchTerms);
+            var cacheId = url + '*' + query;
             controller.loading = true;
-            // clear array of available users before making the request.
-            controller.users = [];
 
-            $http(
-                {
-                    method: 'GET',
-                    url: url,
-                    params: {
-                        search: JSON.stringify(controller.searchTerms)
-                    }
-                }
-            ).then(function (response) {
+            var cachedData = controller.$storage[cacheId];
+            if (cachedData) {
+                controller.users = cachedData;
                 controller.loading = false;
-                controller.users = response.data;
-            });
-        };
+            } else {
+                // clear array of available users before making the request.
+                controller.users = [];
+
+                $http(
+                    {
+                        method: 'GET',
+                        url: url,
+                        params: {
+                            search: query
+                        }
+                    }
+                ).then(function (response) {
+                    controller.users = response.data;
+                    controller.loading = false;
+                    controller.$storage[cacheId] = response.data;
+                    var today = new Date();
+                    today.setDate(today.getDate());
+                    controller.$storage['directory-date'] = today;
+                });
+            }
+          };
 
         controller.tagSelected = function(tag_id) {
             for (var i=0; i < controller.searchTerms.length; i++) {
@@ -58,18 +64,4 @@ angular.module('ukfn')
             }
             return $.inArray(tag_id, controller.searchTerms) > -1;
         };
-
-        controller.selectizeDisciplinesConfig = {
-            create: false,
-            plugins: ['remove_button', 'optgroup_columns'],
-            delimiter: ',',
-            searchField: 'name',
-            framework: 'bootstrap',
-            valueField: 'id',
-            labelField: 'name',
-            optgroupField: 'category',
-            optgroupLabelField: 'category',
-            optgroups: controller.categories,
-            placeholder: 'Enter subject area(s)'
-          };
     });
