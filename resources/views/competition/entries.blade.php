@@ -18,12 +18,14 @@
     }
   }
 </style>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 @endsection
 
 @section('content')
 
   <h2 class='line-break'>{{ $title }} Entries</h2>
 
+  @if (false)
   <div class="well">
     <p>
       The first UK Fluids Network photo and video competition has finished, and voting is now closed.
@@ -39,8 +41,8 @@
     @endif
     <p>
   </div>
+  @endif
 
-@if (false)
   @if (Session::has('vote_ok'))
     <div class="alert alert-success">
         @if ($name === "photo")
@@ -57,6 +59,10 @@
         You have already voted. If you haven't, you can still <a href="/competition/vote/photos">vote for the best photo</a>.
         @endif
      </div>
+  @elseif (Session::has('no-captcha'))
+     <div class="alert alert-danger">
+        Please complete the captcha to prove that you are human.
+     </div>
   @elseif ($errors->has('email'))
      <div class="alert alert-danger">
         The email entered is not valid.
@@ -65,11 +71,11 @@
   <div class="well">
     @if ($name === "photo")
     <p>
-      Below are the finalist {{ $name }} entries of the UK Fluids Network photo and video competition - click <a href="/competition/vote/videos">here</a> to vote for the finalist videos.
+      Below are the finalist {{ $name }} entries of the second UK Fluids Network photo and video competition: the interface between solid and fluid mechanics  - click <a href="/competition/vote/videos">here</a> to vote for the finalist videos.
     </p>
     @elseif ($name === "video")
     <p>
-      Below are the finalist {{ $name }} entries of the UK Fluids Network photo and video competition - click <a href="/competition/vote/photos">here</a> to vote for the finalist photos.
+      Below are the finalist {{ $name }} entries of the second UK Fluids Network photo and video competition: the interface between solid and fluid mechanics  - click <a href="/competition/vote/photos">here</a> to vote for the finalist photos.
     </p>
     @endif
     <p>
@@ -91,7 +97,7 @@
 
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title) {
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-12-11 00:00:00") {
   continue;
 }
 ?>
@@ -178,9 +184,14 @@ if ($entry->file->filetype->shortname !== $title) {
                     id="competitionentry_id" value="{{ $entry->id }}">
              {!! Form::label('email', 'Email:',
                            ['class' => 'control-label col-lg-2 text-left']) !!}
-             {!! Form::text('email', '', ['class' => 'form-control',
+             {!! Form::text('email', '', ['class' => 'form-control line-break',
                             'placeholder' => 'your@email.com']) !!}
+            <div class="g-recaptcha"
+                 data-sitekey="6LdfWiEUAAAAAK-g3UWFFZANyAi9xhXCrndBOFM0">
+            </div>
+              <div style="clear:both;width:100%;margin-top:20px;">
              {!! Form::submit('Vote',['class' =>'btn btn-default btn-lg2']) !!}
+              </div>
              {!! Form::close() !!}
           </div>
         </div>
@@ -189,6 +200,5 @@ if ($entry->file->filetype->shortname !== $title) {
   </div>
 </div>
 @endforeach
-@endif
 
 @endsection

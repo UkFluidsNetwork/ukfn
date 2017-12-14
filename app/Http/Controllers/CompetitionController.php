@@ -65,11 +65,15 @@ class CompetitionController extends Controller
         $input = $request->all();
         $vote  = new Vote();
         $vote->fill($input);
-        if ($vote->isValid()) {
-            $vote->save();
-            session::flash('vote_ok', 'Thank you for your vote.');
+        if (!$input['g-recaptcha-response']) {
+            Session::flash('no-captcha', 'Complete the captcha');
         } else {
-            Session::flash('duplicate_vote', 'Only one vote is allowed.');
+            if ($vote->isValid()) {
+                $vote->save();
+                session::flash('vote_ok', 'Thank you for your vote.');
+            } else {
+                Session::flash('duplicate_vote', 'Only one vote is allowed.');
+            }
         }
 
         return Redirect::to(URL::previous());
