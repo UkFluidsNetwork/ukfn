@@ -33,13 +33,13 @@
   The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition runs every 4 months and the winner will be selected by a combination of popular vote and a panel of judges drawn from the UKFN Executive Committee and Advisory Board.
   </p>
   <p>
-      In this second competition, the photo or video should be on the subject <b>‘The interface between solid and fluid mechanics’</b>.
-  </p>
-  <p>
 The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
+  <p>
+      In this second competition, the subject is <b>‘The interface between solid and fluid mechanics’</b>.
+  </p>
 
-  <p><b>Voting is now open.</b></p>
+  <p><b>Voting is now open until 31 December.</b></p>
 
   @if (false)
   <p><b>The closing date for entries is 30 November 2017.</b></p>
