@@ -126,7 +126,7 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-
                      src="{{$entry->file->path . "/" . $entry->file->name}}">
               </a>
             @elseif ($entry->file->filetype->shortname === "Video")
-               <div class="embed-responsive embed-responsive-16by9">
+               <div class="embed-responsive embed-responsive-4by3">
                  <iframe class="embed-responsive-item"
                          src="{{$entry->file->path}}" scrolling="no"
                          frameborder="0" allowfullscreen></iframe>
