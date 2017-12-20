@@ -64,6 +64,10 @@
             </ul>
         </li>
 
+        <li class="{{ Request::is('panel/pages*') ? 'active' : '' }}">
+            <a href="{{ URL::to('panel/pages') }}" class="{{ Request::is('panel/pages*') ? 'active' : '' }}">Pages</a>
+        </li>
+
         <li class="{{ Request::is('panel/titles*') ? 'active' : '' }}">
             <a href="{{ URL::to('panel/titles') }}" class="{{ Request::is('panel/titles*') ? 'active' : '' }}">Titles</a>
             <ul id='admin-subnav-titles' class='nav nav-stacked'>
@@ -93,6 +97,12 @@
             <a href="{{ URL::to('panel/files') }}" class="{{ Request::is('panel/files*') ? 'active' : '' }}">Files</a>
             <ul id='admin-subnav-talks' class='nav nav-stacked' >
                 <li><a href="{{ URL::to('/panel/files/add') }}" class="{{ Request::is('panel/files/add') ? 'active' : '' }}">Upload new</a></li>
+            </ul>
+        </li>
+        <li class="{{ Request::is('panel/competition*') ? 'active' : '' }}">
+            <a href="{{ URL::to('panel/competition/votes') }}" class="{{ Request::is('panel/competition*') ? 'active' : '' }}">Competition</a>
+            <ul id='admin-subnav-talks' class='nav nav-stacked' >
+                <li><a href="{{ URL::to('/panel/competition/votes') }}" class="{{ Request::is('panel/competition/votes') ? 'active' : '' }}">Votes</a></li>
             </ul>
         </li>
     </ul> 
