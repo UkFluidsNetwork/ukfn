@@ -119,7 +119,7 @@ class CompetitionController extends Controller
         ];
         $breadCount = count($bread);
 
-        $votes = Vote::all();
+        $votes = Vote::where("created_at", ">", "2017-12-01 00:00:00")->get();
         foreach ($votes as $vote) {
             $vote->created = PagesController::formatDate($vote->created_at);
             $vote->entry = Competitionentry::findOrFail($vote->competitionentry_id);
@@ -145,7 +145,7 @@ class CompetitionController extends Controller
         ];
         $breadCount = count($bread);
 
-        $votes = Vote::all();
+        $votes = Vote::where("created_at", ">", "2017-12-01 00:00:00")->get();
         foreach ($votes as $vote) {
             $vote->entry = Competitionentry::findOrFail($vote->competitionentry_id);
             $vote->type = $vote->entry->file->filetype->shortname;
