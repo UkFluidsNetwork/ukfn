@@ -102,6 +102,8 @@ Route::get('panel/files', 'FilesController@index')->middleware('admin');
 Route::get('panel/srv', 'SrvsController@view')->middleware('admin');
 Route::get('panel/srv/add', 'SrvsController@add')->middleware('admin');
 Route::get('panel/srv/edit/{id}', 'SrvsController@edit')->middleware('admin');
+Route::get('panel/competition/votes', 'CompetitionController@votes')->middleware('admin');
+Route::get('panel/competition/votes/export', 'CompetitionController@export')->middleware('admin');
 /** POST requests * */
 // public
 Route::post('contact', 'PagesController@sendMessage');

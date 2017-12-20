@@ -108,5 +108,55 @@ class CompetitionController extends Controller
 
         return view('competition.winner', compact('entries', 'name', 'title'));
     }
+
+    /**
+     * List all votes
+     *
+     * @return void
+     * @return Illuminate\Support\Facades\View
+     */
+    public function votes()
+    {
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Events', 'path' => '/panel/votes']
+        ];
+        $breadCount = count($bread);
+
+        $votes = Vote::all();
+        foreach ($votes as $vote) {
+            $vote->created = PagesController::formatDate($vote->created_at);
+            $vote->entry = Competitionentry::findOrFail($vote->competitionentry_id);
+            $vote->type = $vote->entry->file->filetype->shortname;
+        }
+
+        return view('panel.competition.votes',
+                    compact('votes', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Full list of votes to export to CSV
+     *
+     * @return void
+     * @return Illuminate\Support\Facades\View
+     */
+    public function export()
+    {
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Users', 'path' => '/panel/competition/votes'],
+            ['label' => 'Export', 'path' => '/panel/competition/votes/export'],
+        ];
+        $breadCount = count($bread);
+
+        $votes = Vote::all();
+        foreach ($votes as $vote) {
+            $vote->entry = Competitionentry::findOrFail($vote->competitionentry_id);
+            $vote->type = $vote->entry->file->filetype->shortname;
+        }
+
+        return view('panel.competition.export',
+                     compact('votes', 'bread', 'breadCount'));
+    }
 }
 
