@@ -63,15 +63,15 @@
         </div>
     </div>
     <div class="col-sm-4 col-xs-12">
-        <button id="sig-calendar-btn"
+        <button id="sig-booklet-btn"
            data-toggle="modal"
-           data-target="#sig-call"
+           data-target="#sig-booklet"
            style="width: 100%"
            class="btn btn-default line-break-dbl sig-extra-btn">
-           Next call
+           SIG Booklet
         </button>
         <div class="modal fade" style="margin-top: 10%;"
-             id="sig-call"
+             id="sig-booklet"
              role="dialog"
              aria-labelledby="label-sig-call">
             <div class="modal-dialog" role="document">
@@ -82,15 +82,15 @@
                                 aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
-                        <h4 class="modal-title" id="label-sig-call">
-                            Next call
+                        <h4 class="modal-title" id="label-sig-booklet">
+                            SIG Booklet
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <p>
-                        There may be a third call for SIG proposals
-                        in Spring 2018.
-                       </p>
+                      <div class="embed-responsive embed-responsive-4by3">
+                        <object class="embed-responsive-item"
+                                data="/files/Booklet_170831a_compressedpics.1506703857.pdf"></object>
+                      </div>
                     </div>
                 </div>
             </div>
