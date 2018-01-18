@@ -111,7 +111,7 @@
             <hr>
             <div class="row">
                 <div class="col-12">
-                    Developed by <a href="https://arias.re" class="footer-color" target="_blank">Javier Arias</a>
+                    <a href="https://github.com/UkFluidsNetwork/ukfn" class="footer-color" target="_blank"><i class="fa fa-github" aria-hidden="true"></i> Source code</a> available under the MIT license - developed by <a href="https://arias.re" class="footer-color" target="_blank">Javier Arias</a>.
                 </div>
             </div>
         </div>
