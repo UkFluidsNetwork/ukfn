@@ -25,10 +25,9 @@
 
   <h2 class='line-break'>{{ $title }} Entries</h2>
 
-  @if (false)
   <div class="well">
     <p>
-      The first UK Fluids Network photo and video competition has finished, and voting is now closed.
+      The second UK Fluids Network photo and video competition has finished, and voting is now closed.
     </p>
     @if ($name === "photo")
     <p>
@@ -41,8 +40,8 @@
     @endif
     <p>
   </div>
-  @endif
 
+@if (false)
   @if (Session::has('vote_ok'))
     <div class="alert alert-success">
         @if ($name === "photo")
@@ -200,5 +199,6 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-
   </div>
 </div>
 @endforeach
+@endif
 
 @endsection

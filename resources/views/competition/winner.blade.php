@@ -26,7 +26,7 @@
 
   <div class="well">
     <p>
-      The first UK Fluids Network photo and video competition has finished, and voting is now closed. The winner {{ $name }} is shown below.
+      The second UK Fluids Network photo and video competition has finished, and voting is now closed. The winner {{ $name }} is shown below.
     </p>
     @if ($name === "photo")
     <p>
@@ -40,35 +40,12 @@
     <p>
   </div>
 
-  @if (Session::has('vote_ok'))
-    <div class="alert alert-success">
-        @if ($name === "photo")
-        Thank you for your vote. You can also <a href="/competition/vote/videos">vote for the best video</a> if you haven't already.
-        @elseif ($name === "video")
-        Thank you for your vote. You can also <a href="/competition/vote/photos">vote for the best photo</a> if you haven't already.
-        @endif
-    </div>
-  @elseif (Session::has('duplicate_vote'))
-     <div class="alert alert-danger">
-        @if ($name === "photo")
-        You have already voted. If you haven't, you can still <a href="/competition/vote/videos">vote for the best video</a>.
-        @elseif ($name === "video")
-        You have already voted. If you haven't, you can still <a href="/competition/vote/photos">vote for the best photo</a>.
-        @endif
-     </div>
-  @elseif ($errors->has('email'))
-     <div class="alert alert-danger">
-        The email entered is not valid.
-     </div>
-  @endif
-
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title) {
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-12-11 00:00:00") {
   continue;
 }
 ?>
-
 <div class="row">
   <div class="col-sm-12">
     <div class="panel panel-default line-break-dbl">
