@@ -8,17 +8,17 @@
   <div style="text-align:center;">
     <div class="row">
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/vote/photos/"
+      <a href="/competition/winner/photos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Photo entries
+           Winner Photo
        </a>
     </div>
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/vote/videos/"
+      <a href="/competition/winner/videos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Video entries
+           Winner Video
        </a>
     </div>
     </div>
@@ -39,7 +39,7 @@ The photos and videos will be featured on the UKFN website and YouTube channel. 
       In this second competition, the subject is <b>‘The interface between solid and fluid mechanics’</b>.
   </p>
 
-  <p><b>Voting is now open until 31 December.</b></p>
+  <p><b>Voting is now closed.</b></p>
 
   @if (false)
   <p><b>The closing date for entries is 30 November 2017.</b></p>
