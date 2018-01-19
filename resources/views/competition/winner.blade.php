@@ -22,19 +22,19 @@
 
 @section('content')
 
-  <h2 class='line-break'>Winner {{ $title }}</h2>
+  <h2 class='line-break'>{{ $title }} Competition Winner</h2>
 
   <div class="well">
     <p>
-      The second UK Fluids Network photo and video competition has finished, and voting is now closed. The winner {{ $name }} is shown below.
+      The second UK Fluids Network photo and video competition has finished, and voting is now closed. The winning {{ $name }} is shown below.
     </p>
     @if ($name === "photo")
     <p>
-      Click <a href="/competition/winner/videos">here</a> to see the winner video.
+      Click <a href="/competition/winner/videos">here</a> to see the winning video.
     </p>
     @elseif ($name === "video")
     <p>
-      Click <a href="/competition/winner/photos">here</a> to see the winner photo.
+      Click <a href="/competition/winner/photos">here</a> to see the winning photo.
     </p>
     @endif
     <p>

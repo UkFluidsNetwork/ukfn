@@ -11,14 +11,14 @@
       <a href="/competition/winner/photos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Winner Photo
+           Photo Competition Winner
        </a>
     </div>
     <div class="col-sm-6 col-xs-12">
       <a href="/competition/winner/videos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Winner Video
+           Video Competition Winner
        </a>
     </div>
     </div>
@@ -26,20 +26,9 @@
 
   <div class="well">
     <p>
-        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics on the theme <b>‘The interface between solid and fluid mechanics’</b>.
+        There will be a new competition in March. Check out the website, the newsletter and twitter for details.
     <p>
   </div>
-  <p>
-  The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition runs every 4 months and the winner will be selected by a combination of popular vote and a panel of judges drawn from the UKFN Executive Committee and Advisory Board.
-  </p>
-  <p>
-The photos and videos will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
-  </p>
-  <p>
-      In this second competition, the subject is <b>‘The interface between solid and fluid mechanics’</b>.
-  </p>
-
-  <p><b>Voting is now closed.</b></p>
 
   @if (false)
   <p><b>The closing date for entries is 30 November 2017.</b></p>
