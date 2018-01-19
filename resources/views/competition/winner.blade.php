@@ -63,7 +63,7 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-
         </span>
         <span class="text-muted display-block line-break">
             <span class="display-table-cel"> 
-                {{$entry->department}}, {{$entry->institution->name}}
+                {{$entry->institution->name}}
             </span>
         </span>
 
