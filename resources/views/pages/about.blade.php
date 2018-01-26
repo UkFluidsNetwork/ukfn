@@ -161,7 +161,7 @@
     <p class="line-break-dbl-top">
     <ul class="line-break-dbl-top">
       <li>
-      <a href="{{ asset('files/UKFN_instn_PoC_161024.pdf') }}">List of points of contact</a>
+      <a href="{{ asset('files/UKFN_instn_PoC_180123.1516953821.pdf') }}">List of points of contact</a>
       </li>
     </ul>
     </p>
@@ -174,6 +174,11 @@
     <p class="h4 text-danger line-break-dbl-top">Minutes of meetings</p>
     <p class="line-break-dbl-top">
     <ul>
+      <li>
+        Executive Committee meeting, Friday 5 January 2018:
+        [<a href="{{ asset('files/Agenda_050118_EC_Meeting.1516953872.pdf') }}">Agenda_050118_EC_Meeting.pdf</a>],
+        [<a href="{{ asset('files/Minutes_050108_EC_Meeting.1516954009.pdf') }}">Minutes_050108_EC_Meeting.pdf</a>]
+      </li>
       <li>
         Advisory Board meeting, Monday 27 November 2017:
         [<a href="{{ asset('files/meetings/Agenda_271117_AB_meeting.pdf') }}">Agenda_271117_AB_meeting.pdf</a>],
