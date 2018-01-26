@@ -148,7 +148,7 @@
     <p class="line-break-dbl-top">
     <ul>
         <li>Dr Simon Bittleston, <i>Schlumberger Gould Research</i></li>
-        <li>Dr Ton van den Bremer, <i>University of Edinburgh</i></li>
+        <li>Dr Ton van den Bremer, <i>University of Oxford</i></li>
         <li>Prof. GertJan van Heijst, <i>Burgerscentrum</i></li>
         <li>Prof. Ann Karagozian, <i>American Physical Society DFD and UCLA</i></li>
         <li>Dr David Standingford, <i>ERCOFTAC</i></li>
