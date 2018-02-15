@@ -2,8 +2,7 @@
 @section('admincontent')
 
 <h2 class='line-break'>
-   {{ (Auth::user()->group_id === 1) ? 'Edit Resouce:' : '' }}
-   {{ $resource->name }}
+   'Edit Resource: {{ $resource->name }}
 </h2>
 
 {!! Form::model($resource, [
