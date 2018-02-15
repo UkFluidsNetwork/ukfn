@@ -7,6 +7,7 @@ use App\Tag;
 use App\Resource;
 use App\Tutorial;
 use Illuminate\Http\Request;
+use App\Http\Requests\ResourceFormRequest;
 use Illuminate\Support\Facades\Session;
 
 class ResourcesController extends Controller
@@ -119,10 +120,13 @@ class ResourcesController extends Controller
 
     public function viewTutorials($resource_id)
     {
-        $bread = static::$resourcesPanelCrumbs;
+        $resource = Resource::findOrFail($resource_id);
+
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+                             [['label' => $resource->name,
+                               'path' => "/panel/resources/"]]);
         $breadCount = count($bread);
 
-        $resource = Resource::findOrFail($resource_id);
         foreach ($resource->tutorials as $tutorial) {
             $tutorial->created = date("d M H:i",
                 strtotime($tutorial->created_at));
@@ -177,9 +181,51 @@ class ResourcesController extends Controller
         return;
     }
 
-    public function update()
+    /**
+     * Create resources
+     *
+     * @param ResourceFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function create(ResourceFormRequest $request)
     {
-        return;
+        try {
+            $resource = new Resource;
+            $input = $request->all();
+            $resource->fill($input);
+            $resource->save();
+
+            $resource->updateTags($request->toArray());
+            Session::flash('success_message', 'Added succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources');
+    }
+
+    /**
+     * Update resources
+     *
+     * @param int $id
+     * @param ResouceFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function update($id, ResourceFormRequest $request)
+    {
+        $resource = Resource::findOrFail($id);
+
+        try {
+            $input = $request->all();
+            $resource->fill($input);
+            $resource->save();
+
+            $resource->updateTags($request->toArray());
+            Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+
+        return redirect('/panel/resources');
     }
 
     public function delete()
