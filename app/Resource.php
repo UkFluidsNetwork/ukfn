@@ -90,4 +90,47 @@ class Resource extends Model
     {
         return $this->isActive() ? "Enabled" : "Disabled";
     }
+
+    /**
+     * Compare old and new tags to determine which ones we are deleting
+     * (in old but not in  new) and which ones we are adding
+     * (in new but not in old)
+     *
+     * @param array $tags Multidimensional array containing an array per tagtype
+     * @return void
+     */
+    public function updateTags($tags)
+    {
+        $tagtypes = ['disciplines' => 1, 'applications' => 2,
+                     'techniques' => 3, 'facilities' => 4];
+
+        $currentTags = $this->getTagIds();
+        if (!empty($currentTags)) {
+            // merge all input tags for comparison
+            $inputTags = [];
+            foreach ($tagtypes as $type) {
+                if (!empty($tags[$type]) && is_array($tags[$type])) {
+                    array_merge($inputTags, $tags[$type]);
+                }
+            }
+            // detach all tags that were not input
+            foreach ($currentTags as $curTag) {
+                if (!in_array($curTag, $inputTags)) {
+                    $this->tags()->detach($curTag);
+                }
+            }
+        }
+
+        foreach ($tagtypes as $type => $key) {
+            if (!empty($tags[$type])) {
+                foreach ($tags[$type] as $element) {
+                    $id = is_numeric($element)
+                          ? $element
+                          : Tag::create(['name' => $element,
+                                'category' => 'Other', 'tagtype_id' => $key]);
+                    $this->tags()->attach($id);
+                }
+            }
+        }
+    }
 }
