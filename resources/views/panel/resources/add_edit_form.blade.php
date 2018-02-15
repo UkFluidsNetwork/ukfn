@@ -21,7 +21,6 @@
     </div>
 </div>
 
-@if (Auth::user()->isAdmin())
 <div class='form-group {{ $errors->has('description') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('description', 'Description:',
   ['class' => 'control-label col-lg-2 text-left']) !!}
@@ -36,7 +35,6 @@
     @endif
   </div>
 </div>
-@endif
 
 <div class="form-group {{ $errors->has('disciplines') ? ' has-error' : ''}}">
     <label for="disciplines" class="control-label col-lg-2 text-left">Fluids sub-disciplines</label>
