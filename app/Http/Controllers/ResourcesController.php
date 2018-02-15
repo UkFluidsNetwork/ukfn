@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use SEO;
+use App\Tag;
 use App\Resource;
 use App\Tutorial;
 use Illuminate\Http\Request;
@@ -11,7 +12,7 @@ use Illuminate\Support\Facades\Session;
 class ResourcesController extends Controller
 {
 
-    private static $srvPanelCrumbs = [
+    private static $resourcesPanelCrumbs = [
         ['label' => 'Panel', 'path' => '/panel'],
         ['label' => 'Researcher Resources', 'path' => '/panel/resources']
     ];
@@ -102,7 +103,7 @@ class ResourcesController extends Controller
 
     public function view()
     {
-        $bread = static::$srvPanelCrumbs;
+        $bread = static::$resourcesPanelCrumbs;
         $breadCount = count($bread);
 
         $resources = Resource::orderBy('order')->get();
@@ -118,7 +119,7 @@ class ResourcesController extends Controller
 
     public function viewTutorials($resource_id)
     {
-        $bread = static::$srvPanelCrumbs;
+        $bread = static::$resourcesPanelCrumbs;
         $breadCount = count($bread);
 
         $resource = Resource::findOrFail($resource_id);
@@ -134,12 +135,36 @@ class ResourcesController extends Controller
 
     public function add()
     {
-        return;
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+                             [['label' => 'Add',
+                               'path' => "/panel/resources/add"]]);
+        $breadCount = count($bread);
+
+        $resource = new Resource;
+        $resourceTags = [];
+        $subDisciplines = Tag::getAllDisciplines();
+        $curDisciplinesCategory = null;
+
+        return view('panel.resources.add',
+                    compact('resource', 'resourceTags', 'subDisciplines',
+                            'curDisciplinesCategory', 'bread', 'breadCount'));
     }
 
     public function edit($id)
     {
-        return;
+        $resource = Resource::findOrFail($id);
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+                                [['label' => 'Edit',
+                                  'path' => "/panel/resources/edit/${id}"]]);
+
+        $breadCount = count($bread);
+        $resourceTags = $resource->getTagIds();
+        $subDisciplines = Tag::getAllDisciplines();
+        $curDisciplinesCategory = null;
+
+        return view('panel.resources.edit',
+                    compact('resource', 'resourceTags', 'subDisciplines',
+                            'curDisciplinesCategory', 'bread', 'breadCount'));
     }
 
     public function addTutorial($resource_id)
