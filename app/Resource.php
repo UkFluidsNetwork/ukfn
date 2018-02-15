@@ -15,8 +15,8 @@ class Resource extends Model
      *
      * @var array
      */
-    protected $fillable = [
-    ];
+    protected $fillable = ['name', 'author', 'description',
+        'date', 'priority', 'resource_id', 'active'];
 
     /**
      * Get the tutorials associated with this resource
@@ -36,7 +36,7 @@ class Resource extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }    
+    }
 
     /**
      * Get the tags associated with this resource
@@ -46,7 +46,7 @@ class Resource extends Model
     public function tags()
     {
         return $this->belongsToMany('App\Tag', 'resource_tags')->withTimestamps();
-    }  
+    }
 
     /**
      * Get the tags associated with this resource
@@ -58,5 +58,25 @@ class Resource extends Model
         return $this->belongsToMany('App\Tag', 'resource_tags')
             ->where('tags.tagtype_id', 1)
             ->withTimestamps();
-    }  
+    }
+
+    /**
+     * Determine if the course is enabled
+     *
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active === 1;
+    }
+
+    /**
+     * Determine if the course is enabled or disabled
+     *
+     * @return string
+     */
+    public function status()
+    {
+        return $this->isActive() ? "Enabled" : "Disabled";
+    }
 }
