@@ -104,6 +104,16 @@ Route::get('panel/srv/add', 'SrvsController@add')->middleware('admin');
 Route::get('panel/srv/edit/{id}', 'SrvsController@edit')->middleware('admin');
 Route::get('panel/competition/votes', 'CompetitionController@votes')->middleware('admin');
 Route::get('panel/competition/votes/export', 'CompetitionController@export')->middleware('admin');
+Route::get('panel/resources', 'ResourcesController@view')->middleware('admin');
+Route::get('panel/resources/add', 'ResourcesController@add')->middleware('admin');
+Route::get('panel/resources/edit/{id}', 'ResourcesController@edit')->middleware('admin');
+Route::get('panel/resources/toggle/{id}', 'ResourcesController@toggleResourceStatus')->middleware('admin');
+Route::get('panel/resources/move/{direction}/{id}', 'ResourcesController@moveResource')->middleware('admin');
+Route::get('panel/resources/tutorials/{resource_id}', 'ResourcesController@viewTutorials')->middleware('admin');
+Route::get('panel/resources/tutorials/add/{resouce_id}', 'ResourcesController@addTutorial')->middleware('admin');
+Route::get('panel/resources/tutorials/edit/{id}', 'ResourcesController@editTutorial')->middleware('admin');
+Route::get('panel/resources/tutorials/toggle/{id}', 'ResourcesController@toggleTutorialStatus')->middleware('admin');
+Route::get('panel/resources/tutorials/move/{direction}/{id}', 'ResourcesController@moveTutorial')->middleware('admin');
 /** POST requests * */
 // public
 Route::post('contact', 'PagesController@sendMessage');
@@ -151,6 +161,8 @@ Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
 Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
 Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
 Route::post('srv/add', 'SrvsController@create')->middleware('admin');
+Route::post('resources/delete/{id}', 'ResourcesController@delete')->middleware('admin');
+Route::post('resources/add', 'ResourcesController@create')->middleware('admin');
 /** PATCH requests * */
 // require canEditSigBox
 Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig-box');
@@ -167,6 +179,7 @@ Route::patch('/users/update/{id}', 'UsersController@update')->middleware('admin'
 Route::patch('/panel/talks/update/{id}', 'TalksController@update')->middleware('admin');
 Route::patch('/panel/talks/feeds/update/{id}', 'AggregatorsController@update')->middleware('admin');
 Route::patch('/srv/update/{id}', 'SrvsController@update')->middleware('admin');
+Route::patch('/resources/update/{id}', 'ResourcesController@update')->middleware('admin');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([
