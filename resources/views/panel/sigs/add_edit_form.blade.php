@@ -1,49 +1,5 @@
 @section('head')
 <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
-<script src="{{ asset('js/main.js')}}"></script>
-<script>
-    $('#institutions').selectize({
-        plugins: ['remove_button' ],
-        delimiter: ',',
-        framework: 'bootstrap',
-        persist: false,
-        create: function (input) {
-            return {
-                value: input,
-                text: input
-            };
-        }
-    });
-
-    $('.tags').selectize({
-        plugins: ['remove_button', 'optgroup_columns'],
-        delimiter: ',',
-        persist: false,
-        create: function (input) {
-            return {
-                value: input,
-                text: input
-            };
-        }
-    });
-</script>
-<style>
-    .selectize-dropdown-content {
-        max-height: 666px !important;
-    }
-
-    .optgroup {
-        width : 300px !important;
-        height : auto !important;
-        padding-bottom: 50px !important;
-        float: left !important;
-        border: none !important;
-    }
-
-    .optgroup-header {
-        font-size:1.5em !important;
-    }
-</style>
 @endsection
 
 @if (Auth::user()->isAdmin())
@@ -254,3 +210,47 @@
     	{!! Form::submit('Save', ['class' => 'btn btn-success btn-lg2']) !!}
   	</div>    
 </div>
+
+<script>
+    $('#institutions').selectize({
+        plugins: ['remove_button' ],
+        delimiter: ',',
+        framework: 'bootstrap',
+        persist: false,
+        create: function (input) {
+            return {
+                value: input,
+                text: input
+            };
+        }
+    });
+
+    $('.tags').selectize({
+        plugins: ['remove_button', 'optgroup_columns'],
+        delimiter: ',',
+        persist: false,
+        create: function (input) {
+            return {
+                value: input,
+                text: input
+            };
+        }
+    });
+</script>
+<style>
+    .selectize-dropdown-content {
+        max-height: 666px !important;
+    }
+
+    .optgroup {
+        width : 300px !important;
+        height : auto !important;
+        padding-bottom: 50px !important;
+        float: left !important;
+        border: none !important;
+    }
+
+    .optgroup-header {
+        font-size:1.5em !important;
+    }
+</style>
