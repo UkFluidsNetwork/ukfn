@@ -105,5 +105,19 @@
                 <li><a href="{{ URL::to('/panel/competition/votes') }}" class="{{ Request::is('panel/competition/votes') ? 'active' : '' }}">Votes</a></li>
             </ul>
         </li>
+        <li class="{{ Request::is('panel/resources*') ? 'active' : '' }}">
+            <a href="{{ URL::to('panel/resources') }}"
+               class="{{ Request::is('panel/resources*') ? 'active' : '' }}">
+                Researcher Resources
+            </a>
+            <ul id='admin-subnav-talks' class='nav nav-stacked' >
+                <li>
+                    <a href="{{ URL::to('/panel/resources/add') }}"
+                       class="{{ Request::is('panel/resources/add') ? 'active' : '' }}">
+                        Add
+                    </a>
+                </li>
+            </ul>
+        </li>
     </ul> 
 </nav>
