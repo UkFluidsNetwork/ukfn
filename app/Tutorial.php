@@ -15,8 +15,8 @@ class Tutorial extends Model
      *
      * @var array
      */
-    protected $fillable = [
-    ];
+    protected $fillable = ['name', 'author', 'description',
+        'date', 'priority', 'resource_id', 'active'];
 
     /**
      * Get the files that belong to this tutorial
@@ -36,5 +36,25 @@ class Tutorial extends Model
     public function resources()
     {
         return $this->belongsTo('App\Resource');
+    }
+
+    /**
+     * Determine if the tutorial is enabled
+     *
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return $this->active === 1;
+    }
+
+    /**
+     * Determine if the tutorial is enabled or disabled
+     *
+     * @return string
+     */
+    public function status()
+    {
+        return $this->isActive() ? "Enabled" : "Disabled";
     }
 }
