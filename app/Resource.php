@@ -45,7 +45,8 @@ class Resource extends Model
      */
     public function tags()
     {
-        return $this->belongsToMany('App\Tag', 'resource_tags')->withTimestamps();
+        return $this->belongsToMany('App\Tag', 'resource_tags')
+                    ->withTimestamps();
     }
 
     /**
@@ -58,6 +59,16 @@ class Resource extends Model
         return $this->belongsToMany('App\Tag', 'resource_tags')
             ->where('tags.tagtype_id', 1)
             ->withTimestamps();
+    }
+
+    /**
+     * Get the list of tag ids associated with the resource
+     *
+     * @return array
+     */
+    public function getTagIds()
+    {
+        return $this->tags->lists('id')->toArray();
     }
 
     /**
