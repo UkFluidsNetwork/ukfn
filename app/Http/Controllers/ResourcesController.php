@@ -4,10 +4,17 @@ namespace App\Http\Controllers;
 
 use SEO;
 use App\Resource;
+use App\Tutorial;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class ResourcesController extends Controller
 {
+
+    private static $srvPanelCrumbs = [
+        ['label' => 'Panel', 'path' => '/panel'],
+        ['label' => 'Researcher Resources', 'path' => '/panel/resources']
+    ];
 
     /**
      * index method
@@ -44,10 +51,11 @@ class ResourcesController extends Controller
 
         $resources = [];
         $count = 0;
-        $allResources = Resource::all();
+        $allResources = Resource::where('active', 1)->orderBy('order')->get();
         foreach ($allResources as $resource) {
             $toAdd = false;
-            $resource->tutorials;
+            $resource->tutorials = $resource
+                ->tutorials()->where('active', 1)->get();
             $fileTypes = [];
             foreach ($resource->tutorials as $key => $tutorial) {
                 $resource->tutorials[$key]->files = $tutorial->files;
@@ -90,5 +98,163 @@ class ResourcesController extends Controller
             }
         }
         return response()->json($resources);
+    }
+
+    public function view()
+    {
+        $bread = static::$srvPanelCrumbs;
+        $breadCount = count($bread);
+
+        $resources = Resource::orderBy('order')->get();
+        foreach ($resources as $resource) {
+            $resource->created = date("d M H:i",
+                strtotime($resource->created_at));
+            $resource->updated = date("d M H:i",
+                strtotime($resource->updated_at));
+        }
+        return view('panel.resources.view',
+            compact('resources', 'bread', 'breadCount'));
+    }
+
+    public function viewTutorials($resource_id)
+    {
+        $bread = static::$srvPanelCrumbs;
+        $breadCount = count($bread);
+
+        $resource = Resource::findOrFail($resource_id);
+        foreach ($resource->tutorials as $tutorial) {
+            $tutorial->created = date("d M H:i",
+                strtotime($tutorial->created_at));
+            $tutorial->updated = date("d M H:i",
+                strtotime($tutorial->updated_at));
+        }
+        return view('panel.resources.viewtutorials',
+            compact('resource', 'bread', 'breadCount'));
+    }
+
+    public function add()
+    {
+        return;
+    }
+
+    public function edit($id)
+    {
+        return;
+    }
+
+    public function addTutorial($resource_id)
+    {
+        return;
+    }
+
+    public function editTutorial($id)
+    {
+        return;
+    }
+
+    public function update()
+    {
+        return;
+    }
+
+    public function delete()
+    {
+        return;
+    }
+
+    /**
+     * Enable/disable a course
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function toggleResourceStatus($id)
+    {
+        try {
+            $resource = Resource::findOrFail($id);
+            if ($resource->status() === "Enabled") {
+                $resource->active = 0;
+            } else {
+                $resource->active = 1;
+            }
+            $resource->save();
+            Session::flash('success_message', $resource->status()
+                                              . ' succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/');
+    }
+
+    /**
+     * Enable/disable a tutorial
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function toggleTutorialStatus($id)
+    {
+        try {
+            $tutorial = Tutorial::findOrFail($id);
+            if ($tutorial->status() === "Enabled") {
+                $tutorial->active = 0;
+            } else {
+                $tutorial->active = 1;
+            }
+            $tutorial->save();
+            Session::flash('success_message', $tutorial->status()
+                                              . ' succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/tutorials/' . $tutorial->resource_id);
+    }
+
+    /**
+     * Change the order of a resource
+     *
+     * @param string $direction up/down
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function moveResource($direction, $id)
+    {
+        try {
+            $resource = Resource::findOrFail($id);
+            if ($direction === "up") {
+                $resource->order--;
+            } else {
+                $resource->order++;
+            }
+            $resource->save();
+            Session::flash('success_message', 'Moved succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/');
+    }
+
+    /**
+     * Change the order of a tutorial
+     *
+     * @param string $direction up/down
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function moveTutorial($direction, $id)
+    {
+        try {
+            $tutorial = Tutorial::findOrFail($id);
+            if ($direction === "up") {
+                $tutorial->priority--;
+            } else {
+                $tutorial->priority++;
+            }
+            $tutorial->save();
+            Session::flash('success_message', 'Moved succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/tutorials/' . $tutorial->resource_id);
     }
 }
