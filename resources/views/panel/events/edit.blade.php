@@ -1,6 +1,7 @@
 @extends('layouts.admin')
 
 @section('head')
+<script src="{{ asset('/js/moment.js')}}"></script>
 <link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
 
