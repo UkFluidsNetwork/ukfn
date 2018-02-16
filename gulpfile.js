@@ -25,6 +25,8 @@ elixir(function(mix) {
              'public/js/ng-map.min.js');
     mix.copy('node_modules/angular-selectize2/dist/selectize.js',
              'public/js/selectize.js');
+    mix.copy('node_modules/moment/moment.js',
+             'public/js/moment.js');
     mix.copy('node_modules/angularjs-dropdown-multiselect/dist/angularjs-dropdown-multiselect.min.js', 'public/js/angularjs-dropdown-multiselect.min.js');
     mix.copy('resources/assets/js/vendor',
              'public/js/vendor');
