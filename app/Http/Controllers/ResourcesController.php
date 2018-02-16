@@ -8,6 +8,7 @@ use App\Resource;
 use App\Tutorial;
 use Illuminate\Http\Request;
 use App\Http\Requests\ResourceFormRequest;
+use App\Http\Requests\TutorialFormRequest;
 use Illuminate\Support\Facades\Session;
 
 class ResourcesController extends Controller
@@ -173,12 +174,82 @@ class ResourcesController extends Controller
 
     public function addTutorial($resource_id)
     {
-        return;
+        $tutorial = new Tutorial;
+        $resource = Resource::findOrFail($resource_id);
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+            [['label' => $resource->name,
+              'path' => "/panel/resources/edit/" . $resource->id],
+             ['label' => "Add Tutorial",
+              'path' => "/panel/resources/tutorials/add/"]
+                  ]);
+
+        $breadCount = count($bread);
+
+        return view('panel.resources.addtutorial',
+                    compact('tutorial', 'resource', 'bread', 'breadCount'));
     }
 
     public function editTutorial($id)
     {
-        return;
+        $tutorial = Tutorial::findOrFail($id);
+        $resource = Resource::findOrFail($tutorial->resource_id);
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+            [['label' => $resource->name,
+              'path' => "/panel/resources/tutorials/" . $resource->id],
+             ['label' => $tutorial->name,
+              'path' => "/panel/resources/tutorials/edit/" . $tutorial->id]
+                  ]);
+
+        $breadCount = count($bread);
+
+        return view('panel.resources.edittutorial',
+                    compact('tutorial', 'resource', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Create resources
+     *
+     * @param TutorialFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function createTutorial(TutorialFormRequest $request)
+    {
+        try {
+            $tutorial = new Tutorial;
+            $input = $request->all();
+            $tutorial->fill($input);
+            $tutorial->save();
+
+            Session::flash('success_message', 'Added succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/tutorials/'.$input['resource_id']);
+    }
+
+    /**
+     * Update resources
+     *
+     * @param int $id
+     * @param TutorialFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function updateTutorial ($id, TutorialFormRequest $request)
+    {
+        $tutorial = Tutorial::findOrFail($id);
+
+        try {
+            $input = $request->all();
+            $input['date'] = $input['date'] . "-01-01";
+            $tutorial->fill($input);
+            $tutorial->save();
+
+            Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+
+        return redirect('/panel/resources/tutorials/' . $tutorial->resource_id);
     }
 
     /**
@@ -228,9 +299,43 @@ class ResourcesController extends Controller
         return redirect('/panel/resources');
     }
 
-    public function delete()
+    /**
+     * Delete a resource and its associated tutorials
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function delete($id)
     {
-        return;
+        try {
+            $resource = Resource::findOrFail($id);
+            foreach ($resource->tutorials as $tutorial) {
+                $tutorial->delete();
+            }
+            $resource->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/');
+    }
+
+    /**
+     * Delete a tutorial
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deleteTutorial($id)
+    {
+        try {
+            $tutorial = Tutorial::findOrFail($id);
+            $tutorial->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/tutorials/' . $tutorial->resource_id);
     }
 
     /**
