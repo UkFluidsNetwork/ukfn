@@ -113,6 +113,7 @@ Route::get('panel/resources/tutorials/{resource_id}', 'ResourcesController@viewT
 Route::get('panel/resources/tutorials/add/{resouce_id}', 'ResourcesController@addTutorial')->middleware('admin');
 Route::get('panel/resources/tutorials/edit/{id}', 'ResourcesController@editTutorial')->middleware('admin');
 Route::get('panel/resources/tutorials/files/{id}', 'ResourcesController@tutorialFiles')->middleware('admin');
+Route::get('panel/resources/tutorials/files/add/{id}', 'ResourcesController@addFile')->middleware('admin');
 Route::get('panel/resources/tutorials/toggle/{id}', 'ResourcesController@toggleTutorialStatus')->middleware('admin');
 Route::get('panel/resources/tutorials/move/{direction}/{id}', 'ResourcesController@moveTutorial')->middleware('admin');
 /** POST requests * */
@@ -166,6 +167,7 @@ Route::post('resources/delete/{id}', 'ResourcesController@delete')->middleware('
 Route::post('resources/add', 'ResourcesController@create')->middleware('admin');
 Route::post('resources/tutorials/add', 'ResourcesController@createTutorial')->middleware('admin');
 Route::post('resources/tutorials/delete/{id}', 'ResourcesController@deleteTutorial')->middleware('admin');
+Route::post('resources/tutorials/files/add/{tutorial_id}', 'ResourcesController@addTutorialFile')->middleware('admin');
 Route::post('resources/tutorials/files/delete/{id}', 'ResourcesController@deleteFile')->middleware('admin');
 /** PATCH requests * */
 // require canEditSigBox

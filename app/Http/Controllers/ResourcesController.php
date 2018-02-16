@@ -4,11 +4,14 @@ namespace App\Http\Controllers;
 
 use SEO;
 use App\Tag;
+use App\File;
 use App\Resource;
 use App\Tutorial;
+use App\Filetype;
 use Illuminate\Http\Request;
 use App\Http\Requests\ResourceFormRequest;
 use App\Http\Requests\TutorialFormRequest;
+use App\Http\Requests\TutorialFileFormRequest;
 use Illuminate\Support\Facades\Session;
 
 class ResourcesController extends Controller
@@ -155,6 +158,7 @@ class ResourcesController extends Controller
         foreach ($tutorial->files as $file) {
             $file->created = date("d M H:i",
                 strtotime($tutorial->created_at));
+            $file->full_path = url($file->path . "/" . $file->name);
         }
         return view('panel.resources.viewfiles',
             compact('tutorial', 'bread', 'breadCount'));
@@ -211,6 +215,29 @@ class ResourcesController extends Controller
                     compact('tutorial', 'resource', 'bread', 'breadCount'));
     }
 
+    public function addFile($tutorial_id)
+    {
+        $tutorial = Tutorial::findOrFail($tutorial_id);
+        $resource = Resource::findOrFail($tutorial->resource_id);
+        $files = File::where("path", "/files/resources")->get();
+        $filetypes = Filetype::all();
+
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+        [['label' => $resource->name,
+          'path' => "/panel/resources/tutorials/" . $resource->id],
+         ['label' => $tutorial->name,
+          'path' => "/panel/resources/tutorials/edit/" . $tutorial->id],
+         ['label' => "Files",
+          'path' => "/panel/resources/tutorials/files/" . $tutorial->id],
+         ['label' => "Add Files",
+          'path' => "/panel/resources/tutorials/files/add/" . $tutorial->id]]);
+        $breadCount = count($bread);
+
+        return view('panel.resources.addfile',
+                    compact('tutorial', 'files', 'filetypes',
+                            'bread', 'breadCount'));
+    }
+
     public function editTutorial($id)
     {
         $tutorial = Tutorial::findOrFail($id);
@@ -256,7 +283,7 @@ class ResourcesController extends Controller
      * @param TutorialFormRequest $request
      * @return Illuminate\Support\Facades\Redirect
      */
-    public function updateTutorial ($id, TutorialFormRequest $request)
+    public function updateTutorial($id, TutorialFormRequest $request)
     {
         $tutorial = Tutorial::findOrFail($id);
 
@@ -272,6 +299,32 @@ class ResourcesController extends Controller
         }
 
         return redirect('/panel/resources/tutorials/' . $tutorial->resource_id);
+    }
+
+    /**
+     * Update resources
+     *
+     * @param int $tutorial_id
+     * @param TutorialFileFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function addTutorialFile($tutorial_id, TutorialFileFormRequest $request)
+    {
+        $tutorial = Tutorial::findOrFail($tutorial_id);
+        $file = File::findOrFail($request->file_id);
+        $filetype = Filetype::findOrFail($request->filetype_id);
+
+        try {
+            $file->tutorial_id = $tutorial->id;
+            $file->filetype_id = $filetype->id;
+            $file->save();
+
+            Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+
+        return redirect('/panel/resources/tutorials/files/' . $tutorial->id);
     }
 
     /**
@@ -370,6 +423,7 @@ class ResourcesController extends Controller
     {
         try {
             $file = File::findOrFail($id);
+            $tutorial_id = $file->tutorial_id;
             $file->tutorial_id = null;
             $file->save();
             Session::flash('success_message', 'Deleted successfully.');
@@ -377,7 +431,7 @@ class ResourcesController extends Controller
             Session:flash('error_message', $ex);
         }
         return redirect('/panel/resources/tutorials/files/'
-            . $file->tutorial_id);
+            . $tutorial_id);
     }
 
     /**
