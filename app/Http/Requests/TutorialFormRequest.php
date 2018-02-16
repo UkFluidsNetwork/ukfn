@@ -27,7 +27,7 @@ class TutorialFormRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'max:255',
             'author' => 'required|max:255',
             'date' => 'required|date_format:"Y"',
         ];
