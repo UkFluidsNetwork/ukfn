@@ -6,6 +6,8 @@
                 "Add File to Tutorial", ["class" => "btn btn-default"])}}
   {{ Html::link('/panel/files/add',
                 "Upload File", ["class" => "btn btn-default"])}}
+  {{ Html::link('/panel/files/addlink',
+                "Add URL", ["class" => "btn btn-default"])}}
   <div class="table-responsive">
     <table class='table' id="view_sigs_suggestions">
       <thead>

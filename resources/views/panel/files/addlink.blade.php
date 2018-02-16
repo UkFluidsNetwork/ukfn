@@ -10,7 +10,7 @@
 
 {!! Form::model($file, [
 'method' => 'POST',
-'action' => ['FilesController@create'],
+'action' => ['FilesController@createLink'],
 'class' => 'form-horizontal',
 'files'=>true
 ]) !!}
