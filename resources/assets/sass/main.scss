@@ -322,6 +322,12 @@ input[type="text"], textarea, button {
     color: $ukfn-darkblue !important;
 }
 
+.label-ukfn-red {
+    background-color: white !important;
+    border: 1.5px $brand-danger solid !important;
+    color: $brand-danger !important;
+}
+
 .label.highlight {
     background-color: $ukfn-darkblue !important;
     border: 1.5px $ukfn-darkblue solid !important;
