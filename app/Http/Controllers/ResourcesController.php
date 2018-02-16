@@ -138,6 +138,28 @@ class ResourcesController extends Controller
             compact('resource', 'bread', 'breadCount'));
     }
 
+    public function tutorialFiles($id)
+    {
+        $tutorial = Tutorial::findOrFail($id);
+        $resource = Resource::findOrFail($tutorial->resource_id);
+
+        $bread = array_merge(static::$resourcesPanelCrumbs,
+            [['label' => $resource->name,
+              'path' => "/panel/resources/tutorials/" . $resource->id],
+             ['label' => $tutorial->name,
+              'path' => "/panel/resources/tutorials/edit/" . $tutorial->id],
+             ['label' => "Files",
+              'path' => "/panel/resources/tutorials/files/" . $tutorial->id]]);
+        $breadCount = count($bread);
+
+        foreach ($tutorial->files as $file) {
+            $file->created = date("d M H:i",
+                strtotime($tutorial->created_at));
+        }
+        return view('panel.resources.viewfiles',
+            compact('tutorial', 'bread', 'breadCount'));
+    }
+
     public function add()
     {
         $bread = array_merge(static::$resourcesPanelCrumbs,
@@ -336,6 +358,26 @@ class ResourcesController extends Controller
             Session:flash('error_message', $ex);
         }
         return redirect('/panel/resources/tutorials/' . $tutorial->resource_id);
+    }
+
+    /**
+     * Unlink a file from its tutorial
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deleteFile($id)
+    {
+        try {
+            $file = File::findOrFail($id);
+            $file->tutorial_id = null;
+            $file->save();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/resources/tutorials/files/'
+            . $file->tutorial_id);
     }
 
     /**

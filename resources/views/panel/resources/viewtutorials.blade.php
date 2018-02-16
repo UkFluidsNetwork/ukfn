@@ -27,6 +27,8 @@
         <td class="hide-this">{{ $tutorial->updated_at }}</td>
         <td>{{ Html::link('/panel/resources/tutorials/edit/' . $tutorial->id,
                           "Edit", ["class" => "btn btn-primary"])}}</td>
+        <td>{{ Html::link('/panel/resources/tutorials/files/' . $tutorial->id,
+                          "Files", ["class" => "btn btn-primary"])}}</td>
         <td>{{ Html::link('/panel/resources/tutorials/move/up/' . $tutorial->id,
                           "Move Up", ["class" => "btn btn-primary"])}}</td>
         <td>{{ Html::link('/panel/resources/tutorials/move/down/' . $tutorial->id,
