@@ -219,8 +219,7 @@ class ResourcesController extends Controller
     {
         $tutorial = Tutorial::findOrFail($tutorial_id);
         $resource = Resource::findOrFail($tutorial->resource_id);
-        $files = File::where("path", "/files/resources")
-            ->whereNull("tutorial_id")->get();
+        $files = File::whereNull("tutorial_id")->get();
         $filetypes = Filetype::all();
 
         $bread = array_merge(static::$resourcesPanelCrumbs,
