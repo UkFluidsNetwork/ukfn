@@ -22,8 +22,8 @@ class FilesController extends Controller
         "public-files" => "/files",
         "attachments" => "/files/attachments",
         "sig-pictures" => "/pictures/sig",
-        "resources" => "/resources",
-        "meetings" => "/meetings",
+        "resources" => "/files/resources",
+        "meetings" => "/files/meetings",
         "srv" => "/files/srv",
         "sig" => "/files/sig"
     ];
