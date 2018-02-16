@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Storage;
 use App\File;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FileUploadRequest;
 
@@ -48,7 +49,9 @@ class FilesController extends Controller
         foreach ($files as $file) {
             $file->created = PagesController::formatDate($file->created_at);
             $file->updated = PagesController::formatDate($file->updated_at);
-            $file->full_path = url($file->path . "/" . $file->name);
+            $file->full_path = $file->path !== $file->name
+                ? url($file->path . "/" . $file->name)
+                : url($file->path);
         }
 
         return view('panel.files.index',
@@ -74,6 +77,25 @@ class FilesController extends Controller
 
         return view('panel.files.add',
                     compact('bread', 'breadCount', 'file', 'disks'));
+    }
+
+    /**
+     * Add new link as a file view
+     *
+     * @return Illuminate\Support\Facades\View
+     */
+    public function addLink()
+    {
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Files', 'path' => '/panel/files'],
+            ['label' => 'Add Link', 'path' => '/panel/files/addlink'],
+        ];
+
+        $file = new File();
+        $breadCount = count($bread);
+
+        return view('panel.files.addlink', compact('bread', 'breadCount', 'file'));
     }
 
     /**
@@ -111,6 +133,29 @@ class FilesController extends Controller
         } else {
             return redirect('/panel/sig/files/' . $sig_id);
         }
+    }
+
+    /**
+     * Add a new link as a file
+     *
+     * @param Request $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function createLink(Request $request)
+    {
+        try {
+            $file = new File();
+            $url = $request->input('url');
+            $file->name = $url;
+            $file->path = $url;
+            $file->user_id = Auth::user()->id;
+            $file->save();
+
+            Session::flash('success_message', 'Added succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/files');
     }
 
     /**

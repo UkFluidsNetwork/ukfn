@@ -116,6 +116,7 @@ Route::get('panel/resources/tutorials/files/{id}', 'ResourcesController@tutorial
 Route::get('panel/resources/tutorials/files/add/{id}', 'ResourcesController@addFile')->middleware('admin');
 Route::get('panel/resources/tutorials/toggle/{id}', 'ResourcesController@toggleTutorialStatus')->middleware('admin');
 Route::get('panel/resources/tutorials/move/{direction}/{id}', 'ResourcesController@moveTutorial')->middleware('admin');
+Route::get('panel/files/addlink', 'FilesController@addLink')->middleware('admin');
 /** POST requests * */
 // public
 Route::post('contact', 'PagesController@sendMessage');
@@ -160,7 +161,8 @@ Route::post('panel/talks/feeds/delete/{id}', 'AggregatorsController@delete')->mi
 Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware('admin');
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('admin');
 Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
-Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
+Route::post('panel/files/add', 'FilesController@createLink')->middleware('admin');
+Route::post('panel/files/addlink', 'FilesController@createLink')->middleware('admin');
 Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
 Route::post('srv/add', 'SrvsController@create')->middleware('admin');
 Route::post('resources/delete/{id}', 'ResourcesController@delete')->middleware('admin');
