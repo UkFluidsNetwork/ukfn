@@ -161,7 +161,7 @@ Route::post('panel/talks/feeds/delete/{id}', 'AggregatorsController@delete')->mi
 Route::post('panel/talks/feeds/add', 'AggregatorsController@create')->middleware('admin');
 Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('admin');
 Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
-Route::post('panel/files/add', 'FilesController@createLink')->middleware('admin');
+Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
 Route::post('panel/files/addlink', 'FilesController@createLink')->middleware('admin');
 Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
 Route::post('srv/add', 'SrvsController@create')->middleware('admin');
