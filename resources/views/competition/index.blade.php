@@ -2,7 +2,7 @@
 @section('content')
 
   <h2 class='line-break'>
-      <span class="label label-new label-ukfn-blue pull-left margin-right">
+      <span class="label label-new label-ukfn-red pull-left margin-right">
           New
       </span> UK Fluids Network dissertation prize
   </h2>
