@@ -41,7 +41,8 @@
             @endif
         </td>
         <td>
-             {{ Form::open(['action' => ['SigsController@deleteBox', $tutorial->id],
+             {{ Form::open(['action' => ['ResourcesController@deleteTutorial',
+                                         $tutorial->id],
                             'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}
