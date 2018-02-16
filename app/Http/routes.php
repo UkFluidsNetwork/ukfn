@@ -163,6 +163,8 @@ Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
 Route::post('srv/add', 'SrvsController@create')->middleware('admin');
 Route::post('resources/delete/{id}', 'ResourcesController@delete')->middleware('admin');
 Route::post('resources/add', 'ResourcesController@create')->middleware('admin');
+Route::post('resources/tutorials/add', 'ResourcesController@createTutorial')->middleware('admin');
+Route::post('resources/tutorials/delete/{id}', 'ResourcesController@deleteTutorial')->middleware('admin');
 /** PATCH requests * */
 // require canEditSigBox
 Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig-box');
@@ -180,6 +182,7 @@ Route::patch('/panel/talks/update/{id}', 'TalksController@update')->middleware('
 Route::patch('/panel/talks/feeds/update/{id}', 'AggregatorsController@update')->middleware('admin');
 Route::patch('/srv/update/{id}', 'SrvsController@update')->middleware('admin');
 Route::patch('/resources/update/{id}', 'ResourcesController@update')->middleware('admin');
+Route::patch('/resources/tutorials/update/{id}', 'ResourcesController@updateTutorial')->middleware('admin');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([
