@@ -1,5 +1,10 @@
 @extends('layouts.master')
 @section('content')
+<style>
+    .titleless {
+        margin-top: 2.85em;
+    }
+</style>
 
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
@@ -96,50 +101,119 @@
   <div>
     <p class="h4 text-danger line-break-dbl-top">Executive Committee</p>
     <p class="line-break-dbl-top">
-    <ul>
-        <li>
-            <a href="http://www2.eng.cam.ac.uk/~mpj1001/MJ_biography.html"
-               target="_blank">
-                Prof. Matthew Juniper (PI)
-            </a>,
-            <i>Engineering, University of Cambridge</i>
-        </li>
-        <li>
-            <a href="https://www.imperial.ac.uk/people/y.hardalupas"
-               target="_blank">
-                Prof. Yannis Hardalupas
-            </a>,
-            <i>Mechanical Engineering, Imperial College London</i>
-        </li>
-        <li>
-            <a href="http://www1.maths.leeds.ac.uk/~smt/"
-               target="_blank">
-                Prof. Steve Tobias
-            </a>,
-            <i>Applied Maths, University of Leeds</i>
-        </li>
-        <li>
-            <a href="http://www.maths.manchester.ac.uk/~ajuel/"
-               target="_blank">
-                Prof. Ann Juel
-            </a>,
-            <i>Physics & Astronomy, University of Manchester</i>
-        </li>
-        <li>
-            <a href="http://www.southampton.ac.uk/engineering/about/staff/nds9.page"
-               target="_blank">
-                Prof. Neil Sandham
-            </a>,
-            <i>Aerospace Engineering, University of Southampton</i>
-        </li>
-        <li>
-            <a href="http://www.damtp.cam.ac.uk/people/p.f.linden/"
-               target="_blank">
-                Prof. Paul Linden
-            </a>,
-            <i>Applied Maths, University of Cambridge</i>
-        </li>
-    </ul>
+    <div class="row">
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/MJ_1.5_250h.jpg" alt="Prof. Matthew Juniper">
+            <div class="caption">
+              <h4>PI</h4>
+              <p>
+                <a href="http://www2.eng.cam.ac.uk/~mpj1001/MJ_biography.html"
+                   target="_blank">
+                       Prof. Matthew Juniper
+                </a>
+                  <br>
+                  <i>University of Cambridge</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/ND_1.5_250h.jpg" alt="Dr Nick Daish">
+            <div class="caption">
+              <h4>Coordinator</h4>
+              <p>
+                <a href="http://www.eng.cam.ac.uk/profiles/ncd1"
+                   target="_blank">
+                       Dr Nick Daish
+                </a>
+                  <br>
+                  <i>University of Cambridge</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/YH_1.5_250h.jpg"
+                 alt="Prof. Yannis Hardalupas">
+            <div class="caption">
+              <h4>Executive Committee</h4>
+              <p>
+                <a href="https://www.imperial.ac.uk/people/y.hardalupas"
+                   target="_blank">
+                       Prof. Yannis Hardalupas
+                </a>
+                  <br>
+                  <i>Imperial College London</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/AJ_1.5_250h.jpg" alt="Prof. Anne Juel">
+            <div class="caption">
+              <p class="titleless">
+                <a href="http://www.maths.manchester.ac.uk/~ajuel/"
+                   target="_blank">
+                       Prof. Anne Juel
+                </a>
+                  <br>
+                  <i>University of Manchester</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/PFL_1.5_250h.jpg" alt="Prof. Paul Linden">
+            <div class="caption">
+              <p class="titleless">
+                <a href="http://www.damtp.cam.ac.uk/people/p.f.linden/"
+                   target="_blank">
+                       Prof. Paul Linden
+                </a>
+                  <br>
+                  <i>University of Cambridge</i>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/NS_1.5_250h.jpg" alt="Prof. Neil Sandham">
+            <div class="caption">
+              <p class="titleless">
+                <a href="http://www.southampton.ac.uk/engineering/about/staff/nds9.page"
+                   target="_blank">
+                       Prof. Neil Sandham
+                </a>
+                  <br>
+                  <i>University of Southampton</i>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+          <div class="thumbnail">
+            <img src="/pictures/ec/ST_1.5_250h.jpg" alt="Prof. Steve Tobias">
+            <div class="caption">
+              <p class="titleless">
+                <a href="http://www1.maths.leeds.ac.uk/~smt/"
+                   target="_blank">
+                       Prof. Steve Tobias
+                </a>
+                  <br>
+                  <i>University of Leeds</i>
+              </p>
+            </div>
+          </div>
+        </div>
+
+    </div>
     </p>
   </div>
 
