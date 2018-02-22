@@ -146,7 +146,9 @@ class ResourcesController extends Controller
         foreach ($tutorial->files as $file) {
             $file->created = date("d M H:i",
                 strtotime($tutorial->created_at));
-            $file->full_path = url($file->path . "/" . $file->name);
+            $file->full_path = $file->path !== $file->name
+                ? url($file->path . "/" . $file->name)
+                : url($file->path);
         }
         return view('panel.resources.viewfiles',
             compact('tutorial', 'bread', 'breadCount'));
