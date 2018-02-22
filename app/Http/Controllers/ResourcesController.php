@@ -48,9 +48,6 @@ class ResourcesController extends Controller
     public function getAllJson(Request $request)
     {
         $parameters = $request->all();
-        $types = isset($parameters['types']) && $parameters['types'] !== "[]"
-            ? (array) json_decode($parameters['types'])
-            : null;
         $disciplines = isset($parameters['search'])&& $parameters['search'] !== "[]"
             ? (array) json_decode($parameters['search'])
             : null;
@@ -75,15 +72,6 @@ class ResourcesController extends Controller
                 // only add resources that have at least one file
                 if ($resource->tutorials[$key]->files->count() > 0 && !$toAdd) {
                     $toAdd = true;
-                }
-            }
-            // determine if types in filter match those in the resource
-            foreach ($fileTypes as $type) {
-                if ($types[$type] === true) {
-                    $toAdd = true;
-                    break;
-                } else {
-                    $toAdd = false;
                 }
             }
 
