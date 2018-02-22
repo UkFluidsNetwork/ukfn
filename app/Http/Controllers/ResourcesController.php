@@ -266,6 +266,7 @@ class ResourcesController extends Controller
         try {
             $tutorial = new Tutorial;
             $input = $request->all();
+            $input['date'] = $input['date'] . "-01-01";
             $tutorial->fill($input);
             $tutorial->save();
 
