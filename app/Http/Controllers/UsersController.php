@@ -233,7 +233,7 @@ class UsersController extends Controller
             : null;
 
         $users = [];
-        $allUsers = User::all()->where("researcher", 1);
+        $allUsers = User::where("researcher", 1)->orderBy('surname')->get();
 
         foreach ($allUsers as $user) {
             $user->institutions;
