@@ -26,34 +26,25 @@ angular.module('ukfn')
         controller.loadUsers = function() {
             var url = '/api/public/users/';
             var query = JSON.stringify(controller.searchTerms);
-            var cacheId = url + '*' + controller.searchTerms.sort();
             controller.loading = true;
 
-            var cachedData = controller.$storage[cacheId];
-            if (cachedData) {
-                controller.users = cachedData;
-                controller.loading = false;
-            } else {
-                // clear array of available users before making the request.
-                controller.users = [];
-
-                $http(
-                    {
-                        method: 'GET',
-                        url: url,
-                        params: {
-                            search: query
-                        }
+            // clear array of available users before making the request.
+            controller.users = [];
+            $http(
+                {
+                    method: 'GET',
+                    url: url,
+                    params: {
+                        search: query
                     }
-                ).then(function (response) {
-                    controller.users = response.data;
-                    controller.loading = false;
-                    controller.$storage[cacheId] = response.data;
-                    var today = new Date();
-                    today.setDate(today.getDate());
-                    controller.$storage['directory-date'] = today;
-                });
-            }
+                }
+            ).then(function (response) {
+                controller.users = response.data;
+                controller.loading = false;
+                var today = new Date();
+                today.setDate(today.getDate());
+                controller.$storage['directory-date'] = today;
+            });
           };
 
         controller.tagSelected = function(tag_id) {
