@@ -29,8 +29,10 @@
   <br>
 
   <h2 class='line-break'>
-      Photo and Video Competition #2: the interface between solid and fluid mechanics
+      Photo and Video Competition #3: the invisible made visible: uncovering hidden patterns, trends and structures
   </h2>
+
+@if(false)
 
   <div style="text-align:center;">
     <div class="row">
@@ -56,9 +58,9 @@
         There will be a new competition in March. Check out the website, the newsletter and twitter for details.
     </p>
   </div>
+@endif
 
-  @if (false)
-  <p><b>The closing date for entries is 30 November 2017.</b></p>
+  <p><b>The closing date for entries is 30 March 2018.</b></p>
 
   <div class="container-fluid nopadding-left">
     <div class="row">
@@ -124,6 +126,5 @@
         </div>
     </div>
   </div>
-@endif
 
 @endsection
