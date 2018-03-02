@@ -29,7 +29,9 @@
   <br>
 
   <h2 class='line-break'>
-      Photo and Video Competition #3: the invisible made visible: uncovering hidden patterns, trends and structures
+      <span class="label label-new label-ukfn-red pull-left margin-right">
+          New
+      </span> Photo and Video Competition #3: The invisible made visible - uncovering hidden patterns, trends and structures
   </h2>
 
 @if(false)
@@ -60,7 +62,7 @@
   </div>
 @endif
 
-  <p><b>The closing date for entries is 30 March 2018.</b></p>
+  <p><b>The closing date for entries is 31 March 2018.</b></p>
 
   <div class="container-fluid nopadding-left">
     <div class="row">
