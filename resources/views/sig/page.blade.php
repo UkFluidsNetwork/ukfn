@@ -119,8 +119,12 @@
                           @if (isset($member->institutions[0]))
                           (<i>{{ $member->institutions[0]->name }}</i>):
                           @endif
+                          @if ($member->isLeaderOfSig($sig->id)
+                               || $member->isColeaderOfSig($sig->id)
+                               || $member->isKeyPersonnelOfSig($sig->id))
                           {{ Html::link('mailto:' . $member->email,
                                         $member->email) }}
+                          @endif
                           </td>
                         </tr>
                         @endforeach
