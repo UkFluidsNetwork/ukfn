@@ -116,14 +116,15 @@
                           @else
                           {{ $member->name }} {{ $member->surname }} 
                           @endif
-                          @if (isset($member->institutions[0]))
+                          @if (isset($member->institutions[0])
+                               && ($member->isLeaderOfSig($sig->id)
+                                || $member->isColeaderOfSig($sig->id)
+                                || $member->isKeyPersonnelOfSig($sig->id)))
                           (<i>{{ $member->institutions[0]->name }}</i>):
-                          @endif
-                          @if ($member->isLeaderOfSig($sig->id)
-                               || $member->isColeaderOfSig($sig->id)
-                               || $member->isKeyPersonnelOfSig($sig->id))
                           {{ Html::link('mailto:' . $member->email,
                                         $member->email) }}
+                          @elseif (isset($member->institutions[0]))
+                          (<i>{{ $member->institutions[0]->name }}</i>)
                           @endif
                           </td>
                         </tr>
