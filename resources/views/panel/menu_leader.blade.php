@@ -31,13 +31,6 @@
                     </a>
                 </li>
                 <li>
-                    <a href="{{URL::to('/panel/sig/subscriptions/'.$sig->id)}}"
-                       class="{{Request::is('panel/sig/subscriptions/'.$sig->id)
-                                 ? 'active' : '' }}">
-                       Subscriptions
-                    </a>
-                </li>
-                <li>
                     <a href="{{URL::to('/panel/sig/files/'.$sig->id)}}"
                        class="{{Request::is('panel/sig/files/'.$sig->id)
                                  ? 'active' : '' }}">
