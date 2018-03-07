@@ -31,7 +31,6 @@ Route::get('competition', 'CompetitionController@index');
 Route::get('competition/vote/{type}', 'CompetitionController@displayEntries');
 Route::get('competition/winner/{type}', 'CompetitionController@displayWinners');
 Route::get('viewmessage/{id}', 'PagesController@viewmessage');
-Route::get('unsubscribe/{id}', 'MailingController@unsubscribe');
 Route::get('talks/{id}', 'TalksController@view');
 Route::get('register', 'Auth\AuthController@registration');
 Route::get('api/institutions', 'InstitutionsController@getAllJson');
@@ -51,7 +50,6 @@ Route::get('myaccount/preferences', 'PagesController@preferences')->middleware('
 // require canEditSig
 Route::get('panel/sig/edit/{id}', 'SigsController@edit')->middleware('sig');
 Route::get('panel/sig/members/{id}', 'SigsController@members')->middleware('sig');
-Route::get('panel/sig/subscriptions/{id}', 'SigsController@subscriptions')->middleware('sig');
 Route::get('panel/sig/files/{id}', 'SigsController@listFiles')->middleware('sig');
 Route::get('panel/sig/files/add/{id}', 'SigsController@addFile')->middleware('sig');
 Route::get('panel/sig/box/{id}', 'SigsController@listBoxes')->middleware('sig');
@@ -73,7 +71,6 @@ Route::get('panel/news/edit/{id}', 'NewsController@edit')->middleware('admin');
 Route::get('panel/events', 'EventsController@view')->middleware('admin');
 Route::get('panel/events/add', 'EventsController@add')->middleware('admin');
 Route::get('panel/events/edit/{id}', 'EventsController@edit')->middleware('admin');
-Route::get('panel/subscriptions', 'MailingController@view')->middleware('admin');
 Route::get('panel/sendmail', 'MailingController@send')->middleware('admin');
 Route::get('panel/messages', 'MessagesController@view')->middleware('admin');
 Route::get('panel/tags/add', 'TagsController@add')->middleware('admin');
@@ -123,8 +120,6 @@ Route::post('contact', 'PagesController@sendMessage');
 Route::post('signup', 'MailingController@subscription');
 Route::post('subscribe-sig', 'MailingController@sigSubscription');
 Route::post('sig', 'SuggestionsController@postSuggestion');
-Route::post('unsubscribe/{id}', 'MailingController@removeSubscription');
-Route::post('unsubscribe', 'MailingController@keepSubscription');
 Route::post('competition/vote', 'CompetitionController@vote');
 // require login
 Route::post('myaccount/personal', 'PagesController@updatePersonalDetails')->middleware('auth');
