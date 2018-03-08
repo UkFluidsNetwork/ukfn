@@ -232,8 +232,12 @@ class UsersController extends Controller
         $parameters = $request->all();
         $search = isset($parameters['search'])
                        && $parameters['search'] !== "[]"
-            ? asort(json_decode($parameters['search']))
+            ? json_decode($parameters['search'])
             : null;
+
+        if (is_array($search)) {
+            asort($search);
+        }
 
         $tags = [];
         $sigs = [];
