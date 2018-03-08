@@ -9,6 +9,9 @@ use App\Title;
 use App\Group;
 use App\Institution;
 use App\Tag;
+use DB;
+use Cache;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -229,51 +232,81 @@ class UsersController extends Controller
         $parameters = $request->all();
         $search = isset($parameters['search'])
                        && $parameters['search'] !== "[]"
-            ? json_decode($parameters['search'])
+            ? asort(json_decode($parameters['search']))
             : null;
 
-        $users = [];
-        $allUsers = User::where("researcher", 1)->orderBy('surname')->get();
-
-        foreach ($allUsers as $user) {
-            $user->institutions;
-            $user->tags;
-            $user->sigs;
-            unset($user->email);
-            $filtered = false; // avoid double filtering
-
-            if ($search === null) {
-                $users[] = $user;
-                continue;
-            }
-
-            foreach ($user->tags as $tag) {
-                if (in_array("tag".$tag->id, $search)) {
-                    $users[] = $user;
-                    $filtered = true;
-                    break;
-                }
-            }
-            if (!$filtered) {
-                foreach ($user->institutions as $institution) {
-                    if (in_array("inst".$institution->id, $search)) {
-                        $users[] = $user;
-                        $filtered = true;
-                        break;
-                    }
-                }
-            }
-            if (!$filtered) {
-                foreach ($user->sigs as $sig) {
-                    if (in_array("sig".$sig->id, $search)) {
-                        $users[] = $user;
-                        $filtered = true;
-                        break;
-                    }
+        $tags = [];
+        $sigs = [];
+        $inst = [];
+        $key  = "";
+        if ($search !== null) {
+            foreach ($search as $val) {
+                $key .= $val;
+                $tagPos = strpos($val, "tag") !== false;
+                $sigPos = strpos($val, "sig") !== false;
+                $insPos = strpos($val, "inst") !== false;
+                if ($tagPos) {
+                    $tags[] = str_replace("tag", "", $val);
+                } elseif ($sigPos) {
+                    $sigs[] = str_replace("sig", "", $val);
+                } elseif ($insPos) {
+                    $inst[] = str_replace("inst", "", $val);
                 }
             }
         }
 
+        // see if request has been cached
+        if (Cache::has('directory'.$key)) {
+            return response()->json(Cache::get('directory'.$key));
+        }
+
+        $users = [];
+        $allUsers = DB::table('users')
+            ->select('users.id')
+            ->leftJoin('sig_users', 'users.id', '=', 'sig_users.user_id')
+            ->leftJoin('user_tags', 'users.id', '=', 'user_tags.user_id')
+            ->leftJoin('institution_users', 'users.id',
+                        '=', 'institution_users.user_id')
+            ->leftJoin('sigs', 'sig_users.sig_id', '=', 'sigs.id')
+            ->leftJoin('tags', 'user_tags.tag_id', '=', 'tags.id')
+            ->leftJoin('institutions', 'institution_users.institution_id',
+                        '=', 'institutions.id')
+            ->where("researcher", 1)
+            ->when(!empty($tags), function($query) use ($tags) {
+                return $query->where(function($query) use ($tags) {
+                    foreach ($tags as $tag) {
+                        $query->orWhere("tag_id", $tag);
+                    }
+                });
+            })
+            ->when(!empty($sigs), function($query) use ($sigs) {
+                return $query->where(function($query) use ($sigs) {
+                    foreach ($sigs as $sig) {
+                        $query->orWhere("sig_id", $sig);
+                    }
+                });
+            })
+            ->when(!empty($inst), function($query) use ($inst) {
+                return $query->where(function($query) use ($inst) {
+                    foreach ($inst as $inst) {
+                        $query->orWhere("institution_id", $inst);
+                    }
+                });
+            })
+            ->orderBy("surname")
+            ->distinct()
+            ->get();
+
+        foreach ($allUsers as $userStd) {
+            $user = User::find($userStd->id);
+            $user->institutions;
+            $user->tags;
+            $user->sigs;
+            $users[] = $user;
+        }
+
+        $expiresAt = Carbon::now()->addDay(1);
+        Cache::put('directory'.$key, $users, $expiresAt);
         return response()->json($users);
     }
 
