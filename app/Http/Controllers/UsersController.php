@@ -236,7 +236,7 @@ class UsersController extends Controller
             : null;
 
         if (is_array($search)) {
-            asort($search);
+            sort($search);
         }
 
         $tags = [];
