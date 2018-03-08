@@ -37,7 +37,7 @@ class EventsController extends Controller
             [["created_at", "<", $threshold], ["end", ">=", $todayFormated]]
         );
 
-        $eventsData = $newEvents + $oldEvents;
+        $eventsData = array_merge($newEvents, $oldEvents);
 
         foreach ($eventsData as $event) {
             $event->subtitle = $event->subtitle ? ", " . $event->subtitle : '';
