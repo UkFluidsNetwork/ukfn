@@ -12,6 +12,7 @@ use App\Sig;
 use App\Tag;
 use App\Message;
 use App\Institution;
+use App\Carouselfile;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\PreferencesRequest;
 use App\Http\Requests\PersonalDetailsRequest;
@@ -54,6 +55,8 @@ class PagesController extends Controller
     {
         SEO::setTitle('Home');
 
+        // get carousel files
+        $carousel = Carouselfile::inRandomOrder()->get();
         // get news to display
         $news = NewsController::getNews();
         // get events to display
@@ -61,7 +64,7 @@ class PagesController extends Controller
         // get tweets to display
         $twitter = "UKFluidsNetwork";
         return view('pages.index',
-                     compact('news', 'events', 'twitter'));
+                     compact('news', 'events', 'twitter', 'carousel'));
     }
 
     /**

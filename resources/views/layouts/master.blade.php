@@ -181,6 +181,7 @@
         </noscript>
         <!-- NOSCRIPT - END -->
         <!-- MAIN CONTENT - START -->
+        @yield('carousel')
         <div class="container-fluid" id="main-content">
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
