@@ -16,7 +16,7 @@
     </p>
     <p>
         [<a href="{{ asset('/files/Thesis_prize_nomination_details_180403.1522739067.pdf') }}">
-            Thesis_prize_nomination_details_180215.1518716438.pdf
+            Thesis_prize_nomination_details_180403.1522739067.pdf
         </a>]
     </p>
     <p>
