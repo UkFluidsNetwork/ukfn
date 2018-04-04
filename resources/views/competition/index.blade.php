@@ -62,7 +62,7 @@
   </div>
 @endif
 
-  <p><b>The closing date for entries is 30 April 2018.</b></p>
+  <p><b>The closing date for entries was 31 March 2018.</b></p>
 
   <div class="container-fluid nopadding-left">
     <div class="row">
