@@ -97,7 +97,7 @@
 
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-04-05 00:00:00") {
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-04-04 00:00:00") {
   continue;
 }
 ?>
