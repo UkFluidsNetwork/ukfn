@@ -34,22 +34,20 @@
       </span> Photo and Video Competition #3: The invisible made visible - uncovering hidden patterns, trends and structures
   </h2>
 
-@if(false)
-
   <div style="text-align:center;">
     <div class="row">
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/photos/"
+      <a href="/competition/vote/photos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Photo Competition Winner
+           Photo Entries
        </a>
     </div>
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/videos/"
+      <a href="/competition/vote/videos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Video Competition Winner
+           Video Entries
        </a>
     </div>
     </div>
@@ -57,11 +55,13 @@
 
   <div class="well">
     <p>
-        There will be a new competition in March. Check out the website, the newsletter and twitter for details.
+        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics on the theme <b>‘The invisible made visible - uncovering hidden patterns, trends and structures’</b>.
     </p>
   </div>
-@endif
 
+  <p><b>Voting is now open until 20 April 2018.</b></p>
+
+@if (false)
   <p><b>The closing date for entries was 31 March 2018.</b></p>
 
   <div class="container-fluid nopadding-left">
@@ -128,5 +128,6 @@
         </div>
     </div>
   </div>
+  @endif
 
 @endsection

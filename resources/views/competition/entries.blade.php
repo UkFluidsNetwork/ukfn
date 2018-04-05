@@ -25,9 +25,10 @@
 
   <h2 class='line-break'>{{ $title }} Entries</h2>
 
+  @if (false)
   <div class="well">
     <p>
-      The second UK Fluids Network photo and video competition has finished, and voting is now closed.
+      The third UK Fluids Network photo and video competition has finished, and voting is now closed.
     </p>
     @if ($name === "photo")
     <p>
@@ -40,8 +41,8 @@
     @endif
     <p>
   </div>
+  @endif
 
-@if (false)
   @if (Session::has('vote_ok'))
     <div class="alert alert-success">
         @if ($name === "photo")
@@ -70,11 +71,11 @@
   <div class="well">
     @if ($name === "photo")
     <p>
-      Below are the finalist {{ $name }} entries of the second UK Fluids Network photo and video competition: the interface between solid and fluid mechanics  - click <a href="/competition/vote/videos">here</a> to vote for the finalist videos.
+      Below are the finalist {{ $name }} entries of the third UK Fluids Network photo and video competition: 'The invisible made visible - uncovering hidden patterns, trends and structures'  - click <a href="/competition/vote/videos">here</a> to vote for the finalist videos.
     </p>
     @elseif ($name === "video")
     <p>
-      Below are the finalist {{ $name }} entries of the second UK Fluids Network photo and video competition: the interface between solid and fluid mechanics  - click <a href="/competition/vote/photos">here</a> to vote for the finalist photos.
+      Below are the finalist {{ $name }} entries of the third UK Fluids Network photo and video competition: 'The invisible made visible - uncovering hidden patterns, trends and structures'  - click <a href="/competition/vote/photos">here</a> to vote for the finalist photos.
     </p>
     @endif
     <p>
@@ -96,7 +97,7 @@
 
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-12-11 00:00:00") {
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-04-05 00:00:00") {
   continue;
 }
 ?>
@@ -199,6 +200,5 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-
   </div>
 </div>
 @endforeach
-@endif
 
 @endsection
