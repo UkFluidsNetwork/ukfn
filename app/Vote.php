@@ -53,7 +53,7 @@ class Vote extends Model
                  ->join('filetypes', 'files.filetype_id', '=', 'filetypes.id')
                  ->where('email', $this->email)
                  ->where('filetypes.id', $filetype_id)
-                 ->where('created_at', '>', '2018-04-04 00:00:00')
+                 ->where('votes.created_at', '>', '2018-04-04 00:00:00')
                  ->count();
         return $existing <= 0; // check if unique tuple [email,filetype];
     }
