@@ -6,6 +6,7 @@ use App;
 use SEO;
 use App\Page;
 use Auth;
+use App\File;
 use App\User;
 use App\Title;
 use App\Sig;
@@ -13,6 +14,7 @@ use App\Tag;
 use App\Message;
 use App\Institution;
 use App\Carouselfile;
+use App\Http\Requests\CarouselFormRequest;
 use App\Http\Requests\ContactUsRequest;
 use App\Http\Requests\PreferencesRequest;
 use App\Http\Requests\PersonalDetailsRequest;
@@ -35,6 +37,16 @@ class PagesController extends Controller
     private static $pagesPanelCrumbs = [
         ['label' => 'Panel', 'path' => '/panel'],
         ['label' => 'Pages', 'path' => '/panel/pages']
+    ];
+
+    /**
+     * Default breadcrumbs for /panel/carousel
+     *
+     * @var array
+     */
+    private static $carouselPanelCrumbs = [
+        ['label' => 'Panel', 'path' => '/panel'],
+        ['label' => 'Carousel', 'path' => '/panel/carousel']
     ];
 
     /**
@@ -589,6 +601,129 @@ class PagesController extends Controller
     public static function updatePage($id)
     {
         return;
+    }
+
+    /**
+     * List carousel entries
+     *
+     * @return \Illuminate\View\View
+     */
+    public static function viewCarousel()
+    {
+        $bread = static::$carouselPanelCrumbs;
+        $breadCount = count($bread);
+        $carousels = Carouselfile::all();
+        foreach ($carousels as $carousel) {
+            $carousel->created = date("d M H:i",
+                strtotime($carousel->created_at));
+            $carousel->updated = date("d M H:i",
+                strtotime($carousel->updated_at));
+        }
+
+        return view('panel.carousel.view',
+                    compact('carousels', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Display carousel edit form
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public static function editCarousel($id)
+    {
+        $bread = array_merge(static::$carouselPanelCrumbs,
+                                [['label' => 'Edit',
+                                  'path' => "/panel/carousel/edit/${id}"]]);
+        $breadCount = count($bread);
+        $carousel = Carouselfile::findOrFail($id);
+        $files = File::all();
+
+        return view('panel.carousel.edit',
+                    compact('carousel', 'files', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Display carousel add form
+     *
+     * @return \Illuminate\View\View
+     */
+    public function addCarousel()
+    {
+        $bread = array_merge(static::$carouselPanelCrumbs,
+                             [['label' => 'Add',
+                               'path' => "/panel/carousel/add"]]);
+        $breadCount = count($bread);
+
+        $carousel = new Carouselfile;
+        $files = File::all();
+
+        return view('panel.carousel.add',
+                    compact('carousel', 'files', 'bread', 'breadCount'));
+    }
+
+    /**
+     * Update carousel entries
+     *
+     * @param int $id
+     * @param CarouselFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function updateCarousel($id, CarouselFormRequest $request)
+    {
+        $carousel = Carouselfile::findOrFail($id);
+
+        try {
+            $input = $request->all();
+            $carousel->fill($input);
+            $carousel->save();
+
+            Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+
+        return redirect('/panel/carousel');
+    }
+
+
+    /**
+     * Create carousel entries
+     *
+     * @param CarouselFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function createCarousel(CarouselFormRequest $request)
+    {
+        try {
+            $carousel = new Carouselfile;
+            $input = $request->all();
+            $carousel->fill($input);
+            $carousel->save();
+
+            Session::flash('success_message', 'Added succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/carousel');
+    }
+
+    /**
+     * Delete a carousel entry
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function deleteCarousel($id)
+    {
+        try {
+            $carousel = Carouselfile::findOrFail($id);
+            $carousel->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/carousel/');
     }
 }
 

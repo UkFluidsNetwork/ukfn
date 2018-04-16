@@ -12,8 +12,7 @@ class Carouselfile extends Model
      *
      * @var array
      */
-    protected $fillable = [
-    ];
+    protected $fillable = ['name', 'author', 'description', 'file_id'];
 
     /**
      * Get the files of the carousel
