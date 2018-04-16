@@ -98,17 +98,17 @@
             <div id="talks-col" class="col-lg-7 col-md-7 col-md-pull-5 axis-y">
                 <div class="well">
                     <p>
-                        All the talks listed in this section are imported from the 
+                        These listings are derived from the following series of talks (follow links to web pages):
                         @foreach ($talksRSS as $talkRSS)
                             @if ($talkRSS !== end($talksRSS)) 
-                                {{ Html::link($talkRSS->url, $talkRSS->longname, ['target' => '_blank']) }}, 
+                                {{ Html::link($talkRSS->realurl, $talkRSS->name, ['target' => '_blank']) }}, 
                             @else
                                 and {{ Html::link($talkRSS->url, $talkRSS->longname, ['target' => '_blank']) }} RSS feeds.    
                             @endif
                         @endforeach
                     </p>
                     <p>
-                        To link another RSS feed to this page, please {{ Html::link('/contact', 'contact us') }}.
+                        To add another series of talks, please {{ Html::link('/contact', 'contact us') }}.
                     </p>
                 </div>
 
