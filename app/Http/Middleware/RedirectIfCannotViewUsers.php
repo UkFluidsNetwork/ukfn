@@ -17,8 +17,8 @@ final class RedirectIfCannotViewUsers
      * @return mixed
      */
     public function handle($request, Closure $next, $guard = null)
-    {   
-        $isAdmin = Auth::guest() ? false : (Auth::user()->isAdmin() || Auth::user()->isSigLeader());
+    {
+        $isAdmin = Auth::guest() ? false : (Auth::user()->isAdmin() || Auth::user()->isSigEditor());
         if (!$isAdmin) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
