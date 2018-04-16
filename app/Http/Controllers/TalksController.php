@@ -335,14 +335,16 @@ class TalksController extends Controller
             $talk->recordingurl = $request->input('recordingurl');
             $talk->streamingurl = $request->input('streamingurl');
             $talk->teradekip = $request->input('teradekip');
-
-            if ($request->input('recordinguntil') != '') {
-                $talk->recordinguntil = $request->input('recordinguntil');
-            } else {
-                $talk->recordinguntil = null;
-            }
+            $talk->recordinguntil = $request->input('recordinguntil')
+                && $request->input('recordinguntil') !== "0000-00-00"
+                ? $request->input('recordinguntil')
+                : null;
 
             $talk->fill($input);
+            $talk->recordinguntil = $talk->recordinguntil
+                && $talk->recordinguntil !== "0000-00-00"
+                ? $talk->recordinguntil
+                : null;
             $talk->save();
 
             Session::flash('success_message', 'Edited succesfully.');
