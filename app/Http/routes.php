@@ -114,6 +114,9 @@ Route::get('panel/resources/tutorials/files/add/{id}', 'ResourcesController@addF
 Route::get('panel/resources/tutorials/toggle/{id}', 'ResourcesController@toggleTutorialStatus')->middleware('admin');
 Route::get('panel/resources/tutorials/move/{direction}/{id}', 'ResourcesController@moveTutorial')->middleware('admin');
 Route::get('panel/files/addlink', 'FilesController@addLink')->middleware('admin');
+Route::get('panel/carousel', 'PagesController@viewCarousel')->middleware('admin');
+Route::get('panel/carousel/add', 'PagesController@addCarousel')->middleware('admin');
+Route::get('panel/carousel/edit/{id}', 'PagesController@editCarousel')->middleware('admin');
 /** POST requests * */
 // public
 Route::post('contact', 'PagesController@sendMessage');
@@ -166,6 +169,8 @@ Route::post('resources/tutorials/add', 'ResourcesController@createTutorial')->mi
 Route::post('resources/tutorials/delete/{id}', 'ResourcesController@deleteTutorial')->middleware('admin');
 Route::post('resources/tutorials/files/add/{tutorial_id}', 'ResourcesController@addTutorialFile')->middleware('admin');
 Route::post('resources/tutorials/files/delete/{id}', 'ResourcesController@deleteFile')->middleware('admin');
+Route::post('carousel/delete/{id}', 'PagesController@deleteCarousel')->middleware('admin');
+Route::post('carousel/add', 'PagesController@createCarousel')->middleware('admin');
 /** PATCH requests * */
 // require canEditSigBox
 Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middleware('sig-box');
@@ -184,6 +189,7 @@ Route::patch('/panel/talks/feeds/update/{id}', 'AggregatorsController@update')->
 Route::patch('/srv/update/{id}', 'SrvsController@update')->middleware('admin');
 Route::patch('/resources/update/{id}', 'ResourcesController@update')->middleware('admin');
 Route::patch('/resources/tutorials/update/{id}', 'ResourcesController@updateTutorial')->middleware('admin');
+Route::patch('/carousel/update/{id}', 'PagesController@updateCarousel')->middleware('admin');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([
