@@ -21,7 +21,7 @@ class SendEmail extends Job implements ShouldQueue
      *
      * @var string
      */
-    private $from;
+    private $from = "no-reply@fluids.ac.uk";
 
     /**
      * The name associated with the address to send the message from
@@ -67,7 +67,6 @@ class SendEmail extends Job implements ShouldQueue
 
     public function __construct($from, $to, $subject, $parameters, $template, $attachment = null)
     {
-        $this->from = $from;
         $this->to = $to;
         $this->subject = $subject;
         $this->parameters = $parameters;
