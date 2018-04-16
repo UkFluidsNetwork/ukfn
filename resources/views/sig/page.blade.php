@@ -4,9 +4,9 @@
 <div class="container-fluid nopadding-left">
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
-            <div id="sig-image" class="carousel">
+            <div id="sig-image" class="carousel"  style="height: auto">
                 <div class="carousel-inner">
-                    <div class="item active">
+                    <div class="item active" style="height: 370px">
                         @if ($sig->bigimage)
                             {{ Html::image(
                                 "/pictures/sig/" . $sig->bigimage,
