@@ -111,6 +111,9 @@ class EventsController extends Controller
             $event = Event::findOrFail($id);
             $input = $request->all();
             $event->fill($input);
+            $event->end = $event->end && $event->end !== "0000-00-00"
+                ? $event->end
+                : $event->start;
             $event->user_id = Auth::user()->id;
             $event->save();
             Session::flash('success_message', 'Edited succesfully.');
@@ -155,6 +158,7 @@ class EventsController extends Controller
             $event = new Event;
             $input = $request->all();
             $event->fill($input);
+            $event->end = $event->end ? : $event->start;
             $event->user_id = Auth::user()->id;
             $event->save();
             Session::flash('success_message', 'Added succesfully.');
