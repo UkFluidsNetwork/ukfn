@@ -13,7 +13,7 @@ class Aggregator extends Model
      * @var array
      */
     protected $fillable = [
-        'name', 'longname'
+        'name', 'longname', 'realurl'
     ];
 
     /**

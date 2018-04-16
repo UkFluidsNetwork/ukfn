@@ -30,6 +30,17 @@
         @endif
       </div>
     </div>
+    <div class='form-group {{ $errors->has('realurl') ? ' has-error line-break-dbl' : '' }}'>
+      {!! Form::label('realurl', 'URL:', ['class' => 'control-label col-lg-2 text-left']) !!}
+      <div class=' col-lg-8'>
+        {!! Form::text('realurl', $aggregator->realurl, ['class' => 'form-control','placeholder' => 'The long name of aggregator']) !!}
+        @if ($errors->has('realurl'))
+        <span class="text-danger">
+          <span>{{ $errors->first('realurl') }}</span>
+        </span>
+        @endif
+      </div>
+    </div>
     <div class=' col-lg-offset-2 col-lg-8'>
       <div class='form-group line-break-dbl-top'>
         {!! Form::submit('Save', ['class' => 'btn btn-success btn-lg2']) !!}

@@ -26,7 +26,8 @@ class AggregatorsFormRequest extends Request
     {
         return [
             'name' => 'required|max:255',
-            'longname' => 'required|max:255'
+            'longname' => 'required|max:255',
+            'realurl' => 'max:255',
         ];
     }
 }
