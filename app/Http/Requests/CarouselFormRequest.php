@@ -28,7 +28,7 @@ class CarouselFormRequest extends Request
         return [
             'name' => 'required|max:255',
             'author' => 'required|max:255',
-            'description' => 'required|max:255',
+            'description' => 'required',
             'file_id' => 'required',
         ];
     }

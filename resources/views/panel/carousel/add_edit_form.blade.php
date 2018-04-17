@@ -42,7 +42,7 @@
   <div class='col-lg-8'>
       {!! Form::textarea('description', $carousel->description,
       ['class' => 'form-control',
-      'placeholder' => 'The description of the resource']) !!}
+      'placeholder' => 'The description of the carousel entry']) !!}
     @if ($errors->has('description'))
     <span class="text-danger">
       <span>{{ $errors->first('description') }}</span>
