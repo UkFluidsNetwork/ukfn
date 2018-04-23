@@ -324,5 +324,15 @@ class Sig extends Model
     {
         return in_array($status, static::$validMembershipStatus);
     }
+
+    /**
+     * Find whether this sig is managed externally (e.g.  UKAN)
+     *
+     * @return boolean
+     */
+    public function isExternal()
+    {
+        return $this->external === 1;
+    }
 }
 
