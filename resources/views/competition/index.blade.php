@@ -59,7 +59,7 @@
     </p>
   </div>
 
-  <p><b>Voting is now open until 20 April 2018.</b></p>
+  <p><b>Voting is now closed.</b></p>
 
 @if (false)
   <p><b>The closing date for entries was 31 March 2018.</b></p>
