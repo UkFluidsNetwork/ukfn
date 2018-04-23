@@ -25,6 +25,12 @@
 
   <h2 class='line-break'>{{ $title }} Entries</h2>
 
+    <p>
+      The third UK Fluids Network photo and video competition has finished, and voting is now closed. We will shortly announce the winner photo and video.
+    </p>
+
+@if (false)
+
   @if (false)
   <div class="well">
     <p>
@@ -200,5 +206,7 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-
   </div>
 </div>
 @endforeach
+
+@endif
 
 @endsection
