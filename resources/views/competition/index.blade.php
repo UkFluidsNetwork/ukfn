@@ -34,6 +34,7 @@
       </span> Photo and Video Competition #3: The invisible made visible - uncovering hidden patterns, trends and structures
   </h2>
 
+@if (false)
   <div style="text-align:center;">
     <div class="row">
     <div class="col-sm-6 col-xs-12">
@@ -52,6 +53,7 @@
     </div>
     </div>
   </div>
+@endif
 
   <div class="well">
     <p>
