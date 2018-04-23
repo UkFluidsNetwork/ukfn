@@ -143,7 +143,12 @@
                      class="panel-collapse collapse">
                   <div ng-if="sig.bigimage"
                        class='sig-map-image'>
-                    <a href="/sig/@{{sig.shortname}}">
+                    <a ng-if="!sig.external" href="/sig/@{{sig.shortname}}">
+                      <img class='sig-map-image'
+                           src="/pictures/sig/@{{sig.bigimage}}"
+                           alt="@{{sig.bigimage}}">
+                    </a>
+                    <a ng-if="sig.external" href="@{{sig.url}}" target="_blank">
                       <img class='sig-map-image'
                            src="/pictures/sig/@{{sig.bigimage}}"
                            alt="@{{sig.bigimage}}">
@@ -157,9 +162,13 @@
                      <strong class="line-break">Leader:</strong> @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i>
                    </p>
                    <p class="text-center">
-                     <a class="btn btn-default"
+                     <a ng-if="!sig.external" class="btn btn-default"
                         href="/sig/@{{sig.shortname}}">
                        More details
+                     </a>
+                     <a ng-if="sig.external" class="btn btn-default"
+                        href="@{{sig.url}}" target="_blank">
+                       External website
                      </a>
                    </p>
                 </div>
