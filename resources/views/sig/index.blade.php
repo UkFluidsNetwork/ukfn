@@ -158,6 +158,7 @@
                      @{{ sigCtrl.thisSig.data.description }}
                    </p>
                    <p  ng-repeat="leader in sigCtrl.thisSig.data.leader"
+                       ng-if="!sig.external"
                        class="text-center">
                      <strong class="line-break">Leader:</strong> @{{ leader.name }} @{{ leader.surname }} <i>(<span ng-repeat="institution in leader.institutions">@{{ institution.name }}</span>)</i>
                    </p>
