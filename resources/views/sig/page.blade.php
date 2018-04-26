@@ -90,7 +90,7 @@
                 </div>
                 @endif
 
-                @if (!empty($sig->users))
+                @if (!empty($sig->users) && !$sig->isExternal())
                 <div class="bs-callout bs-callout-danger">
                     <h4>Members</h4>
                     <p class="small">
