@@ -48,12 +48,11 @@
     The UK Fluids Network contains details of {{ $total }} researchers across the UK. You can search this list by subject area or institution. To add yourself to the list, <a href="/register">create an account</a>.
   </p>
 </div>
-<div class="container-fluid"
-     ng-app="ukfn"
+<div ng-app="ukfn"
      ng-controller="directoryController as dirCtrl"
      ng-init="dirCtrl.initialise();">
-  <div class="row">
-    <div class="col-12">
+    <div class="nopadding">
+        <!-- Select box -->
         <select id="disciplines" type="text" name="disciplines[]"
                 class="tags form-control multi plugin-optgroup_columns"
                 placeholder="Fluids sub-disciplines and institutions" multiple
@@ -95,61 +94,90 @@
             @endif
             @endforeach
         </select>
-
-        <div ng-if="!dirCtrl.users.length && dirCtrl.loading"
-             class="line-break-dbl-top text-center larger">
-                    Loading...
-        </div>
-      <div ng-repeat="user in dirCtrl.users" ng-if="!dirCtrl.loading"
-           class='panel panel-default' ng-cloak>
-        <div class="panel-title list-group-item talk">
-          <span class="display-block text-danger line-break-half">
-            @{{ user.name }} @{{ user.surname }} |
-            <span ng-repeat="ins in user.institutions"
-                  ng-class="{'highlight': dirCtrl.tagSelected('inst'+ins.id)}">
-            @{{ ins.name }}
-            </span>
-          </span>
-          <span class="display-block display-table-cell">
-            <span ng-if="user.url">
-              <a href="@{{ user.url }}">@{{ user.url }}</a>
-              <br>
-            </span>
-          </span>
-          <div ng-if="user.sigs">
-            <div
-                  ng-repeat="sig in user.sigs">
-              <span ng-if="sig.pivot.main == 0">
-              SIG Member of
-              </span>
-              <span ng-if="sig.pivot.main == 1">
-              SIG Leader of
-              </span>
-              <span ng-if="sig.pivot.main == 2">
-              SIG Co-leader of
-              </span>
-              <span ng-if="sig.pivot.main == 3">
-              SIG Key Personnel of
-              </span>
-              <a href="/sig/@{{ sig.shortname}}">@{{ sig.name }}</a>
-              <br>
+        <!-- User list -->
+        <div class="col-sm-6 mapHeight axis-y
+                    no-axis-mobile nopadding">
+            <div class="line-break hidden-sm hidden-md hidden-lg"></div>
+            <!-- User list accordion -->
+            <div class="panel-group"
+                 ng-if="!dirCtrl.users.length && dirCtrl.loading">
+                Loading...
             </div>
-          </div>
-          <div ng-if="user.tags"
-               style="width: 100%; display: flow-root;"
-               class="line-break-top line-break">
-            <div ng-repeat="tag in user.tags"
-                 ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.id)}"
-                  class="label label-new label-ukfn-blue margin-right"
-                  style="float:left; margin-top: 5px;">
-              @{{ tag.name }}
+            <div class="panel-group" ng-if="!dirCtrl.loading">
+                <div ng-repeat="user in dirCtrl.users" ng-if="!dirCtrl.loading"
+                     class='panel panel-default' ng-cloak>
+                  <div class="panel-title list-group-item talk">
+                    <span class="display-block text-danger line-break-half">
+                      @{{ user.name }} @{{ user.surname }} |
+                      <span ng-repeat="ins in user.institutions"
+                            ng-class="{'highlight': dirCtrl.tagSelected('inst'+ins.id)}">
+                      @{{ ins.name }}
+                      </span>
+                    </span>
+                    <span class="display-block display-table-cell">
+                      <span ng-if="user.url">
+                        <a href="@{{ user.url }}">@{{ user.url }}</a>
+                        <br>
+                      </span>
+                    </span>
+                    <div ng-if="user.sigs">
+                      <div
+                            ng-repeat="sig in user.sigs">
+                        <span ng-if="sig.pivot.main == 0">
+                        SIG Member of
+                        </span>
+                        <span ng-if="sig.pivot.main == 1">
+                        SIG Leader of
+                        </span>
+                        <span ng-if="sig.pivot.main == 2">
+                        SIG Co-leader of
+                        </span>
+                        <span ng-if="sig.pivot.main == 3">
+                        SIG Key Personnel of
+                        </span>
+                        <a href="/sig/@{{ sig.shortname}}">@{{ sig.name }}</a>
+                        <br>
+                      </div>
+                    </div>
+                    <div ng-if="user.tags"
+                         style="width: 100%; display: flow-root;"
+                         class="line-break-top line-break">
+                      <div ng-repeat="tag in user.tags"
+                           ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.id)}"
+                            class="label label-new label-ukfn-blue margin-right"
+                            style="float:left; margin-top: 5px;">
+                        @{{ tag.name }}
+                      </div>
+                    </div>
+                    <div style="clear:both"></div>
+                  </div>
+                </div>
             </div>
-          </div>
-          <div style="clear:both"></div>
         </div>
-      </div>
+        <!-- UK map -->
+        <div class="col-sm-6 mobile-nopadding-from-md hide-mobile nopadding">
+            <div map-lazy-load="@{{ dirCtrl.MAP_URL }}" >
+                <ng-map center="@{{ dirCtrl.map.coordinates }}"
+                        scrollwheel="false"
+                        draggable="true"
+                        map-type-control="false"
+                        street-view-control="false"
+                        zoom-control-options="{style:'SMALL',
+                            position:'TOP_RIGHT'}"
+                        options='@{{ dirCtrl.options }}'
+                        zoom="6"
+                        class="mapHeight">
+                    <custom-marker
+                        ng-repeat="institution in dirCtrl.distinctInstitutions"
+                        position="@{{ institution.lat }},@{{ institution.lng }}"
+                        icon="@{{ dirCtrl.customIcon }}"
+                        title="@{{institution.name}}">
+                        <div class="map-pointer"></div>
+                    </custom-marker>
+                </ng-map>
+            </div>
+        </div>
     </div>
-  </div>
 </div>
 
 <script>
