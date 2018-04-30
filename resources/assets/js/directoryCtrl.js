@@ -13,10 +13,12 @@ angular.module('ukfn')
 
         controller.initialise = function() {
             controller.loadUsers();
+            controller.loadInstitutions();
         };
 
         controller.updateQuery = function(query) {
             controller.loadUsers();
+            controller.loadInstitutions();
         };
 
         controller.loadUsers = function() {
@@ -37,30 +39,24 @@ angular.module('ukfn')
             ).then(function (response) {
                 controller.users = response.data;
                 controller.loading = false;
-
-                // prepare array with institutions only
-                var institutions = [];
-
-                for(i=0; i<response.data.length; i++) {
-                    if (typeof response.data[i].institutions !== 'undefined') {
-                        for (z=0; z <response.data[i].institutions.length; z++) {
-                            institutions.push(response.data[i].institutions[z]);
-                        }
-                    }
-                }
-
-                // get unique institutions
-                var all = [];
-                var output = [];
-                for (x=0; x<institutions.length;x++) {
-                    if(all[institutions[x].id]) continue;
-                    all[institutions[x].id] = true;
-                    output.push(institutions[x]);
-                }
-                // return unique institutions
-                controller.distinctInstitutions = output;
             });
           };
+
+        controller.loadInstitutions = function() {
+            var institutions_url = '/api/public/users/institutions/';
+            var query = JSON.stringify(controller.searchTerms);
+            $http(
+                {
+                    method: 'GET',
+                    url: institutions_url,
+                    params: {
+                        search: query
+                    }
+                }
+            ).then(function (response) {
+                controller.distinctInstitutions = response.data;
+            });
+        };
 
         controller.tagSelected = function(tag_id) {
             for (var i=0; i < controller.searchTerms.length; i++) {
