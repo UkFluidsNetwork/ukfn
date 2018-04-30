@@ -314,6 +314,95 @@ class UsersController extends Controller
         return response()->json($users);
     }
 
+    /*
+     * Get all users with reduced information in JSON format
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getUserinstitutionsPublicJson(Request $request)
+    {
+        $parameters = $request->all();
+        $search = isset($parameters['search'])
+                       && $parameters['search'] !== "[]"
+            ? json_decode($parameters['search'])
+            : null;
+
+        if (is_array($search)) {
+            sort($search);
+        }
+
+        $tags = [];
+        $sigs = [];
+        $inst = [];
+        $key  = "";
+        if ($search !== null) {
+            foreach ($search as $val) {
+                $key .= $val;
+                $tagPos = strpos($val, "tag") !== false;
+                $sigPos = strpos($val, "sig") !== false;
+                $insPos = strpos($val, "inst") !== false;
+                if ($tagPos) {
+                    $tags[] = str_replace("tag", "", $val);
+                } elseif ($sigPos) {
+                    $sigs[] = str_replace("sig", "", $val);
+                } elseif ($insPos) {
+                    $inst[] = str_replace("inst", "", $val);
+                }
+            }
+        }
+
+        // see if request has been cached
+        if (Cache::has('directory-institutions'.$key)) {
+            return response()->json(Cache::get('directory-institutions'.$key));
+        }
+
+        $institutions = [];
+        $allInstitutions = DB::table('users')
+            ->select('institutions.id')
+            ->leftJoin('sig_users', 'users.id', '=', 'sig_users.user_id')
+            ->leftJoin('user_tags', 'users.id', '=', 'user_tags.user_id')
+            ->leftJoin('institution_users', 'users.id',
+                        '=', 'institution_users.user_id')
+            ->leftJoin('sigs', 'sig_users.sig_id', '=', 'sigs.id')
+            ->leftJoin('tags', 'user_tags.tag_id', '=', 'tags.id')
+            ->leftJoin('institutions', 'institution_users.institution_id',
+                        '=', 'institutions.id')
+            ->where("researcher", 1)
+            ->when(!empty($tags), function($query) use ($tags) {
+                return $query->where(function($query) use ($tags) {
+                    foreach ($tags as $tag) {
+                        $query->orWhere("tag_id", $tag);
+                    }
+                });
+            })
+            ->when(!empty($sigs), function($query) use ($sigs) {
+                return $query->where(function($query) use ($sigs) {
+                    foreach ($sigs as $sig) {
+                        $query->orWhere("sig_id", $sig);
+                    }
+                });
+            })
+            ->when(!empty($inst), function($query) use ($inst) {
+                return $query->where(function($query) use ($inst) {
+                    foreach ($inst as $inst) {
+                        $query->orWhere("institution_id", $inst);
+                    }
+                });
+            })
+            ->distinct()
+            ->get();
+
+        foreach ($allInstitutions as $institutionStd) {
+            $institution = Institution::find($institutionStd->id);
+            $institutions[$institutionStd->id] = $institution;
+        }
+
+        $expiresAt = Carbon::now()->addDay(1);
+        Cache::put('directory-institutions'.$key, $institutions, $expiresAt);
+        return response()->json($institutions);
+    }
+
     /**
      * Get a specic user in JSON, givent it's $id
      *
