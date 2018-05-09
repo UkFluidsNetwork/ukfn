@@ -26,7 +26,7 @@
 
   <div class="well">
     <p>
-      The second UK Fluids Network photo and video competition has finished, and voting is now closed. The winning {{ $name }} is shown below.
+      The third UK Fluids Network photo and video competition has finished, and voting is now closed. The winning {{ $name }} is shown below.
     </p>
     @if ($name === "photo")
     <p>
@@ -42,7 +42,7 @@
 
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2017-12-11 00:00:00") {
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-04-04 00:00:00") {
   continue;
 }
 ?>
