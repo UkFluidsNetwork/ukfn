@@ -34,26 +34,24 @@
       </span> Photo and Video Competition #3: The invisible made visible - uncovering hidden patterns, trends and structures
   </h2>
 
-@if (false)
   <div style="text-align:center;">
     <div class="row">
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/vote/photos/"
+      <a href="/competition/winner/photos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Photo Entries
+           Winner Photo
        </a>
     </div>
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/vote/videos/"
+      <a href="/competition/winner/videos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Video Entries
+           Winner Video
        </a>
     </div>
     </div>
   </div>
-@endif
 
   <div class="well">
     <p>
