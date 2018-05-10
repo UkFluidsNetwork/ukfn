@@ -35,7 +35,7 @@ class MessagesController extends Controller
      * @param string $dateFormat
      * @return array
      */
-    public static function formatMessages($messages, $dateFormat = "l jS F")
+    public static function formatMessages($messages, $dateFormat = "l jS F Y")
     {
         $formattedMessages = [];
         foreach ($messages as $key => $message) {
