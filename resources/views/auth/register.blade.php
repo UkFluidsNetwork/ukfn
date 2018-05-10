@@ -314,7 +314,7 @@
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
                                     <div class="checkbox">
-                                        <label><input id='subscription' name='subscription' type="checkbox" checked='checked' value="1">Add me to the mailing list</label>
+                                        <label><input id='subscription' name='subscription' type="checkbox" value="1">Add me to the mailing list</label>
                                     </div>
                                 </div>
                             </div>
