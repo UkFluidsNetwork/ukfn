@@ -331,5 +331,25 @@ class UsersController extends Controller
 
         return response()->json($user);
     }
+
+    /**
+     * Accept GDPR t&c
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function acceptGdpr($id)
+    {
+        try {
+            $user = User::findOrFail($id);
+            $user->gdpr = 1;
+            $user->save();
+
+            Session::flash('success_message',"Thank you, your confirmation's been saved.");
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/');
+    }
 }
 
