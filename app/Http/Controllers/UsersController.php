@@ -266,7 +266,7 @@ class UsersController extends Controller
 
         $users = [];
         $allUsers = DB::table('users')
-            ->select('users.id')
+            ->select('users.id', 'users.name', 'users.surname', 'users.url')
             ->leftJoin('sig_users', 'users.id', '=', 'sig_users.user_id')
             ->leftJoin('user_tags', 'users.id', '=', 'user_tags.user_id')
             ->leftJoin('institution_users', 'users.id',
@@ -302,10 +302,16 @@ class UsersController extends Controller
             ->get();
 
         foreach ($allUsers as $userStd) {
-            $user = User::find($userStd->id);
-            $user->institutions;
-            $user->tags;
-            $user->sigs;
+            $user = $userStd;
+            $user->institution_ids = DB::table('institution_users')
+                ->select('institution_id')
+                ->where("user_id", $userStd->id)->get();
+            $user->tag_ids = DB::table('user_tags')
+                ->select('tag_id')
+                ->where("user_id", $userStd->id)->get();
+            $user->sig_ids = DB::table('sig_users')
+                ->select('sig_id', 'main')
+                ->where("user_id", $userStd->id)->get();
             $users[] = $user;
         }
 
@@ -358,16 +364,16 @@ class UsersController extends Controller
         }
 
         $institutions = [];
-        $allInstitutions = DB::table('users')
-            ->select('institutions.id')
+        $allInstitutions = DB::table('institutions')
+            ->select(DB::raw('institutions.id, count(distinct(users.id)) as user_count'))
+            ->leftJoin('institution_users', 'institutions.id',
+                        '=', 'institution_users.institution_id')
+            ->leftJoin('users', 'institution_users.user_id',
+                        '=', 'users.id')
             ->leftJoin('sig_users', 'users.id', '=', 'sig_users.user_id')
             ->leftJoin('user_tags', 'users.id', '=', 'user_tags.user_id')
-            ->leftJoin('institution_users', 'users.id',
-                        '=', 'institution_users.user_id')
             ->leftJoin('sigs', 'sig_users.sig_id', '=', 'sigs.id')
             ->leftJoin('tags', 'user_tags.tag_id', '=', 'tags.id')
-            ->leftJoin('institutions', 'institution_users.institution_id',
-                        '=', 'institutions.id')
             ->where("researcher", 1)
             ->when(!empty($tags), function($query) use ($tags) {
                 return $query->where(function($query) use ($tags) {
@@ -383,19 +389,14 @@ class UsersController extends Controller
                     }
                 });
             })
-            ->when(!empty($inst), function($query) use ($inst) {
-                return $query->where(function($query) use ($inst) {
-                    foreach ($inst as $inst) {
-                        $query->orWhere("institution_id", $inst);
-                    }
-                });
-            })
-            ->distinct()
+            ->groupBy('institutions.id')
             ->get();
 
         foreach ($allInstitutions as $institutionStd) {
             $institution = Institution::find($institutionStd->id);
             $institutions[$institutionStd->id] = $institution;
+            $institutions[$institutionStd->id]['user_count'] =
+                $institutionStd->user_count;
         }
 
         $expiresAt = Carbon::now()->addDay(1);
