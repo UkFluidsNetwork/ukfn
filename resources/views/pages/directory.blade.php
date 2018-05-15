@@ -24,7 +24,6 @@
         max-height: 666px !important;
     }
 
-    /*WHOLO GROUP BOX*/
     .optgroup {
         width : 300px !important;
         height : auto !important;
@@ -95,23 +94,61 @@
             @endforeach
         </select>
         <!-- User list -->
+      <div class="drop-wrap" ng-if="!dirCtrl.users.length && dirCtrl.loading">
+        <div class="drop-outer">
+          <svg class="drop" viewBox="0 0 40 40" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="20" cy="20" r="20"/>
+          </svg>
+        </div>
+        <div class="ripple ripple-1">
+            <svg class="ripple-svg" viewBox="0 0 60 60" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="24"/>
+            </svg>
+        </div>
+        <div class="ripple ripple-2">
+            <svg class="ripple-svg" viewBox="0 0 60 60" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="24"/>
+            </svg>
+        </div>
+        <div class="ripple ripple-3">
+            <svg class="ripple-svg" viewBox="0 0 60 60" version="1.1"
+          xmlns="http://www.w3.org/2000/svg">
+          <circle cx="30" cy="30" r="24"/>
+            </svg>
+        </div>
+      </div>
+
         <div class="col-sm-6 mapHeight axis-y
                     no-axis-mobile nopadding">
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <!-- User list accordion -->
-            <div class="panel-group"
-                 ng-if="!dirCtrl.users.length && dirCtrl.loading">
-                Loading...
-            </div>
             <div class="panel-group" ng-if="!dirCtrl.loading">
-                <div ng-repeat="user in dirCtrl.users" ng-if="!dirCtrl.loading"
+                <div ng-if="!dirCtrl.allDisplayed()">
+                  <p>
+                      @{{dirCtrl.totalDisplayed}}/@{{dirCtrl.users.length}} researchers shown.
+                  </p>
+                  <button class="btn btn-default"
+                          ng-click="dirCtrl.loadMore()"
+                          style="width: 48.5%;margin-right:2%;margin-bottom:5px;">
+                      Load more
+                  </button>
+                  <button class="btn btn-default" ng-click="dirCtrl.loadAll()"
+                          style="width: 48.5%;margin-bottom:5px;">
+                      Load all
+                  </button>
+                </div>
+                <div ng-repeat="user in dirCtrl.users | limitTo:dirCtrl.totalDisplayed"
+                     ng-if="!dirCtrl.loading"
                      class='panel panel-default' ng-cloak>
                   <div class="panel-title list-group-item talk">
                     <span class="display-block text-danger line-break-half">
                       @{{ user.name }} @{{ user.surname }} |
-                      <span ng-repeat="ins in user.institutions"
-                            ng-class="{'highlight': dirCtrl.tagSelected('inst'+ins.id)}">
-                      @{{ ins.name }}
+                      <span ng-repeat="ins in user.institution_ids"
+                            ng-class="{'highlight': dirCtrl.tagSelected('inst'+ins.institution_id)}">
+                      @{{ dirCtrl.distinctInstitutions[ins.institution_id].name }}
                       </span>
                     </span>
                     <span class="display-block display-table-cell">
@@ -120,33 +157,35 @@
                         <br>
                       </span>
                     </span>
-                    <div ng-if="user.sigs">
+                    <div ng-if="user.sig_ids">
                       <div
-                            ng-repeat="sig in user.sigs">
-                        <span ng-if="sig.pivot.main == 0">
+                            ng-repeat="sig in user.sig_ids">
+                        <span ng-if="sig.main == 0">
                         SIG Member of
                         </span>
-                        <span ng-if="sig.pivot.main == 1">
+                        <span ng-if="sig.main == 1">
                         SIG Leader of
                         </span>
-                        <span ng-if="sig.pivot.main == 2">
+                        <span ng-if="sig.main == 2">
                         SIG Co-leader of
                         </span>
-                        <span ng-if="sig.pivot.main == 3">
+                        <span ng-if="sig.main == 3">
                         SIG Key Personnel of
                         </span>
-                        <a href="/sig/@{{ sig.shortname}}">@{{ sig.name }}</a>
+                        <a href="/sig/@{{ dirCtrl.sigs[sig.sig_id].shortname}}">@{{ dirCtrl.sigs[sig.sig_id].name }}</a>
                         <br>
                       </div>
                     </div>
-                    <div ng-if="user.tags"
+                    <div ng-if="user.tag_ids"
                          style="width: 100%; display: flow-root;"
                          class="line-break-top line-break">
-                      <div ng-repeat="tag in user.tags"
-                           ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.id)}"
+                      <div ng-repeat="tag in user.tag_ids"
+                      <div ng-if="dirCtrl.tags[tag.tag_id]"
+                           ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.tag_id)}"
                             class="label label-new label-ukfn-blue margin-right"
                             style="float:left; margin-top: 5px;">
-                        @{{ tag.name }}
+                        @{{ dirCtrl.tags[tag.tag_id].name }}
+                      </div>
                       </div>
                     </div>
                     <div style="clear:both"></div>
@@ -170,9 +209,11 @@
                     <custom-marker
                         ng-repeat="institution in dirCtrl.distinctInstitutions"
                         position="@{{ institution.lat }},@{{ institution.lng }}"
-                        icon="@{{ dirCtrl.customIcon }}"
+                        on-click="dirCtrl.searchInst(institution.id)"
                         title="@{{institution.name}}">
-                        <div class="map-pointer"></div>
+                        <div class="map-pointer hand-cursor" ng-class="{'selected': dirCtrl.tagSelected('inst'+institution.id)}">
+                            @{{ institution.user_count }}
+                        </div>
                     </custom-marker>
                 </ng-map>
             </div>

@@ -1,5 +1,5 @@
 angular.module('ukfn')
-    .controller('directoryController', function ($http, $localStorage, $sce) {
+    .controller('directoryController', function ($http, $localStorage, $sce, NgMap) {
         var controller = this;
         controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
         controller.MAPS_API_URL = "https://maps.google.com/maps/api/js";
@@ -10,15 +10,35 @@ angular.module('ukfn')
         controller.$storage = $localStorage;
         controller.searchTerms = []; // terms entered in recorded search box
         controller.loading = true; // flag to display loading message
+        controller.totalDisplayed = 25;
 
         controller.initialise = function() {
-            controller.loadUsers();
             controller.loadInstitutions();
+            controller.loadUsers();
+            controller.loadTags();
+            controller.loadSigs();
         };
 
         controller.updateQuery = function(query) {
             controller.loadUsers();
             controller.loadInstitutions();
+        };
+
+        controller.searchInst = function(self, inst_id) {
+            controller.searchTerms.push('inst'+inst_id);
+            controller.updateQuery();
+        };
+
+        controller.loadMore = function(more) {
+            controller.totalDisplayed += 50;
+        };
+
+        controller.loadAll = function() {
+            controller.totalDisplayed = controller.users.length;
+        };
+
+        controller.allDisplayed = function() {
+            return controller.totalDisplayed >= controller.users.length;
         };
 
         controller.loadUsers = function() {
@@ -55,6 +75,30 @@ angular.module('ukfn')
                 }
             ).then(function (response) {
                 controller.distinctInstitutions = response.data;
+            });
+        };
+
+        controller.loadTags = function() {
+            var tags_url = '/api/tags/all/';
+            $http(
+                {
+                    method: 'GET',
+                    url: tags_url
+                }
+            ).then(function (response) {
+                controller.tags = response.data;
+            });
+        };
+
+        controller.loadSigs = function() {
+            var sigs_url = '/api/sigs/';
+            $http(
+                {
+                    method: 'GET',
+                    url: sigs_url
+                }
+            ).then(function (response) {
+                controller.sigs = response.data;
             });
         };
 
