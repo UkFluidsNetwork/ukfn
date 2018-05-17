@@ -292,9 +292,7 @@ class UsersController extends Controller
             })
             ->when(!empty($inst), function($query) use ($inst) {
                 return $query->where(function($query) use ($inst) {
-                    foreach ($inst as $inst) {
-                        $query->orWhere("institution_id", $inst);
-                    }
+                    $query->whereIn("institution_id", $inst);
                 });
             })
             ->orderBy("surname")
