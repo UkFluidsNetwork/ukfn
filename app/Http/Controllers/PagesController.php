@@ -116,13 +116,12 @@ class PagesController extends Controller
         $curDisciplinesCategory = null;
         $subDisciplines = Tag::getAllDisciplines();
         $applications = Tag::getAllApplicationAreas();
-        $institutions = User::userInstitutions();
         $sigs = Sig::all();
         $total = User::where('researcher', 1)->count();
 
         return view('pages.directory', compact('total',
             'curDisciplinesCategory', 'subDisciplines',
-            'applications', 'institutions', 'sigs'));
+            'applications', 'sigs'));
     }
 
     /**
