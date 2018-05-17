@@ -54,7 +54,8 @@
         <!-- Select box -->
         <select id="disciplines" type="text" name="disciplines[]"
                 class="tags form-control multi plugin-optgroup_columns"
-                placeholder="Fluids sub-disciplines and institutions" multiple
+                placeholder="Fluids sub-disciplines, application areas and SIGs"
+                multiple
                  ng-change="dirCtrl.updateQuery()"
                  ng-model="dirCtrl.searchTerms">
             @foreach($subDisciplines as $key => $discipline)
@@ -68,13 +69,6 @@
                 </option>
 
             @if ($discipline === end($subDisciplines)) || ($curDisciplinesCategory !== $subDisciplines[$key+1]->category)
-            </optgroup>
-            <optgroup label="Institutions">
-             @foreach($institutions as $key => $institution)
-                <option value='inst{{ $institution->id}}'>
-                    {{ $institution->name}}
-                </option>
-             @endforeach
             </optgroup>
             <optgroup label="Application Areas">
              @foreach($applications as $key => $application)
@@ -93,6 +87,13 @@
             @endif
             @endforeach
         </select>
+        <selectize id="inst_multiselect"
+            options='dirCtrl.institutions'
+            config='dirCtrl.selectizeInstConfig'
+            ng-change="dirCtrl.updateQuery()"
+            ng-model="dirCtrl.searchInsts">
+        </selectize>
+
         <!-- User list -->
       <div ng-if="!dirCtrl.users.length && dirCtrl.loading">
         @include('drop-loader')
@@ -103,6 +104,9 @@
             <div class="line-break hidden-sm hidden-md hidden-lg"></div>
             <!-- User list accordion -->
             <div class="panel-group" ng-if="!dirCtrl.loading">
+                <div ng-if="!dirCtrl.users.length">
+                    <p>Your search did not return any results.</p>
+                </div>
                 <div ng-if="!dirCtrl.allDisplayed()">
                   <p>
                       @{{dirCtrl.totalDisplayed}}/@{{dirCtrl.users.length}} researchers shown.
@@ -124,7 +128,7 @@
                     <span class="display-block text-danger line-break-half">
                       @{{ user.name }} @{{ user.surname }} |
                       <span ng-repeat="ins in user.institution_ids"
-                            ng-class="{'highlight': dirCtrl.tagSelected('inst'+ins.institution_id)}">
+                            ng-class="{'highlight': dirCtrl.instSelected('inst'+ins.institution_id)}">
                       @{{ dirCtrl.distinctInstitutions[ins.institution_id].name }}
                       </span>
                     </span>
@@ -188,7 +192,7 @@
                         position="@{{ institution.lat }},@{{ institution.lng }}"
                         on-click="dirCtrl.searchInst(institution.id)"
                         title="@{{institution.name}}">
-                        <div class="map-pointer hand-cursor" ng-class="{'selected': dirCtrl.tagSelected('inst'+institution.id)}">
+                        <div class="map-pointer hand-cursor" ng-class="{'selected': dirCtrl.instSelected('inst'+institution.id)}">
                             @{{ institution.user_count }}
                         </div>
                     </custom-marker>

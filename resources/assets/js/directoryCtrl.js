@@ -11,6 +11,8 @@ angular.module('ukfn')
         controller.searchTerms = []; // terms entered in recorded search box
         controller.loading = true; // flag to display loading message
         controller.totalDisplayed = 25;
+        controller.institutions = [];
+        controller.searchInsts = [];
 
         controller.initialise = function() {
             controller.loadInstitutions();
@@ -25,7 +27,7 @@ angular.module('ukfn')
         };
 
         controller.searchInst = function(self, inst_id) {
-            controller.searchTerms.push('inst'+inst_id);
+            controller.searchInsts.push('inst'+inst_id);
             controller.updateQuery();
         };
 
@@ -41,9 +43,14 @@ angular.module('ukfn')
             return controller.totalDisplayed >= controller.users.length;
         };
 
+        controller.compileSearch = function() {
+            var res = controller.searchTerms.concat(controller.searchInsts);
+            return JSON.stringify(res);
+        };
+
         controller.loadUsers = function() {
             var url = '/api/public/users/';
-            var query = JSON.stringify(controller.searchTerms);
+            var query = controller.compileSearch();
             controller.loading = true;
 
             // clear array of available users before making the request.
@@ -64,7 +71,7 @@ angular.module('ukfn')
 
         controller.loadInstitutions = function() {
             var institutions_url = '/api/public/users/institutions/';
-            var query = JSON.stringify(controller.searchTerms);
+            var query = controller.compileSearch();
             $http(
                 {
                     method: 'GET',
@@ -75,6 +82,11 @@ angular.module('ukfn')
                 }
             ).then(function (response) {
                 controller.distinctInstitutions = response.data;
+                angular.forEach(controller.distinctInstitutions,
+                function(value, key) {
+                    var arr = {id: "inst"+key, name: value.name};
+                    controller.institutions.push(arr);
+                });
             });
         };
 
@@ -109,6 +121,15 @@ angular.module('ukfn')
                 }
             }
             return $.inArray(tag_id, controller.searchTerms) > -1;
+        };
+
+        controller.instSelected = function(institution_id) {
+            for (var i=0; i < controller.searchTerms.length; i++) {
+                if (controller.searchInsts[i] == institution_id) {
+                    return true;
+                }
+            }
+            return $.inArray(institution_id, controller.searchInsts) > -1;
         };
 
         // default UK map coordinates
@@ -199,5 +220,16 @@ angular.module('ukfn')
                     ]
                 }
             ]
+        };
+
+        controller.selectizeInstConfig = {
+            create: false,
+            plugins: ['remove_button'],
+            delimiter: ',',
+            searchField: 'label',
+            framework: 'bootstrap',
+            valueField: 'id',
+            labelField: 'name',
+            placeholder: 'Institution(s)'
         };
     });
