@@ -30,7 +30,7 @@ angular.module('ukfn')
         };
 
         controller.loadMore = function(more) {
-            controller.totalDisplayed += 50;
+            controller.totalDisplayed += more;
         };
 
         controller.loadAll = function() {
