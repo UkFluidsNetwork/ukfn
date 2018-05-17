@@ -194,17 +194,15 @@
                         ng-repeat="institution
                           in sigCtrl.thisSig.data.institutions"
                         position="@{{ institution.lat }},@{{ institution.lng }}"
-                        icon="@{{ sigCtrl.customIcon }}"
                         title="@{{institution.name}}">
-                        <div class="map-pointer"></div>
+                        <div class="map-pointer small red"></div>
                     </custom-marker>
                     <custom-marker
                         ng-if="sigCtrl.displayAll"
                         ng-repeat="institution in sigCtrl.distinctInstitutions"
                         position="@{{ institution.lat }},@{{ institution.lng }}"
-                        icon="@{{ sigCtrl.customIcon }}"
                         title="@{{institution.name}}">
-                        <div class="map-pointer"></div>
+                        <div class="map-pointer small red"></div>
                     </custom-marker>
                 </ng-map>
             </div>

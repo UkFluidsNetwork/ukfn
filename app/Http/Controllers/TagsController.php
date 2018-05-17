@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\TagsFormRequest;
 use Illuminate\Support\Facades\Session;
 use Auth;
+use Cache;
+use Carbon\Carbon;
 use App\Tag;
 use App\Tagtype;
 
@@ -171,24 +173,36 @@ class TagsController extends Controller
      */
     public static function getAllJson($tagtype)
     {
+        // see if request has been cached
+        if (Cache::has('tags-'.$tagtype)) {
+            return response()->json(Cache::get('tags-'.$tagtype));
+        }
+
         $tags = [];
         switch ($tagtype) {
             case "all":
-                $tags = Tag::all();
+                $rawTags = Tag::all();
                 break;
             case "disciplines":
-                $tags = Tag::getAllDisciplines();
+                $rawTags = Tag::getAllDisciplines();
                 break;
             case "applications":
-                $tags = Tag::getAllApplicationAreas();
+                $rawTags = Tag::getAllApplicationAreas();
                 break;
             case "techniques":
-                $tags = Tag::getAllTechniques();
+                $rawTags = Tag::getAllTechniques();
                 break;
             case "facilities":
-                $tags = Tag::getAllFacilities();
+                $rawTags = Tag::getAllFacilities();
                 break;
         }
+        foreach ($rawTags as $tag) {
+            $tags[$tag->id] = $tag;
+            $tags[$tag->id]->tagtype = $tag->tagtype;
+        }
+
+        $expiresAt = Carbon::now()->addDay(1);
+        Cache::put('tags-'.$tagtype, $tags, $expiresAt);
         return response()->json($tags);
     }
 

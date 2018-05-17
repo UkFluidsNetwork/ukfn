@@ -8,6 +8,7 @@
 @import "slider";
 @import "carousel";
 @import "media";
+@import "drop";
 @import "bootstrap";
 @import "selectize/selectize";
 @import "selectize/selectize.bootstrap3";
@@ -390,4 +391,67 @@ input[type="text"], textarea, button {
 .ng-cloak,
 .x-ng-cloak {
     display: none !important;
+}
+
+.loader {
+    border: 16px solid $light-grey;
+    border-top: 16px solid $ukfn-darkblue;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.hand-cursor {
+  cursor: pointer;
+}
+
+.map-pointer {
+  background: $ukfn-darkblue;
+  border-radius: 0.7em;
+  -moz-border-radius: 0.7em;
+  -webkit-border-radius: 0.7em;
+  color: #ffffff;
+  display: inline-block;
+  font-weight: bold;
+  line-height: 1.4em;
+  margin-right: 5px;
+  text-align: center;
+  width: 1.4em;
+  height: 1.4em;
+  font-size: 13px;
+}
+
+.map-pointer.red {
+  background: $brand-danger;
+}
+
+.map-pointer:hover {
+  background: $ukfn-lightblue;
+}
+
+.map-pointer.red:hover {
+  background: lighten($brand-danger, 10%);
+}
+
+.map-pointer.selected {
+  background: $brand-danger;
+}
+
+.map-pointer.red.selected {
+  background: $ukfn-darkblue;
+}
+
+.map-pointer.small {
+  border-radius: 0.5em;
+  -moz-border-radius: 0.5em;
+  -webkit-border-radius: 0.5em;
+  line-height: 1em;
+  width: 1em;
+  height: 1em;
 }

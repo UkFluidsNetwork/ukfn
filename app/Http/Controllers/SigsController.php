@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use Auth;
+use Cache;
 use App\Sig;
 use App\Tag;
 use App\User;
 use App\File;
 use App\Sigbox;
+use Carbon\Carbon;
 use App\Institution;
 use App\Subscription;
 use App\Http\Requests\SigsFormRequest;
@@ -235,18 +237,28 @@ class SigsController extends Controller
         return redirect('/panel/sig');
     }
 
-    public function getAllJson()
+    /**
+     * Get all sigs.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public static function getAllJson()
     {
-        $sigs = [];
-        $key = 0;
-        $allSigs = Sig::orderBy('name', 'asc')->get();
-
-        foreach ($allSigs as $sig) {
-            $sigs[$key] = $sig;
-            $sigs[$key]->institutions = $sig->institutions;
-            $key++;
+        // see if request has been cached
+        if (Cache::has('sigs')) {
+            return response()->json(Cache::get('sigs'));
         }
-        return json_encode($sigs, JSON_PRETTY_PRINT);
+
+        $sigs = [];
+        $allSigs = Sig::orderBy('name', 'asc')->get();
+        foreach ($allSigs as $sig) {
+            $sigs[$sig->id] = $sig;
+            $sigs[$sig->id]->institutions = $sig->institutions;
+        }
+
+        $expiresAt = Carbon::now()->addDay(1);
+        Cache::put('sigs', $sigs, $expiresAt);
+        return response()->json($sigs);
     }
 
     public function getSigInstitutionsJson($id)

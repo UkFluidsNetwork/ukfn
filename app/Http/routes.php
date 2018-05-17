@@ -42,6 +42,7 @@ Route::get('api/tags/{tagtype}', 'TagsController@getAllJson');
 Route::get('api/tags/{tagtype}/categories', 'TagsController@getAllCategoriesJson');
 Route::get('api/public/users/', 'UsersController@getUsersPublicJson');
 Route::get('users/terms/accept/{id}', 'UsersController@acceptGdpr');
+Route::get('api/public/users/institutions/', 'UsersController@getUserinstitutionsPublicJson');
 // require login
 Route::get('myaccount', 'PagesController@myaccount')->middleware('auth');
 Route::get('myaccount/personal', 'PagesController@personalDetails')->middleware('auth');

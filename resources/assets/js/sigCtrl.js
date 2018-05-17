@@ -25,22 +25,23 @@ angular.module('ukfn')
                     // prepare array with institutions only
                     var sigInstitutions = [];
 
-                    for(i=0; i<response.data.length; i++) {
-                        if (typeof response.data[i].institutions !== 'undefined') {
-                            for (z=0; z <response.data[i].institutions.length; z++) {
-                                sigInstitutions.push(response.data[i].institutions[z]);
-                            }
+                    angular.forEach(response.data, function(value, key) {
+                        if (typeof value.institutions !== 'undefined') {
+                            angular.forEach(value.institutions, function(ins, k) {
+                                sigInstitutions.push(ins);
+                            });
                         }
-                    }
+                    });
 
                     // get unique institutions
                     var all = [];
                     var output = [];
-                    for (x=0; x<sigInstitutions.length;x++) {
-                        if(all[sigInstitutions[x].id]) continue;
-                        all[sigInstitutions[x].id] = true;
-                        output.push(sigInstitutions[x]);
-                    }
+                    angular.forEach(sigInstitutions, function(value, key) {
+                        if (!all[value.id]) {
+                            all[value.id] = true;
+                            output.push(value);
+                        }
+                    });
                     // tell ng repeat to display it
                     controller.displayAll = true;
                     // return unique institutions
