@@ -433,7 +433,7 @@ class UsersController extends Controller
             $user->gdpr = 1;
             $user->save();
 
-            Session::flash('success_message',"Thank you, your confirmation's been saved.");
+            Session::flash('success_message',"Thank you. Your confirmation has been saved.");
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }
