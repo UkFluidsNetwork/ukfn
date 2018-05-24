@@ -419,12 +419,13 @@ input[type="text"], textarea, button {
   color: #ffffff;
   display: inline-block;
   font-weight: bold;
-  line-height: 1.4em;
+  line-height: 1.3em;
   margin-right: 5px;
   text-align: center;
   width: 1.4em;
   height: 1.4em;
   font-size: 13px;
+  padding-right: 1px;
 }
 
 .map-pointer.red {
@@ -454,4 +455,23 @@ input[type="text"], textarea, button {
   line-height: 1em;
   width: 1em;
   height: 1em;
+}
+
+.map-pointer.two-digits {
+  border-radius: 0.9em;
+  -moz-border-radius: 0.9em;
+  -webkit-border-radius: 0.9em;
+  line-height: 1.7em;
+  width: 1.8em;
+  height: 1.8em;
+}
+
+.map-pointer.three-digits {
+  border-radius: 1em;
+  -moz-border-radius: 1em;
+  -webkit-border-radius: 1em;
+  line-height: 1.9em;
+  width: 2em;
+  height: 2em;
+  padding-right: 0px;
 }

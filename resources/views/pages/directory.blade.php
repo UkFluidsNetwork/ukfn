@@ -192,7 +192,7 @@
                         position="@{{ institution.lat }},@{{ institution.lng }}"
                         on-click="dirCtrl.searchInst(institution.id)"
                         title="@{{institution.name}}">
-                        <div class="map-pointer hand-cursor" ng-class="{'selected': dirCtrl.instSelected('inst'+institution.id)}">
+                        <div class="map-pointer hand-cursor" ng-class="{'selected': dirCtrl.instSelected('inst'+institution.id), 'two-digits': institution.user_count > 9, 'three-digits': institution.user_count > 99}">
                             @{{ institution.user_count }}
                         </div>
                     </custom-marker>
