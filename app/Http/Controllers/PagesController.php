@@ -117,7 +117,7 @@ class PagesController extends Controller
         $subDisciplines = Tag::getAllDisciplines();
         $applications = Tag::getAllApplicationAreas();
         $sigs = Sig::all();
-        $total = User::where('researcher', 1)->count();
+        $total = User::where('researcher', 1)->where('gdpr', 1)->count();
 
         return view('pages.directory', compact('total',
             'curDisciplinesCategory', 'subDisciplines',
