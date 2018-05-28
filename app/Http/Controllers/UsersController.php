@@ -276,6 +276,7 @@ class UsersController extends Controller
             ->leftJoin('institutions', 'institution_users.institution_id',
                         '=', 'institutions.id')
             ->where("researcher", 1)
+            ->where("gdpr", 1)
             ->when(!empty($tags), function($query) use ($tags) {
                 return $query->where(function($query) use ($tags) {
                     foreach ($tags as $tag) {
@@ -373,6 +374,7 @@ class UsersController extends Controller
             ->leftJoin('sigs', 'sig_users.sig_id', '=', 'sigs.id')
             ->leftJoin('tags', 'user_tags.tag_id', '=', 'tags.id')
             ->where("researcher", 1)
+            ->where("gdpr", 1)
             ->when(!empty($tags), function($query) use ($tags) {
                 return $query->where(function($query) use ($tags) {
                     foreach ($tags as $tag) {
