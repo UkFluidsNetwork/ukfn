@@ -99,6 +99,7 @@
                     <p>
                       <table>
                         @foreach ($sig->users as $member)
+                        @if ($member->gdpr)
                         <tr>
                           <td>
                           @if ($member->isLeaderOfSig($sig->id))
@@ -128,6 +129,7 @@
                           @endif
                           </td>
                         </tr>
+                        @endif
                         @endforeach
                       </table>
                     </p>
