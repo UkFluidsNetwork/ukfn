@@ -8,6 +8,7 @@
           <th>Name</th>
           <th>Surname</th>
           <th>Email</th>
+          <th>GDPR</th>
           <th>ORCID ID</th>
           <th>Website</th>
           <th>Institutions</th>
@@ -25,6 +26,7 @@
         <td>{{ $user->name }}</td>
         <td>{{ $user->surname }}</td>
         <td>{{ $user->email }}</td>
+        <td>{{ $user->gdpr }}</td>
         <td>{{ $user->orcidid }}</td>
         <td>{{ $user->url }}</td>
         <td>
