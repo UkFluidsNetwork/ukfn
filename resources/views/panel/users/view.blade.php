@@ -14,6 +14,7 @@
           <th class="hide-this">Group</th>
           <th class="hide-this">Institution</th>
           <th class="hide-this">Email</th>
+          <th class="hide-this">GDPR</th>
           <th class="hide-this">Created</th>
           <th>Updated</th>
           <th>Action</th>
@@ -33,6 +34,7 @@
             @endforeach
         </td>
         <td class="hide-this">{{ Html::link('mailto:' . $user->email, $user->email) }}</td>
+        <td class="hide-this">{{ $user->gdpr }}</td>
         <td class="hide-this">{{ $user->created }}</td>
         <td>{{ $user->updated }}</td>
         <td>{{ Html::link('/panel/users/edit/' . $user->id, "Edit", ["class" => "btn btn-primary"])}}</td>
