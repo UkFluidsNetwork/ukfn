@@ -22,6 +22,7 @@ Route::get('srv', 'SrvsController@index');
 Route::get('researcher-resources', 'ResourcesController@index');
 Route::get('talks', 'TalksController@index');
 Route::get('talks/stream', 'TalksController@stream');
+Route::get('terms', 'PagesController@terms');
 Route::get('directory', 'PagesController@researchersDirectory');
 Route::get('connect', 'PagesController@about');
 Route::get('about', function() {return Redirect::to('connect');}); // old URI
