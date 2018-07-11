@@ -104,6 +104,18 @@ class PagesController extends Controller
     }
 
     /**
+     * Render "Terms and conditions" section
+     *
+     * @return \Illuminate\View\View
+     */
+    public function terms()
+    {
+        SEO::setTitle('Terms and Conditions');
+
+        return view('pages.terms');
+    }
+
+    /**
      * Render directory section
      *
      * @return \Illuminate\View\View
