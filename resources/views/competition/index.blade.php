@@ -1,32 +1,6 @@
 @extends('layouts.master')
 @section('content')
 
-  <h2 class='line-break'>
-      <span class="label label-new label-ukfn-red pull-left margin-right">
-          New
-      </span> UK Fluids Network dissertation prize
-  </h2>
-
-  <div class="well">
-    <p>
-        The UKFN invites nominations for the best Fluid Mechanics-themed doctoral thesis from 2017. The winner will receive a prize of £500 and, along with two runners-up, will be invited to present their work at the UK Fluids Conference in Manchester in September 2018.
-    </p>
-    <p>
-        The following pdf gives full details of how to enter:
-    </p>
-    <p>
-        [<a href="{{ asset('/files/Thesis_prize_nomination_details_180403.1522739067.pdf') }}">
-            Thesis_prize_nomination_details_180403.1522739067.pdf
-        </a>]
-    </p>
-    <p>
-        <b>The closing date for nominations is 30 April 2018.</b>
-    </p>
-  </div>
-
-  <br>
-  <hr>
-  <br>
 
   <h2 class='line-break'>
       <span class="label label-new label-ukfn-red pull-left margin-right">
