@@ -312,22 +312,28 @@
                             <!-- facilities input - end -->
                             <!-- subscription input - start -->
                             <div class="col-lg-10 col-lg-offset-1">
-                                <div class="form-group has-feedback input-icon-left {{ $errors->has('institutions') ? ' has-error' : ''}}">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('subscription') ? ' has-error' : ''}}">
                                     <div class="checkbox">
                                         <label><input id='subscription' name='subscription' type="checkbox" value="1">Add me to the mailing list</label>
                                     </div>
                                 </div>
                             </div>
                             <!-- subscription input - end -->
+                            <!-- gdpr input - start -->
+                            <div class="col-lg-10 col-lg-offset-1">
+                                <div class="form-group has-feedback input-icon-left {{ $errors->has('gdpr') ? ' has-error' : ''}}">
+                                    <div class="checkbox">
+                                        <label><input id='gdpr' name='gdpr' type="checkbox" value="1" ng-click="acceptGdpr=true" required="required">I have read and accept the <a href="/terms" target="_blank">terms and privacy policy</a>.</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- gdpr input - end -->
                             <!-- Submit button - start -->
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group line-break-dbl-top">
-                                    <a href class="btn btn-warning" ng-show="registrationForm.$valid" ng-click="registerBasic=false">
-                                        Previous
-                                    </a>
                                     <button id="registration-button" type="button" class="btn" ng-class="{
             'btn-primary' : registrationForm.$invalid,
-            'btn-success' : registrationForm.$valid}" ng-disabled="registrationForm.$invalid">
+            'btn-success' : registrationForm.$valid}" ng-disabled="registrationForm.$invalid || !registrationForm.$accepted" ng-show="registrationForm.$invalid">
                                         Register
                                     </button>
                                 </div>
