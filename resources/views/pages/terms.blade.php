@@ -31,10 +31,10 @@
   <div>
     <p class="h4 text-danger line-break-dbl-top">Privacy & Cookie Policy</p>
     <p class="line-break-dbl-top">
-      We collect no sensitive data from you, other than your email address, which is never displayed publicly unless you are a SIG leader.
+      We collect no sensitive data from you, other than your email address, which is never displayed publicly unless you are a SIG leader, co-leader, or key personnel.
     </p>
     <p>
-      By registering an account you agree to be listed in our Researchers Directory.
+      By registering an account you agree to be listed in our <a href="/directory">Researchers Directory</a>.
     </p>
     <p>
        This website does issue 'cookies' (these are small files of information which websites use to identify its users), however, these do not contain personal information. The UK Fluids Network does not share this data with third parties. You can disable cookies by altering the settings of your browser and the website will still function.
