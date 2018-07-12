@@ -31,7 +31,7 @@
   <div>
     <p class="h4 text-danger line-break-dbl-top">Privacy & Cookie Policy</p>
     <p class="line-break-dbl-top">
-      We collect no sensible data from you, other than your email address, which is never displayed publicly unless you are a SIG leader.
+      We collect no sensitive data from you, other than your email address, which is never displayed publicly unless you are a SIG leader.
     </p>
     <p>
       By registering an account you agree to be listed in our Researchers Directory.
