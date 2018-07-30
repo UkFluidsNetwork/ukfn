@@ -323,7 +323,7 @@
                             <div class="col-lg-10 col-lg-offset-1">
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('gdpr') ? ' has-error' : ''}}">
                                     <div class="checkbox">
-                                        <label><input id='gdpr' name='gdpr' type="checkbox" value="1" ng-click="acceptGdpr=true" required="required">I have read and accept the <a href="/terms" target="_blank">terms and privacy policy</a>.</label>
+                                        <label><input id='gdpr' name='gdpr' type="checkbox" value="1" ng-click="acceptGdpr=!acceptGdpr" required="required">I have read and accept the <a href="/terms" target="_blank">terms and privacy policy</a>. @{{ notAcceptGdpr }}</label>
                                     </div>
                                 </div>
                             </div>
@@ -333,7 +333,7 @@
                                 <div class="form-group line-break-dbl-top">
                                     <button id="registration-button" type="button" class="btn" ng-class="{
             'btn-primary' : registrationForm.$invalid,
-            'btn-success' : registrationForm.$valid}" ng-disabled="registrationForm.$invalid || !registrationForm.$accepted" ng-show="registrationForm.$invalid">
+            'btn-success' : registrationForm.$valid}" ng-disabled="registrationForm.$invalid || !acceptGdpr">
                                         Register
                                     </button>
                                 </div>
