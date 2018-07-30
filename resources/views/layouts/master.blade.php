@@ -40,6 +40,7 @@
 
         <script src="{{ elixir('js/main.js') }}"></script>
         <script src="{{ asset('js/analytics.js') }}" async="async"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/cookie-bar/cookiebar-latest.min.js?tracking=1&thirdparty=1&always=1&remember=90&privacyPage=https%3A%2F%2Ffluids.ac.uk%2Fterms"></script>
 
         <meta name="msapplication-TileColor" content="#ffffff">
         <meta name="msapplication-TileImage"
