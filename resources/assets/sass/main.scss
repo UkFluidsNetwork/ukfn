@@ -475,3 +475,34 @@ input[type="text"], textarea, button {
   height: 2em;
   padding-right: 0px;
 }
+
+#cookie-bar, #cookie-bar-prompt-content {
+  background: $ukfn-darkblue !important;
+  font-weight: 400 !important;
+  color: #FFF !important;
+}
+
+#cookie-bar-prompt-button {
+  color: $light-grey !important;
+}
+
+#cookie-bar-button {
+  background: $ukfn-lightblue !important;
+  border: none !important;
+  text-shadow: none !important;
+  border-radius: 0 !important;
+}
+
+#cookie-bar-prompt-logo {
+  display: none !important;
+}
+
+#cookie-bar-prompt-content a,
+#cookie-bar-prompt-content span {
+  color: $light-grey !important;
+  text-decoration: underline !important;
+}
+
+#cookie-bar-prompt-content a:hover {
+  color: #FFF !important;
+}
