@@ -24,7 +24,7 @@
       @else
       <img class="first-slide"
          src="{{ $item->file->path }}/{{ $item->file->name }}"
-         alt="First slide">
+         alt="{{ $item->file->name }}">
       @endif
       <div class="container">
         <div class="carousel-caption">
