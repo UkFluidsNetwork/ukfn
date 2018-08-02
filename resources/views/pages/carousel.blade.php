@@ -37,7 +37,7 @@
         <div class="carousel-caption">
           <h3>
               {{ $item->name }}
-              <a class="new-window" title="Open in a new tab" target="_blank" href="@if ($item->file->name == $item->file->path) {{ $item->file->name }} @else {{ $item->file->path }}/{{ $item->file->name }} @endif">
+              <a class="new-window" title="Open in a new tab" target="_blank" href="@if($item->file->name == $item->file->path){{ $item->file->name }}@else{{ $item->file->path }}/{{ $item->file->name }}@endif">
                 <span class="glyphicon glyphicon-new-window" aria-hidden="true">
                 </span>
               </a>
