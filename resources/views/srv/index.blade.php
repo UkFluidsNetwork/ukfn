@@ -32,15 +32,13 @@
   <h2 class='line-break'>Short Research Visits</h2>
   <div class="well">
     <p>
-      UKFN is pleased to invite proposals for SRVs.
-      The call is open to anyone working in fluid mechanics in the UK.
-      The following pdf gives the context of the call and sets out the information you need to provide in your proposal:
-    <p>
-    <p>
-      [<a href="{{ asset('files/UKFN_SRVs_call_180115.1516005468.pdf') }}">UKFN_SRVs_call_180115.1516005468.pdf</a>]
+      UKFN is pleased to invite proposals for SRVs. The call is open to anyone working in fluid mechanics in the UK. The following pdf gives the context of the call and sets out the information you need to provide in your proposal:
     </p>
     <p>
-      Proposals will be assessed in batches every 2 months. The next deadline is 30 September 2018. In exceptional cases, it will be possible to consider funding outside the normal deadlines. Please contact us for a preliminary discussion.
+      [<a href="{{ asset('files/srv/UKFN_SRVs_call_181008.1539007565.pdf') }}">UKFN_SRVs_call_181008.1539007565.pdf</a>]
+    </p>
+    <p>
+      Proposals will be assessed in batches. The next deadline is 31 January 2019. In exceptional cases, it will be possible to consider funding outside the normal deadlines. Please contact us for a preliminary discussion.
     </p>
   </div>
 
