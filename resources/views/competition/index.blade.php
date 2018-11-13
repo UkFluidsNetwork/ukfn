@@ -5,7 +5,7 @@
   <h2 class='line-break'>
       <span class="label label-new label-ukfn-red pull-left margin-right">
           New
-      </span> Photo and Video Competition #4
+      </span> Photo and Video Competition #5: Instability
   </h2>
 @if (false)
   <div style="text-align:center;">
@@ -29,18 +29,18 @@
 @endif
   <div class="well">
     <p>
-        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition deadline is 31 July 2018.
+        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition deadline is 30 November 2018.
     </p>
   </div>
   <p>
       The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition runs every 4 months and the winner will be decided by a combination of popular vote and a panel drawn from the UKFN Executive Committee.
   </p>
-  <p><b>This will be an open competition, without a specific theme, so all photos and videos are eligible.</b></p>
+  <p><b>This theme is 'instability'.</b></p>
   <p>
       They will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
 
-  <p><b>The closing date for entries is 31 July 2018.</b></p>
+  <p><b>The closing date for entries is 30 Novermber 2018.</b></p>
 
   <div class="container-fluid nopadding-left">
     <div class="row">
