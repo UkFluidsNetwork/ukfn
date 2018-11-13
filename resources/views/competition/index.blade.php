@@ -35,7 +35,7 @@
   <p>
       The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition runs every 4 months and the winner will be decided by a combination of popular vote and a panel drawn from the UKFN Executive Committee.
   </p>
-  <p><b>This theme is 'instability'.</b></p>
+  <p><b>The theme for this competition is 'Instability'.</b></p>
   <p>
       They will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
   </p>
