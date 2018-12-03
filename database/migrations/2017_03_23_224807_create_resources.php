@@ -15,7 +15,7 @@ class CreateResources extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('description');
+            $table->text('description');
             $table->integer('user_id')->unsigned();
             $table->nullableTimestamps();
             $table->softDeletes();
