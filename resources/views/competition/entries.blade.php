@@ -207,6 +207,4 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-
 </div>
 @endforeach
 
-@endif
-
 @endsection
