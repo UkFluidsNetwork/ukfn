@@ -27,13 +27,13 @@
 
 @if (false)
     <p>
-      The third UK Fluids Network photo and video competition has finished, and voting is now closed. We will shortly announce the winner photo and video.
+      The fifth UK Fluids Network photo and video competition has finished, and voting is now closed. We will shortly announce the winner photo and video.
     </p>
 
   @if (false)
   <div class="well">
     <p>
-      The third UK Fluids Network photo and video competition has finished, and voting is now closed.
+      The fifth UK Fluids Network photo and video competition has finished, and voting is now closed.
     </p>
     @if ($name === "photo")
     <p>
@@ -77,11 +77,11 @@
   <div class="well">
     @if ($name === "photo")
     <p>
-      Below are the finalist {{ $name }} entries of the third UK Fluids Network photo and video competition: 'The invisible made visible - uncovering hidden patterns, trends and structures'  - click <a href="/competition/vote/videos">here</a> to vote for the finalist videos.
+      Below are the finalist {{ $name }} entries of the fifth UK Fluids Network photo and video competition with theme 'Instability'  - click <a href="/competition/vote/videos">here</a> to vote for the finalist videos.
     </p>
     @elseif ($name === "video")
     <p>
-      Below are the finalist {{ $name }} entries of the third UK Fluids Network photo and video competition: 'The invisible made visible - uncovering hidden patterns, trends and structures'  - click <a href="/competition/vote/photos">here</a> to vote for the finalist photos.
+      Below are the finalist {{ $name }} entries of the fifth UK Fluids Network photo and video competition with theme 'Instability'  - click <a href="/competition/vote/photos">here</a> to vote for the finalist photos.
     </p>
     @endif
     <p>
