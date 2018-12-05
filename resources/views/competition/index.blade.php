@@ -7,40 +7,36 @@
           New
       </span> Photo and Video Competition #5: Instability
   </h2>
-@if (false)
+
   <div style="text-align:center;">
     <div class="row">
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/photos/"
+      <a href="/competition/vote/photos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Winner Photo
+           Photo Entries
        </a>
     </div>
     <div class="col-sm-6 col-xs-12">
-      <a href="/competition/winner/videos/"
+      <a href="/competition/vote/videos/"
          class="btn btn-primary line-break-dbl"
          style="width: 100%; padding-bottom: 1em; padding-top: 1em; font-weight:bold;">
-           Winner Video
+           Video Entries
        </a>
     </div>
     </div>
   </div>
-@endif
+
   <div class="well">
     <p>
-        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics. The competition deadline is 30 November 2018.
+        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics on the theme <b>‘Instability’</b>.
     </p>
   </div>
-  <p>
-      The UK Fluids Network wants to showcase new photos and videos from the UK fluids community, and is offering cash prizes of £200 for the best photo and the best video from a UK-based fluids researcher. The competition runs every 4 months and the winner will be decided by a combination of popular vote and a panel drawn from the UKFN Executive Committee.
-  </p>
-  <p><b>The theme for this competition is 'Instability'.</b></p>
-  <p>
-      They will be featured on the UKFN website and YouTube channel. The winners will also have the opportunity to describe the background research in an article on the UKFN website.
-  </p>
 
-  <p><b>The closing date for entries is 30 Novermber 2018.</b></p>
+  <p><b>Voting is now open until 12 December 2018.</b></p>
+
+@if (false)
+  <p><b>The closing date for entries was 31 March 2018.</b></p>
 
   <div class="container-fluid nopadding-left">
     <div class="row">
@@ -106,5 +102,6 @@
         </div>
     </div>
   </div>
+  @endif
 
 @endsection

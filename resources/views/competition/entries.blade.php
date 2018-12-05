@@ -25,11 +25,10 @@
 
   <h2 class='line-break'>{{ $title }} Entries</h2>
 
+@if (false)
     <p>
       The third UK Fluids Network photo and video competition has finished, and voting is now closed. We will shortly announce the winner photo and video.
     </p>
-
-@if (false)
 
   @if (false)
   <div class="well">
@@ -48,6 +47,7 @@
     <p>
   </div>
   @endif
+@endif
 
   @if (Session::has('vote_ok'))
     <div class="alert alert-success">
@@ -103,7 +103,7 @@
 
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-04-04 00:00:00") {
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-12-05 10:00:00") {
   continue;
 }
 ?>
