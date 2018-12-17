@@ -198,7 +198,7 @@
                                 <div class="form-group has-feedback input-icon-left {{ $errors->has('url') ? ' has-error' : ''}}">
                                     <label for='url' class ="sr-only">Personal website</label>
                                     <input type="url" id="surname" name="url" value="{{ old('url')}}" class="form-control"
-                                           placeholder="Personal website" ng-init="data.url='{{ old('url')}}'">
+                                           placeholder="Personal website (include http:// or https://)" ng-init="data.url='{{ old('url')}}'">
                                     <i class="form-control-feedback glyphicon glyphicon-globe" aria-hidden="true"></i>
                                 </div>
                             </div>
