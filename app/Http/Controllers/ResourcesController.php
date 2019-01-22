@@ -74,6 +74,7 @@ class ResourcesController extends Controller
                     $toAdd = true;
                 }
             }
+            $resource->tags;
 
             $tagFound = true;
             if (!empty($disciplines)) {
@@ -91,7 +92,17 @@ class ResourcesController extends Controller
                 $count++;
             }
         }
-        return response()->json($resources);
+        $tags = [];
+        foreach ($resources as $resource) {
+            foreach ($resource->tags as $tag) {
+                if (!isset($tags[$tag->name])) {
+                    $tags[$tag->name] = [];
+                }
+                $tags[$tag->name][] = $resource;
+            }
+        }
+        ksort($tags);
+        return response()->json($tags);
     }
 
     public function view()
