@@ -42,8 +42,8 @@
 
 @foreach ($entries as $entry)
 <?php
-if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-04-04 00:00:00") {
-  continue;
+if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-12-05 10:00:00") {
+ continue;
 }
 ?>
 <div class="row">
