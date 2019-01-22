@@ -29,8 +29,8 @@
     <p>
       The fifth UK Fluids Network photo and video competition has finished, and voting is now closed. We will shortly announce the winner photo and video.
     </p>
+@endif
 
-  @if (false)
   <div class="well">
     <p>
       The fifth UK Fluids Network photo and video competition has finished, and voting is now closed.
@@ -46,9 +46,8 @@
     @endif
     <p>
   </div>
-  @endif
-@endif
 
+@if (false)
   @if (Session::has('vote_ok'))
     <div class="alert alert-success">
         @if ($name === "photo")
@@ -206,5 +205,6 @@ if ($entry->file->filetype->shortname !== $title || $entry->created_at != "2018-
   </div>
 </div>
 @endforeach
+@endif
 
 @endsection
