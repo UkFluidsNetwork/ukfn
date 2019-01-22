@@ -47,7 +47,9 @@
                     </p>
                 </div>
                 <!-- resources - start -->
-                <div ng-repeat="resource in resourcesCtrl.resources"
+                <div ng-repeat="(key, tag) in resourcesCtrl.resources">
+                    <h3>@{{key}}</h3>
+                <div ng-repeat="resource in tag"
                      class='panel panel-default'>
                     <a  ng-href="@{{ '#collapse-' + resource.id }}"
                         ng-click="isCollapsed = !isCollapsed"
@@ -181,6 +183,7 @@
                     </div>
                     <!-- inner resource - tutorials -end !-->
                 </div>
+            </div>
                 <!-- resources - end -->
             </div>
         </div>
