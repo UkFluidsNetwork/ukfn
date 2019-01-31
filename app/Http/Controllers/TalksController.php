@@ -409,4 +409,23 @@ class TalksController extends Controller
     {
         return view('talks.stream');
     }
+
+    /**
+     * Display an index of all talks for web crawling
+     *
+     * @return Illuminate\Support\Facades\View
+     */
+    public function allTalksList()
+    {
+        $allTalks = Talk::all();
+        $talks = self::formatTalks($allTalks);
+
+        echo "<ul>";
+        foreach ($talks as $talk) {
+            $url = "https://fluids.ac.uk/talks/" . $talk->id;
+            $title = $talk->title;
+            echo "<li><a href=\"${url}\">${title}</a></li>";
+        }
+        echo "</ul>";
+    }
 }
