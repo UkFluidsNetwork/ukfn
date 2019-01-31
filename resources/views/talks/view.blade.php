@@ -24,8 +24,40 @@
                         <i class="glyphicon glyphicon-warning-sign"></i> Streaming will be made available 15 minutes before the start of the talk. 
                     </p>
                 @endif
-                
+
             </div>
         </section>
-            
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Event",
+  "name": "{{ $talk->title }}",
+  "startDate": "{{ $talk->start }}",
+  "location": {
+    "@type": "Place",
+    "name": "{{ $talk->venue }}",
+    "address": {
+      "@type": "PostalAddress",
+      "addressCountry": "UK"
+    }
+  },
+  "description": "{{ $talk->abstract }}",
+  "endDate": "{{ $talk->end }}",
+  "performer": {
+    "@type": "Person",
+    "name": "{{ $talk->speaker }}"
+  },
+  "image": "https://fluids.ac.uk/pictures/logo.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "GBP",
+    "availability": "https://schema.org/InStock",
+    "validFrom": "{{ $talk->created_at }}",
+    "url": "https://fluids.ac.uk/talks/{{ $talk->id }}"
+  }
+}
+</script>
+
 @endsection
