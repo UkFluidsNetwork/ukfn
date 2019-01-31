@@ -48,6 +48,8 @@ class TalksController extends Controller
     {
         $nonFormatedtalk = Talk::findOrFail($id);
         $talk = self::formatTalks([$nonFormatedtalk])[0];
+        SEO::setTitle($talk->title . " - " . $talk->speaker);
+        SEO::setDescription($talk->abstract);
 
         return view('talks.view', compact('talk'));
     }
