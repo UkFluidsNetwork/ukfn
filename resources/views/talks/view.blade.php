@@ -55,7 +55,7 @@
     "priceCurrency": "GBP",
     "availability": "https://schema.org/InStock",
     "validFrom": "{{ $talk->created_at }}",
-    "url": "https://fluids.ac.uk/talks/{{ $talk->id }}"
+    "url": "{{ $talk->url }}"
   }
 }
 </script>
