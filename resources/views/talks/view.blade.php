@@ -53,7 +53,7 @@
     "@type": "Offer",
     "price": "0",
     "priceCurrency": "GBP",
-    "availability": "https://schema.org/InStock",
+    "availability": "InStock",
     "validFrom": "{{ $talk->created_at }}",
     "url": "{{ $talk->url }}"
   }
