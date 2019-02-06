@@ -301,6 +301,11 @@
     <p class="line-break-dbl-top">
     <ul>
       <li>
+        Executive Committee meeting, Thursday 17 January 2019:
+        [<a href="{{ asset('files/meetings/Agenda_170119_EC_meeting.1549448885.pdf') }}">Agenda_170119_EC_meeting.pdf</a>],
+        [<a href="{{ asset('files/meetings/Minutes_170119_EC_Meeting.1549448895.pdf') }}">Minutes_170119_EC_Meeting.pdf</a>]
+      </li>
+      <li>
         Executive Committee meeting, Friday 1 May 2018:
         [<a href="{{ asset('files/Agenda_010518_EC_Meeting.1543492837.pdf') }}">Agenda_010518_EC_Meeting.pdf</a>],
         [<a href="{{ asset('files/Minutes_010518_EC_Meeting.1543492854.pdf') }}">Minutes_010518_EC_Meeting.pdf</a>]
