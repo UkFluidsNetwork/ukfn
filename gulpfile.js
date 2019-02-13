@@ -63,12 +63,16 @@ elixir(function(mix) {
              'public/build/fonts/lato-fonts');
     mix.copy('node_modules/bootstrap-sass/assets/fonts/bootstrap',
              'public/build/fonts/bootstrap');
+    mix.copy('resources/assets/fonts/gallery-fonts',
+             'public/build/fonts/gallery-fonts');
 
 
     // compile all sass to css and move to public/css
     mix.sass('main.scss');
+    mix.sass('gallery.scss');
 
     // include version
     // See: https://laravel.com/docs/5.3/elixir#versioning-and-cache-busting
-    mix.version(['public/css/main.css', 'public/js/main.js']);
+    mix.version(['public/js/main.js', 'public/css/main.css',
+                 'public/css/gallery.css', 'public/js/gallery.js']);
 });
