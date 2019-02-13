@@ -195,7 +195,9 @@
         </div>
         <!-- MAIN CONTENT - END -->
         <!-- FOOTER - START -->
+        @if (!isset($hideFooter))
         @include('layouts.footer')
+        @endif
         <!-- FOOTER - END -->
     </body>
 </html>
