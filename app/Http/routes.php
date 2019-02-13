@@ -63,6 +63,7 @@ Route::get('panel/sig/box/toggle/{id}', 'SigsController@toggleBoxStatus')->middl
 Route::get('panel/sig/box/move/{direction}/{id}', 'SigsController@moveBox')->middleware('sig-box');
 
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
+Route::get('gallery', 'PagesController@gallery');
 // require canViewUsers
 Route::get('api/users/{id}', 'UsersController@getUserJson')->middleware('admin-leader');
 // require admin
