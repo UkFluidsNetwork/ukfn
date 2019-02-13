@@ -35,6 +35,12 @@
                 <img src="{{ $file->path }}/{{ $file->name }}" title="{{ $file->name }}"
                      alt="{{ $file->name }}" class="thumb" />
             </a>
+            @elseif ($file->filetype->shortname == 'Video')
+            <a href="{{ $file->path }}" class="thumb_link">
+                <span class="selected play-layer"></span>
+                <img src="{{ $file->getThumbnail() }}" title="{{ $file->name }}"
+                     alt="{{ $file->name }}" class="thumb" />
+            </a>
             @endif
             @endforeach
             <p class="clear"></p>
@@ -43,7 +49,10 @@
 </div>
 </div>
 <div id="bg">
-    <img src="{{ $files->first()->path }}/{{ $files->first()->name }}" title="{{ $file->name }}" id="bgimg" />
+    <div class="embed-responsive embed-responsive-4by3">
+      <iframe class="embed-responsive-item" src="https://fluids.ac.uk{{ $files->first()->path }}/{{ $files->first()->name }}"
+       allowfullscreen="" id="bgimg"> </iframe>
+   </div>
   <div id="preloader"><img src="/pictures/ajax-loader_dark.gif" width="32" height="32" align="absmiddle" />Loading...</div>
     <div id="arrow_indicator" title="Open images thumbnails"><img src="/pictures/sw_arrow_indicator.png" width="50" height="50" alt="Open images thumbnails" /></div>
     <div id="nextimage_tip">Next</div>
