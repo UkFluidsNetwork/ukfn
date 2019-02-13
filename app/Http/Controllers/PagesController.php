@@ -736,5 +736,21 @@ class PagesController extends Controller
         }
         return redirect('/panel/carousel/');
     }
+
+    /**
+     * Render directory section
+     *
+     * @return \Illuminate\View\View
+     */
+    public function gallery()
+    {
+        SEO::setTitle('Gallery');
+        SEO::setDescription('');
+
+        $files = File::all()->where('gallery', 1);
+        $hideFooter = true;
+
+        return view('gallery.index', compact('files', 'hideFooter'));
+    }
 }
 
