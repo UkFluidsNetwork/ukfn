@@ -3,8 +3,8 @@
 @section('head')
 <script type="text/javascript" src="{{ asset('js/vendor/jquery.easing.1.3.js') }}"></script>
 <script type="text/javascript" src="{{ asset('js/vendor/jquery.mousewheel.min.js') }}"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <link href="{{ elixir('css/gallery.css') }}" rel="stylesheet" type="text/css">
 <style>
     #main-content {
