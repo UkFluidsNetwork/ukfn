@@ -29,7 +29,7 @@ Route::get('connect', 'PagesController@about');
 Route::get('about', function() {return Redirect::to('connect');}); // old URI
 Route::get('contact', function() {return Redirect::to('connect');}); // old URI
 Route::get('admin', function() {return Redirect::to('connect');}); // old URI
-Route::get('competition', 'CompetitionController@index');
+Route::get('competition', function() {return Redirect::to('connect#competition');}); // old URI
 Route::get('competition/vote/{type}', 'CompetitionController@displayEntries');
 Route::get('competition/winner/{type}', 'CompetitionController@displayWinners');
 Route::get('viewmessage/{id}', 'PagesController@viewmessage');

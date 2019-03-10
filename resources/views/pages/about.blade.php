@@ -294,6 +294,57 @@
   </div>
 </section>
 
+<div  id="competition"></div>
+
+<section class="page-header">
+    <h3>Competition</h3>
+  <div>
+    <p class="h4 text-danger line-break-dbl-top"><span class="label label-new label-ukfn-blue pull-left margin-right">
+          New
+      </span> UK Fluids Network dissertation prize
+    </p>
+    <p>
+        The UKFN invites nominations for the best Fluid Mechanics-themed doctoral thesis from 2018. The winner will receive a prize of £500 and, along with two runners-up, will be invited to present their work at the UK Fluids Conference in Cambridge in August 2019.
+    </p>
+    <p>
+        The following pdf gives full details of how to enter:
+    </p>
+    <p>
+        [<a href="{{ asset('/files/Thesis_prize_2019_nomination_details_190212.pdf') }}">
+            Thesis_prize_2019_nomination_details_190212.pdf
+        </a>]
+    </p>
+    <p>
+        <b>The closing date for nominations is 31 March 2019.</b>
+    </p>
+  </div>
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">Photo and Video Competition Archive</p>
+    <ul>
+        <li>
+            #5: Instability:
+            [<a href="{{ asset('files/06_Naresh_Sampara_Farday_v2_1024w.1543871153.png') }}">Winner Photo</a>],
+            [<a href="https://upload.sms.cam.ac.uk/media/2877076/embed">Winner Video</a>]
+        </li>
+        <li>
+            #4: Open Competition (no theme):
+            [<a href="{{ asset('files/08_Photo_180331.1522825653.png') }}">Winner Photo</a>],
+            [<a href="https://upload.sms.cam.ac.uk/media/2718159/embed">Winner Video</a>]
+        </li>
+        <li>
+            #3: "The invisible made visible: uncovering hidden patterns, trends and structures":
+            [<a href="{{ asset('files/01_Photo.1513333710.png') }}">Winner Photo</a>],
+            [<a href="https://upload.sms.cam.ac.uk/media/2618474/embed">Winner Video</a>]
+        </li>
+        <li>
+            #1: Open Competition (no theme):
+            [<a href="{{ asset('pictures/competition/3-double-diffusive_instabilit.jpg') }}">Winner Photo</a>],
+            [<a href="https://sms.cam.ac.uk/media/2532068/embed">Winner Video</a>]
+        </li>
+    </ul>
+  </div>
+</section>
+
 <section class="page-header">
 <h3>Documents</h3>
   <div>

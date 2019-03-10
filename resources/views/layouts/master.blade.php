@@ -117,9 +117,8 @@
                           <li class="{{ Request::is('directory*') ? 'active' : '' }}">
                                 {{ Html::link('/directory', 'Directory', ['title' => 'Researchers Directory']) }}
                             </li>
-                            <li class="{{ Request::is('competition*') ? 'active' : '' }}">
-                                {{ Html::link('/competition', 'Competition', ['title' => 'Photo and video competition']) }}
-                            </li>
+                            <li class="{{ Request::is('gallery*') ? 'active' : '' }}">
+                                {{ Html::link('/gallery', 'Gallery', ['title' => 'Multimedia Gallery']) }}
                             <li class="{{ Request::is('connect*') ? 'active' : '' }}">
                                 {{ Html::link('/connect', 'Connect', ['title' => 'Information about the network']) }}
                             </li>

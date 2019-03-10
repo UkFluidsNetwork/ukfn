@@ -31,14 +31,14 @@
             @foreach ($files as $file)
             @if ($file->filetype->shortname == 'Photo')
             <a href="{{ $file->path }}/{{ $file->name }}" class="thumb_link">
-                <img src="{{ $file->path }}/{{ $file->name }}" title="{{ $file->name }}"
-                     alt="{{ $file->name }}" class="thumb" />
+                <img src="{{ $file->path }}/{{ $file->name }}" title="{{ $file->competitionentries ? $file->competitionentries[0]->name : $file->name }}"
+                     alt="{{ $file->competitionentries ? $file->competitionentries[0]->description : $file->name }}" class="thumb" />
             </a>
             @elseif ($file->filetype->shortname == 'Video')
             <a href="{{ $file->path }}" class="thumb_link">
                 <span class="play-layer"></span>
-                <img src="{{ $file->getThumbnail() }}" title="{{ $file->name }}"
-                     alt="{{ $file->name }}" class="thumb" />
+                <img src="{{ $file->getThumbnail() }}" title="{{ $file->competitionentries ? $file->competitionentries[0]->name : $file->name }}"
+                     alt="{{ $file->competitionentries ? $file->competitionentries[0]->description : $file->name }}" class="thumb" />
             </a>
             @endif
             @endforeach

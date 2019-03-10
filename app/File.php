@@ -57,6 +57,18 @@ class File extends Model
         return $this->belongsTo('App\User');
     }
 
+
+    /**
+     * Get the competitionentries associated with this file
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\hasMany
+     */
+    public function competitionentries()
+    {
+        return $this->hasMany('App\Competitionentry');
+    }
+
+
     /**
      * Attempt to get a thumbnail from sms or vimeo if file is a video
      *
