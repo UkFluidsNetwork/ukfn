@@ -51,7 +51,7 @@
                     <h3>@{{key}}</h3>
                 <div ng-repeat="resource in tag"
                      class='panel panel-default'>
-                    <a  ng-href="@{{ '#collapse-' + resource.id }}"
+                    <a  ng-href="@{{ '#collapse-' + key + resource.id }}"
                         ng-click="isCollapsed = !isCollapsed"
                         data-toggle='collapse' 
                         class="noborder list-group-item talk panel-body accordion-toggle">
@@ -76,7 +76,7 @@
                         </span>
                     </a>
                     <!-- inner resource - tutorials - start !-->
-                    <div ng-attr-id="@{{ 'collapse-' + resource.id }}" 
+                    <div ng-attr-id="@{{ 'collapse-' + key + resource.id }}" 
                          class='accordion-body collapse padding' 
                          style='padding-top:0;'>
                         <div ng-repeat="tutorial in resource.tutorials">
