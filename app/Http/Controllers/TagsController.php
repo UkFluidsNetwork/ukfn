@@ -198,7 +198,8 @@ class TagsController extends Controller
         }
         foreach ($rawTags as $tag) {
             $tags[$tag->id] = $tag;
-            $tags[$tag->id]->tagtype = $tag->tagtype;
+            $type = Tagtype::findOrFail($tag->tagtype_id);
+            $tags[$tag->id]->tagtype = $type;
         }
 
         $expiresAt = Carbon::now()->addDay(1);
