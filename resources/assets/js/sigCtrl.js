@@ -15,7 +15,7 @@ angular.module('ukfn')
                 $http(
                     {
                         method: 'GET',
-                        url: '/api/sigs'
+                        url: '/api/sigs?order=name'
                     }
                 ).then(function (response) {
 

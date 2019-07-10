@@ -240,24 +240,38 @@ class SigsController extends Controller
     /**
      * Get all sigs.
      *
+     * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public static function getAllJson()
+    public static function getAllJson(Request $request)
     {
+        $parameters = $request->all();
+        $order = isset($parameters['order']) && $parameters['order'] == 'name'
+            ? 'name'
+            : 'id';
+
         // see if request has been cached
-        if (Cache::has('sigs')) {
-            return response()->json(Cache::get('sigs'));
+        if (Cache::has("sigs-${order}")) {
+            return response()->json(Cache::get("sigs-${order}"));
         }
 
         $sigs = [];
-        $allSigs = Sig::orderBy('name', 'asc')->get();
+        $allSigs = Sig::orderBy($order, 'asc')->get();
         foreach ($allSigs as $sig) {
-            $sigs[$sig->id] = $sig;
-            $sigs[$sig->id]->institutions = $sig->institutions;
+            switch ($order) {
+                case "name":
+                    $sigs[$sig->name] = $sig;
+                    $sigs[$sig->name]->institutions = $sig->institutions;
+                    break;
+                case "id":
+                    $sigs[$sig->id] = $sig;
+                    $sigs[$sig->id]->institutions = $sig->institutions;
+                    break;
+            }
         }
 
         $expiresAt = Carbon::now()->addDay(1);
-        Cache::put('sigs', $sigs, $expiresAt);
+        Cache::put("sigs-${order}", $sigs, $expiresAt);
         return response()->json($sigs);
     }
 
