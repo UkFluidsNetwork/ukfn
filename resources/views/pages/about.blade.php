@@ -294,10 +294,10 @@
   </div>
 </section>
 
-<div  id="competition"></div>
+<div id="competition"></div>
 
 <section class="page-header">
-    <h3>Competition</h3>
+    <h3>Competitions</h3>
   <div>
     <p class="h4 text-danger line-break-dbl-top"><span class="label label-new label-ukfn-blue pull-left margin-right">
           New
@@ -328,12 +328,17 @@
         </li>
         <li>
             #4: Open Competition (no theme):
+            [<a href="{{ asset('files/williams_2-up.1562826471.jpg') }}">Winner Photo</a>],
+            [<a href="https://upload.sms.cam.ac.uk/media/2803180/embed">Winner Video</a>]
+        </li>
+        <li>
+            #3: "The invisible made visible: uncovering hidden patterns, trends and structures":
             [<a href="{{ asset('files/08_Photo_180331.1522825653.png') }}">Winner Photo</a>],
             [<a href="https://upload.sms.cam.ac.uk/media/2718159/embed">Winner Video</a>]
         </li>
         <li>
-            #3: "The invisible made visible: uncovering hidden patterns, trends and structures":
-            [<a href="{{ asset('files/01_Photo.1513333710.png') }}">Winner Photo</a>],
+            #2: "The interface between solid and fluid mechanics":
+            [<a href="{{ asset('files/14_Cuttle_truncated.1523960594.png') }}">Winner Photo</a>],
             [<a href="https://upload.sms.cam.ac.uk/media/2618474/embed">Winner Video</a>]
         </li>
         <li>
