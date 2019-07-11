@@ -4,6 +4,10 @@
     .titleless {
         margin-top: 2.85em;
     }
+    div:target {
+        padding-top: 60px;
+        margint-top: -60px;
+    }
 </style>
 
 <div class="well responsive">
@@ -301,22 +305,43 @@
   <div>
     <p class="h4 text-danger line-break-dbl-top"><span class="label label-new label-ukfn-blue pull-left margin-right">
           New
-      </span> UK Fluids Network dissertation prize
+      </span> Photo and Video Competition #6: Complex Fluids
     </p>
     <p>
-        The UKFN invites nominations for the best Fluid Mechanics-themed doctoral thesis from 2018. The winner will receive a prize of £500 and, along with two runners-up, will be invited to present their work at the UK Fluids Conference in Cambridge in August 2019.
+        The UK Fluids Network presents a new competition, open to all UK-based fluids researchers, for the best new photo and video in Fluid Mechanics on the theme <b>‘Complex Fluids’</b>.
     </p>
+    <p>How to enter:</p>
+    <ul>
+      <li>You must be a UK-based fluid mechanics researcher, i.e. at a university, research institute, or company</li>
+      <li>Email photos directly to <a href="mailto:competition@fluids.ac.uk">competition@fluids.ac.uk</a>. Submit videos by giving a link to a suitable data-sharing website, e.g. Dropbox.</li>
+      <li>
+        In both cases, the covering email must contain the following information:
+        <ol type="a">
+          <li>Name and affiliation</li>
+          <li>Title (max 10 words)</li>
+          <li>Description, including whether (for photos) the image is a composite or has been enhanced (max 50 words)</li>
+          <li>Keywords (max 5)</li>
+          <li>A statement granting non-exclusive use of the media:
+            <p>
+“I have checked with my [supervisor/manager/sponsor] __________________ that I have permission to enter the proposed photo(s)/video(s) in the competition and give the UK Fluids Network the right to publish them on its website and elsewhere.”
+            </p>
+          </li>
+          <li>Whether the photo/video has won other competitions</li>
+          <li>Any due acknowledgements</li>
+        </ol>
+      </li>
+    </ul>
     <p>
-        The following pdf gives full details of how to enter:
+        <b>The closing date for entries is 31 July 2019.</b>
     </p>
-    <p>
-        [<a href="{{ asset('/files/Thesis_prize_2019_nomination_details_190212.pdf') }}">
-            Thesis_prize_2019_nomination_details_190212.pdf
-        </a>]
-    </p>
-    <p>
-        <b>The closing date for nominations is 31 March 2019.</b>
-    </p>
+  </div>
+  <div>
+    <p class="h4 text-danger line-break-dbl-top">UK Fluids Network dissertation prize</p>
+    <ul>
+        <li>
+          #1: 2018
+        </li>
+    </ul>
   </div>
   <div>
     <p class="h4 text-danger line-break-dbl-top">Photo and Video Competition Archive</p>
