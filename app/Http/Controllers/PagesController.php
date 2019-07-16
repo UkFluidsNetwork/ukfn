@@ -752,5 +752,24 @@ class PagesController extends Controller
 
         return view('gallery.index', compact('files', 'hideFooter'));
     }
+
+    /**
+     * Render directory section
+     *
+     * @param int $id
+     * @return \Illuminate\View\View
+     */
+    public function zoomify($id)
+    {
+        $file = File::findOrFail($id);
+        if (isset($file->competitionentries[0])) {
+            SEO::setTitle($file->competitionentries[0]->name);
+            SEO::setDescription($file->competitionentries[0]->description);
+        } else {
+            SEO::setTitle($file->name);
+            SEO::setDescription($file->name);
+        }
+        return view('gallery.zoomify', compact('file'));
+    }
 }
 

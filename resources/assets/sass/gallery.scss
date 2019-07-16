@@ -25,7 +25,7 @@ a:hover{color:#fff; text-decoration:none;}
 #preloader img{margin-right:20px;}
 //#toolbar{display:inline-block; padding:4px 15px; margin:20px 15px; background:#262626 url(/pictures/sw_btn_bg.png) repeat-x; -moz-border-radius:8px; -khtml-border-radius:8px; -webkit-border-radius:8px; border-radius:8px; font-family:graublauweb-webfont, Helvetica, Arial, sans-serif; font-size:12px; color:#fff; cursor:pointer;}
 #outer_container{position:relative; margin:0; width:700px; padding:0; z-index:2; background:url(/pictures/empty.gif);} /* fucking IE needs a background value to understand hover area */
-#customScrollBox{position:relative; background:url(/pictures/sw_l_bg.png) repeat-y;}
+#customScrollBox{position:relative;}
 #customScrollBox .container{position:relative; width:585px; top:0; float:left;}
 #customScrollBox .content{clear:both;}
 #customScrollBox .content h1{padding:5px; margin:10px; color:#fff; font-family:eurof55-webfont, Helvetica, Arial, sans-serif; font-size:48px;}
@@ -44,4 +44,4 @@ a:hover{color:#fff; text-decoration:none;}
 #nextimage_tip{position:fixed; z-index:1; padding:0 20px; line-height:40px; color:#fff; height:40px; top:50%; margin-top:-20px; right:20px; background:url(/pictures/sw_transparent_black_bg.png); -moz-border-radius:5px; -khtml-border-radius:5px; -webkit-border-radius:5px; border-radius:5px; display:none; font-family:graublauweb-webfont, Helvetica, Arial, sans-serif;}
 .with_border{border:1px solid #000;}
 .with_shadow{-moz-box-shadow:0 0 40px #000; -webkit-box-shadow:0 0 40px #000; box-shadow:0 0 40px #000};
-#customScrollBox a.thumb_link .play-layer{position:absolute; top:0; left:0; width:150px; height:150px; background:url(/pictures/sw_thumb_play.png) no-repeat; display:block;}
+#customScrollBox a.thumb_link .play-layer{position:absolute; top:50px; left:50px; width:50px; height:50px; background:url(/pictures/sw_thumb_play.png) no-repeat; display:block;}
