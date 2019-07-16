@@ -49,7 +49,7 @@
                 <!-- resources - start -->
                 <div ng-repeat="(key, tag) in resourcesCtrl.resources">
                     <h3>@{{key}}</h3>
-                <div ng-repeat="resource in tag"
+                <div ng-repeat="(key, resource) in tag"
                      class='panel panel-default'>
                     <a  ng-href="@{{ '#collapse-' + key + resource.id }}"
                         ng-click="isCollapsed = !isCollapsed"

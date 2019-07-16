@@ -98,7 +98,7 @@ class ResourcesController extends Controller
                 if (!isset($tags[$tag->name])) {
                     $tags[$tag->name] = [];
                 }
-                $tags[$tag->name][] = $resource;
+                $tags[$tag->name][random_int(0, 9999)] = $resource;
             }
         }
         ksort($tags);
