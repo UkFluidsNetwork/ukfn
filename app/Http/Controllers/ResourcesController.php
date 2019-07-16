@@ -105,6 +105,27 @@ class ResourcesController extends Controller
         return response()->json($tags);
     }
 
+
+    /**
+     * Get tags associated with resources, in JSON format.
+     *
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getTagsJson(Request $request)
+    {
+        $tags = [];
+        $allResources = Resource::where('active', 1)->orderBy('order')->get();
+        foreach ($allResources as $resource) {
+            $resource->tags;
+            foreach ($resource->tags as $tag) {
+                $tags[] = $tag;
+            }
+        }
+        ksort($tags);
+        return response()->json($tags);
+    }
+
     public function view()
     {
         $bread = static::$resourcesPanelCrumbs;

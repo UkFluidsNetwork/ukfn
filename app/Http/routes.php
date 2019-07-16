@@ -39,6 +39,7 @@ Route::get('api/institutions', 'InstitutionsController@getAllJson');
 Route::get('api/sigs', 'SigsController@getAllJson');
 Route::get('api/talks/{query}', 'TalksController@getAllJson');
 Route::get('api/resources/', 'ResourcesController@getAllJson');
+Route::get('api/resources/tags/', 'ResourcesController@getTagsJson');
 Route::get('api/sigs/{id}', 'SigsController@getSigInstitutionsJson');
 Route::get('api/tags/{tagtype}', 'TagsController@getAllJson');
 Route::get('api/tags/{tagtype}/categories', 'TagsController@getAllCategoriesJson');

@@ -29,18 +29,10 @@ angular.module('ukfn')
         };
 
         controller.loadDisciplines = function() {
-            var url = '/api/tags/disciplines';
+            var url = '/api/resources/tags';
             controller.disciplines = [];
 
             $http({method: 'GET', url: url}).then(function (response) {
-                var curCategory = ""
-                for (var i = 0; i < response.data.length; i++)  {
-                    var category = response.data[i].category;
-                    if (category !== curCategory) {
-                        controller.categories.push({'category': category});
-                        curCategory = category;
-                    }
-                }
                 controller.disciplines = response.data;
             });
         };
