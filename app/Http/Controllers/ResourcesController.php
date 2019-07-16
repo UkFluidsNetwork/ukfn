@@ -119,11 +119,15 @@ class ResourcesController extends Controller
         foreach ($allResources as $resource) {
             $resource->tags;
             foreach ($resource->tags as $tag) {
-                $tags[] = $tag;
+                $tags[$tag->name] = $tag;
             }
         }
         ksort($tags);
-        return response()->json($tags);
+        $disciplines = [];
+        foreach ($tags as $t) {
+            $disciplines[] = $t;
+        }
+        return response()->json($disciplines);
     }
 
     public function view()
