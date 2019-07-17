@@ -71,7 +71,7 @@ figcaption {
   @if ($file->filetype->shortname == 'Photo')
     Resource URL: <a href="https://fluids.ac.uk{{ $file->path }}/{{ $file->name }}">https://fluids.ac.uk{{ $file->path }}/{{ $file->name }}</a>
   @elseif ($file->filetype->shortname == 'Video')
-    Resource URL: <a href="{{ $file->path }} }}">{{ $file->path }}</a>
+    Resource URL: <a href="{{ $file->path }}">{{ $file->path }}</a>
   @endif
   </figcaption>
 </figure>
