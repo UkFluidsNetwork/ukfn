@@ -7,10 +7,16 @@ use Storage;
 use App\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Requests\FileFormRequest;
 use App\Http\Requests\FileUploadRequest;
 
 class FilesController extends Controller
 {
+
+    private static $filePanelCrumbs = [
+        ['label' => 'Panel', 'path' => '/panel'],
+        ['label' => 'Files', 'path' => '/panel/files']
+    ];
 
     /**
      * Mapping of storage disks and their real path as specified
@@ -36,11 +42,7 @@ class FilesController extends Controller
      */
     public function index()
     {
-        $bread = [
-            ['label' => 'Panel', 'path' => '/panel'],
-            ['label' => 'Files', 'path' => '/panel/files']
-        ];
-
+        $bread = static::$sigPanelCrumbs;
         $breadCount = count($bread);
 
         $thisServer = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
@@ -202,8 +204,7 @@ class FilesController extends Controller
 
 
     /**
-     * Delete file. The route to this method only requires auth level,
-     * but further checks are performed inside the function
+     * Toggle display in gallery
      *
      * @param int $id
      * @return Illuminate\Support\Facades\Redirect
@@ -225,6 +226,46 @@ class FilesController extends Controller
         }
 
         return redirect('/panel/files/' . $file->sig_id);
+    }
+
+
+    /**
+     * Render files edit interface
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\View
+     */
+    public function edit($id)
+    {
+        $bread = array_merge(static::$filePanelCrumbs,
+            [['label' => 'Edit', 'path' => "/panel/files/edit"]]);
+        $breadCount = count($bread);
+
+        $file = File::findOrFail($id);
+
+        return view('panel.files.edit', compact('file', 'bread', 'breadCount'));
+    }
+
+
+    /**
+     * Update files
+     *
+     * @param int $id
+     * @param FileFormRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function update($id, FileFormRequest $request)
+    {
+        $file = File::findOrFail($id);
+        try {
+            $input = $request->all();
+            $files->fill($input);
+            $file->save();
+            Session::flash('success_message', 'Edited succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/files');
     }
 }
 

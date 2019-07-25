@@ -137,7 +137,6 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('auth'); //further checks in function
-Route::post('panel/files/gallery/{id}', 'FilesController@addToGallery')->middleware('admin');
 // require canEditSigBox
 Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig
@@ -169,6 +168,8 @@ Route::post('panel/talks/delete/{id}', 'TalksController@delete')->middleware('ad
 Route::post('panel/talks/add', 'TalksController@create')->middleware('admin');
 Route::post('panel/files/add', 'FilesController@create')->middleware('admin');
 Route::post('panel/files/addlink', 'FilesController@createLink')->middleware('admin');
+Route::post('panel/files/edit/{id}', 'FilesController@edit')->middleware('admin');
+Route::post('panel/files/gallery/{id}', 'FilesController@addToGallery')->middleware('admin');
 Route::post('srv/delete/{id}', 'SrvsController@delete')->middleware('admin');
 Route::post('srv/add', 'SrvsController@create')->middleware('admin');
 Route::post('resources/delete/{id}', 'ResourcesController@delete')->middleware('admin');
@@ -198,6 +199,7 @@ Route::patch('/srv/update/{id}', 'SrvsController@update')->middleware('admin');
 Route::patch('/resources/update/{id}', 'ResourcesController@update')->middleware('admin');
 Route::patch('/resources/tutorials/update/{id}', 'ResourcesController@updateTutorial')->middleware('admin');
 Route::patch('/carousel/update/{id}', 'PagesController@updateCarousel')->middleware('admin');
+Route::patch('/files/update/{id}', 'FilesController@update')->middleware('admin');
 
 /** GET|HEAD|POST|PUT|PATCH|DELETE requests * */
 Route::controllers([

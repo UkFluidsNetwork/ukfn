@@ -44,6 +44,11 @@
                             ["class" => "btn btn-success"]) }}
              @endif
              {{ Form::close() }}
+             {{ Form::open(['action' => ['FilesController@edit',
+                                         $file->id],
+                            'class' => 'edit' ]) }}
+             {{ Form::submit("Edit", ["class" => "btn btn-primary"]) }}
+             {{ Form::close() }}
         </td>
       </tr>
       @endforeach
