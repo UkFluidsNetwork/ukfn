@@ -336,12 +336,23 @@
     </p>
   </div>
   <div>
-    <p class="h4 text-danger line-break-dbl-top">UK Fluids Network dissertation prize</p>
-    <ul>
-        <li>
-          #1: 2018
-        </li>
-    </ul>
+    <p class="h4 text-danger line-break-dbl-top">UK Fluids Network Thesis Prize</p>
+    <p>
+      <b>2018 Thesis Prize</b><br><br>
+      Winner:<br>
+      Yi Man (University of Cambridge): ‘Swimming at low Reynolds number: slip boundaries and interacting filaments’<br><br>
+      Runners-up:<br>
+      Rowan Brackston (Imperial College London): ‘Feedback control of three-dimensional bluff body wakes for efficient drag reduction’<br>
+      Simeng Chen (University of Liverpool): ‘An experimental investigation of drop impact phenomena with complex fluids on heated and soft surfaces’<br>
+    </p>
+    <p>
+      <b>2019 Thesis Prize</b><br><br>
+      Winner:<br>
+      Adrien Lefauve (University of Cambridge): 'Waves and turbulence in sustained stratified shear flows'<br><br>
+      Runners-up:<br>
+      Paweł Baj (Imperial College London): 'Experimental investigation of wake development and mixing behind a multi-scale array of bars'<br>
+      Matthew Arran (University of Cambridge): 'Avalanching on dunes and its effects: Size statistics, stratification, & seismic surveys'
+    </p>
   </div>
   <div>
     <p class="h4 text-danger line-break-dbl-top">Photo and Video Competition Archive</p>
