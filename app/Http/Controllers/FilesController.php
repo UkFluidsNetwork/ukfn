@@ -42,7 +42,7 @@ class FilesController extends Controller
      */
     public function index()
     {
-        $bread = static::$sigPanelCrumbs;
+        $bread = static::$filePanelCrumbs;
         $breadCount = count($bread);
 
         $thisServer = filter_input(INPUT_SERVER, 'REMOTE_ADDR');
