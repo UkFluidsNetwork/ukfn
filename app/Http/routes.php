@@ -137,6 +137,7 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('auth'); //further checks in function
+Route::post('panel/files/gallery/{id}', 'FilesController@addToGallery')->middleware('admin');
 // require canEditSigBox
 Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig

@@ -199,5 +199,32 @@ class FilesController extends Controller
 
         return redirect('/panel/sig/files/' . $file->sig_id);
     }
+
+
+    /**
+     * Delete file. The route to this method only requires auth level,
+     * but further checks are performed inside the function
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+    public function addToGallery($id)
+    {
+        $file = File::findOrFail($id);
+
+        try {
+            $file->gallery = $file->gallery === 1 ? 0 : 1;
+            $file->save();
+            Session::flash('success_message', 'Toggled gallery status.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+
+        if (Auth::user()->isAdmin()) {
+            return redirect('/panel/files');
+        }
+
+        return redirect('/panel/files/' . $file->sig_id);
+    }
 }
 

@@ -9,6 +9,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>URL</th>
+          <th>Gallery</th>
           <th>Uploaded</th>
           <th>Action</th>
         </tr>
@@ -24,12 +25,24 @@
                   $file->full_path, 
                   ['target' => '_blank']) }}
         </td>
+        <td>{{ $file->gallery ? 'Yes' : 'No' }}</td>
         <td>{{ $file->created }}</td>
         <td>
              {{ Form::open(['action' => ['FilesController@delete',
                                          $file->id],
                             'class' => 'delete' ]) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger delete"]) }}
+             {{ Form::close() }}
+             {{ Form::open(['action' => ['FilesController@addToGallery',
+                                         $file->id],
+                            'class' => 'gallery' ]) }}
+             @if ($file->gallery)
+             {{ Form::submit("Gallery",
+                            ["class" => "btn btn-warning"]) }}
+             @else
+             {{ Form::submit("Gallery",
+                            ["class" => "btn btn-success"]) }}
+             @endif
              {{ Form::close() }}
         </td>
       </tr>
