@@ -64,6 +64,7 @@ Route::get('panel/sig/box/toggle/{id}', 'SigsController@toggleBoxStatus')->middl
 Route::get('panel/sig/box/move/{direction}/{id}', 'SigsController@moveBox')->middleware('sig-box');
 
 Route::get('api/sig/members/{id}', 'SigsController@getSigMembersJson')->middleware('sig');
+Route::get('gallery/{type}', 'PagesController@gallery');
 Route::get('gallery/zoomify/{id}', 'PagesController@zoomify');
 Route::get('gallery', 'PagesController@gallery');
 // require canViewUsers

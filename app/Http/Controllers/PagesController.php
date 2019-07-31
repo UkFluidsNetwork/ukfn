@@ -742,15 +742,25 @@ class PagesController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function gallery()
+    public function gallery($type="all")
     {
         SEO::setTitle('Gallery');
         SEO::setDescription('');
 
-        $files = File::all()->where('gallery', 1);
+        $files = [];
+        $tmp = File::all()->where('gallery', 1);
+        foreach ($tmp as $file) {
+            $file->tags;
+            foreach ($file->tags as $tag) {
+                if (strtolower($tag->name) == $type || $type == "all") {
+                    $files[] = $file;
+                    break;
+                }
+            }
+        }
         $hideFooter = true;
 
-        return view('gallery.index', compact('files', 'hideFooter'));
+        return view('gallery.index', compact('files', 'hideFooter', 'type'));
     }
 
     /**

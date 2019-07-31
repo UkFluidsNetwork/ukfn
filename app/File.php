@@ -70,6 +70,18 @@ class File extends Model
 
 
     /**
+     * Get the tags associated with this file
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function tags()
+    {
+        return $this->belongsToMany('App\Tag', 'file_tags')
+                    ->withTimestamps();
+    }
+
+
+    /**
      * Attempt to get a thumbnail from sms or vimeo if file is a video
      *
      * @return String
