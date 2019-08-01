@@ -332,7 +332,7 @@
       </li>
     </ul>
     <p>
-        <b>The closing date for entries is 31 July 2019.</b>
+        <b>The competition is now closed.</b>
     </p>
   </div>
   <div>
