@@ -95,6 +95,7 @@ class File extends Model
         // we only support sms and vimeo
         $is_sms = strpos($this->path, "sms.cam.ac.uk");
         $is_vimeo = strpos($this->path, "vimeo.com");
+        $is_youtube = strpos($this->path, "youtube.com");
         $is_video = $this->filetype->shortname === 'Video';
         if (!$is_video || (!$is_sms && !$is_vimeo)) {
             return "";
@@ -119,6 +120,17 @@ class File extends Model
                 $thumb = $json[0]->thumbnail_medium;
                 Cache::forever($cache_key, $thumb);
                 return $thumb;
+            }
+        } elseif ($is_youtube) {
+            $url = parse_url($this->patn);
+            if (isset($url['query'])) {
+                parse_str($url['query'], $query);
+                if (isset($query['v'])) {
+                    $id = $query['v'];
+                    $thumb = "https://img.youtube.com/vi/${id}/hqdefault.jpg";
+                    Cache::forever($cache_key, $thumb);
+                    return $thumb;
+                }
             }
         }
         return "";
