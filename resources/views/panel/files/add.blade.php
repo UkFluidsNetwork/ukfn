@@ -71,6 +71,30 @@
     </div>
 </div>
 
+<div class='form-group {{ $errors->has('title') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('title', 'Title:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::text('title', $file->title, ['class' => 'form-control','placeholder' => 'The title of the file']) !!}
+    @if ($errors->has('title'))
+    <span class="text-danger">
+      <span>{{ $errors->first('title') }}</span>
+    </span>
+    @endif
+  </div>
+</div>
+
+<div class='form-group {{ $errors->has('author') ? ' has-error line-break-dbl' : '' }}'>
+  {!! Form::label('author', 'Author:', ['class' => 'control-label col-lg-2 text-left']) !!}
+  <div class=' col-lg-8'>
+    {!! Form::text('author', $file->author, ['class' => 'form-control','placeholder' => 'The author of the file']) !!}
+    @if ($errors->has('author'))
+    <span class="text-danger">
+      <span>{{ $errors->first('author') }}</span>
+    </span>
+    @endif
+  </div>
+</div>
+
 <div class='form-group {{ $errors->has('description') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('description', 'Caption:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class=' col-lg-8'>

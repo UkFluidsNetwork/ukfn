@@ -259,7 +259,7 @@ class FilesController extends Controller
         $file = File::findOrFail($id);
         try {
             $input = $request->all();
-            $files->fill($input);
+            $file->fill($input);
             $file->save();
             Session::flash('success_message', 'Edited succesfully.');
         } catch (Exception $ex) {
