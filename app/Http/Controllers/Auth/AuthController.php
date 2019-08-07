@@ -80,13 +80,14 @@ use AuthenticatesAndRegistersUsers,
                 'email' => $data['email'],
                 'password' => bcrypt($data['password']),
                 'orcidid' => isset($data['orcidid']) ? $data['orcidid'] : null,
-                'url' => isset($data['url']) ? $data['url'] : null
+                'url' => isset($data['url']) ? $data['url'] : null,
+                'gdpr' => (int)$data['gdpr']
         ]);
 
         if (!$newUser) {
             return false;
         }
-        
+
         if (isset($data['institutions'])) {
             $newUser->updateInstitutions($data['institutions']);
         }
