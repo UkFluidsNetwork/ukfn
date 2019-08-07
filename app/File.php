@@ -81,6 +81,26 @@ class File extends Model
                     ->withTimestamps();
     }
 
+    /**
+     * Get the youtube id
+     *
+     * @return String
+     */
+    public function getYoutubeId()
+    {
+        $is_youtube = strpos($this->path, "youtube.com");
+        if (!$is_youtube) {
+            return "";
+        }
+        $url = parse_url($this->path);
+        if (isset($url['query'])) {
+            parse_str($url['query'], $query);
+            if (isset($query['v'])) {
+                return $query['v'];
+            }
+        }
+        return "";
+    }
 
     /**
      * Attempt to get a thumbnail from sms or vimeo if file is a video

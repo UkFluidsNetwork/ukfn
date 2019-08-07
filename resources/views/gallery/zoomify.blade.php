@@ -8,10 +8,14 @@
       <img id="image-zoom" src="{{ $file->path }}/{{ $file->name }}" alt="{{ isset($file->competitionentries[0]) ? $file->competitionentries[0]->description : $file->name }}" />
   </div>
   @elseif ($file->filetype->shortname == 'Video')
-  <video  controls muted autoplay loop>
-          <source src="{{ $file->path }}" type="video/mp4">
-          Your browser does not support the video tag.
-  </video>
+    @if ($file->getYoutubeId())
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $file->getYoutubeId() }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    @else
+    <video  controls muted autoplay loop>
+            <source src="{{ $file->path }}" type="video/mp4">
+            Your browser does not support the video tag.
+    </video>
+    @endif
   @endif
   <figcaption>
     <b>
