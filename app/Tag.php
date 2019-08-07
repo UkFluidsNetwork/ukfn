@@ -75,6 +75,9 @@ class Tag extends Model
             case "Facilities":
                 $tagtype_id = self::findTagtypeByName('Facilities');
                 break;
+            case "Multimedia":
+                $tagtype_id = self::findTagtypeByName('Multimedia');
+                break;
             default:
                 return null;
         }
@@ -120,6 +123,16 @@ class Tag extends Model
     public static function getAllFacilities()
     {
         return self::getByTagtypeName('Facilities');
+    }
+
+    /**
+     * Get all tags of type multimedia
+     *
+     * @return array
+     */
+    public static function getAllMultimedia()
+    {
+        return self::getByTagtypeName('Multimedia');
     }
 
     /**

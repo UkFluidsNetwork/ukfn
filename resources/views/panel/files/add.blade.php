@@ -4,6 +4,7 @@
 <script src="{{ asset('js/main.js')}}"></script>
 <script type="text/javascript"
         src="/ckeditor/ckeditor.js"></script>
+<script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
 @endsection
 
 @section('admincontent')
@@ -108,6 +109,17 @@
   </div>
 </div>
 
+<div class="form-group {{ $errors->has('multimedia') ? ' has-error' : ''}}">
+    <label for="multimedia" class="control-label col-lg-2 text-left">Tags</label>
+    <div class=' col-lg-8'>
+        <select id="multimedia" type="text" class="tags form-control multi" name="multimedia[]" placeholder="Tags" multiple>
+            @foreach($multimedia as $key => $tag)
+            <option value='{{ $tag->id}}'>{{ $tag->name}}</option>
+            @endforeach
+        </select>
+    </div>
+</div>
+
 <div class=' col-lg-offset-2 col-lg-8'>
     <div class='form-group line-break-dbl-top'>
       {!! Form::submit('Upload', ['class' => 'btn btn-success btn-lg2']) !!}
@@ -118,6 +130,17 @@
 
 <script>
   CKEDITOR.replace('description');
+  $('.tags').selectize({
+      plugins: ['remove_button'],
+      delimiter: ',',
+      persist: false,
+      create: function (input) {
+          return {
+              value: input,
+              text: input
+          };
+      }
+  });
 </script>
 
 @endsection

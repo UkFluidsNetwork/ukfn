@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Auth;
 use Storage;
 use App\File;
+use App\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Requests\FileFormRequest;
@@ -76,9 +77,10 @@ class FilesController extends Controller
         $file = new File();
         $disks = static::$disks;
         $breadCount = count($bread);
+        $multimedia = Tag::getAllMultimedia();
 
-        return view('panel.files.add',
-                    compact('bread', 'breadCount', 'file', 'disks'));
+        return view('panel.files.add', compact(
+            'bread', 'breadCount', 'file', 'disks', 'multimedia'));
     }
 
     /**
@@ -96,8 +98,10 @@ class FilesController extends Controller
 
         $file = new File();
         $breadCount = count($bread);
+        $multimedia = Tag::getAllMultimedia();
 
-        return view('panel.files.addlink', compact('bread', 'breadCount', 'file'));
+        return view('panel.files.addlink', compact(
+            'bread', 'breadCount', 'file', 'multimedia'));
     }
 
     /**
@@ -126,6 +130,7 @@ class FilesController extends Controller
             $file->user_id = Auth::user()->id;
             $file->save();
 
+            $file->updateTags($request->toArray());
             Session::flash('success_message', 'Added succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
@@ -153,6 +158,7 @@ class FilesController extends Controller
             $file->user_id = Auth::user()->id;
             $file->save();
 
+            $file->updateTags($request->toArray());
             Session::flash('success_message', 'Added succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
@@ -242,8 +248,11 @@ class FilesController extends Controller
         $breadCount = count($bread);
 
         $file = File::findOrFail($id);
+        $multimedia = Tag::getAllMultimedia();
+        $fileTags = $file->getTagIds();
 
-        return view('panel.files.edit', compact('file', 'bread', 'breadCount'));
+        return view('panel.files.edit', compact(
+            'file', 'bread', 'breadCount', 'multimedia', 'fileTags'));
     }
 
 
@@ -261,6 +270,8 @@ class FilesController extends Controller
             $input = $request->all();
             $file->fill($input);
             $file->save();
+
+            $file->updateTags($request->toArray());
             Session::flash('success_message', 'Edited succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
