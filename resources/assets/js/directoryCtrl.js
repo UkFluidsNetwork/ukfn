@@ -226,7 +226,7 @@ angular.module('ukfn')
             create: false,
             plugins: ['remove_button'],
             delimiter: ',',
-            searchField: 'label',
+            searchField: 'name',
             framework: 'bootstrap',
             valueField: 'id',
             labelField: 'name',
