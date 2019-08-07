@@ -98,7 +98,7 @@ class File extends Model
         $is_vimeo = strpos($this->path, "vimeo.com");
         $is_youtube = strpos($this->path, "youtube.com");
         $is_video = $this->filetype->shortname === 'Video';
-        if (!$is_video || (!$is_sms && !$is_vimeo)) {
+        if (!$is_video || (!$is_sms && !$is_vimeo && !$is_youtube)) {
             return "";
         }
 
@@ -123,7 +123,7 @@ class File extends Model
                 return $thumb;
             }
         } elseif ($is_youtube) {
-            $url = parse_url($this->patn);
+            $url = parse_url($this->path);
             if (isset($url['query'])) {
                 parse_str($url['query'], $query);
                 if (isset($query['v'])) {
