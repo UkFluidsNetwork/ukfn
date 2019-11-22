@@ -1,0 +1,57 @@
+version: "3.5"
+
+services:
+  proxy:
+    image: nginx
+    container_name: "proxy"
+    restart: unless-stopped
+    volumes:
+      - ./site.conf:/etc/nginx/conf.d/default.conf
+      - web:/var/www/html:ro
+    env_file:
+      - .env
+    depends_on:
+      - ukfn
+    networks:
+      local:
+        ipv4_address: 172.26.0.4
+
+  ukfn:
+    image: ja573/ukfn
+    container_name: "ukfn_web"
+    restart: unless-stopped
+    volumes:
+      - ./storage:/var/www/html/storage
+      - web:/var/www/html
+    env_file:
+      - .env
+    depends_on:
+      - ukfn_db
+    networks:
+      local:
+        ipv4_address: 172.26.0.3
+
+  ukfn_db:
+    image: ja573/ukfn_db
+    container_name: "ukfn_db"
+    restart: unless-stopped
+    volumes:
+      #- dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - db:/var/lib/mysql
+      - /etc/localtime:/etc/localtime:ro
+    env_file:
+      - .env
+    networks:
+      local:
+        ipv4_address: 172.26.0.2
+
+networks:
+  local:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.26.0.0/29
+
+volumes:
+  web:
+  db:

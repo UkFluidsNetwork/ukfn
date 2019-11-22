@@ -1,0 +1,11 @@
+*.sql
+.*.swp
+.env
+Dockerfile
+docker-compose.yml
+nginx.conf
+site.conf
+/node_modules/
+/nbproject/
+/vendor/
+/storage/

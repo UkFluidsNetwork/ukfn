@@ -1,6 +1,7 @@
 {
   "private": true,
   "scripts": {
+    "production": "gulp",
     "prod": "gulp --production",
     "dev": "gulp watch"
   },
