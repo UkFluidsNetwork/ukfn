@@ -1,5 +1,6 @@
 *.sql
 .*.swp
+.git/
 .env
 Dockerfile
 docker-compose.yml

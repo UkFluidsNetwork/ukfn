@@ -1,14 +1,8 @@
-FROM node AS npm
-
-WORKDIR /build
-
-COPY package.json ./
-RUN npm install --silent --no-cache
-
 FROM php:7.0-fpm
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get update && apt-get install -y \
         curl \
         gnupg \
@@ -18,6 +12,7 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libxml2-dev \
         libpng-dev \
+        nodejs \
     && docker-php-ext-install -j$(nproc) gd xml mbstring zip pdo pdo_mysql
 
 RUN rm -rf /var/cache/apt/*
@@ -32,10 +27,7 @@ WORKDIR /var/www/html
 COPY --chown=www-data:www-data . ./
 
 RUN composer install --quiet --no-dev
-COPY --chown=www-data:www-data --from=npm /build/node_modules ./node_modules
-COPY --from=npm /usr/local/bin/npm /usr/local/bin/npm
-COPY --from=npm /usr/local/bin/node /usr/local/bin/node
-
+RUN npm install --silent --no-cache
 RUN npm run production
 
 EXPOSE 9000
