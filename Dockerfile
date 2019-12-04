@@ -24,10 +24,18 @@ USER www-data
 
 WORKDIR /var/www/html
 
+COPY --chown=www-data:www-data composer.json .
+COPY --chown=www-data:www-data composer.lock .
+COPY --chown=www-data:www-data package.json .
+COPY --chown=www-data:www-data package-lock.json .
+
+RUN composer install --quiet --no-dev --no-autoloader --no-scripts
+RUN npm install --silent --no-cache
+
 COPY --chown=www-data:www-data . ./
 
-RUN composer install --quiet --no-dev
-RUN npm install --silent --no-cache
+RUN composer dump-autoload --optimize --no-interaction
+RUN composer run-script post-update-cmd
 RUN npm run production
 
 EXPOSE 9000
