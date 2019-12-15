@@ -70,6 +70,12 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/public/pictures/sig'),
             'visibility' => 'public',
+          ],
+
+        'newsletter-pictures' => [
+          'driver' => 'local',
+          'root' => storage_path('app/public/pictures/newsletter'),
+          'visibility' => 'public',
         ],
 
         'resources' => [
