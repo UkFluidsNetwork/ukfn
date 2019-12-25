@@ -109,6 +109,8 @@ Route::get('panel/srv/add', 'SrvsController@add')->middleware('admin');
 Route::get('panel/srv/edit/{id}', 'SrvsController@edit')->middleware('admin');
 Route::get('panel/competition/votes', 'CompetitionController@votes')->middleware('admin');
 Route::get('panel/competition/votes/export', 'CompetitionController@export')->middleware('admin');
+Route::get('panel/connect', 'ConnectController@view')->middleware('admin');
+Route::get('panel/connect/add', 'ConnectController@add')->middleware('admin');
 Route::get('panel/resources', 'ResourcesController@view')->middleware('admin');
 Route::get('panel/resources/add', 'ResourcesController@add')->middleware('admin');
 Route::get('panel/resources/edit/{id}', 'ResourcesController@edit')->middleware('admin');
@@ -138,6 +140,8 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('auth'); //further checks in function
+// require canCreateConnectBox
+Route::post('/panel/connect/add', 'ConnectController@createBox')->middleware('auth');
 // require canEditSigBox
 Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig
