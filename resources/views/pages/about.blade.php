@@ -130,6 +130,16 @@
   </div>
 </section>
 <section class="page-header">
+  @if ($boxes)
+  @foreach ($boxes as $box)
+  <div class="bs-callout bs-callout-danger">
+      <h4>{{ $box->title }}</h4>
+      {!! $box->content !!}
+  </div>
+  @endforeach
+  @endif
+</section>
+<section class="page-header">
 <h3>Downloads</h3>
   <div>
     <p class="h4 text-danger line-break-dbl-top">UKFN logo</p>
