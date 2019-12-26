@@ -112,6 +112,7 @@ Route::get('panel/competition/votes/export', 'CompetitionController@export')->mi
 Route::get('panel/connect', 'ConnectController@view')->middleware('admin');
 Route::get('panel/connect/add', 'ConnectController@add')->middleware('admin');
 Route::get('panel/connect/edit/{id}', 'ConnectController@editBox')->middleware('admin');
+Route::get('panel/connect/move/{direction}/{id}', 'ConnectController@moveBox')->middleware('admin');
 Route::get('panel/resources', 'ResourcesController@view')->middleware('admin');
 Route::get('panel/resources/add', 'ResourcesController@add')->middleware('admin');
 Route::get('panel/resources/edit/{id}', 'ResourcesController@edit')->middleware('admin');

@@ -110,4 +110,28 @@ class ConnectController extends Controller
         }
         return redirect('/panel/connect');
     }
+
+        /**
+     * Change the order of a connect box
+     *
+     * @param string $direction up/down
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+     public function moveBox($direction, $id)
+    {
+        try {
+            $connectBox = ConnectBox::findOrFail($id);
+            if ($direction === "up") {
+                $connectBox->order--;
+            } else {
+                $connectBox->order++;
+            }
+            $connectBox->save();
+            Session::flash('success_message', 'Moved succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/connect');
+    }
 }
