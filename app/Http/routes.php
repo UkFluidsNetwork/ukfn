@@ -111,6 +111,7 @@ Route::get('panel/competition/votes', 'CompetitionController@votes')->middleware
 Route::get('panel/competition/votes/export', 'CompetitionController@export')->middleware('admin');
 Route::get('panel/connect', 'ConnectController@view')->middleware('admin');
 Route::get('panel/connect/add', 'ConnectController@add')->middleware('admin');
+Route::get('panel/connect/edit/{id}', 'ConnectController@editBox')->middleware('admin');
 Route::get('panel/resources', 'ResourcesController@view')->middleware('admin');
 Route::get('panel/resources/add', 'ResourcesController@add')->middleware('admin');
 Route::get('panel/resources/edit/{id}', 'ResourcesController@edit')->middleware('admin');
@@ -191,6 +192,7 @@ Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middlewa
 // require canEditSig
 Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('sig');
 // require admin
+Route::patch('/panel/connect/update/{id}', 'ConnectController@updateBox')->middleware('admin');
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('admin');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('admin');
 Route::patch('/events/update/{id}', 'EventsController@update')->middleware('admin');

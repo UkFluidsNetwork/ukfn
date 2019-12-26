@@ -50,7 +50,7 @@ class ConnectController extends Controller
     /**
      * Create sig box
      *
-     * @param SigBoxRequest $request
+     * @param connectBoxRequest $request
      * @return Illuminate\Support\Facades\Redirect
      */
     public function createBox(ConnectBoxRequest $request)
@@ -64,6 +64,47 @@ class ConnectController extends Controller
             Session::flash('success_message', 'Added succesfully. '
                 . 'Boxes are disabled by default. Click on enable '
                 . 'to have them displayed on the Connect page.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/connect');
+    }
+
+        /**
+     * Render connect box edit interface
+     *
+     * @param int $id sig box ID
+     * @return Illuminate\Support\Facades\View
+     */
+     public function editBox($id)
+    {
+        $connectBox = Connectbox::findOrFail($id);
+        $bread = array_merge(static::$connectPanelCrumbs,
+                                [['label' => 'Edit',
+                                  'path' => "/panel/connect/edit/${id}"]]);
+
+        $breadCount = count($bread);
+
+        return view('panel.connect.editbox',
+                    compact('connectBox', 'bread', 'breadCount'));
+    }
+
+
+    /**
+     * Update sig box
+     *
+     * @param int $id box id
+     * @param ConnectBoxRequest $request
+     * @return Illuminate\Support\Facades\Redirect
+     */
+     public function updateBox($id, ConnectBoxRequest $request)
+    {
+        try {
+            $connectBox = ConnectBox::findOrFail($id);
+            $input = $request->all();
+            $connectBox->fill($input);
+            $connectBox->save();
+            Session::flash('success_message', 'Updated succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
         }

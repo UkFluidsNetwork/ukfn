@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-  <h2 class='line-break'>Connect Resources</h2>
+  <h2 class='line-break'>Connect Page Boxes</h2>
   <div class="table-responsive">
     <table class='table' id="view_sigs_suggestions">
       <thead>
@@ -22,18 +22,18 @@
         <td>{{$box->status()}}</td>
         <td>{{ $box->created }}</td>
         <td>{{ $box->updated }}</td>
-        <td>{{ Html::link('/panel/resources/edit/' . $box->id,
+        <td>{{ Html::link('/panel/connect/edit/' . $box->id,
                           "Edit", ["class" => "btn btn-primary"])}}</td>
-        <td>{{ Html::link('/panel/resources/move/up/' . $box->id,
+        <td>{{ Html::link('/panel/connect/move/up/' . $box->id,
                           "Move Up", ["class" => "btn btn-primary"])}}</td>
-        <td>{{ Html::link('/panel/resources/move/down/' . $box->id,
+        <td>{{ Html::link('/panel/connect/move/down/' . $box->id,
                           "Move Down", ["class" => "btn btn-primary"])}}</td>
         <td>
             @if ($box->status() === "Enabled")
-            {{ Html::link('/panel/resources/toggle/' . $box->id,
+            {{ Html::link('/panel/connect/toggle/' . $box->id,
                       "Disable", ["class" => "btn btn-warning"])}}
             @else
-            {{ Html::link('/panel/resources/toggle/' . $box->id,
+            {{ Html::link('/panel/connect/toggle/' . $box->id,
                       "Enable", ["class" => "btn btn-success"])}}
             @endif
         </td>
