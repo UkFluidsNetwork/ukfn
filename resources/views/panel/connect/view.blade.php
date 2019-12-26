@@ -39,7 +39,7 @@
         </td>
         <td>
              {{ Form::open(['action' =>
-                            ['ResourcesController@delete', $box->id],
+                            ['ConnectController@deleteBox', $box->id],
                             'class' => 'delete']) }}
              {{ Form::submit("Delete", ["class" => "btn btn-danger"]) }}
              {{ Form::close() }}

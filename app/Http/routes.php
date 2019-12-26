@@ -113,6 +113,7 @@ Route::get('panel/connect', 'ConnectController@view')->middleware('admin');
 Route::get('panel/connect/add', 'ConnectController@add')->middleware('admin');
 Route::get('panel/connect/edit/{id}', 'ConnectController@editBox')->middleware('admin');
 Route::get('panel/connect/move/{direction}/{id}', 'ConnectController@moveBox')->middleware('admin');
+Route::get('panel/connect/toggle/{id}', 'ConnectController@toggleBoxStatus')->middleware('admin');
 Route::get('panel/resources', 'ResourcesController@view')->middleware('admin');
 Route::get('panel/resources/add', 'ResourcesController@add')->middleware('admin');
 Route::get('panel/resources/edit/{id}', 'ResourcesController@edit')->middleware('admin');
@@ -143,7 +144,8 @@ Route::post('myaccount/password', 'PagesController@updatePassword')->middleware(
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('auth'); //further checks in function
 // require canCreateConnectBox
-Route::post('/panel/connect/add', 'ConnectController@createBox')->middleware('auth');
+Route::post('/panel/connect/add', 'ConnectController@createBox')->middleware('admin');
+Route::post('/panel/connect/delete/{id}', 'ConnectController@deleteBox')->middleware('admin');
 // require canEditSigBox
 Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig

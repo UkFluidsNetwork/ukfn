@@ -134,4 +134,46 @@ class ConnectController extends Controller
         }
         return redirect('/panel/connect');
     }
+
+        /**
+     * Enable/disable a course
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+     public function toggleBoxStatus($id)
+    {
+        try {
+            $connectBox = ConnectBox::findOrFail($id);
+            if ($connectBox->status() === "Enabled") {
+                $connectBox->active = 0;
+            } else {
+                $connectBox->active = 1;
+            }
+            $connectBox->save();
+            Session::flash('success_message', $connectBox->status()
+                                              . ' succesfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/connect/');
+    }
+
+        /**
+     * Delete connect boxes
+     *
+     * @param int $id
+     * @return Illuminate\Support\Facades\Redirect
+     */
+     public function deleteBox($id)
+    {
+        try {
+            $connectBox = ConnectBox::findOrFail($id);
+            $connectBox->delete();
+            Session::flash('success_message', 'Deleted successfully.');
+        } catch (Exception $ex) {
+            Session:flash('error_message', $ex);
+        }
+        return redirect('/panel/connect');
+    }
 }
