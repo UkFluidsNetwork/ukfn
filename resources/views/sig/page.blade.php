@@ -121,11 +121,27 @@
                                && ($member->isLeaderOfSig($sig->id)
                                 || $member->isColeaderOfSig($sig->id)
                                 || $member->isKeyPersonnelOfSig($sig->id)))
-                          (<i>{{ $member->institutions[0]->name }}</i>):
+                                (
+                                    @foreach ($member->institutions as $index => $institution)
+                                    @if(($index == count($member->institutions)-1))
+                                    {{-- Last element --}}
+                                    <i>{{ $institution->name }}</i> ):
+                                    @else
+                                    <i>{{ $institution->name }}</i>,
+                                    @endif
+                                    @endforeach
                           {{ Html::link('mailto:' . $member->email,
                                         $member->email) }}
                           @elseif (isset($member->institutions[0]))
-                          (<i>{{ $member->institutions[0]->name }}</i>)
+                          (
+                          @foreach ($member->institutions as $index => $institution)
+                          @if(($index == count($member->institutions)-1))
+                          {{-- Last element --}}
+                          <i>{{ $institution->name }}</i> ):
+                          @else
+                          <i>{{ $institution->name }}</i>;
+                          @endif
+                          @endforeach
                           @endif
                           </td>
                         </tr>
