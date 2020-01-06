@@ -162,9 +162,12 @@
                          class="line-break-top line-break">
                       <div ng-repeat="tag in user.tag_ids"
                       <div ng-if="dirCtrl.tags[tag.tag_id]"
+                      ng-attr-id="@{{ 'tag' + tag.tag_id}}"
+                      onClick="tagSelected(this)"
+                      ng-click="dirCtrl.tagClicked(dirCtrl.tags[tag.tag_id])"
                            ng-class="{'highlight': dirCtrl.tagSelected('tag'+tag.tag_id)}"
                             class="label label-new label-ukfn-blue margin-right"
-                            style="float:left; margin-top: 5px;">
+                            style="float:left; margin-top: 5px; cursor: pointer;">
                         @{{ dirCtrl.tags[tag.tag_id].name }}
                       </div>
                       </div>
@@ -217,6 +220,20 @@
         }
     });
 
-</script>
+    // Init select element
+    var $select = $('#disciplines').selectize();
+    var selectize = $select[0].selectize;
 
+    function tagSelected(tagElement) {
+        if(selectize.getValue().includes(tagElement.id))
+        {
+            // Remove option to the select input when clicked
+            selectize.removeItem(tagElement.id);
+        }
+        else{
+            // Add option to the select input when clicked
+            selectize.addItem(tagElement.id);
+        }
+    }
+</script>
 @endsection
