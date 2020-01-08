@@ -6,7 +6,8 @@
 {!! Form::model($sig, [
 'method' => 'POST',
 'action' => ['SigsController@create', $sig->id],
-'class' => 'form-horizontal'
+'class' => 'form-horizontal',
+'files' => true
 ]) !!}
 
 @include('panel.sigs.add_edit_form')
