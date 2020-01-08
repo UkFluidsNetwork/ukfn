@@ -129,16 +129,17 @@
     </p>
   </div>
 </section>
-<section class="page-header">
+
   @if ($boxes)
   @foreach ($boxes as $box)
-  <div class="bs-callout bs-callout-danger">
-      <h4>{{ $box->title }}</h4>
+  <section class="page-header">
+  <div>
+      <h3>{{ $box->title }}</h3>
       {!! $box->content !!}
   </div>
+  </section>
   @endforeach
   @endif
-</section>
 <section class="page-header">
 <h3>Downloads</h3>
   <div>
