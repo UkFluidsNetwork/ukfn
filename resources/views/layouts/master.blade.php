@@ -78,7 +78,7 @@
     </head>
     <body>
         <!-- NAVBAR - START -->
-        <div id="menu-bar" data-spy="affix" data-offset-top="40">
+        <div id="menu-bar" class="affix">
 
         @if ($_SERVER['SERVER_NAME'] == "ukfluids.net")
         <div style="width:100%;height:40px;background-color:#1B75BB;color:white;text-align:center;font-size:22px;padding:13px;padding-bottom:45px;">
@@ -182,7 +182,7 @@
         <!-- NOSCRIPT - END -->
         <!-- MAIN CONTENT - START -->
         @yield('carousel')
-        <div class="container-fluid" id="main-content">
+        <div class="container-fluid" id="main-content" style="padding-top: 70px" >
             <div class="row">
                 <div class="col-lg-8 col-lg-offset-2 col-md-12 col-sm-12 col-xs-12">
                     @if (Session::has('message'))
