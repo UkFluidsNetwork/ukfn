@@ -1,4 +1,8 @@
 @extends('layouts.admin')
+@section('head')
+<script type="text/javascript"
+        src="/ckeditor/ckeditor.js"></script>
+@endsection
 @section('admincontent')
 
 <h2 class='line-break'>Edit: {{ $new->title }}</h2>
@@ -30,6 +34,7 @@
     @endif
   </div>
 </div>
+
 <div class='form-group {{ $errors->has('link') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('link', 'Link:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class='col-lg-8'>
@@ -47,4 +52,9 @@
   </div>    
 </div>
 {!! Form::close() !!}
+
+<script>
+  CKEDITOR.replace('description');
+</script>
+
 @endsection

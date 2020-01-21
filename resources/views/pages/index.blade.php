@@ -8,7 +8,7 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-4 col-md-4 col-sm-4">
-      <h1>What's New</h1>
+      <h1>Network News</h1>
       @foreach ($news as $key => $new)
       @if ($key === 0)
       <section class="page-header" style="margin-top: 2em;">
