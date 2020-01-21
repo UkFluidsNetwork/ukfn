@@ -32,6 +32,25 @@ angular.module('ukfn')
         };
 
         /**
+         * Update photos
+         *
+         * @returns {void}  Sets array thisMembers
+         */
+        controller.updatePhotos = function() {
+            $http(
+                    {
+                        method: 'GET',
+                        url: '/api/ecmembers/'
+                    }
+                ).then(function (response) {
+                    var members = response.data;
+                    for (var i = 0; i < members.length; i++) {
+                      controller.thisMembers[i].photo = members[i].photo;
+                    }
+                });
+        };
+
+        /**
          * Load all UKFN users, unset the ones that are already a member of this sig
          *
          * @returns {void}
@@ -127,9 +146,12 @@ angular.module('ukfn')
                     file_id: fileId,
                     role: role
                 }
+              })
+              .success(function(){
+                  controller.updatePhotos();
               });
-            // there's no reloading as that triggers the ng-change directive
-            // again, updating itself in an endless loop
+            // there's no reloading of the full dataset as that triggers
+            // the ng-change directive, updating itself in an endless loop
         };
 
         /**

@@ -24,6 +24,7 @@
             <thead>
                 <tr>
                     <th>Name</th>
+                    <th></th>
                     <th>Photo</th>
                     <th>Role</th>
                     <th>Action</th>
@@ -32,6 +33,9 @@
             <tbody>
                 <tr ng-repeat="member in ecCtrl.thisMembers">
                     <td>@{{ member.fullname }}</td>
+                    <td>
+                      <img height="80" width="60" src="@{{ member.photo }}">
+                    </td>
                     <td>
                       <selectize id="file_select"
                           options='ecCtrl.files'
