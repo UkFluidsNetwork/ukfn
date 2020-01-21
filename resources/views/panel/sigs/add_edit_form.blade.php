@@ -2,13 +2,12 @@
 <script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
 @endsection
 
-@if (Auth::user()->isAdmin())
 <div class='form-group {{ $errors->has('name') ? ' has-error line-break-dbl' : '' }}'>
 
 	{!! Form::label('name', 'SIG:', ['class' => 'control-label col-lg-2 text-left']) !!}
     <div class='col-lg-8'>
         @if (!Auth::user()->isAdmin())
-        {!! Form::hidden('name', $sig->name) !!}
+        {!! Form::text('name', $sig->name, ['class' => 'form-control','placeholder' => 'The name of the sig', 'readonly' => 'readonly']) !!}
         @else
         {!! Form::text('name', $sig->name, ['class' => 'form-control','placeholder' => 'The name of the sig']) !!}
         @endif
@@ -19,7 +18,6 @@
         @endif
     </div>
 </div>
-@endif
 
 <div class="form-group {{ $errors->has('institutions') ? ' has-error' : ''}}">
     <label for="institutions" class="control-label col-lg-2  text-left">Institutions</label>
@@ -33,11 +31,14 @@
     </div>
 </div>
 
-@if (Auth::user()->isAdmin())
 <div class='form-group {{ $errors->has('shortname') ? ' has-error line-break-dbl' : '' }}'>
   {!! Form::label('shortname', 'Short name:', ['class' => 'control-label col-lg-2 text-left']) !!}
   <div class='col-lg-8'>
+        @if (!Auth::user()->isAdmin())
+      {!! Form::text('shortname', $sig->shortname, ['class' => 'form-control','placeholder' => 'The short name of the sig', 'readonly' => 'readonly']) !!}
+        @else
       {!! Form::text('shortname', $sig->shortname, ['class' => 'form-control','placeholder' => 'The short name of the sig']) !!}
+        @endif
     @if ($errors->has('shortname'))
     <span class="text-danger">
       <span>{{ $errors->first('shortname') }}</span>
@@ -45,7 +46,6 @@
     @endif
   </div>
 </div>
-@endif
 
 <div class="form-group {{ $errors->has('disciplines') ? ' has-error' : ''}}">
     <label for="disciplines" class="control-label col-lg-2 text-left">Fluids sub-disciplines</label>
