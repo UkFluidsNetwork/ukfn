@@ -466,26 +466,25 @@ class UsersController extends Controller
 
         $user = User::findOrFail($parameters['user_id']);
 
-        if (!$user->ecmembership) {
-            return response()->json('Invalid data', 500);
-        }
-
         switch ($action) {
             case "add":
-                $file = File::findOrFail($parameters['file_id']);
                 $membership = new Ecmember;
                 $membership->user_id = $user->id;
-                $membership->file_id = $file->id;
-                $membership->role = $parameters['role'];
                 $actionPerformed = $membership->save();
                 break;
             case "update":
+                if (!$user->ecmembership) {
+                    return response()->json('Invalid data', 500);
+                }
                 $file = File::findOrFail($parameters['file_id']);
                 $user->ecmembership->file_id = $parameters['file_id'];
                 $user->ecmembership->role = $parameters['role'];
                 $actionPerformed = $user->ecmembership->update();
                 break;
             case "delete":
+                if (!$user->ecmembership) {
+                    return response()->json('Invalid data', 500);
+                }
                 $actionPerformed = $user->ecmembership->delete();
                 break;
         }
@@ -512,7 +511,7 @@ class UsersController extends Controller
             $member->surname = $user->surname;
             $member->fullname = $member->title . " " . $member->name
                 . " " . $member->surname;
-            $member->photo = url($file->path . "/" . $file->name);
+            $member->photo = $file ? url($file->path . "/" . $file->name) : "";
             $member->homepage = $user->url;
             $member->institutions = "";
             foreach ($member->user->institutions as $index => $institution) {
