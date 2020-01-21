@@ -477,7 +477,7 @@ class UsersController extends Controller
                 $membership->user_id = $user->id;
                 $membership->file_id = $file->id;
                 $membership->role = $parameters['role'];
-                $actionPerformed = $membership->sav();
+                $actionPerformed = $membership->save();
                 break;
             case "update":
                 $file = File::findOrFail($parameters['file_id']);
