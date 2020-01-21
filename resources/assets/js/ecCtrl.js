@@ -127,10 +127,9 @@ angular.module('ukfn')
                     file_id: fileId,
                     role: role
                 }
-            })
-            .success(function(){
-                controller.loadEcMembers();
-            });
+              });
+            // there's no reloading as that triggers the ng-change directive
+            // again, updating itself in an endless loop
         };
 
         /**
