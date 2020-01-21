@@ -78,6 +78,12 @@ return [
           'visibility' => 'public',
         ],
 
+        'ec-pictures' => [
+          'driver' => 'local',
+          'root' => storage_path('app/public/pictures/ec'),
+          'visibility' => 'public',
+        ],
+
         'resources' => [
             'driver' => 'local',
             'root' => storage_path('app/public/files/resources'),

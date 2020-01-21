@@ -43,6 +43,7 @@ elixir(function(mix) {
        .scripts(['resourcesCtrl.js'], 'public/js/resourcesCtrl.js')
        .scripts(['sigCtrl.js'], 'public/js/sigCtrl.js')
        .scripts(['talksCtrl.js'], 'public/js/talksCtrl.js')
+       .scripts(['ecCtrl.js'], 'public/js/ecCtrl.js')
 
     // copy css from vendor packages to sass folder
     mix.copy('node_modules/selectize-scss/src',
