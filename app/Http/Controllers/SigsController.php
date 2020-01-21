@@ -126,6 +126,7 @@ class SigsController extends Controller
             // prevent sig leader to change sig name
             if (Auth::user()->isSigEditorOf($id)) {
                 $request['name'] = $sig->name;
+                $request['shortname'] = $sig->shortname;
             }
 
             $input = $request->all();
@@ -135,14 +136,14 @@ class SigsController extends Controller
             $smallImage = $request->file('smallimage');
 
             if ($bigImage) {
-                $name = strtolower($request->shortname) . "_large_";
+                $name = strtolower($request->shortname) . "_large";
                 $sig->bigimage = PagesController::uploadFile($bigImage,
                                                              'sig-pictures',
                                                              $name);
             }
             if ($smallImage) {
-                $name = strtolower($request->shortname) . "_small_";
-                $sig->smallimage = PagesController::uploadFile($bigImage,
+                $name = strtolower($request->shortname) . "_small";
+                $sig->smallimage = PagesController::uploadFile($smallImage,
                                                                'sig-pictures',
                                                                $name);
             }
