@@ -1,4 +1,17 @@
 @extends('layouts.master')
+
+@section('head')
+<script src="{{ asset('js/vendor/selectize.min.js')}}"></script>
+<script src="{{ asset('js/angular.min.js')}}"></script>
+<script src="{{ asset('js/angular-messages.min.js')}}"></script>
+<script src="{{ asset('js/ngStorage.min.js')}}"></script>
+<script src="{{ asset('js/ng-map.min.js')}}"></script>
+<script src="{{ asset('js/angApp.js')}}"></script>
+<script src="{{ asset('js/selectize.js')}}"></script>
+<script src="{{ asset('js/angularjs-dropdown-multiselect.min.js')}}"></script>
+<script src="{{ asset('js/ecCtrl.js')}}"></script>
+@endsection
+
 @section('content')
 <style>
     .titleless {
@@ -154,121 +167,29 @@
 </section>
 <section class="page-header">
 <h3>People</h3>
-  <div>
+  <div ng-app="ukfn"
+       ng-controller="ecController as ecCtrl"
+       ng-init="ecCtrl.initialise();">
     <p class="h4 text-danger line-break-dbl-top">Executive Committee</p>
     <p class="line-break-dbl-top">
-    <div class="row">
-        <div class="col-sm-5 col-md-3">
+    <div class="row" ng-show="ecCtrl.thisMembers.length > 0">
+        <div class="col-sm-5 col-md-3" ng-repeat="member in ecCtrl.thisMembers">
           <div class="thumbnail">
-            <img src="/pictures/ec/MJ_1.5_250h.jpg" alt="Prof. Matthew Juniper">
+            <img src="@{{ member.photo }}" alt="@{{ member.fullname }}">
             <div class="caption">
-              <h4>PI</h4>
-              <p>
-                <a href="http://www2.eng.cam.ac.uk/~mpj1001/MJ_biography.html"
-                   target="_blank">
-                       Prof. Matthew Juniper
+              <h4 ng-if="member.role">@{{ member.role }}</h4>
+              <p ng-class="{'titleless': !member.role }">
+                <a href="@{{ member.homepage }}"
+                   target="_blank"
+                   ng-if="member.homepage">
+                       @{{ member.fullname }}
                 </a>
+                  <span ng-if="!member.homepage">@{{ member.fullname }}</span>
                   <br>
-                  <i>University of Cambridge</i>
+                  <i>@{{ member.institutions }}</i>
             </div>
           </div>
         </div>
-
-        <div class="col-sm-5 col-md-3">
-          <div class="thumbnail">
-            <img src="/pictures/ec/ND_1.5_250h.jpg" alt="Dr Nick Daish">
-            <div class="caption">
-              <h4>Coordinator</h4>
-              <p>
-                <a href="http://www.eng.cam.ac.uk/profiles/ncd1"
-                   target="_blank">
-                       Dr Nick Daish
-                </a>
-                  <br>
-                  <i>University of Cambridge</i>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-5 col-md-3">
-          <div class="thumbnail">
-            <img src="/pictures/ec/YH_1.5_250h.jpg"
-                 alt="Prof. Yannis Hardalupas">
-            <div class="caption">
-              <h4>Executive Committee</h4>
-              <p>
-                <a href="https://www.imperial.ac.uk/people/y.hardalupas"
-                   target="_blank">
-                       Prof. Yannis Hardalupas
-                </a>
-                  <br>
-                  <i>Imperial College London</i>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-5 col-md-3">
-          <div class="thumbnail">
-            <img src="/pictures/ec/AJ_1.5_250h.jpg" alt="Prof. Anne Juel">
-            <div class="caption">
-              <p class="titleless">
-                <a href="http://www.maths.manchester.ac.uk/~ajuel/"
-                   target="_blank">
-                       Prof. Anne Juel
-                </a>
-                  <br>
-                  <i>University of Manchester</i>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-5 col-md-3">
-          <div class="thumbnail">
-            <img src="/pictures/ec/PFL_1.5_250h.jpg" alt="Prof. Paul Linden">
-            <div class="caption">
-              <p class="titleless">
-                <a href="http://www.damtp.cam.ac.uk/people/p.f.linden/"
-                   target="_blank">
-                       Prof. Paul Linden
-                </a>
-                  <br>
-                  <i>University of Cambridge</i>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-5 col-md-3">
-          <div class="thumbnail">
-            <img src="/pictures/ec/NS_1.5_250h.jpg" alt="Prof. Neil Sandham">
-            <div class="caption">
-              <p class="titleless">
-                <a href="http://www.southampton.ac.uk/engineering/about/staff/nds9.page"
-                   target="_blank">
-                       Prof. Neil Sandham
-                </a>
-                  <br>
-                  <i>University of Southampton</i>
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-sm-5 col-md-3">
-          <div class="thumbnail">
-            <img src="/pictures/ec/ST_1.5_250h.jpg" alt="Prof. Steve Tobias">
-            <div class="caption">
-              <p class="titleless">
-                <a href="http://www1.maths.leeds.ac.uk/~smt/"
-                   target="_blank">
-                       Prof. Steve Tobias
-                </a>
-                  <br>
-                  <i>University of Leeds</i>
-              </p>
-            </div>
-          </div>
-        </div>
-
     </div>
     </p>
   </div>
