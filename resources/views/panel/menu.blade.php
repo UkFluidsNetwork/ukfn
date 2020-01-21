@@ -25,6 +25,9 @@
             <ul id='admin-subnav-users' class='nav nav-stacked'>
                 <li><a href="{{ URL::to('panel/users/add') }}" class="{{ Request::is('panel/users/add') ? 'active' : '' }}">Add</a></li>
             </ul>
+            <ul id='admin-subnav-users' class='nav nav-stacked'>
+                <li><a href="{{ URL::to('panel/users/ec') }}" class="{{ Request::is('panel/users/ec') ? 'active' : '' }}">Executive Committee</a></li>
+            </ul>
         </li>
 
         <li class="{{ Request::is('panel/institutions*') ? 'active' : '' }}">

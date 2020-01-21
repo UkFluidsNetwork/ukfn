@@ -186,6 +186,17 @@ class User extends Authenticatable
     }
 
     /**
+     * Get the EC membership associated with the user
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function ecmembership()
+    {
+        return $this->hasOne('App\Ecmember');
+    }
+
+
+    /**
      * Get the news associated with the user
      *
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -438,6 +449,19 @@ class User extends Authenticatable
             ->select(DB::raw('DISTINCT(`institution_id`) as id, name'))
             ->join('institutions','institution_users.institution_id',
                 '=','institutions.id')
+            ->orderBy('name')
+            ->get();
+    }
+
+    /**
+     * Get the list of EC members
+     *
+     * @return array
+     */
+    public static function ecMembers()
+    {
+        return DB::table('ec_members')
+            ->join('users', 'users.id', '=', 'ec_members.user_id')
             ->orderBy('name')
             ->get();
     }

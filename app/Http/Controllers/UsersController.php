@@ -5,10 +5,12 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UsersFormRequest;
 use Illuminate\Support\Facades\Session;
 use App\User;
+use App\Ecmember;
 use App\Title;
 use App\Group;
 use App\Institution;
 use App\Tag;
+use App\File;
 use DB;
 use Cache;
 use Carbon\Carbon;
@@ -440,6 +442,122 @@ class UsersController extends Controller
             Session:flash('error_message', $ex);
         }
         return redirect('/');
+    }
+
+    /**
+     * Attach a user to the executive committee
+     *
+     * @param int $id
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function administerEcMember($action, Request $request)
+    {
+        $actionsAllowed = ["add", "update", "delete"];
+        $parameters = $request->all();
+
+        if (empty($parameters)) {
+            return response()->json('Invalid data', 500);
+        }
+
+        if (!in_array($action, $actionsAllowed)) {
+            return response()->json('Invalid action', 500);
+        }
+
+        $user = User::findOrFail($parameters['user_id']);
+
+        if (!$user->ecmembership) {
+            return response()->json('Invalid data', 500);
+        }
+
+        switch ($action) {
+            case "add":
+                $file = File::findOrFail($parameters['file_id']);
+                $membership = new Ecmember;
+                $membership->user_id = $user->id;
+                $membership->file_id = $file->id;
+                $membership->role = $parameters['role'];
+                $actionPerformed = $membership->sav();
+                break;
+            case "update":
+                $file = File::findOrFail($parameters['file_id']);
+                $user->ecmembership->file_id = $parameters['file_id'];
+                $user->ecmembership->role = $parameters['role'];
+                $actionPerformed = $user->ecmembership->update();
+                break;
+            case "delete":
+                $actionPerformed = $user->ecmembership->delete();
+                break;
+        }
+
+        return $actionPerformed ? response()->json("performed: ${action}")
+                                : response()->json("could not ${action}", 500);
+    }
+
+    /*
+     * Get all EC users in JSON format
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getEcJson()
+    {
+        $members = [];
+        $allMembers = Ecmember::all();
+
+        foreach ($allMembers as $member) {
+            $user = $member->user;
+            $file = $member->file;
+            $member->title = $user->title->shortname;
+            $member->name = $user->name;
+            $member->surname = $user->surname;
+            $member->fullname = $member->title . " " . $member->name
+                . " " . $member->surname;
+            $member->photo = url($file->path . "/" . $file->name);
+            $member->homepage = $user->url;
+            $member->institutions = "";
+            foreach ($member->user->institutions as $index => $institution) {
+                $member->institutions .= $institution->name;
+                if ($index !== count($member->institutions)-1) {
+                    $member->institutions .= ", ";
+                }
+            }
+            unset($member->user);
+            unset($member->file);
+            $members[] = $member;
+        }
+
+        return response()->json($members);
+    }
+
+      /*
+       * Get all images under /ec
+       *
+       * @return \Symfony\Component\HttpFoundation\Response
+       */
+      public function ecphotosJson()
+      {
+        $photos = DB::table('files')
+                ->select('id', 'name')
+                ->where("path", "/pictures/ec")->get();
+
+          return response()->json($photos);
+      }
+
+    /**
+     * Add any ukfn member to the EC
+     *
+     * @return Illuminate\Support\Facades\View
+     */
+    public function ecmembers()
+    {
+        $bread = [
+            ['label' => 'Panel', 'path' => '/panel'],
+            ['label' => 'Users', 'path' => '/panel/users'],
+            ['label' => 'Executive Committee', 'path' => '/panel/users/ec']
+        ];
+        $breadCount = count($bread);
+
+        return view('panel.users.ec', compact('bread', 'breadCount'));
     }
 }
 
