@@ -273,7 +273,7 @@ class SigsController extends Controller
             }
         }
 
-        $expiresAt = Carbon::now()->addDay(1);
+        $expiresAt = Carbon::now()->addDay(7);
         Cache::put("sigs-${order}", $sigs, $expiresAt);
         return response()->json($sigs);
     }
