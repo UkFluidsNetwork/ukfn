@@ -153,6 +153,8 @@ class SigsController extends Controller
             $institutions = $request->institutions ?: [];
             $sig->updateInstitutions($institutions);
             $sig->updateTags($request->toArray());
+            Cache::forget("sigs-name");
+            Cache::forget("sigs-id");
             Session::flash('success_message', 'Edited succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
@@ -271,7 +273,7 @@ class SigsController extends Controller
             }
         }
 
-        $expiresAt = Carbon::now()->addDay(1);
+        $expiresAt = Carbon::now()->addDay(2);
         Cache::put("sigs-${order}", $sigs, $expiresAt);
         return response()->json($sigs);
     }
