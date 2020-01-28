@@ -95,6 +95,7 @@ class UsersController extends Controller
             $institutions = $request->institutions ? : [];
             $user->updateInstitutions($institutions);
             $user->updateTags($request->toArray());
+            Cache::flush();
             Session::flash('success_message', 'Edited succesfully.');
         } catch (Exception $ex) {
             Session:flash('error_message', $ex);
