@@ -27,6 +27,7 @@
                     <th></th>
                     <th>Photo</th>
                     <th>Role</th>
+                    <th>Order</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -40,16 +41,24 @@
                       <selectize id="file_select"
                           options='ecCtrl.files'
                           config='ecCtrl.selectizeFileConfig'
-                          ng-change="ecCtrl.updateMember(member.user_id, member.file_id, member.role)"
+                          ng-change="ecCtrl.updateMember(member.user_id, member.file_id, member.role, member.order)"
                           ng-model="member.file_id">
                       </selectize>
                     </td>
                     <td>
                         <input ng-model="member.role"
-                               ng-change="ecCtrl.updateMember(member.user_id, member.file_id, member.role)"
+                               ng-change="ecCtrl.updateMember(member.user_id, member.file_id, member.role, member.order)"
                                type="text"
                                id="role"
                                placeholder="Role"
+                               class="form-control" />
+                    </td>
+                    <td>
+                        <input ng-model="member.order"
+                               ng-change="ecCtrl.updateMember(member.user_id, member.file_id, member.role, member.order)"
+                               type="number"
+                               id="order"
+                               placeholder="Order"
                                class="form-control" />
                     </td>
                     <td>
