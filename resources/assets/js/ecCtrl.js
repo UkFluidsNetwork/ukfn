@@ -136,7 +136,7 @@ angular.module('ukfn')
             }
         };
 
-        controller.updateMember = function(userId, fileId, role)
+        controller.updateMember = function(userId, fileId, role, order)
         {
             $http({
                 method : 'POST',
@@ -144,7 +144,8 @@ angular.module('ukfn')
                 data: {
                     user_id: userId,
                     file_id: fileId,
-                    role: role
+                    role: role,
+                    order: order
                 }
               })
               .success(function(){

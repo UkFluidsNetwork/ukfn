@@ -480,6 +480,7 @@ class UsersController extends Controller
                 $file = File::findOrFail($parameters['file_id']);
                 $user->ecmembership->file_id = $parameters['file_id'];
                 $user->ecmembership->role = $parameters['role'];
+                $user->ecmembership->order = (int)$parameters['order'];
                 $actionPerformed = $user->ecmembership->update();
                 break;
             case "delete":
@@ -502,7 +503,7 @@ class UsersController extends Controller
     public function getEcJson()
     {
         $members = [];
-        $allMembers = Ecmember::all();
+        $allMembers = Ecmember::orderBy('order')->get();
 
         foreach ($allMembers as $member) {
             $user = $member->user;
