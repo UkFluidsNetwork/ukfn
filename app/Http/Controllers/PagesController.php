@@ -93,7 +93,7 @@ class PagesController extends Controller
             . 'by the panel, a list of institutional points of contact, '
             . 'and a summary of the emails we send to our mailing list.');
 
-        $boxes = Connectbox::orderBy('order')->get();
+        $boxes = Connectbox::where("active", "=", 1)->orderBy('order')->get();
         $listMessages = Message::getMailinglistMessages();
         $publicMessages = Message::getPublicMessages();
         $listEmails = MessagesController::formatMessages($listMessages);
