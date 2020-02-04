@@ -121,6 +121,11 @@
                       Load all
                   </button>
                 </div>
+                <div ng-if="dirCtrl.allDisplayed()">
+                    <p>
+                        @{{dirCtrl.users.length}}/@{{dirCtrl.users.length}} researchers shown.
+                    </p>
+                </div>
                 <div ng-repeat="user in dirCtrl.users | limitTo:dirCtrl.totalDisplayed"
                      ng-if="!dirCtrl.loading"
                      class='panel panel-default' ng-cloak>
