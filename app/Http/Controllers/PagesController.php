@@ -13,6 +13,7 @@ use App\Sig;
 use App\Tag;
 use App\Message;
 use App\Institution;
+use App\Connectbox;
 use App\Carouselfile;
 use App\Http\Requests\CarouselFormRequest;
 use App\Http\Requests\ContactUsRequest;
@@ -92,6 +93,7 @@ class PagesController extends Controller
             . 'by the panel, a list of institutional points of contact, '
             . 'and a summary of the emails we send to our mailing list.');
 
+        $boxes = Connectbox::orderBy('order')->get();
         $listMessages = Message::getMailinglistMessages();
         $publicMessages = Message::getPublicMessages();
         $listEmails = MessagesController::formatMessages($listMessages);
@@ -99,7 +101,7 @@ class PagesController extends Controller
         $totalListEmails = count($listEmails);
         $totalPublicEmails = count($publicEmails);
 
-        return view('pages.about', compact('listEmails', 'publicEmails',
+        return view('pages.about', compact('listEmails', 'publicEmails', 'boxes',
                                       'totalListEmails', 'totalPublicEmails'));
     }
 

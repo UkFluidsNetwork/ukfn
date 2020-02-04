@@ -113,6 +113,11 @@ Route::get('panel/srv/add', 'SrvsController@add')->middleware('admin');
 Route::get('panel/srv/edit/{id}', 'SrvsController@edit')->middleware('admin');
 Route::get('panel/competition/votes', 'CompetitionController@votes')->middleware('admin');
 Route::get('panel/competition/votes/export', 'CompetitionController@export')->middleware('admin');
+Route::get('panel/connect', 'ConnectController@view')->middleware('admin');
+Route::get('panel/connect/add', 'ConnectController@add')->middleware('admin');
+Route::get('panel/connect/edit/{id}', 'ConnectController@editBox')->middleware('admin');
+Route::get('panel/connect/move/{direction}/{id}', 'ConnectController@moveBox')->middleware('admin');
+Route::get('panel/connect/toggle/{id}', 'ConnectController@toggleBoxStatus')->middleware('admin');
 Route::get('panel/resources', 'ResourcesController@view')->middleware('admin');
 Route::get('panel/resources/add', 'ResourcesController@add')->middleware('admin');
 Route::get('panel/resources/edit/{id}', 'ResourcesController@edit')->middleware('admin');
@@ -142,6 +147,9 @@ Route::post('myaccount/academic', 'PagesController@updateAcademicDetails')->midd
 Route::post('myaccount/password', 'PagesController@updatePassword')->middleware('auth');
 Route::post('myaccount/preferences', 'PagesController@updatePreferences')->middleware('auth');
 Route::post('panel/files/delete/{id}', 'FilesController@delete')->middleware('auth'); //further checks in function
+// require canCreateConnectBox
+Route::post('/panel/connect/add', 'ConnectController@createBox')->middleware('admin');
+Route::post('/panel/connect/delete/{id}', 'ConnectController@deleteBox')->middleware('admin');
 // require canEditSigBox
 Route::post('/panel/sig/box/delete/{id}', 'SigsController@deleteBox')->middleware('sig-box');
 // require canEditSig
@@ -192,6 +200,7 @@ Route::patch('/panel/sig/box/update/{id}', 'SigsController@updateBox')->middlewa
 // require canEditSig
 Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('sig');
 // require admin
+Route::patch('/panel/connect/update/{id}', 'ConnectController@updateBox')->middleware('admin');
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('admin');
 Route::patch('/news/update/{id}', 'NewsController@update')->middleware('admin');
 Route::patch('/events/update/{id}', 'EventsController@update')->middleware('admin');

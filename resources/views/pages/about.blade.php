@@ -142,6 +142,17 @@
     </p>
   </div>
 </section>
+
+  @if ($boxes)
+  @foreach ($boxes as $box)
+  <section class="page-header">
+  <div>
+      <h3>{{ $box->title }}</h3>
+      {!! $box->content !!}
+  </div>
+  </section>
+  @endforeach
+  @endif
 <section class="page-header">
 <h3>Downloads</h3>
   <div>
