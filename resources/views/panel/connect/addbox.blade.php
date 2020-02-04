@@ -46,7 +46,11 @@
 {!! Form::close() !!}
 
 <script>
-  CKEDITOR.replace('content');
+CKEDITOR.replace('content');
+CKEDITOR.stylesSet.add( 'my_styles', [
+    { name: 'Red title', element: 'p', styles: { 'color': '#a94442', 'margin-top': '2em !important', 'font-size': '18px' } },
+  ]);
+CKEDITOR.config.stylesSet = 'my_styles';
 </script>
 
 @endsection
