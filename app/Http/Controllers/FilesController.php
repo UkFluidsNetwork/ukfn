@@ -31,6 +31,7 @@ class FilesController extends Controller
         "attachments" => "/files/attachments",
         "sig-pictures" => "/pictures/sig",
         "newsletter-pictures" => "/pictures/newsletter",
+        "newsletter-files" => "/files/newsletter",
         "ec-pictures" => "/pictures/ec",
         "resources" => "/files/resources",
         "meetings" => "/files/meetings",
