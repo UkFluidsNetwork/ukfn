@@ -30,5 +30,15 @@ class News extends Model
                 ->take($limit)
                 ->get();
     }
+
+    /**
+     * Get the user that posted this news
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this->belongsTo('App\User');
+    }
 }
 

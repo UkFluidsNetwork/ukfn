@@ -78,6 +78,12 @@ return [
           'visibility' => 'public',
         ],
 
+        'newsletter-files' => [
+          'driver' => 'local',
+          'root' => storage_path('app/public/files/newsletter'),
+          'visibility' => 'public',
+        ],
+
         'ec-pictures' => [
           'driver' => 'local',
           'root' => storage_path('app/public/pictures/ec'),

@@ -331,6 +331,16 @@ class User extends Authenticatable
     }
 
     /**
+     * Determine if the user is a moderator.
+     *
+     * @return boolean
+     */
+    public function isModerator()
+    {
+        return $this->group_id === 2;
+    }
+
+    /**
      * Determine if the user is the leader of at least one sig.
      *
      * @return boolean

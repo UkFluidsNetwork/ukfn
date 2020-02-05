@@ -76,9 +76,9 @@ Route::get('api/users/{id}', 'UsersController@getUserJson')->middleware('admin-l
 Route::get('panel', 'PanelController@index')->middleware('admin');
 Route::get('panel/suggestions', 'SuggestionsController@view')->middleware('admin');
 Route::get('panel/suggestions/edit/{id}', 'SuggestionsController@edit')->middleware('admin');
-Route::get('panel/news', 'NewsController@view')->middleware('admin');
-Route::get('panel/news/add', 'NewsController@add')->middleware('admin');
-Route::get('panel/news/edit/{id}', 'NewsController@edit')->middleware('admin');
+Route::get('panel/news', 'NewsController@view')->middleware('moderator');
+Route::get('panel/news/add', 'NewsController@add')->middleware('moderator');
+Route::get('panel/news/edit/{id}', 'NewsController@edit')->middleware('moderator');
 Route::get('panel/events', 'EventsController@view')->middleware('admin');
 Route::get('panel/events/add', 'EventsController@add')->middleware('admin');
 Route::get('panel/events/edit/{id}', 'EventsController@edit')->middleware('admin');
@@ -159,8 +159,8 @@ Route::get('api/users/', 'UsersController@getUsersJson')->middleware('admin-lead
 Route::post('panel/sig/files/add/{id}', 'FilesController@create')->middleware('sig');
 // require admin
 Route::post('suggestions/delete/{id}', 'SuggestionsController@delete')->middleware('admin');
-Route::post('news/delete/{id}', 'NewsController@delete')->middleware('admin');
-Route::post('news', 'NewsController@create')->middleware('admin');
+Route::post('news/delete/{id}', 'NewsController@delete')->middleware('moderator');
+Route::post('news', 'NewsController@create')->middleware('moderator');
 Route::post('events/delete/{id}', 'EventsController@delete')->middleware('admin');
 Route::post('events', 'EventsController@create')->middleware('admin');
 Route::post('sendmail', 'MailingController@sendMail')->middleware('admin');
@@ -202,7 +202,7 @@ Route::patch('/sig/update/{id}', 'SigsController@update')->middleware('sig');
 // require admin
 Route::patch('/panel/connect/update/{id}', 'ConnectController@updateBox')->middleware('admin');
 Route::patch('suggestions/update/{id}', 'SuggestionsController@update')->middleware('admin');
-Route::patch('/news/update/{id}', 'NewsController@update')->middleware('admin');
+Route::patch('/news/update/{id}', 'NewsController@update')->middleware('moderator');
 Route::patch('/events/update/{id}', 'EventsController@update')->middleware('admin');
 Route::patch('/tags/update/{id}', 'TagsController@update')->middleware('admin');
 Route::patch('/institutions/update/{id}', 'InstitutionsController@update')->middleware('admin');

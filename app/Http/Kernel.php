@@ -51,6 +51,7 @@ class Kernel extends HttpKernel
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'admin' => \App\Http\Middleware\RedirectIfNotAdmin::class,
+        'moderator' => \App\Http\Middleware\RedirectIfNotModerator::class,
         'sig' => \App\Http\Middleware\RedirectIfCannotEditSig::class,
         'sig-box' => \App\Http\Middleware\RedirectIfCannotEditSigBox::class,
         'admin-leader' => \App\Http\Middleware\RedirectIfCannotViewUsers::class,
