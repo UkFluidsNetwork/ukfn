@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Auth;
 use Closure;
 
-final class RedirectIfNotAdmin
+final class RedirectIfNotModerator
 {
 
     /**
@@ -18,9 +18,11 @@ final class RedirectIfNotAdmin
      */
     public function handle($request, Closure $next, $guard = null)
     {
-        $isAdmin = Auth::guest() ? false : (Auth::user()->isAdmin());
+        $isModerator = Auth::guest()
+          ? false
+          : (Auth::user()->isModerator() || Auth::user()->isAdmin());
 
-        if (!$isAdmin) {
+        if (!$isModerator) {
             if ($request->ajax() || $request->wantsJson()) {
                 return response('Unauthorized.', 401);
             } else {
@@ -30,4 +32,5 @@ final class RedirectIfNotAdmin
 
         return $next($request);
     }
+
 }

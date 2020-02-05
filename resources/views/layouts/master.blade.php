@@ -147,6 +147,14 @@
                                         </li>
                                         @endforeach
                                     @endif
+                                    @if(Auth::user()->isModerator())
+                                    <li>
+                                        <a href='{{ URL::to('/panel/news') }}'>
+                                            <span class="glyphicon glyphicon-wrench margin-right"></span>
+                                            Administer News
+                                        </a>
+                                    </li>
+                                    @endif
                                     <li>
                                         <a href='{{ URL::to('/myaccount') }}'>
                                             <span class="glyphicon glyphicon-user margin-right"></span>

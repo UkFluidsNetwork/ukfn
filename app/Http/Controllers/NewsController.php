@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Auth;
 use App\News;
+use App\User;
 use App\Http\Requests\NewsFormRequest;
 use Illuminate\Support\Facades\Session;
 
@@ -50,6 +51,7 @@ class NewsController extends Controller
 
         $news = News::getNews();
         foreach ($news as $new) {
+            $new->user = User::findOrFail($new->user_id);
             $new->created = PagesController::formatDate($new->created_at);
             $new->updated = PagesController::formatDate($new->updated_at);
         }
