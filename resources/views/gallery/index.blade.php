@@ -23,12 +23,10 @@
 @section('content')
 @include ('flash.success')
 
-<div class="btn-group btn-group-lg" role="group" aria-label="Basic example" style="margin-bottom: 1em; margin-left: 41%">
-  <button onclick="location.href='/gallery'" type="button" class="btn btn-primary {{ $type == 'all' ? 'active' : '' }}">All</button>
-  <button onclick="location.href='/gallery/videos'" type="button" class="btn btn-primary {{ $type == 'videos' ? 'active' : '' }}">Videos</button>
-  <button onclick="location.href='/gallery/photos'" type="button" class="btn btn-primary {{ $type == 'photos' ? 'active' : '' }}">Photos</button>
-  <button onclick="location.href='/gallery/interviews'" type="button" class="btn btn-primary {{ $type == 'interviews' ? 'active' : '' }}">Interviews</button>
-</div>
+<button onclick="location.href='/gallery'" type="button" class="btn btn-gallery {{ $type == 'all' ? 'active' : '' }}">All</button>
+<button onclick="location.href='/gallery/videos'" type="button" class="btn btn-gallery {{ $type == 'videos' ? 'active' : '' }}">Videos</button>
+<button onclick="location.href='/gallery/photos'" type="button" class="btn btn-gallery {{ $type == 'photos' ? 'active' : '' }}">Photos</button>
+<button onclick="location.href='/gallery/interviews'" type="button" class="btn btn-gallery {{ $type == 'interviews' ? 'active' : '' }}">Interviews</button>
 
 <div id="customScrollBox" class="content" style="height: 100%">
     <div id="toolbar"></div><div class="clear"></div>
