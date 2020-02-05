@@ -1,5 +1,5 @@
 html,body{height:100%}
-body {margin:0; padding:0; background:#333 url(/pictures/sw_page_bg.png); font-family:Helvetica, Arial, sans-serif; font-size:16px;}
+body {margin:0; padding:0; font-family:Helvetica, Arial, sans-serif; font-size:16px;}
 /* custom fonts */
 @font-face {
   font-family: 'eurof55-webfont';
@@ -36,7 +36,8 @@ a:hover{color:#fff; text-decoration:none;}
 .lightgrey{color:#ddd;}
 .s36{font-size:36px;}
 .s24{font-size:24px;}
-#customScrollBox a.thumb_link{position:relative; margin:0 0 1px 1px; display:block; float:left;}
+#customScrollBox a.thumb_link{position:relative; margin: 15px 15px 15px 15px; display:block; float:left;}
+#customScrollBox a.thumb_link:hover{box-shadow: 0 12px 25px 0 rgba(0, 0, 0, 0.45) !important;}
 #customScrollBox img{border:none;}
 .thumb{width:150px;height:150px;}
 #customScrollBox a.thumb_link .selected{position:absolute; top:0; left:0; width:145px; height:91px; display:none;}
