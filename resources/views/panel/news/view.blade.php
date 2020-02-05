@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 @section('admincontent')
 
-  <h2 class='line-break'>News (What's new)</h2>
+  <h2 class='line-break'>Network News</h2>
   <div class="table-responsive">
     <table class='table' id="view_sigs_suggestions">
       <thead>
