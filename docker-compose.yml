@@ -51,7 +51,7 @@ networks:
     driver: bridge
     ipam:
       config:
-      - subnet: 172.26.0.0/29
+        - subnet: 172.26.0.0/29
 
 volumes:
   web:
