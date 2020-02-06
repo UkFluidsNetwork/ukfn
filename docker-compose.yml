@@ -18,15 +18,12 @@ services:
         ipv4_address: 172.26.0.4
 
   ukfn:
-    build: .
+    image: ja573/ukfn
     container_name: "ukfn_web"
     restart: unless-stopped
     volumes:
       - ./storage:/var/www/html/storage
-      - ./resources:/var/www/html/resources
-      - ./app:/var/www/html/app
       - web:/var/www/html
-
     env_file:
       - .env
     depends_on:
@@ -40,7 +37,7 @@ services:
     container_name: "ukfn_db"
     restart: unless-stopped
     volumes:
-      - ./ukfn.sql:/docker-entrypoint-initdb.d/dump.sql
+      #- dump.sql:/docker-entrypoint-initdb.d/dump.sql
       - db:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
     env_file:
