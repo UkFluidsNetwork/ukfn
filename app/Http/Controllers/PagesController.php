@@ -495,6 +495,7 @@ class PagesController extends Controller
         }
 
         $dateEnd = new DateTime($end);
+        $sameDay = $dateStart->format("j") === $dateEnd->format("j");
         $sameMonth = $dateStart->format("m") === $dateEnd->format("m");
         $sameYear = $dateStart->format("Y") === $dateEnd->format("Y");
 
@@ -506,6 +507,10 @@ class PagesController extends Controller
 
         if ($sameMonth && $sameYear) {
             $date = $dateStart->format("j-") . $dateEnd->format("j F Y");
+        }
+
+        if($sameDay && $sameMonth && $sameYear){
+            $date = $dateStart->format("j F Y  H:i-") . $dateEnd->format("H:i");
         }
 
         return $date;

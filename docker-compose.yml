@@ -18,12 +18,15 @@ services:
         ipv4_address: 172.26.0.4
 
   ukfn:
-    image: ja573/ukfn
+    build: .
     container_name: "ukfn_web"
     restart: unless-stopped
     volumes:
       - ./storage:/var/www/html/storage
+      - ./resources:/var/www/html/resources
+      - ./app:/var/www/html/app
       - web:/var/www/html
+
     env_file:
       - .env
     depends_on:
@@ -37,7 +40,7 @@ services:
     container_name: "ukfn_db"
     restart: unless-stopped
     volumes:
-      #- dump.sql:/docker-entrypoint-initdb.d/dump.sql
+      - ./ukfn.sql:/docker-entrypoint-initdb.d/dump.sql
       - db:/var/lib/mysql
       - /etc/localtime:/etc/localtime:ro
     env_file:
@@ -51,7 +54,7 @@ networks:
     driver: bridge
     ipam:
       config:
-      - subnet: 172.26.0.0/29
+        - subnet: 172.26.0.0/29
 
 volumes:
   web:
