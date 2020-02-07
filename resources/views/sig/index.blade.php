@@ -22,13 +22,6 @@
 
 <div style="text-align:center;">
     <div class="col-sm-4 col-xs-12">
-        <a id="sig-calendar-btn" href="/sig/calendar/"
-          style="width: 100%"
-          class="btn btn-default line-break-dbl sig-extra-btn">
-           SIG meeting calendar
-       </a>
-    </div>
-    <div class="col-sm-4 col-xs-12">
         <button id="sig-calendar-btn"
            data-toggle="modal"
            data-target="#join-sig"
@@ -68,7 +61,7 @@
            data-target="#sig-booklet"
            style="width: 100%"
            class="btn btn-default line-break-dbl sig-extra-btn">
-           SIG Booklet
+           Start a SIG
         </button>
         <div class="modal fade" style="margin-top: 10%;"
              id="sig-booklet"
@@ -83,7 +76,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title" id="label-sig-booklet">
-                            SIG Booklet
+                            Start a SIG
                         </h4>
                     </div>
                     <div class="modal-body">
@@ -91,6 +84,39 @@
                         <object class="embed-responsive-item"
                                 data="/files/Booklet_170831a_compressedpics.1506703857.pdf"></object>
                       </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-4 col-xs-12">
+        <button id="sig-calendar-btn"
+           data-toggle="modal"
+           data-target="#inactive-sig"
+           style="width: 100%"
+           class="btn btn-default line-break-dbl sig-extra-btn">
+           Inactive SIGs 
+        </button>
+        <div class="modal fade" style="margin-top: 10%;"
+             id="inactive-sig"
+             role="dialog"
+             aria-labelledby="label-join-sig">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="label-join-sig">
+                            Inactive SIGs 
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <p>
+                        Inactive SIGs will go here. TODO!
+                      </p>
                     </div>
                 </div>
             </div>
