@@ -120,8 +120,8 @@
                      ng-class="{in: sigCtrl.thisSig.data.id == null}"
                      class="panel-collapse collapse ">
                    <p class="line-break padding-left padding-right">
-                    There are 41 Special Interest Groups
-                    spanning 63 institutions.
+                    There are @{{sigCtrl.numberOfSigs}} Special Interest Groups
+                    spanning @{{sigCtrl.distinctInstitutions.length}} institutions.
                   </p>
                 </div>
               </div>
