@@ -41,6 +41,10 @@ angular.module('ukfn')
                         output.push(value);
                     }
                 });
+
+                // get inactive sigs
+                controller.getInactiveSigs();
+
                 // tell ng repeat to display it
                 controller.displayAll = true;
                 // return unique institutions
@@ -67,6 +71,21 @@ angular.module('ukfn')
             }).then(function (response) {
                 controller.displayAll = false;
                 controller.thisSig = response;
+            });
+        };
+
+        /**
+         * Get Inactive sigs and their institutions
+         *
+         *
+         * @returns {json}
+         */
+        controller.getInactiveSigs = function () {
+            $http({
+                method: 'GET',
+                url: '/api/sigs?active=0'
+            }).then(function (response) {
+                controller.inactiveSigs = response;
             });
         };
 

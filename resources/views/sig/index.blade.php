@@ -20,6 +20,8 @@
     </h2>
 </div>
 
+<div ng-app="ukfn" ng-controller="sigController as sigCtrl"
+ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
 <div style="text-align:center;">
     <div class="col-sm-4 col-xs-12">
         <button id="sig-calendar-btn"
@@ -114,9 +116,19 @@
                         </h4>
                     </div>
                     <div class="modal-body">
-                        <p>
-                        Inactive SIGs will go here. TODO!
-                      </p>
+                      <div ng-repeat="sig in sigCtrl.inactiveSigs.data">
+                        <h4 style="display:inline">@{{sig.name}}: </h4>
+                        <div style="display:inline">
+                            <a ng-if="!sig.external" 
+                               href="/sig/@{{sig.shortname}}">
+                              More details
+                            </a>
+                            <a ng-if="sig.external"
+                               href="@{{sig.url}}" target="_blank">
+                              External website
+                            </a>
+                        </div>
+                      </div>
                     </div>
                 </div>
             </div>
@@ -124,8 +136,7 @@
     </div>
 </div>
 
-<div ng-app="ukfn" ng-controller="sigController as sigCtrl"
-     ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
+<div>
     <div class="container-fluid nopadding">
         <!-- SIG list -->
         <div class="col-md-3 col-sm-5 col-xs-12 mapHeight axis-y
@@ -270,5 +281,6 @@
         </div>
         @endif
     </div>
+</div>
 </div>
 @endsection

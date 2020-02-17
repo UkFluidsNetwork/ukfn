@@ -255,11 +255,20 @@ class SigsController extends Controller
 
         // see if request has been cached
         if (Cache::has("sigs-${order}")) {
-            return response()->json(Cache::get("sigs-${order}"));
+           return response()->json(Cache::get("sigs-${order}"));
+        }
+        
+        $sigs = [];
+
+        // check if request contains any active related query
+        if ($request->has('active')) {
+            $allSigs = Sig::orderBy($order, 'asc')->where('active', $parameters['active'])->get();
+        }
+        else{
+        // Get only the active sigs
+        $allSigs = Sig::orderBy($order, 'asc')->where('active', 1)->get();
         }
 
-        $sigs = [];
-        $allSigs = Sig::orderBy($order, 'asc')->get();
         foreach ($allSigs as $sig) {
             switch ($order) {
                 case "name":
@@ -321,7 +330,9 @@ class SigsController extends Controller
         $twitter = $sig->twitterurl;
 
         // generate navigation buttons
-        $allSig = Sig::orderBy('name')->get();
+        // only navigate active sigs
+        $allSig = Sig::orderBy('name')->where('active', 1)->get();
+        
         $shortname = $sig->shortname;
         $curSig = 0;
         foreach ($allSig as $k => $s) {
