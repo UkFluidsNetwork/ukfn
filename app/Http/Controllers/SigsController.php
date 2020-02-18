@@ -249,13 +249,12 @@ class SigsController extends Controller
     public static function getAllJson(Request $request)
     {
         $parameters = $request->all();
-        $order = isset($parameters['order']) && $parameters['order'] == 'name'
-            ? 'name'
-            : 'id';
+        $order = isset($parameters['order']) && $parameters['order'] == 'name' ? 'name' : 'id';
+        $active = isset($parameters['active']) && $parameters['active'] == '1' ? '1' :  '0';
 
         // see if request has been cached
-        if (Cache::has("sigs-${order}")) {
-           return response()->json(Cache::get("sigs-${order}"));
+        if (Cache::has("sigs-${order}-${active}")) {
+           return response()->json(Cache::get("sigs-${order}-${active}"));
         }
         
         $sigs = [];
@@ -283,7 +282,7 @@ class SigsController extends Controller
         }
 
         $expiresAt = Carbon::now()->addDay(2);
-        Cache::put("sigs-${order}", $sigs, $expiresAt);
+        Cache::put("sigs-${order}-${active}", $sigs, $expiresAt);
         return response()->json($sigs);
     }
 
