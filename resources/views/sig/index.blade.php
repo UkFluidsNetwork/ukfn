@@ -20,14 +20,9 @@
     </h2>
 </div>
 
+<div ng-app="ukfn" ng-controller="sigController as sigCtrl"
+ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
 <div style="text-align:center;">
-    <div class="col-sm-4 col-xs-12">
-        <a id="sig-calendar-btn" href="/sig/calendar/"
-          style="width: 100%"
-          class="btn btn-default line-break-dbl sig-extra-btn">
-           SIG meeting calendar
-       </a>
-    </div>
     <div class="col-sm-4 col-xs-12">
         <button id="sig-calendar-btn"
            data-toggle="modal"
@@ -68,7 +63,7 @@
            data-target="#sig-booklet"
            style="width: 100%"
            class="btn btn-default line-break-dbl sig-extra-btn">
-           SIG Booklet
+           Start a SIG
         </button>
         <div class="modal fade" style="margin-top: 10%;"
              id="sig-booklet"
@@ -83,7 +78,7 @@
                             <span aria-hidden="true">&times;</span>
                         </button>
                         <h4 class="modal-title" id="label-sig-booklet">
-                            SIG Booklet
+                            Start a SIG
                         </h4>
                     </div>
                     <div class="modal-body">
@@ -96,10 +91,52 @@
             </div>
         </div>
     </div>
+    <div class="col-sm-4 col-xs-12">
+        <button id="sig-calendar-btn"
+           data-toggle="modal"
+           data-target="#inactive-sig"
+           style="width: 100%"
+           class="btn btn-default line-break-dbl sig-extra-btn">
+           Inactive SIGs 
+        </button>
+        <div class="modal fade" style="margin-top: 10%;"
+             id="inactive-sig"
+             role="dialog"
+             aria-labelledby="label-join-sig">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close"
+                                data-dismiss="modal"
+                                aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                        <h4 class="modal-title" id="label-join-sig">
+                            Inactive SIGs 
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                      <div ng-repeat="sig in sigCtrl.inactiveSigs.data">
+                        <h4 style="display:inline">@{{sig.name}}: </h4>
+                        <div style="display:inline">
+                            <a ng-if="!sig.external" 
+                               href="/sig/@{{sig.shortname}}">
+                              More details
+                            </a>
+                            <a ng-if="sig.external"
+                               href="@{{sig.url}}" target="_blank">
+                              External website
+                            </a>
+                        </div>
+                      </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
-<div ng-app="ukfn" ng-controller="sigController as sigCtrl"
-     ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
+<div>
     <div class="container-fluid nopadding">
         <!-- SIG list -->
         <div class="col-md-3 col-sm-5 col-xs-12 mapHeight axis-y
@@ -120,8 +157,8 @@
                      ng-class="{in: sigCtrl.thisSig.data.id == null}"
                      class="panel-collapse collapse ">
                    <p class="line-break padding-left padding-right">
-                    There are 41 Special Interest Groups
-                    spanning 63 institutions.
+                    There are @{{sigCtrl.numberOfSigs}} Special Interest Groups
+                    spanning @{{sigCtrl.distinctInstitutions.length}} institutions.
                   </p>
                 </div>
               </div>
@@ -244,5 +281,6 @@
         </div>
         @endif
     </div>
+</div>
 </div>
 @endsection

@@ -132,6 +132,7 @@ class SigsController extends Controller
             $input = $request->all();
             $sig->fill($input);
             $sig->mailinglist = isset($input['mailinglist']) ? 1 : 0;
+            $sig->active = isset($input['active']) ? 1 : 0;
             $bigImage = $request->file('bigimage');
             $smallImage = $request->file('smallimage');
 
@@ -249,17 +250,25 @@ class SigsController extends Controller
     public static function getAllJson(Request $request)
     {
         $parameters = $request->all();
-        $order = isset($parameters['order']) && $parameters['order'] == 'name'
-            ? 'name'
-            : 'id';
+        $order = isset($parameters['order']) && $parameters['order'] == 'name' ? 'name' : 'id';
+        $active = isset($parameters['active']) && $parameters['active'] == '1' ? '1' :  '0';
 
         // see if request has been cached
-        if (Cache::has("sigs-${order}")) {
-            return response()->json(Cache::get("sigs-${order}"));
+        if (Cache::has("sigs-${order}-${active}")) {
+           return response()->json(Cache::get("sigs-${order}-${active}"));
+        }
+        
+        $sigs = [];
+
+        // check if request contains any active related query
+        if ($request->has('active')) {
+            $allSigs = Sig::orderBy($order, 'asc')->where('active', $parameters['active'])->get();
+        }
+        else{
+        // Get only the active sigs
+        $allSigs = Sig::orderBy($order, 'asc')->where('active', 1)->get();
         }
 
-        $sigs = [];
-        $allSigs = Sig::orderBy($order, 'asc')->get();
         foreach ($allSigs as $sig) {
             switch ($order) {
                 case "name":
@@ -274,7 +283,7 @@ class SigsController extends Controller
         }
 
         $expiresAt = Carbon::now()->addDay(2);
-        Cache::put("sigs-${order}", $sigs, $expiresAt);
+        Cache::put("sigs-${order}-${active}", $sigs, $expiresAt);
         return response()->json($sigs);
     }
 
@@ -321,7 +330,9 @@ class SigsController extends Controller
         $twitter = $sig->twitterurl;
 
         // generate navigation buttons
-        $allSig = Sig::orderBy('name')->get();
+        // only navigate active sigs
+        $allSig = Sig::orderBy('name')->where('active', 1)->get();
+        
         $shortname = $sig->shortname;
         $curSig = 0;
         foreach ($allSig as $k => $s) {
