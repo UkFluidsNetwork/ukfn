@@ -1,77 +1,93 @@
 angular.module('ukfn')
-        .controller('sigController', function ($http, $localStorage) {
-            // this scope name
-            var controller = this;
-            controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
-            controller.MAPS_API_URL = "https://maps.google.com/maps/api/js";
-            controller.MAPS_API_KEY = "AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI";
-            controller.MAP_URL = controller.MAPS_API_URL
-                                 + "?key="
-                                 + controller.MAPS_API_KEY;
-            controller.$storage = $localStorage;
-            controller.selectedSigId = null; // initially selected SIG
+    .controller('sigController', function ($http, $localStorage) {
+        // this scope name
+        var controller = this;
+        controller.GOOGLE_API = "AIzaSyBfPzqmEJJdLfOXiaoTeGfSH2qDyxrIoD4";
+        controller.MAPS_API_URL = "https://maps.google.com/maps/api/js";
+        controller.MAPS_API_KEY = "AIzaSyBARkpTMK_9AmqRV967Lrjtx3UUkZrp_HI";
+        controller.MAP_URL = controller.MAPS_API_URL +
+            "?key=" +
+            controller.MAPS_API_KEY;
+        controller.$storage = $localStorage;
+        controller.selectedSigId = null; // initially selected SIG
 
-            (function() {
-                $http(
-                    {
-                        method: 'GET',
-                        url: '/api/sigs?order=name'
-                    }
-                ).then(function (response) {
+        (function () {
+            $http({
+                method: 'GET',
+                url: '/api/sigs?order=name'
+            }).then(function (response) {
 
-                    // get all SIGs and their institutions
-                    controller.allSigs = response;
+                // get all SIGs and their institutions
+                controller.allSigs = response;
+                controller.numberOfSigs = Object.keys(controller.allSigs.data).length;
 
-                    // prepare array with institutions only
-                    var sigInstitutions = [];
+                // prepare array with institutions only
+                var sigInstitutions = [];
 
-                    angular.forEach(response.data, function(value, key) {
-                        if (typeof value.institutions !== 'undefined') {
-                            angular.forEach(value.institutions, function(ins, k) {
-                                sigInstitutions.push(ins);
-                            });
-                        }
-                    });
-
-                    // get unique institutions
-                    var all = [];
-                    var output = [];
-                    angular.forEach(sigInstitutions, function(value, key) {
-                        if (!all[value.id]) {
-                            all[value.id] = true;
-                            output.push(value);
-                        }
-                    });
-                    // tell ng repeat to display it
-                    controller.displayAll = true;
-                    // return unique institutions
-                    controller.distinctInstitutions = output;
-
-                    // check if we want to display a specific sig
-                    if (controller.selectedSigId) {
-                        controller.setActive(controller.selectedSigId);
-                        controller.getSig(controller.selectedSigId);
+                angular.forEach(response.data, function (value, key) {
+                    if (typeof value.institutions !== 'undefined') {
+                        angular.forEach(value.institutions, function (ins, k) {
+                            sigInstitutions.push(ins);
+                        });
                     }
                 });
-            })();
 
-            /**
-             * Get selected sig and its institutions
-             *
-             * @param {intiger} id
-             * @returns {json}
-             */
-            controller.getSig = function (id) {
-                $http(
-                    {
-                        method: 'GET',
-                        url: '/api/sigs/'+id
+                // get unique institutions
+                var all = [];
+                var output = [];
+                angular.forEach(sigInstitutions, function (value, key) {
+                    if (!all[value.id]) {
+                        all[value.id] = true;
+                        output.push(value);
                     }
-                ).then(function (response) {
-                    controller.displayAll = false;
-                    controller.thisSig = response;
                 });
-            };
+
+                // get inactive sigs
+                controller.getInactiveSigs();
+
+                // tell ng repeat to display it
+                controller.displayAll = true;
+                // return unique institutions
+                controller.distinctInstitutions = output;
+
+                // check if we want to display a specific sig
+                if (controller.selectedSigId) {
+                    controller.setActive(controller.selectedSigId);
+                    controller.getSig(controller.selectedSigId);
+                }
+            });
+        })();
+
+        /**
+         * Get selected sig and its institutions
+         *
+         * @param {intiger} id
+         * @returns {json}
+         */
+        controller.getSig = function (id) {
+            $http({
+                method: 'GET',
+                url: '/api/sigs/' + id
+            }).then(function (response) {
+                controller.displayAll = false;
+                controller.thisSig = response;
+            });
+        };
+
+        /**
+         * Get Inactive sigs and their institutions
+         *
+         *
+         * @returns {json}
+         */
+        controller.getInactiveSigs = function () {
+            $http({
+                method: 'GET',
+                url: '/api/sigs?active=0'
+            }).then(function (response) {
+                controller.inactiveSigs = response;
+            });
+        };
 
 
         /**
@@ -80,7 +96,7 @@ angular.module('ukfn')
          * @param {type} id
          * @returns {undefined}
          */
-        controller.setActive = function(id) {
+        controller.setActive = function (id) {
             controller.sigActive = id;
         };
 
@@ -89,95 +105,124 @@ angular.module('ukfn')
          *
          * @returns {undefined}
          */
-        controller.dispAll = function() {
+        controller.dispAll = function () {
             controller.displayAll = true;
         };
 
         // default UK map coordinates
-        controller.map =
-                {
-                    'latitude'  : '54.8',
-                    'longtitude': '-4.40'
-                };
-        controller.map.coordinates = controller.map.latitude
-                                    + ", " + controller.map.longtitude;
+        controller.map = {
+            'latitude': '54.8',
+            'longtitude': '-4.40'
+        };
+        controller.map.coordinates = controller.map.latitude +
+            ", " + controller.map.longtitude;
 
         // map options
         controller.options = {
-            styles: [
+            styles: [{
+                    "featureType": "administrative",
+                    "elementType": "all",
+                    "stylers": [{
+                        "saturation": "-100"
+                    }]
+                },
                 {
-                    "featureType":"administrative",
-                    "elementType":"all",
-                    "stylers":[
-                        {"saturation":"-100"}
+                    "featureType": "administrative.province",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "off"
+                    }]
+                },
+                {
+                    "featureType": "landscape",
+                    "elementType": "all",
+                    "stylers": [{
+                            "saturation": -100
+                        },
+                        {
+                            "lightness": 65
+                        },
+                        {
+                            "visibility": "on"
+                        }
                     ]
                 },
                 {
-                    "featureType":"administrative.province",
-                    "elementType":"all",
-                    "stylers":[{"visibility":"off"}]
-                },
-                {
-                    "featureType":"landscape",
-                    "elementType":"all",
-                    "stylers":[
-                        {"saturation":-100},
-                        {"lightness":65},
-                        {"visibility":"on"}
+                    "featureType": "poi",
+                    "elementType": "all",
+                    "stylers": [{
+                            "saturation": -100
+                        },
+                        {
+                            "lightness": "50"
+                        },
+                        {
+                            "visibility": "simplified"
+                        }
                     ]
                 },
                 {
-                    "featureType":"poi",
-                    "elementType":"all",
-                    "stylers":[
-                        {"saturation":-100},
-                        {"lightness":"50"},
-                        {"visibility":"simplified"}
+                    "featureType": "road",
+                    "elementType": "all",
+                    "stylers": [{
+                        "saturation": "-100"
+                    }]
+                },
+                {
+                    "featureType": "road.highway",
+                    "elementType": "all",
+                    "stylers": [{
+                        "visibility": "simplified"
+                    }]
+                },
+                {
+                    "featureType": "road.arterial",
+                    "elementType": "all",
+                    "stylers": [{
+                        "lightness": "30"
+                    }]
+                },
+                {
+                    "featureType": "road.local",
+                    "elementType": "all",
+                    "stylers": [{
+                        "lightness": "40"
+                    }]
+                },
+                {
+                    "featureType": "transit",
+                    "elementType": "all",
+                    "stylers": [{
+                            "saturation": -100
+                        },
+                        {
+                            "visibility": "simplified"
+                        }
                     ]
                 },
                 {
-                    "featureType":"road",
-                    "elementType":"all",
-                    "stylers":[{"saturation":"-100"}]
-                },
-                {
-                    "featureType":"road.highway",
-                    "elementType":"all",
-                    "stylers":[{"visibility":"simplified"}]
-                },
-                {
-                    "featureType":"road.arterial",
-                    "elementType":"all",
-                    "stylers":[{"lightness":"30"}]
-                },
-                {
-                    "featureType":"road.local",
-                    "elementType":"all",
-                    "stylers":[{"lightness":"40"}]
-                },
-                {
-                    "featureType":"transit",
-                    "elementType":"all",
-                    "stylers":[
-                        {"saturation":-100},
-                        {"visibility":"simplified"}
+                    "featureType": "water",
+                    "elementType": "geometry",
+                    "stylers": [{
+                            "hue": "#ffff00"
+                        },
+                        {
+                            "lightness": -25
+                        },
+                        {
+                            "saturation": -97
+                        }
                     ]
                 },
                 {
-                    "featureType":"water",
-                    "elementType":"geometry",
-                    "stylers":[
-                        {"hue":"#ffff00"},
-                        {"lightness":-25},
-                        {"saturation":-97}
-                    ]
-                },
-                {
-                    "featureType":"water",
-                    "elementType":"labels",
-                    "stylers":[
-                        {"lightness":-25},
-                        {"saturation":-100}
+                    "featureType": "water",
+                    "elementType": "labels",
+                    "stylers": [{
+                            "lightness": -25
+                        },
+                        {
+                            "saturation": -100
+                        }
                     ]
                 }
             ]
@@ -189,17 +234,28 @@ angular.module('ukfn')
         controller.addMemberSearch = '';
 
         // used in select
-        controller.sigMemebrships = [
-            {name: "Member", id: 0, seleted: true},
-            {name: "Leader", id: 1},
-            {name: "Co-Leader", id: 2},
-            {name: "Key personnel", id: 3}
+        controller.sigMemebrships = [{
+                name: "Member",
+                id: 0,
+                seleted: true
+            },
+            {
+                name: "Leader",
+                id: 1
+            },
+            {
+                name: "Co-Leader",
+                id: 2
+            },
+            {
+                name: "Key personnel",
+                id: 3
+            }
         ];
 
         // translate membership code to string
-        controller.getMemberStatus = function(id)
-        {
-            switch(id) {
+        controller.getMemberStatus = function (id) {
+            switch (id) {
                 case 1:
                     return "Leader";
                     break;
@@ -215,7 +271,7 @@ angular.module('ukfn')
         };
 
         // initialise two arays with users when page load
-        controller.loadUsers = function() {
+        controller.loadUsers = function () {
             controller.loadSigMembers();
             controller.loadAllUsers();
         };
@@ -225,15 +281,13 @@ angular.module('ukfn')
          *
          * @returns {void}  Sets array thisMembers
          */
-        controller.loadSigMembers = function() {
-            $http(
-                    {
-                        method: 'GET',
-                        url: '/api/sig/members/' + controller.selectedSigId
-                    }
-                ).then(function (response) {
-                    controller.thisMembers = response.data;
-                });
+        controller.loadSigMembers = function () {
+            $http({
+                method: 'GET',
+                url: '/api/sig/members/' + controller.selectedSigId
+            }).then(function (response) {
+                controller.thisMembers = response.data;
+            });
         };
 
         /**
@@ -241,34 +295,31 @@ angular.module('ukfn')
          *
          * @returns {void}
          */
-        controller.loadAllUsers = function() {
+        controller.loadAllUsers = function () {
             controller.ukfnUsers = [];
-            $http(
-                    {
-                        method: 'GET',
-                        url: '/api/users'
+            $http({
+                method: 'GET',
+                url: '/api/users'
+            }).then(function (response) {
+                var users = response.data;
+                // for each ukfn user
+                for (var i = 0; i < users.length; i++) {
+                    var existing = controller.belongsToSig(users[i].id);
+                    // if thgis user is not not a member of this sig add him to all users list
+                    if (!existing) {
+                        // at his default property for not associated memebrs
+                        users[i].selected = 0;
+                        controller.ukfnUsers.push(users[i]);
                     }
-                ).then(function (response) {
-                    var users = response.data;
-                    // for each ukfn user
-                    for (var i = 0; i < users.length; i++) {
-                        var existing = controller.belongsToSig(users[i].id);
-                        // if thgis user is not not a member of this sig add him to all users list
-                        if (!existing) {
-                            // at his default property for not associated memebrs
-                            users[i].selected = 0;
-                            controller.ukfnUsers.push(users[i]);
-                        }
-                    }
-                });
+                }
+            });
         };
 
-        controller.belongsToSig = function(userId)
-        {
+        controller.belongsToSig = function (userId) {
             var existing = false;
             if (controller.thisMembers.length !== 0) {
-                for (var i =0; i< controller.thisMembers.length; i++) {
-                    if(userId === controller.thisMembers[i].id) {
+                for (var i = 0; i < controller.thisMembers.length; i++) {
+                    if (userId === controller.thisMembers[i].id) {
                         existing = true;
                         break;
                     }
@@ -285,45 +336,45 @@ angular.module('ukfn')
          * @param {int} sigMain
          * @returns {void}
          */
-        controller.addMember = function(userId, sigMain)
-        {
+        controller.addMember = function (userId, sigMain) {
             sigMain = typeof sigMain !== 'undefined' ? sigMain : -1;
             // if not membership is selected terminate
-            if (sigMain === -1) {return;}
+            if (sigMain === -1) {
+                return;
+            }
 
             var existing = controller.belongsToSig(userId);
 
             if (!existing) {
                 $http({
-                    method : 'POST',
-                    url: '/sig/members/add/' + controller.selectedSigId,
-                    data: {
-                        user_id: userId,
-                        main: sigMain
-                    }
-                })
-                .success(function(){
-                    controller.loadUsers();
-                });
+                        method: 'POST',
+                        url: '/sig/members/add/' + controller.selectedSigId,
+                        data: {
+                            user_id: userId,
+                            main: sigMain
+                        }
+                    })
+                    .success(function () {
+                        controller.loadUsers();
+                    });
 
                 // reset search
                 controller.addMemberSearch = '';
             }
         };
 
-        controller.updateMember = function(userId, sigMain)
-        {
+        controller.updateMember = function (userId, sigMain) {
             $http({
-                method : 'POST',
-                url: '/sig/members/update/' + controller.selectedSigId,
-                data: {
-                    user_id: userId,
-                    main: sigMain
-                }
-            })
-            .success(function(){
-                controller.loadUsers();
-            });
+                    method: 'POST',
+                    url: '/sig/members/update/' + controller.selectedSigId,
+                    data: {
+                        user_id: userId,
+                        main: sigMain
+                    }
+                })
+                .success(function () {
+                    controller.loadUsers();
+                });
         };
 
         /**
@@ -332,17 +383,16 @@ angular.module('ukfn')
          * @param {int} userId
          * @returns {void}
          */
-        controller.deleteMember = function(userId)
-        {
+        controller.deleteMember = function (userId) {
             $http({
-                method : 'POST',
-                url: '/sig/members/delete/' + controller.selectedSigId,
-                data: {
-                    user_id: userId
-                }
-            })
-            .success(function(){
-                controller.loadUsers();
-            });
+                    method: 'POST',
+                    url: '/sig/members/delete/' + controller.selectedSigId,
+                    data: {
+                        user_id: userId
+                    }
+                })
+                .success(function () {
+                    controller.loadUsers();
+                });
         };
     });
