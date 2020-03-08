@@ -251,7 +251,7 @@ class SigsController extends Controller
     {
         $parameters = $request->all();
         $order = isset($parameters['order']) && $parameters['order'] == 'name' ? 'name' : 'id';
-        $active = isset($parameters['active']) && $parameters['active'] == '1' ? '1' :  '0';
+        $active = isset($parameters['active']) && $parameters['active'] == '0' ? '0' :  '1';
 
         // see if request has been cached
         if (Cache::has("sigs-${order}-${active}")) {
@@ -259,15 +259,7 @@ class SigsController extends Controller
         }
         
         $sigs = [];
-
-        // check if request contains any active related query
-        if ($request->has('active')) {
-            $allSigs = Sig::orderBy($order, 'asc')->where('active', $parameters['active'])->get();
-        }
-        else{
-        // Get only the active sigs
-        $allSigs = Sig::orderBy($order, 'asc')->where('active', 1)->get();
-        }
+        $allSigs = Sig::orderBy($order, 'asc')->where('active', $active)->get();
 
         foreach ($allSigs as $sig) {
             switch ($order) {

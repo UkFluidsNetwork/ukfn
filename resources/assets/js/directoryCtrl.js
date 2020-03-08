@@ -62,57 +62,69 @@ angular.module('ukfn')
             // clear array of available users before making the request.
             controller.users = [];
             $http({
-                method: 'GET',
-                url: url,
-                params: {
-                    search: query
-                }
-            }).then(function (response) {
-                controller.users = response.data;
-                controller.loading = false;
-            });
+                    method: 'GET',
+                    url: url,
+                    params: {
+                        search: query
+                    }
+                }).then(function (response) {
+                    controller.users = response.data;
+                    controller.loading = false;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         };
 
         controller.loadInstitutions = function () {
             var institutions_url = '/api/public/users/institutions/';
             var query = controller.compileSearch();
             $http({
-                method: 'GET',
-                url: institutions_url,
-                params: {
-                    search: query
-                }
-            }).then(function (response) {
-                controller.distinctInstitutions = response.data;
-                angular.forEach(controller.distinctInstitutions,
-                    function (value, key) {
-                        var arr = {
-                            id: "inst" + key,
-                            name: value.name
-                        };
-                        controller.institutions.push(arr);
-                    });
-            });
+                    method: 'GET',
+                    url: institutions_url,
+                    params: {
+                        search: query
+                    }
+                }).then(function (response) {
+                    controller.distinctInstitutions = response.data;
+                    angular.forEach(controller.distinctInstitutions,
+                        function (value, key) {
+                            var arr = {
+                                id: "inst" + key,
+                                name: value.name
+                            };
+                            controller.institutions.push(arr);
+                        });
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         };
 
         controller.loadTags = function () {
             var tags_url = '/api/tags/all/';
             $http({
-                method: 'GET',
-                url: tags_url
-            }).then(function (response) {
-                controller.tags = response.data;
-            });
+                    method: 'GET',
+                    url: tags_url
+                }).then(function (response) {
+                    controller.tags = response.data;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         };
 
         controller.loadSigs = function () {
             var sigs_url = '/api/sigs/';
             $http({
-                method: 'GET',
-                url: sigs_url
-            }).then(function (response) {
-                controller.sigs = response.data;
-            });
+                    method: 'GET',
+                    url: sigs_url
+                }).then(function (response) {
+                    controller.sigs = response.data;
+                })
+                .catch(function (err) {
+                    console.log(err);
+                });
         };
 
         controller.tagClicked = function (tag) {

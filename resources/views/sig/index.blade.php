@@ -84,7 +84,7 @@ ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
                     <div class="modal-body">
                       <div class="embed-responsive embed-responsive-4by3">
                         <object class="embed-responsive-item"
-                                data="/files/Booklet_170831a_compressedpics.1506703857.pdf"></object>
+                                data="/files/sig/SIGs_Open_call_guidance_template_200225.1582620260.pdf"></object>
                       </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@ ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
            data-target="#inactive-sig"
            style="width: 100%"
            class="btn btn-default line-break-dbl sig-extra-btn">
-           Inactive SIGs 
+           Previous SIGs 
         </button>
         <div class="modal fade" style="margin-top: 10%;"
              id="inactive-sig"
