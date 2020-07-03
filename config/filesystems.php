@@ -68,25 +68,25 @@ return [
 
         'sig-pictures' => [
             'driver' => 'local',
-            'root' => storage_path('app/public/pictures/sig'),
+            'root' => storage_path('app/public/files/sig-pictures'),
             'visibility' => 'public',
           ],
 
         'newsletter-pictures' => [
           'driver' => 'local',
-          'root' => storage_path('app/public/pictures/newsletter'),
+          'root' => storage_path('app/public/files/newsletter-pictures'),
           'visibility' => 'public',
         ],
 
         'newsletter-files' => [
           'driver' => 'local',
-          'root' => storage_path('app/public/files/newsletter'),
+          'root' => storage_path('app/public/files/newsletter-files'),
           'visibility' => 'public',
         ],
 
         'ec-pictures' => [
           'driver' => 'local',
-          'root' => storage_path('app/public/pictures/ec'),
+          'root' => storage_path('app/public/files/ec-pictures'),
           'visibility' => 'public',
         ],
 
