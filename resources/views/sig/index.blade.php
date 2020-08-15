@@ -84,7 +84,7 @@ ng-init="sigCtrl.selectedSigId={{$selectedSigId}}">
                     <div class="modal-body">
                       <div class="embed-responsive embed-responsive-4by3">
                         <object class="embed-responsive-item"
-                                data="/files/sig/SIGs_Open_call_guidance_template_200225.1582620260.pdf"></object>
+                                data="/files/SIGs_Open_call_guidance_template_200811.1597312481.pdf"></object>
                       </div>
                     </div>
                 </div>
