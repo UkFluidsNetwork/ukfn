@@ -1,5 +1,6 @@
 
 @section('head')
+<script src="{{ asset('/js/vendor/momentjs/moment.min.js')}}"></script>
 <link href="{{ asset('css/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.css') }}" rel="stylesheet" type="text/css">
 <script src="{{ asset('/js/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.min.js')}}"></script>
 

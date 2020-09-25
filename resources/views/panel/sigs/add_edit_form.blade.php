@@ -205,6 +205,21 @@
     </div>
 </div>
 
+<div class='form-group {{ $errors->has('active')
+    ? ' has-error line-break-dbl' : '' }}'>
+{!! Form::label('active', 'Active: ',
+            ['class' => 'control-label col-lg-2 text-left']) !!}
+<div class=' col-lg-8'>
+{!! Form::checkbox('active', $sig->active,
+          $sig->active) !!}
+@if ($errors->has('twitterurl'))
+<span class="text-danger">
+    <span>{{ $errors->first('active') }}</span>
+</span>
+@endif
+</div>
+</div>
+
 <div class=' col-lg-offset-2 col-lg-8'>
   	<div class='form-group line-break-dbl-top'>
     	{!! Form::submit('Save', ['class' => 'btn btn-success btn-lg2']) !!}

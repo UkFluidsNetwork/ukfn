@@ -103,6 +103,28 @@ class File extends Model
     }
 
     /**
+     * Get the media URL of an sms.cam.ac.uk video
+     *
+     * @return String
+     */
+    public function getSmsMediaUrl()
+    {
+        $is_sms = strpos($this->path, "sms.cam.ac.uk");
+        $is_download = strpos($this->path, "https://downloads.sms.cam.ac.uk");
+        if (!$is_sms) {
+            return "";
+        }
+        $url = parse_url($this->path);
+        if ($is_download) {
+            $id = explode('/', parse_url($url)['path'])[1];
+            $media_url = "https://sms.cam.ac.uk/media/${id}";
+        } else {
+            $media_url = str_replace('/embed', '', $this->path);
+        }
+        return $media_url;
+    }
+
+    /**
      * Attempt to get a thumbnail from sms or vimeo if file is a video
      *
      * @return String
@@ -123,7 +145,7 @@ class File extends Model
         }
 
         if ($is_sms) {
-            $url = str_replace('/embed', '', $this->path);
+            $url = $this->getSmsMediaUrl();
             $api = "https://sms.cam.ac.uk/oembed?url=" . urlencode($url)
                    . "&format=json";
             $json = json_decode(file_get_contents($api));

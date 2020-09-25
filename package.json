@@ -10,12 +10,12 @@
     "laravel-elixir": "^5.0.0"
   },
   "dependencies": {
-    "angular": "~1.5.8",
+    "angular": "~1.7.9",
     "angular-messages": "~1.5.8",
     "angular-selectize2": "^1.2.3",
     "angularjs-dropdown-multiselect": "^2.0.0-beta.10",
     "bootstrap-sass": "^3.3.7",
-    "jquery": "2.2.4",
+    "jquery": "3.4.0",
     "karma": "~1.4.1",
     "lato-font": "^3.0.0",
     "moment": "^2.20.1",
