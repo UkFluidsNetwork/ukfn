@@ -4,7 +4,6 @@ FROM php:7.0-fpm
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Install laravel dependencies, php extensions, and npm
-RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
 RUN apt-get update && apt-get install -y \
         curl \
         gnupg \
@@ -14,8 +13,9 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libxml2-dev \
         libpng-dev \
-        nodejs \
     && docker-php-ext-install -j$(nproc) gd xml mbstring zip pdo pdo_mysql
+RUN curl -sL https://deb.nodesource.com/setup_6.x | bash
+RUN apt-get install -y nodejs
 
 # Don't keep kipple
 RUN rm -rf /var/cache/apt/*
@@ -26,6 +26,8 @@ WORKDIR /var/www/html
 RUN usermod -u 1000 www-data
 # Make www-data own the project's root
 RUN chown -R www-data:www-data /var/www/html
+RUN mkdir /var/www/.config
+RUN chown -R $USER:$(id -gn $USER) /var/www/.config
 # Let's run everything else as www-data
 USER www-data
 
