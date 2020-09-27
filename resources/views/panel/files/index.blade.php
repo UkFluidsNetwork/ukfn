@@ -37,10 +37,10 @@
                                          $file->id],
                             'class' => 'gallery' ]) }}
              @if ($file->gallery)
-             {{ Form::submit("Gallery",
+             {{ Form::submit("Remove from Gallery",
                             ["class" => "btn btn-warning"]) }}
              @else
-             {{ Form::submit("Gallery",
+             {{ Form::submit("Add to Gallery",
                             ["class" => "btn btn-success"]) }}
              @endif
              {{ Form::close() }}

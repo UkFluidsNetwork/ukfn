@@ -116,7 +116,7 @@ class File extends Model
         }
         $url = parse_url($this->path);
         if ($is_download) {
-            $id = explode('/', parse_url($url)['path'])[1];
+            $id = explode('/', $url['path'])[1];
             $media_url = "https://sms.cam.ac.uk/media/${id}";
         } else {
             $media_url = str_replace('/embed', '', $this->path);
@@ -139,7 +139,7 @@ class File extends Model
         $is_sms = strpos($this->path, "sms.cam.ac.uk");
         $is_vimeo = strpos($this->path, "vimeo.com");
         $is_youtube = strpos($this->path, "youtube.com");
-        $is_video = $this->filetype->shortname === 'Video';
+        $is_video = is_null($this->type) || $this->filetype->shortname === 'Video';
         if (!$is_video || (!$is_sms && !$is_vimeo && !$is_youtube)) {
             return "";
         }
