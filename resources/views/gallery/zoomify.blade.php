@@ -3,11 +3,11 @@
 <script src="{{ asset('js/vendor/zoomify.js') }}" async="async"></script>
 
 <figure>
-  @if ($file->filetype->shortname == 'Photo')
+  @if (strpos($file->type, 'image') === 0)
   <div id="image-zoom-wrapper">
       <img id="image-zoom" src="{{ $file->path }}/{{ $file->name }}" alt="{{ isset($file->competitionentries[0]) ? $file->competitionentries[0]->description : $file->name }}" />
   </div>
-  @elseif ($file->filetype->shortname == 'Video')
+  @else
     @if ($file->getYoutubeId())
     <iframe width="560" height="315" src="https://www.youtube.com/embed/{{ $file->getYoutubeId() }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     @else
@@ -28,9 +28,9 @@
     </i>
     </br>
     </br>
-  @if ($file->filetype->shortname == 'Photo')
+    @if (strpos($file->type, 'image') === 0)
     <a href="https://fluids.ac.uk{{ $file->path }}/{{ $file->name }}">https://fluids.ac.uk{{ $file->path }}/{{ $file->name }}</a>
-  @elseif ($file->filetype->shortname == 'Video')
+  @else
     <a href="{{ $file->path }}">{{ $file->path }}</a>
   @endif
   </figcaption>

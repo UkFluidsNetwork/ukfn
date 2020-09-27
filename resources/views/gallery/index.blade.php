@@ -31,12 +31,12 @@
 <div id="customScrollBox" class="content" style="height: 100%">
     <div id="toolbar"></div><div class="clear"></div>
     @foreach ($files as $file)
-    @if ($file->filetype->shortname == 'Photo')
+    @if (strpos($file->type, 'image') === 0)
     <a href="/gallery/zoomify/{{ $file->id }}" class="thumb_link">
         <img src="{{ $file->path }}/{{ $file->name }}" title="{{ $file->title }}"
               alt="{{ $file->description }}" class="thumb" />
     </a>
-    @elseif ($file->filetype->shortname == 'Video')
+    @else
     <a href="/gallery/zoomify/{{ $file->id }}" class="thumb_link">
         <span class="play-layer"></span>
         <img src="{{ $file->getThumbnail() }}" title="{{ $file->title }}"
