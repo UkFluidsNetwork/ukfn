@@ -116,7 +116,7 @@ class File extends Model
         }
         $url = parse_url($this->path);
         if ($is_download) {
-            $id = explode('/', parse_url($url)['path'])[1];
+            $id = explode('/', $url['path'])[1];
             $media_url = "https://sms.cam.ac.uk/media/${id}";
         } else {
             $media_url = str_replace('/embed', '', $this->path);
