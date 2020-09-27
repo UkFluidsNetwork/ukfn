@@ -139,7 +139,7 @@ class File extends Model
         $is_sms = strpos($this->path, "sms.cam.ac.uk");
         $is_vimeo = strpos($this->path, "vimeo.com");
         $is_youtube = strpos($this->path, "youtube.com");
-        $is_video = $this->filetype->shortname === 'Video';
+        $is_video = is_null($this->type) || $this->filetype->shortname === 'Video';
         if (!$is_video || (!$is_sms && !$is_vimeo && !$is_youtube)) {
             return "";
         }
