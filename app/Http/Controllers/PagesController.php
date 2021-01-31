@@ -543,16 +543,10 @@ class PagesController extends Controller
             return null;
         }
 
-        try {
-            $location = Storage::disk($disk)->getDriver()
-                                            ->getAdapter()
-                                            ->getPathPrefix();
-        } catch (Exception $ex) {
-            Session:flash('error_message', $ex);
-        }
-
         $fileName = self::sanitizeFilename($name);
         $fileName .= "." . $file->getClientOriginalExtension();
+
+        $location = '/var/www/html/storage/app/public/files/' . $disk . '/';
 
         $fileMoved = $file->move($location, $fileName);
         if ($fileMoved) {
