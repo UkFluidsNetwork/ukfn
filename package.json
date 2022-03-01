@@ -16,7 +16,7 @@
     "angularjs-dropdown-multiselect": "^2.0.0-beta.10",
     "bootstrap-sass": "^3.3.7",
     "jquery": "3.4.0",
-    "karma": "~1.4.1",
+    "karma": "~6.3.16",
     "lato-font": "^3.0.0",
     "moment": "^2.20.1",
     "ngmap": "^1.17.8",
